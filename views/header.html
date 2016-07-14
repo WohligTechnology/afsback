@@ -1,0 +1,24 @@
+<div class="top-bar">
+    <div class="logo">
+        <a ui-sref="dashboard" title=""><i class="fa fa-recycle"></i> Absolute</a>
+         <div class="menu-options"><span class="menu-action"><i></i></span></div>
+    </div>
+    <form class="search-form">
+        <input type="text" placeholder="Search Here..." />
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+    <div class="quick-links">
+        <ul>
+            <li><a title="" class="show-stats red-skin"><i class="fa fa-power-off"></i></a></li>
+        </ul>
+    </div>
+</div><!-- Top Bar -->
+<header class="side-header light-skin opened-menu">
+    <div class="admin-details"></div>
+    <div class="menu-scroll">
+        <div class="side-menus">
+            <span>MAIN LINKS</span>
+            <nav ng-include="template.menu"></nav>
+        </div>
+    </div><!-- Menu Scroll -->
+</header>
