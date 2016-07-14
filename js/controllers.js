@@ -2,17 +2,33 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 .controller('headerctrl', function($scope, TemplateService) {
     $scope.template = TemplateService;
-    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-        $(window).scrollTop(0);
-    });
+    if (!$.jStorage.get("user")) {
+        $location.url("/login");
+    }
 })
 
-.controller('LoginCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+.controller('LoginCtrl', function($scope, TemplateService, NavigationService, $timeout, $state) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("login");
     $scope.menutitle = NavigationService.makeactive("Login");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
+    $scope.login = {};
+    $scope.showError = false;
+    $scope.loginAdmin = function() {
+        NavigationService.loginAdmin($scope.login, function(data) {
+            if (data.value == true) {
+                $scope.showError = false;
+                $.jStorage.set("user", data.data);
+                $state.go("dashboard");
+            } else {
+                $scope.showError = true;
+                $timeout(function() {
+                    $scope.showError = false;
+                }, 3000);
+            }
+        });
+    }
 })
 
 .controller('DashboardCtrl', function($scope, TemplateService, NavigationService, $timeout) {
@@ -101,10 +117,5 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $.jStorage.set("language", "en");
             }
         }
-        //  $rootScope.$apply();
     };
-
-
-})
-
-;
+});

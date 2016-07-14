@@ -670,7 +670,7 @@ header.side-header.light-skin {
 /* Submenu Content */
 
 .submenu-content {
-  padding: 220px 0 0 0;
+  padding: 182px 0 0 0;
   width: 100%;
   -webkit-transition: all 0.4s ease 0s;
   -moz-transition: all 0.4s ease 0s;
@@ -10086,7 +10086,7 @@ margin-top: -2%;
 .account-form > form  div.feild {
     float: left;
 }
-.account-form > form  div.feild > input[type="text"], .account-form > form div.feild > input[type="password"] {
+.account-form > form  div.feild > input[type="text"], .account-form > form div.feild > input[type="password"]{
     border: 1px solid #e6eaea;
 
     -webkit-border-radius: 30px;

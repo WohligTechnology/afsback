@@ -48,6 +48,28 @@ a, .btn {
 .mt20{
   margin-top: 20px;
 }
+.widget-title .error{
+  color:red;
+}
+input:focus {
+  outline: none;
+}
+.input-email {
+    border: 1px solid #e6eaea;
+
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    border-radius: 30px;
+
+    float: left;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    padding: 13px 30px;
+    width: 100%;
+    }
 //bootstrap forms
 /* Start writing sass here */
 @import "fancybox-override";
