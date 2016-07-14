@@ -73,34 +73,12 @@
                         <h3>Address</h3>
                      </div>
                      <div class="form-group">
-                        <label for="exampleInputPassword1">Address</label>
-                        <textarea placeholder="Address" id="exampleInputPassword1" class="form-control"> </textarea>
+                        <label>Address</label>
+                        <textarea placeholder="Address" class="form-control"> </textarea>
                      </div>
                      <div class="form-group">
-                        <label for="disabledSelect">Country</label>
-                        <select class="form-control">
-                           <option value="select">Select Country</option>
-                        </select>
-                     </div>
-                     <div class="form-group">
-                        <label for="disabledSelect">State/Province</label>
-                        <select class="form-control">
-                           <option value="select">Select State/Province</option>
-                        </select>
-                     </div>
-                     <div class="form-group">
-                        <label for="disabledSelect">City</label>
-                        <select class="form-control">
-                           <option value="select">Select City</option>
-                        </select>
-                     </div>
-                     <div class="form-group">
-                        <label for="exampleInputEmail1">Postal Code</label>
-                        <input type="text" placeholder="Postal Code" id="exampleInputEmail1" class="form-control">
-                     </div>
-                     <div class="form-group">
-                        <label for="exampleInputPassword1">Final Address</label>
-                        <textarea placeholder="" id="exampleInputPassword1" class="form-control" disabled> </textarea>
+                        <label>Location</label>
+                        <input type="text" placeholder="Location" class="form-control">
                      </div>
                   </div>
                </div>
@@ -112,74 +90,33 @@
                         <h3>Contact</h3>
                      </div>
                      <div class="form-group">
-                        <label for="exampleInputEmail1">Contact#</label>
-                        <input type="text" placeholder="Contact Number" id="exampleInputEmail1" class="form-control">
+                        <label>Email (Comma seperated)</label>
+                        <input type="email" placeholder="Email (Comma seperated)" class="form-control">
                      </div>
                      <div class="form-group">
-                        <label for="exampleInputEmail1">Fax#</label>
-                        <input type="text" placeholder="Fax Number" id="exampleInputEmail1" class="form-control">
-                     </div>
-                     <div class="form-group">
-                        <label for="exampleInputEmail1">Email Id</label>
-                        <input type="email" placeholder="Email Id" id="exampleInputEmail1" class="form-control">
-                     </div>
-                  </div>
-               </div>
-               <div class="widget">
-                  <div class="form-elements-sec">
-                     <div class="row">
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              <label for="disabledSelect">Status</label>
-                              <select class="form-control">
-                                 <option value="select">Select Status</option>
-                                 <option value="select">Active</option>
-                                 <option value="select">Inactive</option>
-                              </select>
-                           </div>
-                           <div class="checkbox">
-                              <label>
-                                 <input type="checkbox"> Is a Billable Branch
-                              </label>
-                           </div>
-                           <div class="form-group">
-                              <label for="disabledSelect">Series Format</label>
-                              <select class="form-control">
-                                 <option value="select">Select Series Format</option>
-                                 <option value="select">1</option>
-                                 <option value="select">2</option>
-                              </select>
-                           </div>
-                        </div>
-                        <div class="col-md-6">
-                           <label for="disabledSelect">TAT</label>
-                           <div class="checkbox">
-                              <label>
-                                 <input type="checkbox"> STAT
-                              </label>
-                           </div>
-                           <div class="checkbox">
-                              <label>
-                                 <input type="checkbox"> ITAT
-                              </label>
-                              <div class="checkbox">
-                                 <label>
-                                    <input type="checkbox"> FSR
-                                 </label>
-                              </div>
-                              <div class="checkbox">
-                                 <label>
-                                    <input type="checkbox"> R2NR
-                                 </label>
-                              </div>
-                           </div>
-                        </div>
+                        <label>Contact (Comma seperated)</label>
+                        <input type="text" placeholder="Contact (Comma seperated)" class="form-control">
                      </div>
                   </div>
                </div>
             </div>
          </div>
-
+         <div class="row">
+            <div class="col-md-12">
+               <div class="widget">
+                  <div class="form-elements-sec">
+                     <div class="form-group">
+                        <label>Principal</label>
+                        <input type="text" placeholder="Principal" class="form-control">
+                     </div>
+                     <div class="form-group">
+                        <label>Logo</label>
+                        <input type="file" class="form-control">
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
          <div class="text-center mt20">
             <button class="btn btn-default" type="submit">Save</button>
             <button class="btn btn-default" type="submit">Cancel</button>
@@ -188,3 +125,55 @@
       </div>
    </div>
 </div>
+<!-- <div class="widget">
+   <div class="form-elements-sec">
+      <div class="row">
+         <div class="col-md-6">
+            <div class="form-group">
+               <label for="disabledSelect">Status</label>
+               <select class="form-control">
+                  <option value="select">Select Status</option>
+                  <option value="select">Active</option>
+                  <option value="select">Inactive</option>
+               </select>
+            </div>
+            <div class="checkbox">
+               <label>
+                  <input type="checkbox"> Is a Billable Branch
+               </label>
+            </div>
+            <div class="form-group">
+               <label for="disabledSelect">Series Format</label>
+               <select class="form-control">
+                  <option value="select">Select Series Format</option>
+                  <option value="select">1</option>
+                  <option value="select">2</option>
+               </select>
+            </div>
+         </div>
+         <div class="col-md-6">
+            <label for="disabledSelect">TAT</label>
+            <div class="checkbox">
+               <label>
+                  <input type="checkbox"> STAT
+               </label>
+            </div>
+            <div class="checkbox">
+               <label>
+                  <input type="checkbox"> ITAT
+               </label>
+               <div class="checkbox">
+                  <label>
+                     <input type="checkbox"> FSR
+                  </label>
+               </div>
+               <div class="checkbox">
+                  <label>
+                     <input type="checkbox"> R2NR
+                  </label>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div> -->
