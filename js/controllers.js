@@ -1,9 +1,9 @@
 angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', 'ngAnimate', 'ngSanitize', 'angular-flexslider'])
 
-.controller('headerctrl', function($scope, TemplateService) {
+.controller('headerctrl', function($scope, TemplateService, $state) {
     $scope.template = TemplateService;
     if (!$.jStorage.get("user")) {
-        $location.url("/login");
+        $state.go("login");
     }
 })
 
@@ -54,23 +54,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.menutitle = NavigationService.makeactive("School");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
-    $scope.template.type = 2;
-    $scope.subMenuList = [{
-        title: "Back to School",
-        redirect: "school"
-    }, {
-        title: "Whislist Folder",
-        redirect: "edituser"
-    }, {
-        title: "Wishlist",
-        redirect: "edituser"
-    }, {
-        title: "Artwork",
-        redirect: "edituser"
-    }, {
-        title: "Cart",
-        redirect: "edituser"
-    }];
+    $scope.template.type = 1;
     $scope.pageName = "Create School";
 })
 
