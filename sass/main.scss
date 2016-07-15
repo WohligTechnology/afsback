@@ -8,8 +8,7 @@
 @import "template/icons";
 @import "template/main";
 @import "template/responsive";
-body {
-} 
+body {}
 img.loading {
   text-align: center;
   opacity: 1;
@@ -26,17 +25,18 @@ img.doneLoading {
 nav li:hover .dropdown-menu {
   display: block;
 }
-a, .btn {
+.btn,
+a {
   cursor: pointer;
   @include transition(all ease 300ms);
 }
 //bootstrap forms
-.input-lg,
+.btn,
+.form-control,
 .input-group-lg > .form-control,
 .input-group-lg > .input-group-addon,
 .input-group-lg > .input-group-btn > .btn,
-.btn,
-.form-control {
+.input-lg {
   border-radius: 0;
   @include box-shadow(none);
 }
@@ -45,31 +45,34 @@ a, .btn {
   outline: 0;
   @include box-shadow(none);
 }
-.mt20{
+.mt20 {
   margin-top: 20px;
 }
-.widget-title .error{
-  color:red;
+.widget-title .error {
+  color: red;
 }
 input:focus {
   outline: none;
 }
 .input-email {
-    border: 1px solid #e6eaea;
-
-    -webkit-border-radius: 30px;
-    -moz-border-radius: 30px;
-    -ms-border-radius: 30px;
-    -o-border-radius: 30px;
-    border-radius: 30px;
-
-    float: left;
-    font-size: 13px;
-    letter-spacing: 0.5px;
-    margin-bottom: 10px;
-    padding: 13px 30px;
-    width: 100%;
-    }
+  border: 1px solid #e6eaea;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+  border-radius: 30px;
+  float: left;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+  padding: 13px 30px;
+  width: 100%;
+}
+.checkbox {
+  label {
+    margin-right: 15px;
+  }
+}
 //bootstrap forms
 /* Start writing sass here */
 @import "fancybox-override";
