@@ -1,10 +1,10 @@
 <div ng-include="template.header" class="template header" ng-controller="headerctrl"></div>
 <div ng-include="template.content" class="template main-content" ng-if="template.type==1"></div>
 <div class="row" ng-if="template.type==2">
-   <div class="col-md-10">
+   <div class="col-md-10" style="padding-right: 4px;">
       <div ng-include="template.content" class="template main-content"></div>
    </div>
-   <div class="col-md-2">
+   <div class="col-md-2" style="padding-left: 5px;">
       <div ng-include="template.submenu" class="template submenu-content"></div>
    </div>
 </div>

@@ -73,6 +73,32 @@ input:focus {
     margin-right: 15px;
   }
 }
+.main-content {
+  float: left;
+  padding: 74px 11px 110px 232px;
+  width: 100%;
+  -webkit-transition: all 0.4s ease 0s;
+  -moz-transition: all 0.4s ease 0s;
+  -ms-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
+}
+.submenu-content {
+  padding: 119px 0 0;
+  width: 100%;
+  -webkit-transition: all 0.4s ease 0s;
+  -moz-transition: all 0.4s ease 0s;
+  -ms-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
+  margin-left: -8px;
+}
+.panel-content {
+  float: left;
+  margin-top: -26px;
+  padding-top: 20px;
+  width: 100%;
+}
 //bootstrap forms
 /* Start writing sass here */
 @import "fancybox-override";
