@@ -12,7 +12,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 })
 
 .controller('LoginCtrl', function($scope, TemplateService, NavigationService, $timeout, $state) {
-    //Used to name the .html file 
+    //Used to name the .html file
     $scope.template = TemplateService.changecontent("login");
     $scope.menutitle = NavigationService.makeactive("Login");
     TemplateService.title = $scope.menutitle;
@@ -43,10 +43,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
 })
 
-.controller('SchoolCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+.controller('schoolCtrl', function($scope, TemplateService, NavigationService, $timeout) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("school");
-    $scope.menutitle = NavigationService.makeactive("School");
+    $scope.menutitle = NavigationService.makeactive("Schools");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
@@ -55,7 +55,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 .controller('createSchoolCtrl', function($scope, TemplateService, NavigationService, $timeout) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("createschool");
-    $scope.menutitle = NavigationService.makeactive("School");
+    $scope.menutitle = NavigationService.makeactive("Schools");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
@@ -65,7 +65,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 .controller('editSchoolCtrl', function($scope, TemplateService, NavigationService, $timeout) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("createschool");
-    $scope.menutitle = NavigationService.makeactive("School");
+    $scope.menutitle = NavigationService.makeactive("Schools");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 2;
@@ -88,10 +88,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.pageName = "Edit School";
 })
 
-.controller('StudentCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+.controller('studentCtrl', function($scope, TemplateService, NavigationService, $timeout) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("student");
-    $scope.menutitle = NavigationService.makeactive("Student");
+    $scope.menutitle = NavigationService.makeactive("Students");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
@@ -100,17 +100,35 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 .controller('createStudentCtrl', function($scope, TemplateService, NavigationService, $timeout) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("createstudent");
-    $scope.menutitle = NavigationService.makeactive("Student");
+    $scope.menutitle = NavigationService.makeactive("Students");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
     $scope.pageName = "Create Student";
+
+    $scope.popup1 = {
+        opened: false
+    };
+
+    $scope.open1 = function() {
+        $scope.popup1.opened = true;
+    };
+
+    $scope.today = function() {
+        $scope.dt = new Date();
+    };
+    $scope.today();
+
+    $scope.dateOptions = {
+        maxDate: new Date()
+    };
+
 })
 
 .controller('editStudentCtrl', function($scope, TemplateService, NavigationService, $timeout) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("createstudent");
-    $scope.menutitle = NavigationService.makeactive("Student");
+    $scope.menutitle = NavigationService.makeactive("Students");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 2;
@@ -131,6 +149,35 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         redirect: "edituser"
     }];
     $scope.pageName = "Edit School";
+})
+
+.controller('ageGroupCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("agegroup");
+    $scope.menutitle = NavigationService.makeactive("Age Groups");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.template.type = 1;
+})
+
+.controller('createAgeGroupCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("createagegroup");
+    $scope.menutitle = NavigationService.makeactive("Age Groups");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.template.type = 1;
+    $scope.pageName = "Create Age Group";
+})
+
+.controller('editAgeGroupCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("createagegroup");
+    $scope.menutitle = NavigationService.makeactive("Age Groups");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.template.type = 1;
+    $scope.pageName = "Edit Age Group";
 })
 
 .controller('languageCtrl', function($scope, TemplateService, $translate, $rootScope) {

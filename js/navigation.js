@@ -3,7 +3,7 @@ var imgURL = "upload/";
 
 var navigationservice = angular.module('navigationservice', [])
 
-.factory('NavigationService', function($http    ) {
+.factory('NavigationService', function($http) {
     var navigation = [{
         name: "Dashboard",
         classis: "active",
@@ -11,16 +11,22 @@ var navigationservice = angular.module('navigationservice', [])
         icon: "dashboard",
         subnav: []
     }, {
-        name: "School",
+        name: "Schools",
         classis: "active",
         anchor: "school",
         icon: "building",
         subnav: []
     }, {
-        name: "Student",
+        name: "Students",
         classis: "active",
         anchor: "student",
-        icon: "building",
+        icon: "users",
+        subnav: []
+    }, {
+        name: "Age Groups",
+        classis: "active",
+        anchor: "agegroup",
+        icon: "users",
         subnav: []
     }];
 
