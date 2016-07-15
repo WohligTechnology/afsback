@@ -1,4 +1,4 @@
-var adminURL = "http://192.168.1.117:1337/";
+var adminURL = "http://192.168.1.121:1337/";
 var imgURL = "upload/";
 
 var navigationservice = angular.module('navigationservice', [])
