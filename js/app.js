@@ -43,6 +43,24 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         controller: 'editSchoolCtrl'
     })
 
+    .state('student', {
+        url: "/student",
+        templateUrl: "views/template.html",
+        controller: 'StudentCtrl'
+    })
+
+    .state('createstudent', {
+        url: "/createstudent",
+        templateUrl: "views/template.html",
+        controller: 'createStudentCtrl'
+    })
+
+    .state('editstudent', {
+        url: "/editstudent",
+        templateUrl: "views/template.html",
+        controller: 'editStudentCtrl'
+    })
+
     ;
     $urlRouterProvider.otherwise("/login");
     $locationProvider.html5Mode(isproduction);

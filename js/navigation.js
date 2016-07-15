@@ -16,6 +16,12 @@ var navigationservice = angular.module('navigationservice', [])
         anchor: "school",
         icon: "building",
         subnav: []
+    }, {
+        name: "Student",
+        classis: "active",
+        anchor: "student",
+        icon: "building",
+        subnav: []
     }];
 
     return {

@@ -5,6 +5,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     if (!$.jStorage.get("user")) {
         $state.go("login");
     }
+    $scope.logout = function() {
+        $.jStorage.flush();
+        $state.go("login");
+    }
 })
 
 .controller('LoginCtrl', function($scope, TemplateService, NavigationService, $timeout, $state) {
@@ -68,6 +72,51 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.subMenuList = [{
         title: "Back to School",
         redirect: "school"
+    }, {
+        title: "Whislist Folder",
+        redirect: "edituser"
+    }, {
+        title: "Wishlist",
+        redirect: "edituser"
+    }, {
+        title: "Artwork",
+        redirect: "edituser"
+    }, {
+        title: "Cart",
+        redirect: "edituser"
+    }];
+    $scope.pageName = "Edit School";
+})
+
+.controller('StudentCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("student");
+    $scope.menutitle = NavigationService.makeactive("Student");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.template.type = 1;
+})
+
+.controller('createStudentCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("createstudent");
+    $scope.menutitle = NavigationService.makeactive("Student");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.template.type = 1;
+    $scope.pageName = "Create Student";
+})
+
+.controller('editStudentCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("createstudent");
+    $scope.menutitle = NavigationService.makeactive("Student");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.template.type = 2;
+    $scope.subMenuList = [{
+        title: "Back to School",
+        redirect: "student"
     }, {
         title: "Whislist Folder",
         redirect: "edituser"
