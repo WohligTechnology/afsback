@@ -33,7 +33,8 @@
     "angulartics-google-analytics": "^0.1.4",
     "peity": "https://github.com/benpickles/peity.git#^3.2.0",
     "jquery-slimscroll": "^1.3.8",
-    "jStorage": "^0.4.12"
+    "jStorage": "^0.4.12",
+    "angular-ui-select": "^0.18.1"
   },
   "devDependencies": {
     "angular-translate": "^2.11.0"

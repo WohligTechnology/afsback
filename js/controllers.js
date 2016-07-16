@@ -1,4 +1,4 @@
-angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', 'ngAnimate', 'ngSanitize', 'angular-flexslider'])
+angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', 'ngAnimate', 'ngSanitize', 'angular-flexslider', 'ui.select'])
 
 .controller('headerctrl', function($scope, TemplateService, $state) {
     $scope.template = TemplateService;
@@ -151,6 +151,77 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.pageName = "Edit School";
 })
 
+.controller('sportCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("sport");
+    $scope.menutitle = NavigationService.makeactive("Sports");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.template.type = 1;
+
+    NavigationService.getAllSport(function(data) {
+        console.log(data);
+        if (data.value != false) {
+            $scope.sports = data.data;
+        }
+    })
+
+})
+
+.controller('createSportCtrl', function($scope, TemplateService, NavigationService, $timeout, $state) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("createsport");
+    $scope.menutitle = NavigationService.makeactive("Sports");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.template.type = 1;
+    $scope.pageName = "Create Sport";
+
+    $scope.sport = {};
+
+    $scope.saveSport = function() {
+        console.log($scope.sport);
+        NavigationService.saveSport($scope.sport, function(data) {
+            console.log(data);
+            if (data.value != false) {
+                $state.go('sport');
+            }
+        })
+    }
+
+})
+
+.controller('editSportCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $stateParams) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("createsport");
+    $scope.menutitle = NavigationService.makeactive("Sports");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.template.type = 1;
+    $scope.pageName = "Edit Sport";
+
+    $scope.sport = {};
+
+    NavigationService.getOneSport($stateParams.id, function(data) {
+        console.log(data);
+        if (data.value != false) {
+            $scope.sport = data.data;
+        }
+    })
+
+    $scope.saveSport = function() {
+        console.log($scope.sport);
+        NavigationService.saveSport($scope.sport, function(data) {
+            console.log(data);
+            if (data.value != false) {
+                $state.go('sport');
+            }
+        })
+    }
+
+})
+
+
 .controller('ageGroupCtrl', function($scope, TemplateService, NavigationService, $timeout) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("agegroup");
@@ -158,9 +229,17 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
+
+    NavigationService.getAllAgeGroup(function(data) {
+        console.log(data);
+        if (data.value != false) {
+            $scope.ageGroups = data.data;
+        }
+    })
+
 })
 
-.controller('createAgeGroupCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+.controller('createAgeGroupCtrl', function($scope, TemplateService, NavigationService, $timeout, $state) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("createagegroup");
     $scope.menutitle = NavigationService.makeactive("Age Groups");
@@ -168,9 +247,22 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
     $scope.pageName = "Create Age Group";
+
+    $scope.agegroup = {};
+
+    $scope.saveAgeGroup = function() {
+        console.log($scope.agegroup);
+        NavigationService.saveAgeGroup($scope.agegroup, function(data) {
+            console.log(data);
+            if (data.value != false) {
+                $state.go('agegroup');
+            }
+        })
+    }
+
 })
 
-.controller('editAgeGroupCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+.controller('editAgeGroupCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $stateParams) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("createagegroup");
     $scope.menutitle = NavigationService.makeactive("Age Groups");
@@ -178,6 +270,26 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
     $scope.pageName = "Edit Age Group";
+
+    $scope.agegroup = {};
+
+    NavigationService.getOneAgeGroup($stateParams.id, function(data) {
+        console.log(data);
+        if (data.value != false) {
+            $scope.agegroup = data.data;
+        }
+    })
+
+    $scope.saveAgeGroup = function() {
+        console.log($scope.agegroup);
+        NavigationService.saveAgeGroup($scope.agegroup, function(data) {
+            console.log(data);
+            if (data.value != false) {
+                $state.go('agegroup');
+            }
+        })
+    }
+
 })
 
 .controller('languageCtrl', function($scope, TemplateService, $translate, $rootScope) {

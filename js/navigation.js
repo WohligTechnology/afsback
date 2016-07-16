@@ -22,6 +22,12 @@ var navigationservice = angular.module('navigationservice', [])
         anchor: "student",
         icon: "users",
         subnav: []
+    },{
+        name: "Sports",
+        classis: "active",
+        anchor: "sport",
+        icon: "users",
+        subnav: []
     }, {
         name: "Age Groups",
         classis: "active",
@@ -37,6 +43,50 @@ var navigationservice = angular.module('navigationservice', [])
         loginAdmin: function(formData, callback) {
             $http({
                 url: adminURL + 'admin/login',
+                method: 'POST',
+                data: formData
+            }).success(callback);
+        },
+        getAllSport: function(callback) {
+            $http({
+                url: adminURL + 'sport/getAll',
+                method: 'POST'
+            }).success(callback);
+        },
+        getOneSport: function(id, callback) {
+            $http({
+                url: adminURL + 'sport/getOne',
+                method: 'POST',
+                data: {
+                    _id: id
+                }
+            }).success(callback);
+        },
+        saveSport: function(formData, callback) {
+            $http({
+                url: adminURL + 'sport/saveData',
+                method: 'POST',
+                data: formData
+            }).success(callback);
+        },
+        getAllAgeGroup: function(callback) {
+            $http({
+                url: adminURL + 'agegroup/getAll',
+                method: 'POST'
+            }).success(callback);
+        },
+        getOneAgeGroup: function(id, callback) {
+            $http({
+                url: adminURL + 'agegroup/getOne',
+                method: 'POST',
+                data: {
+                    _id: id
+                }
+            }).success(callback);
+        },
+        saveAgeGroup: function(formData, callback) {
+            $http({
+                url: adminURL + 'agegroup/saveData',
                 method: 'POST',
                 data: formData
             }).success(callback);
