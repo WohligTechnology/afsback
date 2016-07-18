@@ -22,182 +22,165 @@
 <div class="panel-content">
    <div class="row">
       <div class="col-md-12">
-         <div class="widget">
-            <div class="form-elements-sec">
+         <form ng-submit="saveSchool()">
+            <div class="widget">
+               <div class="form-elements-sec">
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="form-group">
+                           <label>School Id*</label>
+                           <input type="text" placeholder="School Id" class="form-control" ng-model="school.sfaid" required readonly>
+                        </div>
+                        <div class="form-group">
+                           <label>Board*</label>
+                           <select class="form-control" ng-model="school.board" required>
+                              <option value="">Select Board</option>
+                              <option value="CBSE">CBSE</option>
+                              <option value="ICSE">ICSE</option>
+                              <option value="ISC">ISC</option>
+                              <option value="IB">IB</option>
+                              <option value="IGCSE">IGCSE</option>
+                              <option value="NIOS">NIOS</option>
+                              <option value="SSC">SSC</option>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group">
+                           <label>School Name*</label>
+                           <input type="text" placeholder="School Name" class="form-control" ng-model="school.name" required>
+                        </div>
+                        <div class="form-group">
+                           <label>Is Verified?</label>
+                           <select class="form-control" ng-model="school.verified">
+                              <option value="">Is Verified?</option>
+                              <option value="true">Yes</option>
+                              <option value="false">No</option>
+                           </select>
+                        </div>
+                     </div>
+                  </div>
+               </div>
                <div class="row">
                   <div class="col-md-6">
-                     <div class="form-group">
-                        <label>School Id*</label>
-                        <input type="text" placeholder="School Id" class="form-control">
-                     </div>
-                     <div class="form-group">
-                        <label>Board*</label>
-                        <select class="form-control">
-                           <option value="">Select Board</option>
-                           <option value="CBSE">CBSE</option>
-                           <option value="ICSE">ICSE</option>
-                           <option value="ISC">ISC</option>
-                           <option value="IB">IB</option>
-                           <option value="IGCSE">IGCSE</option>
-                           <option value="NIOS">NIOS</option>
-                           <option value="SSC">SSC</option>
-                        </select>
+                     <div class="widget">
+                        <div class="form-elements-sec">
+                           <div class="widget-title">
+                              <h3>Address</h3>
+                           </div>
+                           <div class="form-group">
+                              <label>Address</label>
+                              <textarea placeholder="Address" class="form-control"> </textarea>
+                           </div>
+                           <div class="form-group">
+                              <label>Location</label>
+                              <input type="text" placeholder="Location" class="form-control">
+                           </div>
+                        </div>
                      </div>
                   </div>
                   <div class="col-md-6">
-                     <div class="form-group">
-                        <label>School Name*</label>
-                        <input type="text" placeholder="School Name" class="form-control">
-                     </div>
-                     <div class="form-group">
-                        <label>Is Verified?</label>
-                        <select class="form-control">
-                           <option value="">Is Verified?</option>
-                           <option value="true">Yes</option>
-                           <option value="false">No</option>
-                        </select>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-md-6">
-                  <div class="widget">
-                     <div class="form-elements-sec">
-                        <div class="widget-title">
-                           <h3>Address</h3>
-                        </div>
-                        <div class="form-group">
-                           <label>Address</label>
-                           <textarea placeholder="Address" class="form-control"> </textarea>
-                        </div>
-                        <div class="form-group">
-                           <label>Location</label>
-                           <input type="text" placeholder="Location" class="form-control">
+                     <div class="widget">
+                        <div class="form-elements-sec">
+                           <div class="widget-title">
+                              <h3>Contact</h3>
+                           </div>
+                           <div class="form-group">
+                              <label>Email (Comma seperated)</label>
+                              <input type="email" placeholder="Email (Comma seperated)" class="form-control">
+                           </div>
+                           <div class="form-group">
+                              <label>Contact (Comma seperated)</label>
+                              <input type="text" placeholder="Contact (Comma seperated)" class="form-control">
+                           </div>
                         </div>
                      </div>
                   </div>
                </div>
-               <div class="col-md-6">
-                  <div class="widget">
-                     <div class="form-elements-sec">
-                        <div class="widget-title">
-                           <h3>Contact</h3>
-                        </div>
-                        <div class="form-group">
-                           <label>Email (Comma seperated)</label>
-                           <input type="email" placeholder="Email (Comma seperated)" class="form-control">
-                        </div>
-                        <div class="form-group">
-                           <label>Contact (Comma seperated)</label>
-                           <input type="text" placeholder="Contact (Comma seperated)" class="form-control">
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="widget">
+                        <div class="form-elements-sec">
+                           <div class="widget-title">
+                              <h3>Sports Participated</h3>
+                           </div>
+                           <div ng-repeat="sport in sportsArr">
+                              <h5>{{sport.sporttype}} Sports:</h5>
+                              <div class="checkbox">
+                                 <label ng-repeat="sp in sport.sports">
+                                    <input type="checkbox" ng-model="sp.checked">{{sp.name}}
+                                 </label>
+                              </div>
+                           </div>
                         </div>
                      </div>
                   </div>
                </div>
-            </div>
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="widget">
-                     <div class="form-elements-sec">
-                        <div class="widget-title">
-                           <h3>Sports Participated</h3>
-                        </div>
-                        <h5>Team Sports:</h5>
-                        <div class="checkbox">
-                           <label>
-                              <input type="checkbox">Basketball
-                           </label>
-                           <label>
-                              <input type="checkbox">Handball
-                           </label>
-                           <label>
-                              <input type="checkbox">Volleyball
-                           </label>
-                           <label>
-                              <input type="checkbox">Football
-                           </label>
-                           <label>
-                              <input type="checkbox">Throwball
-                           </label>
-                           <label>
-                              <input type="checkbox">Hockey
-                           </label>
-                           <label>
-                              <input type="checkbox">Kho Kho
-                           </label>
-                           <label>
-                              <input type="checkbox">Kabaddi
-                           </label>
-                        </div>
-                        <h5>Racquet Sports:</h5>
-                        <div class="checkbox">
-                           <label>
-                              <input type="checkbox">Tennis (Singles & Doubles)
-                           </label>
-                           <label>
-                              <input type="checkbox">Table Tennis (Singles & Doubles)
-                           </label>
-                           <label>
-                              <input type="checkbox">Badminton (Singles & Doubles)
-                           </label>
-                           <label>
-                              <input type="checkbox">Squash
-                           </label>
-                        </div>
-                        <h5>Combat Sports:</h5>
-                        <div class="checkbox">
-                           <label>
-                              <input type="checkbox">Karate
-                           </label>
-                           <label>
-                              <input type="checkbox">Judo
-                           </label>
-                           <label>
-                              <input type="checkbox">Taekwondo
-                           </label>
-                           <label>
-                              <input type="checkbox">Boxing
-                           </label>
-                           <label>
-                              <input type="checkbox">Sport Mix Martial Arts
-                           </label>
-                           <label>
-                              <input type="checkbox">Fencing
-                           </label>
-                        </div>
-                        <h5>Target Sports:</h5>
-                        <div class="checkbox">
-                           <label>
-                              <input type="checkbox">Shooting
-                           </label>
-                           <label>
-                              <input type="checkbox">Archery
-                           </label>
-                        </div>
-                        <h5>Aquatics:</h5>
-                        <div class="checkbox">
-                           <label>
-                              <input type="checkbox">Swimming
-                           </label>
-                           <label>
-                              <input type="checkbox">Water Polo
-                           </label>
-                        </div>
-                        <h5>Individual Sports:</h5>
-                        <div class="checkbox">
-                           <label>
-                              <input type="checkbox">Carrom
-                           </label>
-                           <label>
-                              <input type="checkbox">Chess
-                           </label>
-                           <label>
-                              <input type="checkbox">Athletics
-                           </label>
-                           <label>
-                              <input type="checkbox">Gymnastics
-                           </label>
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="widget">
+                        <div class="form-elements-sec">
+                           <div class="form-group">
+                              <h5>Medals Tally</h5>
+                              <div class="row">
+                                 <div class="col-md-4">
+                                    <label>Gold</label>
+                                    <input type="text" placeholder="Gold" class="form-control">
+                                 </div>
+                                 <div class="col-md-4">
+                                    <label>Silver</label>
+                                    <input type="text" placeholder="Silver" class="form-control">
+                                 </div>
+                                 <div class="col-md-4">
+                                    <label>Bronze</label>
+                                    <input type="text" placeholder="Bronze" class="form-control">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <div class="row">
+                                 <div class="col-md-6">
+                                    <label>Total Points</label>
+                                    <input type="text" placeholder="Total Points" class="form-control">
+                                 </div>
+                                 <div class="col-md-6">
+                                    <label>Rank</label>
+                                    <input type="text" placeholder="Rank" class="form-control">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label>Principal</label>
+                              <input type="text" placeholder="Principal" class="form-control">
+                           </div>
+                           <div class="form-group">
+                              <label>Logo</label>
+                              <input type="file" class="form-control">
+                           </div>
+                           <div class="form-group">
+                              <div class="row">
+                                 <div class="col-md-6">
+                                    <label>Videos (Comma seperated)</label>
+                                    <input type="text" placeholder="Videos (Comma seperated)" class="form-control">
+                                 </div>
+                                 <div class="col-md-6">
+                                    <label>Photos</label>
+                                    <input type="file" class="form-control">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <div class="row">
+                                 <div class="col-md-6">
+                                    <label>Contingent Leader</label>
+                                    <input type="text" placeholder="Contingent Leader" class="form-control">
+                                 </div>
+                                 <div class="col-md-6">
+                                    <label>Contingent Strength</label>
+                                    <input type="text" placeholder="Contingent Strength" class="form-control">
+                                 </div>
+                              </div>
+                           </div>
                         </div>
                      </div>
                   </div>
@@ -205,82 +188,13 @@
             </div>
             <div class="row">
                <div class="col-md-12">
-                  <div class="widget">
-                     <div class="form-elements-sec">
-                        <div class="form-group">
-                           <h5>Medals Tally</h5>
-                           <div class="row">
-                              <div class="col-md-4">
-                                 <label>Gold</label>
-                                 <input type="text" placeholder="Gold" class="form-control">
-                              </div>
-                              <div class="col-md-4">
-                                 <label>Silver</label>
-                                 <input type="text" placeholder="Silver" class="form-control">
-                              </div>
-                              <div class="col-md-4">
-                                 <label>Bronze</label>
-                                 <input type="text" placeholder="Bronze" class="form-control">
-                              </div>
-                           </div>
-                        </div>
-                        <div class="form-group">
-                           <div class="row">
-                              <div class="col-md-6">
-                                 <label>Total Points</label>
-                                 <input type="text" placeholder="Total Points" class="form-control">
-                              </div>
-                              <div class="col-md-6">
-                                 <label>Rank</label>
-                                 <input type="text" placeholder="Rank" class="form-control">
-                              </div>
-                           </div>
-                        </div>
-                        <div class="form-group">
-                           <label>Principal</label>
-                           <input type="text" placeholder="Principal" class="form-control">
-                        </div>
-                        <div class="form-group">
-                           <label>Logo</label>
-                           <input type="file" class="form-control">
-                        </div>
-                        <div class="form-group">
-                           <div class="row">
-                              <div class="col-md-6">
-                                 <label>Videos (Comma seperated)</label>
-                                 <input type="text" placeholder="Videos (Comma seperated)" class="form-control">
-                              </div>
-                              <div class="col-md-6">
-                                 <label>Photos</label>
-                                 <input type="file" class="form-control">
-                              </div>
-                           </div>
-                        </div>
-                        <div class="form-group">
-                           <div class="row">
-                              <div class="col-md-6">
-                                 <label>Contingent Leader</label>
-                                 <input type="text" placeholder="Contingent Leader" class="form-control">
-                              </div>
-                              <div class="col-md-6">
-                                 <label>Contingent Strength</label>
-                                 <input type="text" placeholder="Contingent Strength" class="form-control">
-                              </div>
-                           </div>
-                        </div>
-                     </div>
+                  <div class="text-center mt20">
+                     <button class="btn btn-default" type="submit">Save</button>
+                     <button class="btn btn-default">Cancel</button>
                   </div>
                </div>
             </div>
-         </div>
-         <div class="row">
-            <div class="col-md-12">
-               <div class="text-center mt20">
-                  <button class="btn btn-default" type="submit">Save</button>
-                  <button class="btn btn-default" type="submit">Cancel</button>
-               </div>
-            </div>
-         </div>
+         </form>
       </div>
    </div>
 </div>

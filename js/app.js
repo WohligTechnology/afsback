@@ -38,7 +38,7 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
     })
 
     .state('editschool', {
-        url: "/editschool",
+        url: "/editschool/:id",
         templateUrl: "views/template.html",
         controller: 'editSchoolCtrl'
     })
@@ -59,6 +59,24 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         url: "/editstudent",
         templateUrl: "views/template.html",
         controller: 'editStudentCtrl'
+    })
+
+    .state('studentsport', {
+        url: "/studentsport",
+        templateUrl: "views/template.html",
+        controller: 'studentSportCtrl'
+    })
+
+    .state('createstudentsport', {
+        url: "/createstudentsport",
+        templateUrl: "views/template.html",
+        controller: 'createStudentSportCtrl'
+    })
+
+    .state('editstudentsport', {
+        url: "/editstudentsport",
+        templateUrl: "views/template.html",
+        controller: 'editStudentSportCtrl'
     })
 
     .state('sport', {

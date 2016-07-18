@@ -54,12 +54,12 @@
                               <input type="text" placeholder="School Name" class="form-control">
                            </td>
                         </tr>
-                        <tr>
-                           <td>1</td>
-                           <td>WOH123</td>
-                           <td>Wohlig Technology</td>
+                        <tr ng-repeat="school in schools">
+                           <td>{{$index+1}}</td>
+                           <td>{{school.sfaid}}</td>
+                           <td>{{school.name}}</td>
                            <td class="text-center">
-                              <a ui-sref="editschool" class="btn btn-primary">
+                              <a ui-sref="editschool({id:school._id})" class="btn btn-primary">
                                  <i class="fa fa-pencil-square-o"></i>
                               </a>
                            </td>

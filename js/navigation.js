@@ -22,7 +22,7 @@ var navigationservice = angular.module('navigationservice', [])
         anchor: "student",
         icon: "users",
         subnav: []
-    },{
+    }, {
         name: "Sports",
         classis: "active",
         anchor: "sport",
@@ -89,6 +89,69 @@ var navigationservice = angular.module('navigationservice', [])
                 url: adminURL + 'agegroup/saveData',
                 method: 'POST',
                 data: formData
+            }).success(callback);
+        },
+        getFirstCategories: function(obj, callback) {
+            $http({
+                url: adminURL + 'firstcategory/findForDrop',
+                method: 'POST',
+                data: obj
+            }).success(callback);
+        },
+        saveFirstCategory: function(obj, callback) {
+            $http({
+                url: adminURL + 'firstcategory/saveData',
+                method: 'POST',
+                data: obj
+            }).success(callback);
+        },
+        getSecondCategories: function(obj, callback) {
+            $http({
+                url: adminURL + 'secondcategory/findForDrop',
+                method: 'POST',
+                data: obj
+            }).success(callback);
+        },
+        saveSecondCategory: function(obj, callback) {
+            $http({
+                url: adminURL + 'secondcategory/saveData',
+                method: 'POST',
+                data: obj
+            }).success(callback);
+        },
+        getAgeGroups: function(obj, callback) {
+            $http({
+                url: adminURL + 'agegroup/findForDrop',
+                method: 'POST',
+                data: obj
+            }).success(callback);
+        },
+        getLastId: function(callback) {
+            $http({
+                url: adminURL + 'school/getLastId',
+                method: 'POST'
+            }).success(callback);
+        },
+        saveSchool: function(obj, callback) {
+            $http({
+                url: adminURL + 'school/saveData',
+                method: 'POST',
+                data: obj
+            }).success(callback);
+        },
+        getAllSchool: function(callback) {
+            $http({
+                url: adminURL + 'school/getAll',
+                method: 'POST'
+            }).success(callback);
+        },
+        getOneSchool: function(id, callback) {
+            $http({
+                url: adminURL + 'school/getOne',
+                method: 'POST',
+                data: {
+                    _id: id
+                }
             }).success(callback);
         },
         makeactive: function(menuname) {
