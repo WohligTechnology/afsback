@@ -298,23 +298,28 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 })
 
 
-.controller('studentSportCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+.controller('studentSportCtrl', function($scope, TemplateService, NavigationService, $timeout, $stateParams) {
     //Used to name the .html file
-    $scope.template = TemplateService.changecontent("studentSports");
+    $scope.template = TemplateService.changecontent("studentsports");
     $scope.menutitle = NavigationService.makeactive("Students");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
+    NavigationService.getStudentSport({ _id: $stateParams.id }, function(data) {
+        console.log(data);
+        if (data.value != false) {
+            $scope.sports = data.data.sport;
+        }
+    })
 })
 
 .controller('createStudentSportCtrl', function($scope, TemplateService, NavigationService, $timeout) {
-    //Used to name the .html file
-    $scope.template = TemplateService.changecontent("createstudentSports");
-    $scope.menutitle = NavigationService.makeactive("Students");
+    $scope.template = TemplateService.changecontent("createstudentsports");
+    $scope.menutitle = NavigationService.makeactive("Student - Sports");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
-    $scope.pageName = "Create Student";
+    $scope.pageName = "Create Student Sports";
 
     $scope.popup1 = {
         opened: false
@@ -337,7 +342,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 .controller('editStudentSportCtrl', function($scope, TemplateService, NavigationService, $timeout) {
     //Used to name the .html file
-    $scope.template = TemplateService.changecontent("createstudentSports");
+    $scope.template = TemplateService.changecontent("createstudentsports");
     $scope.menutitle = NavigationService.makeactive("Students");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();

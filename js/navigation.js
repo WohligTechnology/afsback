@@ -222,6 +222,13 @@ var navigationservice = angular.module('navigationservice', [])
                 data: obj
             }).success(callback);
         },
+        getStudentSport: function(obj, callback) {
+            $http({
+                url: adminURL + 'student/getOne',
+                method: 'POST',
+                data: obj
+            }).success(callback);
+        },
         makeactive: function(menuname) {
             for (var i = 0; i < navigation.length; i++) {
                 if (navigation[i].name == menuname) {
