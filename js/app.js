@@ -68,7 +68,7 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
     })
 
     .state('createstudentsport', {
-        url: "/createstudentsport",
+        url: "/createstudentsport/:id",
         templateUrl: "views/template.html",
         controller: 'createStudentSportCtrl'
     })

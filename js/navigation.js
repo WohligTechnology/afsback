@@ -222,9 +222,18 @@ var navigationservice = angular.module('navigationservice', [])
                 data: obj
             }).success(callback);
         },
-        getStudentSport: function(obj, callback) {
+        getSchoolSports: function(id, callback) {
             $http({
-                url: adminURL + 'student/getOne',
+                url: adminURL + 'school/getSchoolSport',
+                method: 'POST',
+                data: {
+                    _id: id
+                }
+            }).success(callback);
+        },
+        getSports: function(obj, callback) {
+            $http({
+                url: adminURL + 'sport/getSports',
                 method: 'POST',
                 data: obj
             }).success(callback);

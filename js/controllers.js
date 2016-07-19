@@ -305,7 +305,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
-    NavigationService.getStudentSport({ _id: $stateParams.id }, function(data) {
+
+    $scope.studentId = $stateParams.id;
+
+    NavigationService.getOneStudent($stateParams.id, function(data) {
         console.log(data);
         if (data.value != false) {
             $scope.sports = data.data.sport;
@@ -313,7 +316,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     })
 })
 
-.controller('createStudentSportCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+.controller('createStudentSportCtrl', function($scope, TemplateService, NavigationService, $timeout, $stateParams) {
     $scope.template = TemplateService.changecontent("createstudentsports");
     $scope.menutitle = NavigationService.makeactive("Student - Sports");
     TemplateService.title = $scope.menutitle;
@@ -321,22 +324,58 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.template.type = 1;
     $scope.pageName = "Create Student Sports";
 
-    $scope.popup1 = {
-        opened: false
-    };
+    NavigationService.getOneStudent($stateParams.id, function(data) {
+        console.log(data);
+        if (data.value != false) {
+            $scope.sports = data.data;
+            getSchoolSports(data.data.school._id);
+        }
+    })
 
-    $scope.open1 = function() {
-        $scope.popup1.opened = true;
-    };
-
-    $scope.today = function() {
-        $scope.dt = new Date();
-    };
-    $scope.today();
-
-    $scope.dateOptions = {
-        maxDate: new Date()
-    };
+    function getSchoolSports(id) {
+        NavigationService.getSchoolSports(id, function(data) {
+            console.log(data);
+            if (data.value != false) {
+                $scope.schoolSports = data.data;
+            }
+        })
+    }
+    $scope.firstcategories = [];
+    $scope.secondcategories = [];
+    $scope.thirdcategories = [];
+    $scope.agegroups = [];
+    $scope.getFirstCategory = function(sport) {
+        var obj = {}
+        obj.sportslist = sport._id;
+        obj.gender = $scope.sports.gender;
+        NavigationService.getSports(obj, function(data) {
+            console.log(data);
+            if (data.value != false) {
+                _.each(data.data, function(n) {
+                    if (n.firstcategory) {
+                        n.firstcategory.sport = n._id;
+                        $scope.firstcategories.push(n.firstcategory);
+                    }
+                    if (n.secondcategory) {
+                        n.secondcategory.sport = n._id;
+                        $scope.secondcategories.push(n.secondcategory);
+                    }
+                    if (n.thirdcategory) {
+                        n.thirdcategory.sport = n._id;
+                        $scope.thirdcategories.push(n.thirdcategory);
+                    }
+                    if (n.agegroup) {
+                        n.agegroup.sport = n._id;
+                        $scope.agegroups.push(n.agegroup);
+                    }
+                })
+            }
+            console.log($scope.firstcategories);
+            console.log($scope.secondcategories);
+            console.log($scope.thirdcategories);
+            console.log($scope.agegroups);
+        })
+    }
 
 })
 
