@@ -23,6 +23,12 @@ var navigationservice = angular.module('navigationservice', [])
         icon: "users",
         subnav: []
     }, {
+        name: "Sports List",
+        classis: "active",
+        anchor: "sportlist",
+        icon: "users",
+        subnav: []
+    }, {
         name: "Sports",
         classis: "active",
         anchor: "sport",
@@ -43,6 +49,28 @@ var navigationservice = angular.module('navigationservice', [])
         loginAdmin: function(formData, callback) {
             $http({
                 url: adminURL + 'admin/login',
+                method: 'POST',
+                data: formData
+            }).success(callback);
+        },
+        getAllSportList: function(callback) {
+            $http({
+                url: adminURL + 'sportslist/getAll',
+                method: 'POST'
+            }).success(callback);
+        },
+        getOneSportList: function(id, callback) {
+            $http({
+                url: adminURL + 'sportslist/getOne',
+                method: 'POST',
+                data: {
+                    _id: id
+                }
+            }).success(callback);
+        },
+        saveSportList: function(formData, callback) {
+            $http({
+                url: adminURL + 'sportslist/saveData',
                 method: 'POST',
                 data: formData
             }).success(callback);

@@ -97,6 +97,24 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         controller: 'editSportCtrl'
     })
 
+    .state('sportlist', {
+        url: "/sportlist",
+        templateUrl: "views/template.html",
+        controller: 'sportListCtrl'
+    })
+
+    .state('createsportlist', {
+        url: "/createsportlist",
+        templateUrl: "views/template.html",
+        controller: 'createSportListCtrl'
+    })
+
+    .state('editsportlist', {
+        url: "/editsportlist/:id",
+        templateUrl: "views/template.html",
+        controller: 'editSportListCtrl'
+    })
+
     .state('agegroup', {
         url: "/agegroup",
         templateUrl: "views/template.html",

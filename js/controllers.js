@@ -529,6 +529,76 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.pageName = "Edit School";
 })
 
+.controller('sportListCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("sportlist");
+    $scope.menutitle = NavigationService.makeactive("Sports List");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.template.type = 1;
+
+    NavigationService.getAllSportList(function(data) {
+        console.log(data);
+        if (data.value != false) {
+            $scope.sportsList = data.data;
+        }
+    })
+
+})
+
+.controller('createSportListCtrl', function($scope, TemplateService, NavigationService, $timeout, $state) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("createsportlist");
+    $scope.menutitle = NavigationService.makeactive("Sports List");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.template.type = 1;
+    $scope.pageName = "Create Sports List";
+
+    $scope.sportList = {};
+
+    $scope.saveSportList = function() {
+        console.log($scope.sportList);
+        NavigationService.saveSportList($scope.sportList, function(data) {
+            console.log(data);
+            if (data.value != false) {
+                $state.go('sportlist');
+            }
+        })
+    }
+
+})
+
+.controller('editSportListCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $stateParams) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("createsportlist");
+    $scope.menutitle = NavigationService.makeactive("Sports List");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.template.type = 1;
+    $scope.pageName = "Edit Sports List";
+
+    $scope.sportList = {};
+
+    NavigationService.getOneSportList($stateParams.id, function(data) {
+        console.log(data);
+        if (data.value != false) {
+            $scope.sportList = data.data;
+        }
+    });
+
+    $scope.saveSport = function() {
+        console.log($scope.sport);
+        NavigationService.saveSportList($scope.sportList, function(data) {
+            console.log(data);
+            if (data.value != false) {
+                $state.go('sportlist');
+            }
+        })
+    }
+
+})
+
 .controller('sportCtrl', function($scope, TemplateService, NavigationService, $timeout) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("sport");
@@ -556,6 +626,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.pageName = "Create Sport";
 
     $scope.sport = {};
+
+    NavigationService.getAllSportList(function(data) {
+        console.log(data);
+        if (data.value != false) {
+            $scope.sportsList = data.data;
+        }
+    })
 
     $scope.saveSport = function() {
         console.log($scope.sport);
