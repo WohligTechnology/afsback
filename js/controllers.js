@@ -41,6 +41,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.menutitle = NavigationService.makeactive("Dashboard");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
+
+    NavigationService.getCurrentPosition(function(data) {
+        console.log(data);
+    })
+
 })
 
 .controller('schoolCtrl', function($scope, TemplateService, NavigationService, $timeout) {
@@ -70,6 +75,17 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.school = {};
     var schoolSports = [];
 
+    NavigationService.getAllSportList(function(data) {
+        console.log(data);
+        if (data.value != false) {
+            $scope.sportsList = data.data;
+            _.each($scope.sportsList, function(n) {
+                n.checked = false;
+            })
+            console.log($scope.sportsList);
+        }
+    })
+
     NavigationService.getLastId(function(data) {
         console.log(data);
         if (data.value != false) {
@@ -79,12 +95,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     $scope.saveSchool = function() {
         schoolSports = [];
-        _.each($scope.sportsArr, function(n) {
-            _.each(n.sports, function(z) {
-                if (z.checked == true) {
-                    schoolSports.push(z);
-                }
-            })
+        _.each($scope.sportsList, function(n) {
+            if (n.checked == true) {
+                schoolSports.push(n);
+            }
         })
         $scope.school.sports = schoolSports;
         console.log($scope.school);
@@ -94,130 +108,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }
         })
     }
-
-    $scope.sportsArr = [{
-        sporttype: "Team",
-        sports: [{
-            name: "Basketball",
-            sporttype: "Team",
-            checked: false
-        }, {
-            name: "Handball",
-            sporttype: "Team",
-            checked: false
-        }, {
-            name: "Volleyball",
-            sporttype: "Team",
-            checked: false
-        }, {
-            name: "Football",
-            sporttype: "Team",
-            checked: false
-        }, {
-            name: "Throwball",
-            sporttype: "Team",
-            checked: false
-        }, {
-            name: "Hockey",
-            sporttype: "Team",
-            checked: false
-        }, {
-            name: "Kho Kho",
-            sporttype: "Team",
-            checked: false
-        }, {
-            name: "Kabaddi",
-            sporttype: "Team",
-            checked: false
-        }]
-    }, {
-        sporttype: "Racquet",
-        sports: [{
-            name: "Tennis (Singles & Doubles)",
-            sporttype: "Racquet",
-            checked: false
-        }, {
-            name: "Table Tennis (Singles & Doubles)",
-            sporttype: "Racquet",
-            checked: false
-        }, {
-            name: "Badminton (Singles & Doubles)",
-            sporttype: "Racquet",
-            checked: false
-        }, {
-            name: "Squash",
-            sporttype: "Racquet",
-            checked: false
-        }]
-    }, {
-        sporttype: "Combat",
-        sports: [{
-            name: "Karate",
-            sporttype: "Combat",
-            checked: false
-        }, {
-            name: "Judo",
-            sporttype: "Combat",
-            checked: false
-        }, {
-            name: "Taekwondo",
-            sporttype: "Combat",
-            checked: false
-        }, {
-            name: "Boxing",
-            sporttype: "Combat",
-            checked: false
-        }, {
-            name: "Sport Mix Martial Arts",
-            sporttype: "Combat",
-            checked: false
-        }, {
-            name: "Fencing",
-            sporttype: "Combat",
-            checked: false
-        }]
-    }, {
-        sporttype: "Target",
-        sports: [{
-            name: "Shooting",
-            sporttype: "Target",
-            checked: false
-        }, {
-            name: "Archery",
-            sporttype: "Target",
-            checked: false
-        }]
-    }, {
-        sporttype: "Aquatics",
-        sports: [{
-            name: "Swimming",
-            sporttype: "Aquatics",
-            checked: false
-        }, {
-            name: "Water Polo",
-            sporttype: "Aquatics",
-            checked: false
-        }]
-    }, {
-        sporttype: "Individual",
-        sports: [{
-            name: "Carrom",
-            sporttype: "Individual",
-            checked: false
-        }, {
-            name: "Chess",
-            sporttype: "Individual",
-            checked: false
-        }, {
-            name: "Athletics",
-            sporttype: "Individual",
-            checked: false
-        }, {
-            name: "Gymnastics",
-            sporttype: "Individual",
-            checked: false
-        }]
-    }];
 
 })
 
@@ -267,136 +157,30 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         })
     }
 
+
     NavigationService.getOneSchool($stateParams.id, function(data) {
         console.log(data);
         if (data.value != false) {
             $scope.school = data.data;
+            NavigationService.getAllSportList(function(sportdata) {
+                console.log(sportdata);
+                if (sportdata.value != false) {
+                    $scope.sportsList = sportdata.data;
+                    _.each($scope.sportsList, function(n) {
+                        var foundIndex = _.findIndex($scope.school.sports, {
+                            '_id': n._id
+                        });
+                        if (foundIndex != -1) {
+                            n.checked = true;
+                        } else {
+                            n.checked = false;
+                        }
+                    })
+                    console.log($scope.sportsList);
+                }
+            })
         }
     })
-
-    $scope.sportsArr = [{
-        sporttype: "Team",
-        sports: [{
-            name: "Basketball",
-            sporttype: "Team",
-            checked: false
-        }, {
-            name: "Handball",
-            sporttype: "Team",
-            checked: false
-        }, {
-            name: "Volleyball",
-            sporttype: "Team",
-            checked: false
-        }, {
-            name: "Football",
-            sporttype: "Team",
-            checked: false
-        }, {
-            name: "Throwball",
-            sporttype: "Team",
-            checked: false
-        }, {
-            name: "Hockey",
-            sporttype: "Team",
-            checked: false
-        }, {
-            name: "Kho Kho",
-            sporttype: "Team",
-            checked: false
-        }, {
-            name: "Kabaddi",
-            sporttype: "Team",
-            checked: false
-        }]
-    }, {
-        sporttype: "Racquet",
-        sports: [{
-            name: "Tennis (Singles & Doubles)",
-            sporttype: "Racquet",
-            checked: false
-        }, {
-            name: "Table Tennis (Singles & Doubles)",
-            sporttype: "Racquet",
-            checked: false
-        }, {
-            name: "Badminton (Singles & Doubles)",
-            sporttype: "Racquet",
-            checked: false
-        }, {
-            name: "Squash",
-            sporttype: "Racquet",
-            checked: false
-        }]
-    }, {
-        sporttype: "Combat",
-        sports: [{
-            name: "Karate",
-            sporttype: "Combat",
-            checked: false
-        }, {
-            name: "Judo",
-            sporttype: "Combat",
-            checked: false
-        }, {
-            name: "Taekwondo",
-            sporttype: "Combat",
-            checked: false
-        }, {
-            name: "Boxing",
-            sporttype: "Combat",
-            checked: false
-        }, {
-            name: "Sport Mix Martial Arts",
-            sporttype: "Combat",
-            checked: false
-        }, {
-            name: "Fencing",
-            sporttype: "Combat",
-            checked: false
-        }]
-    }, {
-        sporttype: "Target",
-        sports: [{
-            name: "Shooting",
-            sporttype: "Target",
-            checked: false
-        }, {
-            name: "Archery",
-            sporttype: "Target",
-            checked: false
-        }]
-    }, {
-        sporttype: "Aquatics",
-        sports: [{
-            name: "Swimming",
-            sporttype: "Aquatics",
-            checked: false
-        }, {
-            name: "Water Polo",
-            sporttype: "Aquatics",
-            checked: false
-        }]
-    }, {
-        sporttype: "Individual",
-        sports: [{
-            name: "Carrom",
-            sporttype: "Individual",
-            checked: false
-        }, {
-            name: "Chess",
-            sporttype: "Individual",
-            checked: false
-        }, {
-            name: "Athletics",
-            sporttype: "Individual",
-            checked: false
-        }, {
-            name: "Gymnastics",
-            sporttype: "Individual",
-            checked: false
-        }]
-    }];
 
 })
 
@@ -407,9 +191,15 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
+
+    NavigationService.getAllStudent(function(data) {
+        if (data.value != false) {
+            $scope.students = data.data;
+        }
+    })
 })
 
-.controller('createStudentCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+.controller('createStudentCtrl', function($scope, TemplateService, NavigationService, $timeout, $state) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("createstudent");
     $scope.menutitle = NavigationService.makeactive("Students");
@@ -417,6 +207,30 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
     $scope.pageName = "Create Student";
+
+    $scope.student = {};
+
+    NavigationService.getLastStudentId(function(data) {
+        console.log(data);
+        if (data.value != false) {
+            $scope.student.sfaid = data.data;
+        }
+    })
+
+    NavigationService.getSchoolList(function(data) {
+        if (data.value != false) {
+            $scope.schools = data.data;
+        }
+    })
+
+    $scope.saveStudent = function() {
+        console.log($scope.student);
+        NavigationService.saveStudent($scope.student, function(data) {
+            if (data.value != false) {
+                $state.go('student');
+            }
+        })
+    }
 
     $scope.student = {};
 
@@ -439,30 +253,48 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 })
 
-.controller('editStudentCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+.controller('editStudentCtrl', function($scope, TemplateService, NavigationService, $timeout, $stateParams) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("createstudent");
     $scope.menutitle = NavigationService.makeactive("Students");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 2;
+
     $scope.subMenuList = [{
-        title: "Back to School",
+        title: "Back to Student",
         redirect: "student"
     }, {
-        title: "Whislist Folder",
-        redirect: "edituser"
-    }, {
-        title: "Wishlist",
-        redirect: "edituser"
-    }, {
-        title: "Artwork",
-        redirect: "edituser"
-    }, {
-        title: "Cart",
-        redirect: "edituser"
+        title: "Sports",
+        redirect: "",
+        url: "#/studentsport/" + $stateParams.id
     }];
     $scope.pageName = "Edit School";
+
+    NavigationService.getSchoolList(function(data) {
+        if (data.value != false) {
+            $scope.schools = data.data;
+        }
+    })
+
+    NavigationService.getOneStudent($stateParams.id, function(data) {
+        if (data.value != false) {
+            $scope.student = data.data;
+            if ($scope.student.dob) {
+                $scope.student.dob = new Date($scope.student.dob);
+            }
+        }
+    })
+
+    $scope.saveStudent = function() {
+        console.log($scope.student);
+        NavigationService.saveStudent($scope.student, function(data) {
+            if (data.value != false) {
+                $state.go('student');
+            }
+        })
+    }
+
 })
 
 
@@ -587,7 +419,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
     });
 
-    $scope.saveSport = function() {
+    $scope.saveSportList = function() {
         console.log($scope.sport);
         NavigationService.saveSportList($scope.sportList, function(data) {
             console.log(data);
@@ -666,6 +498,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.thirdcategories = [];
     $scope.agegroups = [];
 
+    NavigationService.getAllSportList(function(data) {
+        console.log(data);
+        if (data.value != false) {
+            $scope.sportsList = data.data;
+        }
+    })
+
     NavigationService.getOneSport($stateParams.id, function(data) {
         console.log(data);
         if (data.value != false) {
@@ -693,6 +532,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             } else {
                 $scope.sport.agegroup = [$scope.sport.agegroup];
             }
+            console.log($scope.sport);
         }
     })
 
@@ -720,7 +560,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         } else {
             delete $scope.sport.agegroup;
         }
-
         console.log($scope.sport);
         NavigationService.saveSport($scope.sport, function(data) {
             console.log(data);

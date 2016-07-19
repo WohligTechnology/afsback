@@ -46,6 +46,12 @@ var navigationservice = angular.module('navigationservice', [])
         getnav: function() {
             return navigation;
         },
+        getCurrentPosition: function(callback) {
+            $http({
+                url: "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDCa1LUe1vOczX1hO_iGYgyo8p_jYuGOPU",
+                method: 'POST'
+            }).success(callback);
+        },
         loginAdmin: function(formData, callback) {
             $http({
                 url: adminURL + 'admin/login',
@@ -173,6 +179,12 @@ var navigationservice = angular.module('navigationservice', [])
                 method: 'POST'
             }).success(callback);
         },
+        getSchoolList: function(callback) {
+            $http({
+                url: adminURL + 'school/getSchool',
+                method: 'POST'
+            }).success(callback);
+        },
         getOneSchool: function(id, callback) {
             $http({
                 url: adminURL + 'school/getOne',
@@ -180,6 +192,34 @@ var navigationservice = angular.module('navigationservice', [])
                 data: {
                     _id: id
                 }
+            }).success(callback);
+        },
+        getLastStudentId: function(callback) {
+            $http({
+                url: adminURL + 'student/getLastId',
+                method: 'POST'
+            }).success(callback);
+        },
+        getAllStudent: function(callback) {
+            $http({
+                url: adminURL + 'student/getAll',
+                method: 'POST'
+            }).success(callback);
+        },
+        getOneStudent: function(id, callback) {
+            $http({
+                url: adminURL + 'student/getOne',
+                method: 'POST',
+                data: {
+                    _id: id
+                }
+            }).success(callback);
+        },
+        saveStudent: function(obj, callback) {
+            $http({
+                url: adminURL + 'student/saveData',
+                method: 'POST',
+                data: obj
             }).success(callback);
         },
         makeactive: function(menuname) {

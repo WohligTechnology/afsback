@@ -56,13 +56,13 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
     })
 
     .state('editstudent', {
-        url: "/editstudent",
+        url: "/editstudent/:id",
         templateUrl: "views/template.html",
         controller: 'editStudentCtrl'
     })
 
     .state('studentsport', {
-        url: "/studentsport",
+        url: "/studentsport/:id",
         templateUrl: "views/template.html",
         controller: 'studentSportCtrl'
     })
@@ -134,7 +134,7 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
     })
 
     ;
-    $urlRouterProvider.otherwise("/login");
+    $urlRouterProvider.otherwise("/dashboard");
     $locationProvider.html5Mode(isproduction);
 });
 

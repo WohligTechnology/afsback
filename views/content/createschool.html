@@ -104,11 +104,41 @@
                            <div class="widget-title">
                               <h3>Sports Participated</h3>
                            </div>
-                           <div ng-repeat="sport in sportsArr">
-                              <h5>{{sport.sporttype}} Sports:</h5>
-                              <div class="checkbox">
-                                 <label ng-repeat="sp in sport.sports">
-                                    <input type="checkbox" ng-model="sp.checked">{{sp.name}}
+                           <div ng-repeat="sport in sportsList">
+                              <h5 ng-if="sport.sporttype=='Team'">Team Sports:</h5>
+                              <div class="checkbox" ng-if="sport.sporttype=='Team'">
+                                 <label>
+                                    <input type="checkbox" ng-model="sport.checked">{{sport.name}}
+                                 </label>
+                              </div>
+                              <h5 ng-if="sport.sporttype=='Racquet'">Racquet Sports:</h5>
+                              <div class="checkbox" ng-if="sport.sporttype=='Racquet'">
+                                 <label>
+                                    <input type="checkbox" ng-model="sport.checked">{{sport.name}}
+                                 </label>
+                              </div>
+                              <h5 ng-if="sport.sporttype=='Combat'">Combat Sports:</h5>
+                              <div class="checkbox" ng-if="sport.sporttype=='Combat'">
+                                 <label>
+                                    <input type="checkbox" ng-model="sport.checked">{{sport.name}}
+                                 </label>
+                              </div>
+                              <h5 ng-if="sport.sporttype=='Target'">Target Sports:</h5>
+                              <div class="checkbox" ng-if="sport.sporttype=='Target'">
+                                 <label>
+                                    <input type="checkbox" ng-model="sport.checked">{{sport.name}}
+                                 </label>
+                              </div>
+                              <h5 ng-if="sport.sporttype=='Aquatics'">Aquatics Sports:</h5>
+                              <div class="checkbox" ng-if="sport.sporttype=='Aquatics'">
+                                 <label>
+                                    <input type="checkbox" ng-model="sport.checked">{{sport.name}}
+                                 </label>
+                              </div>
+                              <h5 ng-if="sport.sporttype=='Individual'">Individual Sports:</h5>
+                              <div class="checkbox" ng-if="sport.sporttype=='Individual'">
+                                 <label>
+                                    <input type="checkbox" ng-model="sport.checked">{{sport.name}}
                                  </label>
                               </div>
                            </div>

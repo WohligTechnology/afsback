@@ -27,7 +27,12 @@
                <div class="form-elements-sec">
                   <div class="form-group">
                      <label>Sport Name</label>
-                     <input type="text" placeholder="Sport Name" class="form-control" required ng-model="sport.name">
+                     <ui-select ng-model="sport.sportslist" title="Select Sport">
+                        <ui-select-match placeholder="Select Sport">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="sport in sportsList | filter: $select.search">
+                           <span ng-bind-html="sport.name | highlight: $select.search"></span>
+                        </ui-select-choices>
+                     </ui-select>
                   </div>
                   <div class="form-group">
                      <label>Gender</label>

@@ -6,7 +6,10 @@
          <a href="#/wishlistfolder/{{usr}}" class="all-btn btn  btn-block">Whislist Folder <span class="badge">{{foldercount}}</span></a>
          <a href="#/wishlist/{{usr}}" class="all-btn btn  btn-block">Wishlist <span class="badge">{{sharecount}}</span></a>
          <a href="#/artwork/{{usr}}" class="all-btn btn  btn-block">Artwork <span class="badge">{{feedcount}}</span></a> -->
-         <a ui-sref="{{subMenu.redirect}}" class="all-btn btn  btn-block" ng-repeat="subMenu in subMenuList">{{subMenu.title}}</a>
+         <span ng-repeat="subMenu in subMenuList">
+         <a ui-sref="{{subMenu.redirect}}" class="all-btn btn  btn-block" ng-if="subMenu.redirect">{{subMenu.title}}</a>
+         <a href="{{subMenu.url}}" class="all-btn btn  btn-block" ng-if="subMenu.url">{{subMenu.title}}</a>
+         </span>
       </div>
    </div>
 
