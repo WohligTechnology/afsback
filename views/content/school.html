@@ -45,16 +45,13 @@
                         </tr>
                      </thead>
                      <tbody>
-                        <tr>
-                           <td>Search By :</td>
-                           <td>
-                              <input type="text" placeholder="School Id" class="form-control">
-                           </td>
-                           <td>
-                              <input type="text" placeholder="School Name" class="form-control">
-                           </td>
-                        </tr>
-                        <tr ng-repeat="school in schools">
+                       <tr ng-if="schools.length <= 0 && !contentLoaded" class="loadingTable">
+                         <td>Loading...</td>
+                       </tr>
+                       <tr ng-if="schools.length <= 0 && contentLoaded" class="loadingTable">
+                         <td>No Data Available</td>
+                       </tr>
+                        <tr ng-repeat="school in schools" ng-if="schools.length>0 && contentLoaded">
                            <td>{{$index+1}}</td>
                            <td>{{school.sfaid}}</td>
                            <td>{{school.name}}</td>
@@ -69,18 +66,7 @@
                               </a>
                            </td>
                         </tr>
-                        <!-- <tr>
-                           <td>2</td>
-                           <td>Facebook Pvt. Ltd.</td>
-                           <td>FAC123</td>
-                           <td>FB</td>
-                        </tr>
-                        <tr>
-                           <td>3</td>
-                           <td>Twitter Pvt. Ltd.</td>
-                           <td>TWI123</td>
-                           <td>TW</td>
-                        </tr> -->
+
                      </tbody>
                   </table>
                </div>

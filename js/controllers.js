@@ -55,9 +55,12 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
+    $scope.contentLoaded = false;
+    $scope.schools = [];
 
     NavigationService.getAllSchool(function(data) {
-        if (data.value != false) {
+      $scope.contentLoaded = true;
+        if (data.value !== false) {
             $scope.schools = data.data;
         }
     })
