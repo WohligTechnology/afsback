@@ -93,26 +93,26 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     NavigationService.getLastId(function(data) {
         console.log(data);
-        if (data.value != false) {
+        if (data.value !== false) {
             $scope.school.sfaid = data.data;
         }
-    })
+    });
 
     $scope.saveSchool = function() {
         schoolSports = [];
         _.each($scope.sportsList, function(n) {
-            if (n.checked == true) {
-                schoolSports.push(n);
-            }
-        })
+            schoolSports.push(_.filter(n,"checked"));
+        });
+        schoolSports = _.flatten(schoolSports);
         $scope.school.sports = schoolSports;
+        console.log(schoolSports);
         console.log($scope.school);
         NavigationService.saveSchool($scope.school, function(data) {
-            if (data.value != false) {
+            if (data.value !== false) {
                 $state.go('school');
             }
-        })
-    }
+        });
+    };
 
 })
 
@@ -122,7 +122,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.menutitle = NavigationService.makeactive("Schools");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
-    $scope.template.type = 2;
+    $scope.template.type = 1;
     $scope.subMenuList = [{
         title: "Back to School",
         redirect: "school"
