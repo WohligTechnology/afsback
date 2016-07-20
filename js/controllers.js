@@ -82,7 +82,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         console.log(data);
         if (data.value !== false) {
 
-            $scope.sportsList = _.groupBy(data.data,"sporttype");
+            $scope.sportsList = _.groupBy(data.data, "sporttype");
             // $scope.sportsList = data.data;
             // _.each($scope.sportsList, function(n) {
             //     n.checked = false;
@@ -101,7 +101,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.saveSchool = function() {
         schoolSports = [];
         _.each($scope.sportsList, function(n) {
-            schoolSports.push(_.filter(n,"checked"));
+            schoolSports.push(_.filter(n, "checked"));
         });
         schoolSports = _.flatten(schoolSports);
         $scope.school.sports = schoolSports;
@@ -116,7 +116,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 })
 
-.controller('editSchoolCtrl', function($scope, TemplateService, NavigationService, $timeout, $stateParams) {
+.controller('editSchoolCtrl', function($scope, TemplateService, NavigationService, $timeout, $stateParams, $state) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("createschool");
     $scope.menutitle = NavigationService.makeactive("Schools");
@@ -146,21 +146,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     $scope.saveSchool = function() {
         schoolSports = [];
-        _.each($scope.sportsArr, function(n) {
-            _.each(n.sports, function(z) {
-                if (z.checked == true) {
-                    schoolSports.push(z);
-                }
-            })
-        })
+        _.each($scope.sportsList, function(n) {
+            schoolSports.push(_.filter(n, "checked"));
+        });
+        schoolSports = _.flatten(schoolSports);
         $scope.school.sports = schoolSports;
+        console.log(schoolSports);
         console.log($scope.school);
         NavigationService.saveSchool($scope.school, function(data) {
-            if (data.value != false) {
+            if (data.value !== false) {
                 $state.go('school');
             }
-        })
-    }
+        });
+    };
 
 
     NavigationService.getOneSchool($stateParams.id, function(data) {
@@ -168,10 +166,25 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         if (data.value !== false) {
             $scope.school = data.data;
             NavigationService.getAllSportList(function(sportdata) {
-                console.log(sportdata);
+
+
+                _.each(data.data.sports, function(n) {
+
+                    var num = _.findIndex(sportdata.data, function(m) {
+
+                        return n._id == m._id;
+                    });
+
+                    if (num >= 0) {
+                        sportdata.data[num].checked = true;
+                    }
+
+                });
+
+
                 if (sportdata.value !== false) {
 
-                    $scope.sportsList = _.groupBy(sportdata.data,"sporttype");
+                    $scope.sportsList = _.groupBy(sportdata.data, "sporttype");
                     // $scope.sportsList = data.data;
                     // _.each($scope.sportsList, function(n) {
                     //     n.checked = false;
