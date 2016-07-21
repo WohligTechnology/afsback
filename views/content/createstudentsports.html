@@ -26,6 +26,15 @@
             <div class="widget">
                <div class="form-elements-sec">
                   <div class="form-group">
+                     <label>Select School</label>
+                     <ui-select ng-model="sport.school" title="Select School" on-select="getSchoolSports(sport.school);">
+                        <ui-select-match placeholder="Select School">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="school in schools | filter: $select.search">
+                           <span ng-bind-html="school.name | highlight: $select.search"></span>
+                        </ui-select-choices>
+                     </ui-select>
+                  </div>
+                  <div class="form-group">
                      <label>Sport Name</label>
                      <ui-select ng-model="sport.sportslist" title="Select Sport" on-select="getFirstCategory(sport.sportslist);">
                         <ui-select-match placeholder="Select Sport">{{$select.selected.name}}</ui-select-match>
@@ -40,14 +49,6 @@
                         <option value="">Select Gender</option>
                         <option value="Boys">Boys</option>
                         <option value="Girls">Girls</option>
-                     </select>
-                  </div>
-                  <div class="form-group">
-                     <label>Draw Format</label>
-                     <select class="form-control" ng-model="sport.drawFormat">
-                        <option value="">Select Draw Format</option>
-                        <option value="Knockout">Knockout</option>
-                        <option value="Round Robin-Knockout">Round Robin-Knockout</option>
                      </select>
                   </div>
                </div>

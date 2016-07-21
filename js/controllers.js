@@ -42,10 +42,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
 
-    NavigationService.getCurrentPosition(function(data) {
-        console.log(data);
-    });
-
 })
 
 .controller('schoolCtrl', function($scope, TemplateService, NavigationService, $timeout) {
@@ -448,18 +444,25 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         console.log(data);
         if (data.value != false) {
             $scope.sports = data.data;
-            getSchoolSports(data.data.school._id);
         }
     })
 
-    function getSchoolSports(id) {
-        NavigationService.getSchoolSports(id, function(data) {
+    NavigationService.getSchoolList(function(data) {
+        if (data.value != false) {
+            $scope.schools = data.data;
+        }
+    })
+
+    $scope.getSchoolSports = function(school) {
+        console.log(school);
+        NavigationService.getSchoolSports(school._id, function(data) {
             console.log(data);
             if (data.value != false) {
                 $scope.schoolSports = data.data;
             }
         })
     }
+
     $scope.firstcategories = [];
     $scope.secondcategories = [];
     $scope.thirdcategories = [];
