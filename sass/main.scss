@@ -12,25 +12,25 @@
 @import "../bower_components/angular-ui-select/dist/select.css";
 body {}
 img.loading {
-  text-align: center;
-  opacity: 1;
-  width: 32px !important;
-  height: auto;
+    text-align: center;
+    opacity: 1;
+    width: 32px !important;
+    height: auto;
 }
 img {
-  opacity: 0;
-  @include transition(all 300ms ease);
+    opacity: 0;
+    @include transition(all 300ms ease);
 }
 img.doneLoading {
-  opacity: 1;
+    opacity: 1;
 }
 nav li:hover .dropdown-menu {
-  display: block;
+    display: block;
 }
 .btn,
 a {
-  cursor: pointer;
-  @include transition(all ease 300ms);
+    cursor: pointer;
+    @include transition(all ease 300ms);
 }
 //bootstrap forms
 .btn,
@@ -39,70 +39,80 @@ a {
 .input-group-lg > .input-group-addon,
 .input-group-lg > .input-group-btn > .btn,
 .input-lg {
-  border-radius: 0;
-  @include box-shadow(none);
+    border-radius: 0;
+    @include box-shadow(none);
 }
 .form-control:focus {
-  border-color: $brand-primary;
-  outline: 0;
-  @include box-shadow(none);
+    border-color: $brand-primary;
+    outline: 0;
+    @include box-shadow(none);
 }
 .mt20 {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 .widget-title .error {
-  color: red;
+    color: red;
 }
 input:focus {
-  outline: none;
+    outline: none;
 }
 .input-email {
-  border: 1px solid #e6eaea;
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  -ms-border-radius: 30px;
-  -o-border-radius: 30px;
-  border-radius: 30px;
-  float: left;
-  font-size: 13px;
-  letter-spacing: 0.5px;
-  margin-bottom: 10px;
-  padding: 13px 30px;
-  width: 100%;
+    border: 1px solid #e6eaea;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    border-radius: 30px;
+    float: left;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    padding: 13px 30px;
+    width: 100%;
 }
 .checkbox {
-  label {
-    margin-right: 15px;
-  }
+    label {
+        margin-right: 15px;
+    }
 }
 .main-content {
-  float: left;
-  padding: 74px 11px 80px 232px;
-  width: 100%;
-  -webkit-transition: all 0.4s ease 0s;
-  -moz-transition: all 0.4s ease 0s;
-  -ms-transition: all 0.4s ease 0s;
-  -o-transition: all 0.4s ease 0s;
-  transition: all 0.4s ease 0s;
+    float: left;
+    padding: 74px 11px 80px 232px;
+    width: 100%;
+    -webkit-transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    -ms-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
 }
 .submenu-content {
-  padding: 119px 0 0;
-  width: 100%;
-  -webkit-transition: all 0.4s ease 0s;
-  -moz-transition: all 0.4s ease 0s;
-  -ms-transition: all 0.4s ease 0s;
-  -o-transition: all 0.4s ease 0s;
-  transition: all 0.4s ease 0s;
-  margin-left: -8px;
+    padding: 119px 0 0;
+    width: 100%;
+    -webkit-transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    -ms-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+    margin-left: -8px;
 }
 .panel-content {
-  float: left;
-  margin-top: -26px;
-  padding-top: 20px;
-  width: 100%;
+    float: left;
+    margin-top: -26px;
+    padding-top: 20px;
+    width: 100%;
 }
 .main-content.wide-content {
-  padding-left: 10px;
+    padding-left: 10px;
+}
+.tableSearch {
+    -webkit-appearance: none;
+    display: inline-block;
+    float: left;
+    width: 300px;
+    margin-right: 20px;
+}
+.upload-pic {
+  padding: 0 40px 20px;
 }
 //bootstrap forms
 /* Start writing sass here */

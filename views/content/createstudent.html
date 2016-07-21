@@ -9,162 +9,260 @@
   </ul>
 </div> -->
 <div class="heading-sec">
-   <div class="row">
-      <div class="col-md-4 column">
-         <div class="heading-profile">
-            <h2>{{pageName}}</h2>
-         </div>
-      </div>
-   </div>
+    <div class="row">
+        <div class="col-md-4 column">
+            <div class="heading-profile">
+                <h2>{{pageName}}</h2>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Top Bar Chart -->
 <div class="panel-content">
-   <div class="row">
-      <div class="col-md-12">
-         <form ng-submit="saveStudent();">
-            <div class="widget">
-               <div class="form-elements-sec">
-                  <div class="row">
-                     <div class="col-md-6">
-                        <div class="form-group">
-                           <label>Student Id*</label>
-                           <input type="text" placeholder="Student Id" class="form-control" ng-model="student.sfaid" required readonly>
+    <div class="row">
+        <div class="col-md-12">
+            <form ng-submit="saveStudent();">
+                <div class="widget">
+                    <div class="form-elements-sec">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Student Id*</label>
+                                    <input type="text" placeholder="Student Id" class="form-control" ng-model="student.sfaid" required readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="last-name">Last Name</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="middle-name">Middle Name</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="first-name">First Name</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                           <label>Gender*</label>
-                           <select class="form-control" ng-model="student.gender" required>
-                              <option value="">Select Gender</option>
-                              <option value="Boys">Boy</option>
-                              <option value="Girls">Girl</option>
-                           </select>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Gender*</label>
+                                    <select class="form-control" ng-model="student.gender" required>
+                                        <option value="">Select Gender</option>
+                                        <option value="Boys">Boy</option>
+                                        <option value="Girls">Girl</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Date Of Birth</label>
+                                    <p class="input-group">
+                                        <input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" ng-model="student.dob" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" show-button-bar="false" popup-placement="bottom-right" placeholder="Date Of Birth" readonly/>
+                                        <span class="input-group-btn">
+                                             <button type="button" class="btn btn-default" ng-click="open1()">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                             </button>
+                                       </span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>School*</label>
+                                    <ui-select ng-model="student.school" title="Select School">
+                                        <ui-select-match placeholder="Select School">{{$select.selected.name}}</ui-select-match>
+                                        <ui-select-choices repeat="school in schools | filter: $select.search">
+                                            <span ng-bind-html="school.name | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                           <label>School*</label>
-                           <ui-select ng-model="student.school" title="Select School">
-                              <ui-select-match placeholder="Select School">{{$select.selected.name}}</ui-select-match>
-                              <ui-select-choices repeat="school in schools | filter: $select.search">
-                                 <span ng-bind-html="school.name | highlight: $select.search"></span>
-                              </ui-select-choices>
-                           </ui-select>
+                    </div>
+                    <!-- 
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Student Id*</label>
+                                    <input type="text" placeholder="Student Id" class="form-control" ng-model="student.sfaid" required readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Gender*</label>
+                                    <select class="form-control" ng-model="student.gender" required>
+                                        <option value="">Select Gender</option>
+                                        <option value="Boys">Boy</option>
+                                        <option value="Girls">Girl</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>School*</label>
+                                    <ui-select ng-model="student.school" title="Select School">
+                                        <ui-select-match placeholder="Select School">{{$select.selected.name}}</ui-select-match>
+                                        <ui-select-choices repeat="school in schools | filter: $select.search">
+                                            <span ng-bind-html="school.name | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Student Name*</label>
+                                    <input type="text" placeholder="Student Name" class="form-control" ng-model="student.name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Date Of Birth</label>
+                                    <p class="input-group">
+                                        <input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" ng-model="student.dob" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" show-button-bar="false" popup-placement="bottom-right" placeholder="Date Of Birth" readonly/>
+                                        <span class="input-group-btn">
+                                             <button type="button" class="btn btn-default" ng-click="open1()">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                             </button>
+                                       </span>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="form-group">
-                           <label>Student Name*</label>
-                           <input type="text" placeholder="Student Name" class="form-control" ng-model="student.name" required>
+                    </div> -->
+                    <div class="form-elements-sec">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="widget">
+                                    <div class="">
+                                        <div class="form-group">
+                                            <label>Address</label>
+                                            <textarea placeholder="Address" class="form-control" ng-model="student.address"> </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="widget">
+                                    <div class="">
+                                        <div class="form-group">
+                                            <label>Location</label>
+                                            <input type="text" placeholder="Location" class="form-control" ng-model="student.location">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                           <label>Date Of Birth</label>
-                           <p class="input-group">
-                              <input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" ng-model="student.dob" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" show-button-bar="false" popup-placement="bottom-right" placeholder="Date Of Birth"
-                                readonly/>
-                              <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="open1()">
-                              <i class="glyphicon glyphicon-calendar"></i>
-                            </button>
-                            </span>
-                           </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="widget">
+                                    <div class="">
+                                        <div class="form-group">
+                                            <label>Email (Comma seperated)*</label>
+                                            <input type="text" placeholder="Email (Comma seperated)" class="form-control" ng-model="student.email" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="widget">
+                                    <div class="">
+                                        <div class="form-group">
+                                            <label>Contact (Comma seperated)*</label>
+                                            <input type="text" placeholder="Contact (Comma seperated)" class="form-control" ng-model="student.contact" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <!-- <div class="form-group">
-                           <label>School*</label>
-                           <select class="form-control">
-                              <option value="">Select School</option>
-                              <option value="Male">Male</option>
-                              <option value="Female">Female</option>
-                           </select>
-                        </div> -->
-                     </div>
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col-md-6">
-                     <div class="widget">
-                        <div class="form-elements-sec">
-                           <div class="widget-title">
-                              <h3>Address</h3>
-                           </div>
-                           <div class="form-group">
-                              <label>Address</label>
-                              <textarea placeholder="Address" class="form-control"> </textarea>
-                           </div>
-                           <div class="form-group">
-                              <label>Location</label>
-                              <input type="text" placeholder="Location" class="form-control">
-                           </div>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="col-md-6">
+                            <div class="widget">
+                                <div class="form-elements-sec">
+                                    <div class="form-group">
+                                        <label>Address</label>
+                                        <textarea placeholder="Address" class="form-control" ng-model="student.address"> </textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Location</label>
+                                        <input type="text" placeholder="Location" class="form-control" ng-model="student.location">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                     </div>
-                  </div>
-                  <div class="col-md-6">
-                     <div class="widget">
-                        <div class="form-elements-sec">
-                           <div class="widget-title">
-                              <h3>Contact</h3>
-                           </div>
-                           <div class="form-group">
-                              <label>Email (Comma seperated)</label>
-                              <input type="email" placeholder="Email (Comma seperated)" class="form-control">
-                           </div>
-                           <div class="form-group">
-                              <label>Contact (Comma seperated)</label>
-                              <input type="text" placeholder="Contact (Comma seperated)" class="form-control">
-                           </div>
+                        <div class="col-md-6">
+                            <div class="widget">
+                                <div class="form-elements-sec">
+                                    <div class="form-group">
+                                        <label>Email (Comma seperated)*</label>
+                                        <input type="text" placeholder="Email (Comma seperated)" class="form-control" ng-model="student.email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Contact (Comma seperated)*</label>
+                                        <input type="text" placeholder="Contact (Comma seperated)" class="form-control" ng-model="student.contact" required>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="rosw">
-                  <div class="col-md-12">
-                     <div class="widget">
-                        <div class="form-elements-sec">
-                           <div class="form-group">
-                              <h5>Medals Tally</h5>
-                              <div class="row">
-                                 <div class="col-md-4">
-                                    <label>Gold</label>
-                                    <input type="text" placeholder="Gold" class="form-control">
-                                 </div>
-                                 <div class="col-md-4">
-                                    <label>Silver</label>
-                                    <input type="text" placeholder="Silver" class="form-control">
-                                 </div>
-                                 <div class="col-md-4">
-                                    <label>Bronze</label>
-                                    <input type="text" placeholder="Bronze" class="form-control">
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="form-group">
-                              <label>Profile Picture</label>
-                              <input type="file" class="form-control">
-                           </div>
-                           <div class="row">
-                              <div class="col-md-6">
-                                 <div class="form-group">
-                                    <label>Videos (Comma seperated)</label>
-                                    <input type="email" placeholder="Videos (Comma seperated)" class="form-control">
-                                 </div>
-                              </div>
-                              <div class="col-md-6">
-                                 <div class="form-group">
-                                    <label>Photos (Comma seperated)</label>
-                                    <input type="text" placeholder="Photos (Comma seperated)" class="form-control">
-                                 </div>
-                              </div>
-                           </div>
+                    </div> -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="">
+                                <div class="form-elements-sec upload-pic">
+                                    <!--  <div class="form-group">
+                                        <h5>Medals Tally</h5>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>Gold</label>
+                                                <input type="text" placeholder="Gold" class="form-control">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Silver</label>
+                                                <input type="text" placeholder="Silver" class="form-control">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Bronze</label>
+                                                <input type="text" placeholder="Bronze" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="form-group">
+                                        <label>Profile Picture</label>
+                                        <input type="file" class="form-control" ng-model="student.profilePicturre">
+                                    </div>
+                                    <!--  <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Videos (Comma seperated)</label>
+                                                <input type="email" placeholder="Videos (Comma seperated)" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Photos (Comma seperated)</label>
+                                                <input type="text" placeholder="Photos (Comma seperated)" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
                         </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="text-center mt20">
-                     <button class="btn btn-default" type="submit">Save</button>
-                     <button class="btn btn-default" type="submit">Cancel</button>
-                  </div>
-               </div>
-            </div>
-         </form>
-      </div>
-   </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="text-center mt20" ng-if="showError ==true">
+                            <span class="error">Please enter proper contact no.</span>
+                        </div>
+                        <div class="text-center mt20">
+                            <button class="btn btn-default" type="submit">Save</button>
+                            <button class="btn btn-default" type="submit">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
