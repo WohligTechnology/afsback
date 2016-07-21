@@ -250,11 +250,33 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="">
+                                <div class="form-elements-sec">
+                                 <div class="form-group">
+                                        <label>Date Of Form</label>
+                                        <input type="text" class="form-control" placeholder="Date Of Form" ng-model="student.dateOfForm">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="">
+                                <div class="form-elements-sec">
+                                 <div class="form-group">
+                                        <label>Time Of Form</label>
+                                        <input type="text" class="form-control" placeholder="Time Of Form" ng-model="student.timeOfForm">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="text-center mt20" ng-if="showError ==true">
-                            <span class="error">Please enter proper contact no.</span>
+                            <span class="error">Please enter proper contact no. & email-id</span>
                         </div>
                         <div class="text-center mt20">
                             <button class="btn btn-default" type="submit">Save</button>

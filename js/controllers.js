@@ -259,7 +259,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     reload();
     $scope.deleteStudent = function(id, status) {
         NavigationService.hideStudent({ _id: id, status: status }, function(data2) {
-            console.log(data2);
             reload();
         });
     }
@@ -296,14 +295,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     $scope.saveStudent = function() {
         $scope.showError = false;
-        schoolSports = [];
-        _.each($scope.sportsList, function(n) {
-            schoolSports.push(_.filter(n, "checked"));
-        });
-        schoolSports = _.flatten(schoolSports);
-        $scope.school.sports = schoolSports;
-        $scope.school.contact = $scope.school.contact.toString();
-        var split = $scope.school.contact.split(",");
+        $scope.student.contact = $scope.student.contact.toString();
+        var split = $scope.student.contact.split(",");
+        // var splitEmail = $scope.student.email.split(",");
         _.each(split, function(n) {
             if (n.length != 10) {
                 $scope.error = true;
@@ -311,6 +305,14 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $scope.error = false;
             }
         });
+        // var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
+        // _.each(splitEmail, function(n) {
+        //     if (re.test(n)) {
+        //         $scope.error = false;
+        //     } else {
+        //         $scope.error = true;
+        //     }
+        // });
         if ($scope.error == true) {
             $scope.showError = true;
             $timeout(function() {
@@ -382,14 +384,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     $scope.saveStudent = function() {
         $scope.showError = false;
-        schoolSports = [];
-        _.each($scope.sportsList, function(n) {
-            schoolSports.push(_.filter(n, "checked"));
-        });
-        schoolSports = _.flatten(schoolSports);
-        $scope.school.sports = schoolSports;
-        $scope.school.contact = $scope.school.contact.toString();
-        var split = $scope.school.contact.split(",");
+        $scope.student.contact = $scope.student.contact.toString();
+        var split = $scope.student.contact.split(",");
+        // var splitEmail = $scope.student.email.split(",");
         _.each(split, function(n) {
             if (n.length != 10) {
                 $scope.error = true;
@@ -397,6 +394,14 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $scope.error = false;
             }
         });
+        // var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
+        // _.each(splitEmail, function(n) {
+        //     if (re.test(n)) {
+        //         $scope.error = false;
+        //     } else {
+        //         $scope.error = true;
+        //     }
+        // });
         if ($scope.error == true) {
             $scope.showError = true;
             $timeout(function() {
