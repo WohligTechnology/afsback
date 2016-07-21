@@ -1,5 +1,5 @@
 <!-- <div id="progressBar">
-	<div class="loader"></div>
+  <div class="loader"></div>
 </div> -->
 <!-- <div class="breadcrumbs">
    <ul>
@@ -11,66 +11,72 @@
       </li>
    </ul>
 </div> -->
-
 <div class="heading-sec">
-   <div class="row">
-      <div class="col-md-4 column">
-         <div class="heading-profile">
-            <h2>Schools</h2>
-         </div>
-      </div>
-   </div>
+    <div class="row">
+        <div class="col-md-4 column">
+            <div class="heading-profile">
+                <h2>Schools</h2>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Top Bar Chart -->
 <div class="panel-content">
-   <div class="row">
-      <div class="col-md-12">
-         <div class="widget">
-            <div class="table-area">
-
-               <div class="widget-title">
-                  <div class="pull-right">
-                    <input type="search" name="name" value="" placeholder="Search..." class="form-control tableSearch" ng-model="search"> <a class="btn btn-primary" ui-sref="createschool">Add New</a>
-                  </div>
-                  <h3>List of Schools</h3>
-               </div>
-               <div class="table-responsive">
-                  <table class="table">
-                     <thead>
-                        <tr>
-                           <th>#</th>
-                           <th>School Id</th>
-                           <th>School Name</th>
-                           <th class="text-center" colspan="2">Operations</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                       <tr ng-if="schools.length <= 0 && !contentLoaded" class="loadingTable">
-                         <td>Loading...</td>
-                       </tr>
-                       <tr ng-if="schools.length <= 0 && contentLoaded" class="loadingTable">
-                         <td>No Data Available</td>
-                       </tr>
-                        <tr ng-repeat="school in schools | filter:search" ng-if="schools.length>0 && contentLoaded">
-                           <td>{{$index+1}}</td>
-                           <td>{{school.sfaid}}</td>
-                           <td>{{school.name}}</td>
-                           <td class="text-center">
-                              <a ui-sref="editschool({id:school._id})" class="btn btn-primary">
-                                 <i class="fa fa-pencil-square-o"></i>
-                              </a>
-                           </td>
-                           <td class="text-center">
-                              <a ng-click="deletefun(value._id)" class="btn btn-primary">
-                                 <i class="fa fa-trash"></i>
-                              </a>
-                           </td>
-                        </tr>
-                     </tbody>
-                  </table>
-               </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="table-area">
+                    <div class="widget-title">
+                        <div class="pull-right">
+                            <input type="search" name="name" value="" placeholder="Search..." class="form-control tableSearch" ng-model="search"> <a class="btn btn-primary" ui-sref="createschool">Add New</a>
+                        </div>
+                        <h3>List of Schools</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>School Id</th>
+                                    <th>School Name</th>
+                                    <th class="text-center" colspan="3">Operations</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-if="schools.length <= 0 && !contentLoaded" class="loadingTable">
+                                    <td>Loading...</td>
+                                </tr>
+                                <tr ng-if="schools.length <= 0 && contentLoaded" class="loadingTable">
+                                    <td>No Data Available</td>
+                                </tr>
+                                <tr ng-repeat="school in schools | filter:search" ng-if="schools.length>0 && contentLoaded">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{school.sfaid}}</td>
+                                    <td>{{school.name}}</td>
+                                    <td class="text-center">
+                                        <a ui-sref="editschool({id:school._id})" class="btn btn-primary">
+                                            <i class="fa fa-pencil-square-o"></i>
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a ng-click="deleteSchool(school._id,true)" class="btn btn-primary wd75" ng-if="school.deleteStatus == false">
+                                            <span>Hide</span>
+                                        </a>
+                                        <a ng-click="deleteSchool(school._id,false)" class="btn btn-primary wd75" ng-if="school.deleteStatus == true">
+                                            <span>Unhide</span>
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a ng-click="deleteFunc(school._id)" class="btn btn-primary">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
 </div>

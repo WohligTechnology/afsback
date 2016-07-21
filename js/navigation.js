@@ -238,6 +238,71 @@ var navigationservice = angular.module('navigationservice', [])
                 data: obj
             }).success(callback);
         },
+        hideSchool: function(data, callback) {
+            $http({
+                url: adminURL + 'school/hide',
+                method: 'POST',
+                data: data
+            }).success(callback);
+        },
+        hideStudent: function(data, callback) {
+            $http({
+                url: adminURL + 'student/hide',
+                method: 'POST',
+                data: data
+            }).success(callback);
+        },
+        deleteSportsList: function(id, callback) {
+            $http({
+                url: adminURL + 'sportslist/deleteData',
+                method: 'POST',
+                data: {
+                    _id: id
+                }
+            }).success(callback);
+        },
+        deleteSport: function(id, callback) {
+            $http({
+                url: adminURL + 'sport/deleteData',
+                method: 'POST',
+                data: {
+                    _id: id
+                }
+            }).success(callback);
+        },
+        deleteAgegroup: function(id, callback) {
+            $http({
+                url: adminURL + 'agegroup/deleteData',
+                method: 'POST',
+                data: {
+                    _id: id
+                }
+            }).success(callback);
+        },
+        deleteSchool: function(id, callback) {
+            $http({
+                url: adminURL + 'school/deleteData',
+                method: 'POST',
+                data: {
+                    _id: id
+                }
+            }).success(callback);
+        },
+        deleteStudent: function(id, callback) {
+            $http({
+                url: adminURL + 'student/deleteData',
+                method: 'POST',
+                data: {
+                    _id: id
+                }
+            }).success(callback);
+        },
+        getStudentList: function(callback) {
+            $http({
+                url: adminURL + 'student/getStud',
+                method: 'POST'
+            }).success(callback);
+        },
         makeactive: function(menuname) {
             for (var i = 0; i < navigation.length; i++) {
                 if (navigation[i].name == menuname) {

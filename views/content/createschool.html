@@ -125,7 +125,14 @@
                                                         <input type="text" class="form-control" ng-model="cl.year" placeholder="Year" maxlength="4" only-digits>
                                                     </td>
                                                     <td>
-                                                        <input type="text" class="form-control" ng-model="cl.name" placeholder="Name">
+                                                        <div class="form-group">
+                                                            <ui-select ng-model="cl.student" title="Select Student">
+                                                                <ui-select-match placeholder="Select Student">{{$select.selected.name}}</ui-select-match>
+                                                                <ui-select-choices repeat="student in students | filter: $select.search">
+                                                                    <span ng-bind-html="student.name | highlight: $select.search"></span>
+                                                                </ui-select-choices>
+                                                            </ui-select>
+                                                        </div>
                                                     </td>
                                                     <td>
                                                         <input class="btn btn-danger" type="button" ng-click="remove(school.contingentLeader.indexOf(cl),school.contingentLeader);" value="Delete">

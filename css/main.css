@@ -25830,7 +25830,9 @@ input:focus {
 
 .fancybox-overlay {
   background-color: rgba(0, 0, 0, 0.75); }
-
+.wd75{
+  width:75px;
+}
 #fancybox-loading div {
   background: url("../img/fancybox_loading.gif") center center no-repeat; }
 

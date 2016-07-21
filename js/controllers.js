@@ -58,12 +58,26 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.contentLoaded = false;
     $scope.schools = [];
 
-    NavigationService.getAllSchool(function(data) {
-        $scope.contentLoaded = true;
-        if (data.value !== false) {
-            $scope.schools = data.data;
-        }
-    });
+    function reload() {
+        NavigationService.getAllSchool(function(data) {
+            $scope.contentLoaded = true;
+            if (data.value !== false) {
+                $scope.schools = data.data;
+            }
+        });
+    }
+    reload();
+    $scope.deleteSchool = function(id, status) {
+        NavigationService.hideSchool({ _id: id, status: status }, function(data2) {
+            console.log(data2);
+            reload();
+        });
+    }
+    $scope.deleteFunc = function(id) {
+        NavigationService.deleteSchool(id, function(data2) {
+            reload();
+        });
+    }
 })
 
 .controller('createSchoolCtrl', function($scope, TemplateService, NavigationService, $timeout, $state) {
@@ -82,12 +96,12 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         if (!crdv.contingentLeader) {
             crdv.contingentLeader = [{
                 "year": "",
-                "name": ""
+                "student": ""
             }];
         } else {
             crdv.contingentLeader.push({
                 "year": "",
-                "name": ""
+                "student": ""
             });
         }
     };
@@ -104,6 +118,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     NavigationService.getLastId(function(data) {
         if (data.value !== false) {
             $scope.school.sfaid = data.data;
+        }
+    });
+    NavigationService.getStudentList(function(data) {
+        if (data.value != false) {
+            $scope.students = data.data;
         }
     });
     $scope.showError = false;
@@ -129,6 +148,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $scope.showError = false;
             }, 3000);
         } else {
+            console.log($scope.school);
             NavigationService.saveSchool($scope.school, function(data) {
                 if (data.value !== false) {
                     $scope.showError = false;
@@ -153,19 +173,23 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         if (!crdv.contingentLeader) {
             crdv.contingentLeader = [{
                 "year": "",
-                "name": ""
+                "student": ""
             }];
         } else {
             crdv.contingentLeader.push({
                 "year": "",
-                "name": ""
+                "student": ""
             });
         }
     };
     $scope.remove = function(i, dev) {
         dev.splice(i, 1);
     };
-
+    NavigationService.getStudentList(function(data) {
+        if (data.value != false) {
+            $scope.students = data.data;
+        }
+    });
     var schoolSports = [];
     $scope.showError = false;
     $scope.saveSchool = function() {
@@ -229,11 +253,25 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
 
-    NavigationService.getAllStudent(function(data) {
-        if (data.value != false) {
-            $scope.students = data.data;
-        }
-    })
+    function reload() {
+        NavigationService.getAllStudent(function(data) {
+            if (data.value != false) {
+                $scope.students = data.data;
+            }
+        });
+    }
+    reload();
+    $scope.deleteStudent = function(id, status) {
+        NavigationService.hideStudent({ _id: id, status: status }, function(data2) {
+            console.log(data2);
+            reload();
+        });
+    }
+    $scope.deleteFunc = function(id) {
+        NavigationService.deleteStudent(id, function(data2) {
+            reload();
+        });
+    }
 })
 
 .controller('createStudentCtrl', function($scope, TemplateService, NavigationService, $timeout, $state) {
@@ -252,13 +290,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         if (data.value != false) {
             $scope.student.sfaid = data.data;
         }
-    })
+    });
 
     NavigationService.getSchoolList(function(data) {
         if (data.value != false) {
             $scope.schools = data.data;
         }
-    })
+    });
 
     $scope.saveStudent = function() {
         $scope.showError = false;
@@ -495,13 +533,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
 
-    NavigationService.getAllSportList(function(data) {
-        console.log(data);
-        if (data.value != false) {
-            $scope.sportsList = data.data;
-        }
-    })
+    function reload() {
+        NavigationService.getAllSportList(function(data) {
+            console.log(data);
+            if (data.value != false) {
+                $scope.sportsList = data.data;
+            }
+        });
+    }
+    reload();
 
+    $scope.deleteFunc = function(id) {
+        NavigationService.deleteSportsList(id, function(data2) {
+            reload();
+        });
+    }
 })
 
 .controller('createSportListCtrl', function($scope, TemplateService, NavigationService, $timeout, $state) {
@@ -565,12 +611,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
 
-    NavigationService.getAllSport(function(data) {
-        console.log(data);
-        if (data.value != false) {
-            $scope.sports = data.data;
-        }
-    })
+    function reload() {
+        NavigationService.getAllSport(function(data) {
+            console.log(data);
+            if (data.value != false) {
+                $scope.sports = data.data;
+            }
+        });
+    }
+    reload();
+
+    $scope.deleteFunc = function(id) {
+        NavigationService.deleteSport(id, function(data2) {
+            reload();
+        });
+    }
 
 })
 
@@ -832,12 +887,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
 
-    NavigationService.getAllAgeGroup(function(data) {
-        console.log(data);
-        if (data.value != false) {
-            $scope.ageGroups = data.data;
-        }
-    })
+    function reload() {
+        NavigationService.getAllAgeGroup(function(data) {
+            console.log(data);
+            if (data.value != false) {
+                $scope.ageGroups = data.data;
+            }
+        });
+    }
+    reload();
+
+    $scope.deleteFunc = function(id) {
+        NavigationService.deleteAgegroup(id, function(data2) {
+            reload();
+        });
+    }
 
 })
 
