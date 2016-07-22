@@ -226,12 +226,14 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     var schoolSports = [];
     $scope.showError = false;
     $scope.saveSchool = function() {
-        schoolSports = [];
-        _.each($scope.sportsList, function(n) {
-            schoolSports.push(_.filter(n, "checked"));
+        var schoolSports = [];
+        _.each($scope.sportsListArr, function(years) {
+            _.each(years, function(category) {
+                schoolSports.push(_.filter(category, "checked"));
+            });
         });
-        schoolSports = _.flattenDeep(schoolSports);
-        $scope.school.sports = schoolSports;
+        $scope.school.sports = schoolSports = _.flattenDeep(schoolSports);
+        $scope.school.contact = $scope.school.contact.toString();
         var split = $scope.school.contact.split(",");
         _.each(split, function(n) {
             if (n.length != 10) {
@@ -246,6 +248,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $scope.showError = false;
             }, 3000);
         } else {
+            console.log($scope.school);
             NavigationService.saveSchool($scope.school, function(data) {
                 if (data.value !== false) {
                     $scope.showError = false;
