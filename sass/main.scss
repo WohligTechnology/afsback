@@ -8,7 +8,7 @@
 @import "template/icons";
 @import "template/main";
 @import "template/responsive";
-@import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css";
+//@import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css";
 @import "../bower_components/angular-ui-select/dist/select.css";
 body {}
 img.loading {
@@ -113,6 +113,21 @@ input:focus {
 }
 .upload-pic {
   padding: 0 40px 20px;
+}
+.more-text {
+ padding: 50px 20px;
+}
+.modal-dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    @include transform(translate(-50%,-50%)!important);
+}
+.modal-open {
+    padding-right: 0px !important;
+}
+.wd75 {
+width: 75px;
 }
 //bootstrap forms
 /* Start writing sass here */

@@ -44,7 +44,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 })
 
-.controller('schoolCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+.controller('schoolCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("school");
     $scope.menutitle = NavigationService.makeactive("Schools");
@@ -63,16 +63,25 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         });
     }
     reload();
-    $scope.deleteSchool = function(id, status) {
+    $scope.hideSchool = function(id, status) {
         NavigationService.hideSchool({ _id: id, status: status }, function(data2) {
             console.log(data2);
             reload();
         });
     }
-    $scope.deleteFunc = function(id) {
-        NavigationService.deleteSchool(id, function(data2) {
+    $scope.confDelete = function() {
+        NavigationService.deleteSchool(function(data, status) {
+            console.log(data);
             reload();
         });
+    }
+    $scope.deleteFunc = function(id) {
+        $.jStorage.set("deleteSchool", id);
+        $uibModal.open({
+            animation: true,
+            templateUrl: "views/content/delete.html",
+            scope: $scope
+        })
     }
 })
 
@@ -181,6 +190,29 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.remove = function(i, dev) {
         dev.splice(i, 1);
     };
+
+    $scope.addDept = function(crdv) {
+        if (!crdv.department) {
+            crdv.department = [{
+                "year": "",
+                "name": "",
+                "designation": "",
+                "contact": "",
+                "email": ""
+            }];
+        } else {
+            crdv.department.push({
+                "year": "",
+                "name": "",
+                "designation": "",
+                "contact": "",
+                "email": ""
+            });
+        }
+    };
+    $scope.removeDept = function(i, dev) {
+        dev.splice(i, 1);
+    };
     NavigationService.getStudentList(function(data) {
         if (data.value != false) {
             $scope.students = data.data;
@@ -241,7 +273,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     });
 })
 
-.controller('studentCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+.controller('studentCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("student");
     $scope.menutitle = NavigationService.makeactive("Students");
@@ -257,15 +289,27 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         });
     }
     reload();
-    $scope.deleteStudent = function(id, status) {
+    $scope.hideStudent = function(id, status) {
         NavigationService.hideStudent({ _id: id, status: status }, function(data2) {
+            console.log(data2);
+            reload();
+        });
+    }
+    $scope.confDelete = function() {
+        NavigationService.deleteStudent(function(data, status) {
+            console.log(data);
             reload();
         });
     }
     $scope.deleteFunc = function(id) {
-        NavigationService.deleteStudent(id, function(data2) {
-            reload();
-        });
+        console.log(id);
+        $.jStorage.set("deleteStudent", id);
+        $.jStorage.get("deleteStudent");
+        $uibModal.open({
+            animation: true,
+            templateUrl: "views/content/delete.html",
+            scope: $scope
+        })
     }
 })
 
@@ -502,7 +546,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             console.log($scope.secondcategories);
             console.log($scope.thirdcategories);
             console.log($scope.agegroups);
-        })
+        });
     }
 
 })

@@ -279,21 +279,21 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        deleteSchool: function(id, callback) {
+        deleteSchool: function(callback) {
             $http({
                 url: adminURL + 'school/deleteData',
                 method: 'POST',
                 data: {
-                    _id: id
+                    _id: $.jStorage.get("deleteSchool")
                 }
             }).success(callback);
         },
-        deleteStudent: function(id, callback) {
+        deleteStudent: function(callback) {
             $http({
                 url: adminURL + 'student/deleteData',
                 method: 'POST',
                 data: {
-                    _id: id
+                    _id: $.jStorage.get("deleteStudent")
                 }
             }).success(callback);
         },
