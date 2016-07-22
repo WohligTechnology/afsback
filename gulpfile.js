@@ -31,7 +31,7 @@ var replacehostTo = "http://wohlig.co.in/demo2/";
 
 var ftpString = "U2FsdGVkX1+jcFED/CJbcYNiOJ42eBsjlxqmrcKWSIPH9Sao/4535zPQX5Fa7VYGAHSfkKCXbDpiUfJhkRRijaerS1lJ/k+dSfqsfl45ICkzMTJ7fBNVDj/242ur9ZG4HZDhSe1O/J4vEUboWDRBhg==";
 
-var uploadingFolder = "absolute";
+var uploadingFolder = "sfanodeback";
 var password = "";
 
 

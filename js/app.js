@@ -74,7 +74,7 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
     })
 
     .state('editstudentsport', {
-        url: "/editstudentsport",
+        url: "/editstudentsport/:id/:sport",
         templateUrl: "views/template.html",
         controller: 'editStudentSportCtrl'
     })

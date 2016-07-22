@@ -1,4 +1,4 @@
-var adminURL = "http://192.168.0.100:1337/";
+var adminURL = "http://104.199.151.75:84/";
 var imgURL = "upload/";
 
 var navigationservice = angular.module('navigationservice', [])
@@ -42,14 +42,14 @@ var navigationservice = angular.module('navigationservice', [])
         subnav: []
     }];
 
-    var currentYears = [2015,2016];
+    var currentYears = ["2015", "2016"];
 
     return {
         getnav: function() {
             return navigation;
         },
-        getAllYears:function() {
-          return currentYears;
+        getAllYears: function() {
+            return currentYears;
         },
         getCurrentPosition: function(callback) {
             $http({
@@ -75,17 +75,17 @@ var navigationservice = angular.module('navigationservice', [])
                 url: adminURL + 'sportslist/getAll',
                 method: 'POST'
             }).success(function(data) {
-              var sportsListArr = [];
-              if (data.value !== false) {
-                  _.each(currentYears, function(n, key) {
-                      var listArr = _.cloneDeep(data.data);
-                      _.each(listArr, function(m) {
-                          m.year = n;
-                      });
-                      sportsListArr.push(_.groupBy(listArr, "sporttype"));
-                  });
-              }
-              callback(sportsListArr);
+                var sportsListArr = [];
+                if (data.value !== false) {
+                    _.each(currentYears, function(n, key) {
+                        var listArr = _.cloneDeep(data.data);
+                        _.each(listArr, function(m) {
+                            m.year = n;
+                        });
+                        sportsListArr.push(_.groupBy(listArr, "sporttype"));
+                    });
+                }
+                callback(sportsListArr);
             });
         },
         getOneSportList: function(id, callback) {
@@ -245,15 +245,6 @@ var navigationservice = angular.module('navigationservice', [])
                 data: obj
             }).success(callback);
         },
-        getSchoolSports: function(id, callback) {
-            $http({
-                url: adminURL + 'school/getSchoolSport',
-                method: 'POST',
-                data: {
-                    _id: id
-                }
-            }).success(callback);
-        },
         getSports: function(obj, callback) {
             $http({
                 url: adminURL + 'sport/getSports',
@@ -324,6 +315,50 @@ var navigationservice = angular.module('navigationservice', [])
             $http({
                 url: adminURL + 'student/getStud',
                 method: 'POST'
+            }).success(callback);
+        },
+        getSchoolSports: function(year, schoolid, callback) {
+            $http({
+                url: adminURL + 'school/getSchoolSport',
+                method: 'POST',
+                data: {
+                    year: year,
+                    _id: schoolid
+                }
+            }).success(callback);
+        },
+        saveStudentSport: function(data, callback) {
+            $http({
+                url: adminURL + 'studentsport/saveData',
+                method: 'POST',
+                data: data
+            }).success(callback);
+        },
+        getStudentSports: function(data, callback) {
+            $http({
+                url: adminURL + 'studentsport/getSports',
+                method: 'POST',
+                data: {
+                    student: data
+                }
+            }).success(callback);
+        },
+        getOneStudentSport: function(data, callback) {
+            $http({
+                url: adminURL + 'studentsport/getOne',
+                method: 'POST',
+                data: {
+                    _id: data
+                }
+            }).success(callback);
+        },
+        deleteStudentSport: function(callback) {
+            $http({
+                url: adminURL + 'studentsport/deleteData',
+                method: 'POST',
+                data: {
+                    _id: $.jStorage.get("deleteStudentSport")
+                }
             }).success(callback);
         },
         makeactive: function(menuname) {
