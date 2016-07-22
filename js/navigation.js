@@ -1,4 +1,4 @@
-var adminURL = "http://192.168.1.121:1337/";
+var adminURL = "http://192.168.0.100:1337/";
 var imgURL = "upload/";
 
 var navigationservice = angular.module('navigationservice', [])
@@ -41,6 +41,8 @@ var navigationservice = angular.module('navigationservice', [])
         icon: "users",
         subnav: []
     }];
+
+    var currentYears = [2015,2016];
 
     return {
         getnav: function() {
