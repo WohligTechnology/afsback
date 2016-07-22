@@ -64,7 +64,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     }
     reload();
     $scope.hideSchool = function(id, status) {
-        NavigationService.hideSchool({ _id: id, status: status }, function(data2) {
+        NavigationService.hideSchool({
+            _id: id,
+            status: status
+        }, function(data2) {
             console.log(data2);
             reload();
         });
@@ -81,8 +84,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             animation: true,
             templateUrl: "views/content/delete.html",
             scope: $scope
-        })
-    }
+        });
+    };
 })
 
 .controller('createSchoolCtrl', function($scope, TemplateService, NavigationService, $timeout, $state) {
@@ -93,9 +96,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
     $scope.pageName = "Create School";
-
+    $scope.sportsListArr = [];
     $scope.school = {};
     var schoolSports = [];
+
+    $scope.allYears = NavigationService.getAllYears();
 
     $scope.add = function(crdv) {
         if (!crdv.contingentLeader) {
@@ -114,10 +119,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         dev.splice(i, 1);
     };
 
-    NavigationService.getAllSportList(function(data) {
-        if (data.value !== false) {
-            $scope.sportsList = _.groupBy(data.data, "sporttype");
-        }
+    NavigationService.getAllSportListSchool(function(data) {
+        console.log(data);
+        $scope.sportsListArr = data;
     });
 
     NavigationService.getLastId(function(data) {
@@ -126,18 +130,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
     });
     NavigationService.getStudentList(function(data) {
-        if (data.value != false) {
+        if (data.value !== false) {
             $scope.students = data.data;
         }
     });
     $scope.showError = false;
     $scope.saveSchool = function() {
-        schoolSports = [];
-        _.each($scope.sportsList, function(n) {
-            schoolSports.push(_.filter(n, "checked"));
+        var schoolSports = [];
+        _.each($scope.sportsListArr, function(years) {
+            _.each(years, function(category) {
+                schoolSports.push(_.filter(category, "checked"));
+            });
         });
-        schoolSports = _.flatten(schoolSports);
-        $scope.school.sports = schoolSports;
+        $scope.school.sports = schoolSports = _.flattenDeep(schoolSports);
         $scope.school.contact = $scope.school.contact.toString();
         var split = $scope.school.contact.split(",");
         _.each(split, function(n) {
@@ -147,7 +152,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $scope.error = false;
             }
         });
-        if ($scope.error == true) {
+        if ($scope.error === true) {
             $scope.showError = true;
             $timeout(function() {
                 $scope.showError = false;
@@ -214,7 +219,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         dev.splice(i, 1);
     };
     NavigationService.getStudentList(function(data) {
-        if (data.value != false) {
+        if (data.value !== false) {
             $scope.students = data.data;
         }
     });
@@ -225,7 +230,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         _.each($scope.sportsList, function(n) {
             schoolSports.push(_.filter(n, "checked"));
         });
-        schoolSports = _.flatten(schoolSports);
+        schoolSports = _.flattenDeep(schoolSports);
         $scope.school.sports = schoolSports;
         var split = $scope.school.contact.split(",");
         _.each(split, function(n) {
@@ -235,7 +240,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $scope.error = false;
             }
         });
-        if ($scope.error == true) {
+        if ($scope.error === true) {
             $scope.showError = true;
             $timeout(function() {
                 $scope.showError = false;
@@ -254,21 +259,22 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     NavigationService.getOneSchool($stateParams.id, function(data) {
         if (data.value !== false) {
             $scope.school = data.data;
-            NavigationService.getAllSportList(function(sportdata) {
-                _.each(data.data.sports, function(n) {
-                    var num = _.findIndex(sportdata.data, function(m) {
-
-                        return n._id == m._id;
+            NavigationService.getAllSportListSchool(function(data2) {
+                $scope.sportsListArr = data2;
+                _.each($scope.sportsListArr, function(year) {
+                    _.each(year, function(category) {
+                        _.each(category, function(n) {
+                            var num = _.findIndex(data.data.sports, function(m) {
+                                return (n._id == m._id && n.year == m.year);
+                            });
+                            if (num >= 0) {
+                                n.checked = true;
+                            }
+                        });
                     });
-                    if (num >= 0) {
-                        sportdata.data[num].checked = true;
-                    }
                 });
-                if (sportdata.value !== false) {
-                    $scope.sportsList = _.groupBy(sportdata.data, "sporttype");
-                    console.log($scope.sportsList);
-                }
             });
+
         }
     });
 })
@@ -283,14 +289,17 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     function reload() {
         NavigationService.getAllStudent(function(data) {
-            if (data.value != false) {
+            if (data.value !== false) {
                 $scope.students = data.data;
             }
         });
     }
     reload();
     $scope.hideStudent = function(id, status) {
-        NavigationService.hideStudent({ _id: id, status: status }, function(data2) {
+        NavigationService.hideStudent({
+            _id: id,
+            status: status
+        }, function(data2) {
             console.log(data2);
             reload();
         });

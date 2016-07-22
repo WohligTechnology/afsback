@@ -48,6 +48,9 @@ var navigationservice = angular.module('navigationservice', [])
         getnav: function() {
             return navigation;
         },
+        getAllYears:function() {
+          return currentYears;
+        },
         getCurrentPosition: function(callback) {
             $http({
                 url: "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDCa1LUe1vOczX1hO_iGYgyo8p_jYuGOPU",
@@ -66,6 +69,24 @@ var navigationservice = angular.module('navigationservice', [])
                 url: adminURL + 'sportslist/getAll',
                 method: 'POST'
             }).success(callback);
+        },
+        getAllSportListSchool: function(callback) {
+            $http({
+                url: adminURL + 'sportslist/getAll',
+                method: 'POST'
+            }).success(function(data) {
+              var sportsListArr = [];
+              if (data.value !== false) {
+                  _.each(currentYears, function(n, key) {
+                      var listArr = _.cloneDeep(data.data);
+                      _.each(listArr, function(m) {
+                          m.year = n;
+                      });
+                      sportsListArr.push(_.groupBy(listArr, "sporttype"));
+                  });
+              }
+              callback(sportsListArr);
+            });
         },
         getOneSportList: function(id, callback) {
             $http({

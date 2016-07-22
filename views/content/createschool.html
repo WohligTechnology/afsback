@@ -122,16 +122,20 @@
                                     <div class="form-group">
                                         <label>Sports Participated</label>
                                     </div>
-                                    <div ng-repeat="(key,sports) in sportsList">
-                                        <div ng-if="sports.length > 0">
-                                            <h5>{{key}} Sports:</h5>
-                                            <div class="checkbox" ng-repeat="sport in sports">
-                                                <label>
-                                                    <input type="checkbox" ng-model="sport.checked">{{sport.name}}
-                                                </label>
-                                            </div>
-                                        </div>
+                                    <div class="year" ng-repeat="sportsList in sportsListArr">
+                                      <h4>Sports in Year {{allYears[$index]}}: </h4>
+                                      <div ng-repeat="(key,sports) in sportsList">
+                                          <div ng-if="sports.length > 0">
+                                              <h5>{{key}} Sports:</h5>
+                                              <div class="checkbox" ng-repeat="sport in sports">
+                                                  <label>
+                                                      <input type="checkbox" ng-model="sport.checked">{{sport.name}}
+                                                  </label>
+                                              </div>
+                                          </div>
+                                      </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
