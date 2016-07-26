@@ -41,7 +41,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.menutitle = NavigationService.makeactive("Dashboard");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
-
+    NavigationService.countForDashboard(function(data) {
+        console.log(data);
+    });
 })
 
 .controller('schoolCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal) {
@@ -56,8 +58,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     function reload() {
         NavigationService.getAllSchool(function(data) {
-            $scope.contentLoaded = true;
             if (data.value !== false) {
+                $scope.contentLoaded = true;
                 $scope.schools = data.data;
             }
         });
@@ -88,7 +90,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     };
 })
 
-.controller('createSchoolCtrl', function($scope, TemplateService, NavigationService, $timeout, $state) {
+.controller('createSchoolCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("createschool");
     $scope.menutitle = NavigationService.makeactive("Schools");
@@ -99,9 +101,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.sportsListArr = [];
     $scope.school = {};
     var schoolSports = [];
-
     $scope.allYears = NavigationService.getAllYears();
-
+    $scope.deleteId = 0;
+    $scope.status = [{ id: "", name: "Is Verified?" }, { id: "true", name: "Yes" }, { id: "false", name: "No" }];
     $scope.add = function(crdv) {
         if (!crdv.contingentLeader) {
             crdv.contingentLeader = [{
@@ -114,9 +116,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 "student": ""
             });
         }
-    };
-    $scope.remove = function(i, dev) {
-        dev.splice(i, 1);
     };
     $scope.addDept = function(crdv) {
         if (!crdv.department) {
@@ -137,8 +136,26 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         }
     };
-    $scope.removeDept = function(i, dev) {
-        dev.splice(i, 1);
+    $scope.confDelete = function() {
+        if ($scope.deleteId === 1) {
+            $scope.school.department.splice($.jStorage.get("deleteDept"), 1);
+        } else {
+            $scope.school.contingentLeader.splice($.jStorage.get("deleteLeader"), 1);
+        }
+    };
+    $scope.deleteFunc = function(id, value) {
+        if (value === 1) {
+            $scope.deleteId = 1;
+            $.jStorage.set("deleteDept", id);
+        } else {
+            $scope.deleteId = 2;
+            $.jStorage.set("deleteLeader", id);
+        }
+        $uibModal.open({
+            animation: true,
+            templateUrl: "views/content/delete.html",
+            scope: $scope
+        });
     };
 
     NavigationService.getAllSportListSchool(function(data) {
@@ -157,6 +174,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
     });
     $scope.showError = false;
+    $scope.errorContact = false;
+    $scope.errorEmail = false;
+    $scope.errorSportContact = false;
     $scope.saveSchool = function() {
         var schoolSports = [];
         _.each($scope.sportsListArr, function(years) {
@@ -165,22 +185,49 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         });
         $scope.school.sports = schoolSports = _.flattenDeep(schoolSports);
-        $scope.school.contact = $scope.school.contact.toString();
-        var split = $scope.school.contact.split(",");
-        _.each(split, function(n) {
-            if (n.length != 10) {
-                $scope.error = true;
-            } else {
-                $scope.error = false;
+
+        function checkContact() {
+            $scope.school.contact = $scope.school.contact.toString();
+            var split = $scope.school.contact.split(",");
+            for (var i = 0; i < split.length; i++) {
+                if (split[i].length != 10) {
+                    $scope.errorContact = true;
+                    break;
+                } else {
+                    $scope.errorContact = false;
+                }
             }
-        });
-        if ($scope.error === true) {
-            $scope.showError = true;
-            $timeout(function() {
-                $scope.showError = false;
-            }, 3000);
-        } else {
-            console.log($scope.school);
+        }
+
+        function checkEmail() {
+            var splitEmail = $scope.school.email.split(",");
+            for (var i = 0; i < splitEmail.length; i++) {
+                var x = splitEmail[i];
+                var atpos = x.indexOf("@");
+                var dotpos = x.lastIndexOf(".");
+                if (atpos <= 1 || dotpos <= atpos + 2 || dotpos + 2 >= x.length) {
+                    $scope.errorEmail = true;
+                    break;
+                } else {
+                    $scope.errorEmail = false;
+                }
+            }
+        }
+
+        function checkSportContact() {
+            for (var i = 0; i < $scope.school.department.length; i++) {
+                if ($scope.school.department[i].contact) {
+                    if ($scope.school.department[i].contact.length != 10) {
+                        $scope.errorSportContact = true;
+                        break;
+                    } else {
+                        $scope.errorSportContact = false;
+                    }
+                }
+            }
+        }
+
+        function callSave() {
             NavigationService.saveSchool($scope.school, function(data) {
                 if (data.value !== false) {
                     $scope.showError = false;
@@ -188,10 +235,31 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }
             });
         }
+
+        if ($scope.school.email) {
+            checkEmail();
+        } else {
+            $scope.errorEmail = false;
+        }
+        if ($scope.school.department.length > 0) {
+            checkSportContact();
+        } else {
+            $scope.errorSportContact = false;
+        }
+        checkContact();
+        if ($scope.errorContact === false && $scope.errorEmail === false && $scope.errorSportContact === false) {
+            console.log($scope.school);
+            callSave();
+        } else {
+            $scope.showError = true;
+            $timeout(function() {
+                $scope.showError = false;
+            }, 3000);
+        }
     };
 })
 
-.controller('editSchoolCtrl', function($scope, TemplateService, NavigationService, $timeout, $stateParams, $state) {
+.controller('editSchoolCtrl', function($scope, TemplateService, NavigationService, $timeout, $stateParams, $state, $uibModal) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("createschool");
     $scope.menutitle = NavigationService.makeactive("Schools");
@@ -200,7 +268,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.template.type = 1;
     $scope.pageName = "Edit School";
     $scope.school = {};
-
+    $scope.allYears = NavigationService.getAllYears();
+    $scope.status = [{ id: "", name: "Is Verified?" }, { id: true, name: "Yes" }, { id: false, name: "No" }];
+    $scope.deleteId = 0;
     $scope.add = function(crdv) {
         if (!crdv.contingentLeader) {
             crdv.contingentLeader = [{
@@ -213,9 +283,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 "student": ""
             });
         }
-    };
-    $scope.remove = function(i, dev) {
-        dev.splice(i, 1);
     };
 
     $scope.addDept = function(crdv) {
@@ -237,8 +304,27 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         }
     };
-    $scope.removeDept = function(i, dev) {
-        dev.splice(i, 1);
+
+    $scope.confDelete = function() {
+        if ($scope.deleteId === 1) {
+            $scope.school.department.splice($.jStorage.get("deleteDept"), 1);
+        } else {
+            $scope.school.contingentLeader.splice($.jStorage.get("deleteLeader"), 1);
+        }
+    };
+    $scope.deleteFunc = function(id, value) {
+        if (value === 1) {
+            $scope.deleteId = 1;
+            $.jStorage.set("deleteDept", id);
+        } else {
+            $scope.deleteId = 2;
+            $.jStorage.set("deleteLeader", id);
+        }
+        $uibModal.open({
+            animation: true,
+            templateUrl: "views/content/delete.html",
+            scope: $scope
+        });
     };
     NavigationService.getStudentList(function(data) {
         if (data.value !== false) {
@@ -247,6 +333,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     });
     var schoolSports = [];
     $scope.showError = false;
+    $scope.errorContact = false;
+    $scope.errorEmail = false;
+    $scope.errorSportContact = false;
     $scope.saveSchool = function() {
         var schoolSports = [];
         _.each($scope.sportsListArr, function(years) {
@@ -255,28 +344,76 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         });
         $scope.school.sports = schoolSports = _.flattenDeep(schoolSports);
-        $scope.school.contact = $scope.school.contact.toString();
-        var split = $scope.school.contact.split(",");
-        _.each(split, function(n) {
-            if (n.length != 10) {
-                $scope.error = true;
-            } else {
-                $scope.error = false;
+
+        function checkContact() {
+            $scope.school.contact = $scope.school.contact.toString();
+            var split = $scope.school.contact.split(",");
+            for (var i = 0; i < split.length; i++) {
+                if (split[i].length != 10) {
+                    $scope.errorContact = true;
+                    break;
+                } else {
+                    $scope.errorContact = false;
+                }
             }
-        });
-        if ($scope.error === true) {
-            $scope.showError = true;
-            $timeout(function() {
-                $scope.showError = false;
-            }, 3000);
-        } else {
-            console.log($scope.school);
+        }
+
+        function checkEmail() {
+            var splitEmail = $scope.school.email.split(",");
+            for (var i = 0; i < splitEmail.length; i++) {
+                var x = splitEmail[i];
+                var atpos = x.indexOf("@");
+                var dotpos = x.lastIndexOf(".");
+                if (atpos <= 1 || dotpos <= atpos + 2 || dotpos + 2 >= x.length) {
+                    $scope.errorEmail = true;
+                    break;
+                } else {
+                    $scope.errorEmail = false;
+                }
+            }
+        }
+
+        function checkSportContact() {
+            for (var i = 0; i < $scope.school.department.length; i++) {
+                if ($scope.school.department[i].contact) {
+                    if ($scope.school.department[i].contact.toString().length != 10) {
+                        $scope.errorSportContact = true;
+                        break;
+                    } else {
+                        $scope.errorSportContact = false;
+                    }
+                }
+            }
+        }
+
+        function callSave() {
             NavigationService.saveSchool($scope.school, function(data) {
                 if (data.value !== false) {
                     $scope.showError = false;
                     $state.go('school');
                 }
             });
+        }
+
+        if ($scope.school.email) {
+            checkEmail();
+        } else {
+            $scope.errorEmail = false;
+        }
+        if ($scope.school.department.length > 0) {
+            checkSportContact();
+        } else {
+            $scope.errorSportContact = false;
+        }
+        checkContact();
+        if ($scope.errorContact === false && $scope.errorEmail === false && $scope.errorSportContact === false) {
+            console.log($scope.school);
+            callSave();
+        } else {
+            $scope.showError = true;
+            $timeout(function() {
+                $scope.showError = false;
+            }, 3000);
         }
     };
 
@@ -289,6 +426,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 _.each($scope.sportsListArr, function(year) {
                     _.each(year, function(category) {
                         _.each(category, function(n) {
+                            console.log(data);
                             var num = _.findIndex(data.data.sports, function(m) {
                                 return (n._id == m._id && n.year == m.year);
                             });
@@ -311,10 +449,12 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
+    $scope.contentLoaded = false;
 
     function reload() {
         NavigationService.getAllStudent(function(data) {
             if (data.value !== false) {
+                $scope.contentLoaded = true;
                 $scope.students = data.data;
             }
         });
@@ -357,6 +497,17 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.pageName = "Create Student";
 
     $scope.student = {};
+    $scope.student.hours = "1";
+    $scope.student.minutes = "1";
+    $scope.student.timer = "am";
+    $scope.hours = _.times(13, String);
+    $scope.minutes = _.times(60, String);
+    $scope.hours.shift();
+    $scope.timer = ["am", "pm"];
+    $scope.via = ["via School", "Individual"];
+    $scope.payment = ["Paid", "Unpaid"];
+    $scope.student.via = "via School";
+    $scope.student.payment = "Unpaid";
 
     NavigationService.getLastStudentId(function(data) {
         console.log(data);
@@ -371,70 +522,82 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
     });
 
+    $scope.showError = false;
+    $scope.errorContact = false;
+    $scope.errorEmail = false;
+    $scope.errorSportContact = false;
     $scope.saveStudent = function() {
-        $scope.showError = false;
-        $scope.student.contact = $scope.student.contact.toString();
-        var split = $scope.student.contact.split(",");
-        // var splitEmail = $scope.student.email.split(",");
-        _.each(split, function(n) {
-            if (n.length != 10) {
-                $scope.error = true;
-            } else {
-                $scope.error = false;
+
+        function checkContact() {
+            $scope.student.contact = $scope.student.contact.toString();
+            var split = $scope.student.contact.split(",");
+            for (var i = 0; i < split.length; i++) {
+                if (split[i].length != 10) {
+                    $scope.errorContact = true;
+                    break;
+                } else {
+                    $scope.errorContact = false;
+                }
             }
-        });
-        // var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
-        // _.each(splitEmail, function(n) {
-        //     if (re.test(n)) {
-        //         $scope.error = false;
-        //     } else {
-        //         $scope.error = true;
-        //     }
-        // });
-        if ($scope.error == true) {
-            $scope.showError = true;
-            $timeout(function() {
-                $scope.showError = false;
-            }, 3000);
-        } else {
+        }
+
+        function checkEmail() {
+            var splitEmail = $scope.student.email.split(",");
+            for (var i = 0; i < splitEmail.length; i++) {
+                var x = splitEmail[i];
+                var atpos = x.indexOf("@");
+                var dotpos = x.lastIndexOf(".");
+                if (atpos <= 1 || dotpos <= atpos + 2 || dotpos + 2 >= x.length) {
+                    $scope.errorEmail = true;
+                    break;
+                } else {
+                    $scope.errorEmail = false;
+                }
+            }
+        }
+
+        function callSave() {
             NavigationService.saveStudent($scope.student, function(data) {
-                if (data.value != false) {
+                if (data.value !== false) {
                     $scope.showError = false;
                     $state.go('student');
                 }
             });
         }
-    }
 
-    $scope.student = {};
-
-    $scope.popup1 = {
-        opened: false
+        if ($scope.student.email) {
+            checkEmail();
+        } else {
+            $scope.errorEmail = false;
+        }
+        checkContact();
+        if ($scope.errorContact === false && $scope.errorEmail === false) {
+            console.log($scope.student);
+            callSave();
+        } else {
+            $scope.showError = true;
+            $timeout(function() {
+                $scope.showError = false;
+            }, 3000);
+        }
     };
-
-    $scope.open1 = function() {
-        $scope.popup1.opened = true;
-    };
-
-    $scope.today = function() {
-        $scope.student.dob = new Date();
-    };
-    $scope.today();
-
-    $scope.dateOptions = {
-        maxDate: new Date()
-    };
-
 })
 
-.controller('editStudentCtrl', function($scope, TemplateService, NavigationService, $timeout, $stateParams) {
+.controller('editStudentCtrl', function($scope, TemplateService, NavigationService, $timeout, $stateParams, $state) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("createstudent");
     $scope.menutitle = NavigationService.makeactive("Students");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 2;
+    $scope.student = {};
 
+    $scope.hours = _.times(13, String);
+    $scope.minutes = _.times(60, String);
+    $scope.hours.shift();
+    $scope.timer = ["am", "pm"];
+    $scope.via = ["via School", "Individual"];
+    $scope.payment = ["Paid", "Unpaid"];
     $scope.subMenuList = [{
         title: "Back to Student",
         redirect: "student"
@@ -450,50 +613,95 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.schools = data.data;
         }
     })
-
     NavigationService.getOneStudent($stateParams.id, function(data) {
         if (data.value != false) {
             $scope.student = data.data;
             if ($scope.student.dob) {
                 $scope.student.dob = new Date($scope.student.dob);
             }
+            if ($scope.student.dateOfForm) {
+                $scope.student.dateOfForm = new Date($scope.student.dateOfForm);
+            }
+            if ($scope.student.timeOfForm) {
+                $scope.student.timeOfForm = new Date($scope.student.timeOfForm);
+            }
+            if (!$scope.student.hours) {
+                $scope.student.hours = "1";
+            }
+            if (!$scope.student.minutes) {
+                $scope.student.minutes = "1";
+            }
+            if (!$scope.student.timer) {
+                $scope.student.timer = "am";
+            }
+            if (!$scope.student.via) {
+                $scope.student.via = "via School";
+            }
+            if (!$scope.student.payment) {
+                $scope.student.payment = "Unpaid";
+            }
         }
     })
 
+    $scope.showError = false;
+    $scope.errorContact = false;
+    $scope.errorEmail = false;
+    $scope.errorSportContact = false;
     $scope.saveStudent = function() {
-        $scope.showError = false;
-        $scope.student.contact = $scope.student.contact.toString();
-        var split = $scope.student.contact.split(",");
-        // var splitEmail = $scope.student.email.split(",");
-        _.each(split, function(n) {
-            if (n.length != 10) {
-                $scope.error = true;
-            } else {
-                $scope.error = false;
+
+        function checkContact() {
+            $scope.student.contact = $scope.student.contact.toString();
+            var split = $scope.student.contact.split(",");
+            for (var i = 0; i < split.length; i++) {
+                if (split[i].length != 10) {
+                    $scope.errorContact = true;
+                    break;
+                } else {
+                    $scope.errorContact = false;
+                }
             }
-        });
-        // var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
-        // _.each(splitEmail, function(n) {
-        //     if (re.test(n)) {
-        //         $scope.error = false;
-        //     } else {
-        //         $scope.error = true;
-        //     }
-        // });
-        if ($scope.error == true) {
-            $scope.showError = true;
-            $timeout(function() {
-                $scope.showError = false;
-            }, 3000);
-        } else {
+        }
+
+        function checkEmail() {
+            var splitEmail = $scope.student.email.split(",");
+            for (var i = 0; i < splitEmail.length; i++) {
+                var x = splitEmail[i];
+                var atpos = x.indexOf("@");
+                var dotpos = x.lastIndexOf(".");
+                if (atpos <= 1 || dotpos <= atpos + 2 || dotpos + 2 >= x.length) {
+                    $scope.errorEmail = true;
+                    break;
+                } else {
+                    $scope.errorEmail = false;
+                }
+            }
+        }
+
+        function callSave() {
             NavigationService.saveStudent($scope.student, function(data) {
-                if (data.value != false) {
+                if (data.value !== false) {
                     $scope.showError = false;
                     $state.go('student');
                 }
             });
         }
-    }
+
+        if ($scope.student.email) {
+            checkEmail();
+        } else {
+            $scope.errorEmail = false;
+        }
+        checkContact();
+        if ($scope.errorContact === false && $scope.errorEmail === false) {
+            console.log($scope.student);
+            callSave();
+        } else {
+            $scope.showError = true;
+            $timeout(function() {
+                $scope.showError = false;
+            }, 3000);
+        }
+    };
 })
 
 

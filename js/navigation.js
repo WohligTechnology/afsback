@@ -1,4 +1,5 @@
 var adminURL = "http://104.199.151.75:84/";
+// var adminURL = "http://localhost:84/";
 var imgURL = "upload/";
 
 var navigationservice = angular.module('navigationservice', [])
@@ -359,6 +360,12 @@ var navigationservice = angular.module('navigationservice', [])
                 data: {
                     _id: $.jStorage.get("deleteStudentSport")
                 }
+            }).success(callback);
+        },
+        countForDashboard: function(callback) {
+            $http({
+                url: adminURL + 'config/counter',
+                method: 'POST'
             }).success(callback);
         },
         makeactive: function(menuname) {

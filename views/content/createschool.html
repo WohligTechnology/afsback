@@ -48,40 +48,11 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Is Verified?</label>
-                                    <select class="form-control" ng-model="school.status">
-                                        <option value="">Is Verified?</option>
-                                        <option value="true">Yes</option>
-                                        <option value="false">No</option>
+                                    <select class="form-control" ng-model="school.status" ng-options="item.id as item.name for item in status">
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <!--    <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>School Id*</label>
-                                    <input type="text" placeholder="School Id" class="form-control" ng-model="school.sfaid" required readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label>Board*</label>
-                                    <input type="text" placeholder="Board" class="form-control" ng-model="school.board" required>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>School Name*</label>
-                                    <input type="text" placeholder="School Name" class="form-control" ng-model="school.name" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Is Verified?</label>
-                                    <select class="form-control" ng-model="school.status">
-                                        <option value="">Is Verified?</option>
-                                        <option value="true">Yes</option>
-                                        <option value="false">No</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                     <div class="widget">
                         <div class="form-elements-sec">
@@ -94,8 +65,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Email (Comma seperated)*</label>
-                                        <input type="text" placeholder="Email (Comma seperated)" class="form-control" ng-model="school.email" required>
+                                        <label>Email (Comma seperated)</label>
+                                        <input type="text" placeholder="Email (Comma seperated)" class="form-control" ng-model="school.email">
                                     </div>
                                 </div>
                             </div>
@@ -123,19 +94,18 @@
                                         <label>Sports Participated</label>
                                     </div>
                                     <div class="year" ng-repeat="sportsList in sportsListArr">
-                                      <h4>Sports in Year {{allYears[$index]}}: </h4>
-                                      <div ng-repeat="(key,sports) in sportsList">
-                                          <div ng-if="sports.length > 0">
-                                              <h5>{{key}} Sports:</h5>
-                                              <div class="checkbox" ng-repeat="sport in sports">
-                                                  <label>
-                                                      <input type="checkbox" ng-model="sport.checked">{{sport.name}}
-                                                  </label>
-                                              </div>
-                                          </div>
-                                      </div>
+                                        <h4>Sports in Year {{allYears[$index]}}: </h4>
+                                        <div ng-repeat="(key,sports) in sportsList">
+                                            <div ng-if="sports.length > 0">
+                                                <h5>{{key}} Sports:</h5>
+                                                <div class="checkbox" ng-repeat="sport in sports">
+                                                    <label>
+                                                        <input type="checkbox" ng-model="sport.checked">{{sport.name}}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -197,18 +167,22 @@
                                                     <td>
                                                         <input type="text" class="form-control" ng-model="cl.year" placeholder="Year" maxlength="4" only-digits>
                                                     </td>
-                                                    <td>
+                                                    <td style="width:40%">
                                                         <div class="form-group">
                                                             <ui-select ng-model="cl.student" title="Select Student">
                                                                 <ui-select-match placeholder="Select Student">{{$select.selected.name}}</ui-select-match>
                                                                 <ui-select-choices repeat="student in students | filter: $select.search">
-                                                                    <span ng-bind-html="student.name | highlight: $select.search"></span>
+                                                                    <div ng-bind-html="student.name | highlight: $select.search"></div>
+                                                                    <small>
+                                                                        SFA-ID:<span ng-bind-html="student.sfaid | highlight: $select.search"></span>
+                                                                        Primary-ID:<span ng-bind-html="student._id | highlight: $select.search"></span>
+                                                                    </small>
                                                                 </ui-select-choices>
                                                             </ui-select>
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <input class="btn btn-danger" type="button" ng-click="remove(school.contingentLeader.indexOf(cl),school.contingentLeader);" value="Delete">
+                                                        <input class="btn btn-danger" type="button" ng-click="deleteFunc(school.contingentLeader.indexOf(cl),2);" value="Delete">
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -253,7 +227,7 @@
                            </div> -->
                                     <div class="form-group">
                                         <label>Principal</label>
-                                        <input type="text" placeholder="Principal" class="form-control">
+                                        <input type="text" placeholder="Principal" class="form-control" ng-model="school.principal">
                                     </div>
                                     <!--  <div class="form-group">
                               <label>Logo</label>
@@ -319,13 +293,13 @@
                                                         <input type="text" class="form-control" ng-model="cl.designation" placeholder="Designation">
                                                     </td>
                                                     <td>
-                                                        <input type="text" class="form-control" ng-model="cl.contact" placeholder="Contact">
+                                                        <input type="text" class="form-control" ng-model="cl.contact" placeholder="Contact" maxlength="10" only-digits> 
                                                     </td>
                                                     <td>
                                                         <input type="email" class="form-control" ng-model="cl.email" placeholder="Email">
                                                     </td>
                                                     <td>
-                                                        <input class="btn btn-danger" type="button" ng-click="removeDept(school.department.indexOf(cl),school.department);" value="Delete">
+                                                        <input class="btn btn-danger" type="button" ng-click="deleteFunc(school.department.indexOf(cl),1);" value="Delete">
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -339,7 +313,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="text-center mt20" ng-if="showError ==true">
-                            <span class="error">Please enter proper contact no.</span>
+                            <span class="error">Please enter proper Email & Contact No.</span>
                         </div>
                         <div class="text-center mt20">
                             <button class="btn btn-default" type="submit">Save</button>

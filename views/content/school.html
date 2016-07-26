@@ -27,8 +27,7 @@
             <div class="widget">
                 <div class="table-area">
                     <div class="widget-title">
-                        <div class="pull-right">
-                            <input type="search" name="name" value="" placeholder="Search..." class="form-control tableSearch" ng-model="search"> <a class="btn btn-primary" ui-sref="createschool">Add New</a>
+                        <div class="pull-right"> <a class="btn btn-primary" ui-sref="createschool">Add New</a>
                         </div>
                         <h3>List of Schools</h3>
                     </div>
@@ -43,6 +42,13 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <td style="width: 12%;">Search By :</td>
+                                <td style="width: 30%;">
+                                    <input type="text" placeholder="School SFA-ID" class="form-control" ng-model="search.sfaid">
+                                </td>
+                                <td style="width: 30%;">
+                                    <input type="text" placeholder="School Name" class="form-control" ng-model="search.name">
+                                </td>
                                 <tr ng-if="schools.length <= 0 && !contentLoaded" class="loadingTable">
                                     <td>Loading...</td>
                                 </tr>

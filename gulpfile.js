@@ -16,6 +16,7 @@ var jsArray = [
     './bower_components/lodash/lodash.js',
     './bower_components/angulartics/dist/angulartics.min.js',
     './bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js',
+    "./bower_components/angular-ui-select/dist/select.js",
     './bower_components/jStorage/jstorage.min.js',
     './js/app.js',
     './js/language.js',
@@ -29,7 +30,7 @@ var jsArray = [
 var replacehostFrom = "http://localhost/demo/";
 var replacehostTo = "http://wohlig.co.in/demo2/";
 
-var ftpString = "U2FsdGVkX1+jcFED/CJbcYNiOJ42eBsjlxqmrcKWSIPH9Sao/4535zPQX5Fa7VYGAHSfkKCXbDpiUfJhkRRijaerS1lJ/k+dSfqsfl45ICkzMTJ7fBNVDj/242ur9ZG4HZDhSe1O/J4vEUboWDRBhg==";
+var ftpString = "U2FsdGVkX19KJ4w0W1pxaUyRsJcjQO5RL98s2rfWnmpoGlaoPfxb8Ibdl0yu5NoHaLfSDmk2WnqRVpQfIAB8wv/Srsy/Y9OUyx5gs3ZutJ2MdGMlS8IaMJmfLSp77xVx1yuRD4aFlRuo0yQ/Ldy2pA==";
 
 var uploadingFolder = "sfanodeback";
 var password = "";
@@ -146,7 +147,7 @@ gulp.task('minify:css', function() {
     var concat = require('gulp-concat');
     return gulp.src('./w/main.css')
 
-        .pipe(minifyCss({
+    .pipe(minifyCss({
             keepSpecialComments: 0,
             rebase: false
         }))
