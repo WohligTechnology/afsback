@@ -41,9 +41,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.menutitle = NavigationService.makeactive("Dashboard");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
-    NavigationService.countForDashboard(function(data) {
+    $scope.dash = {};
+    $scope.dash.year = "2015";
+    $scope.allYears = NavigationService.getAllYears();
+    NavigationService.countStatic(function(data) {
         console.log(data);
+        $scope.static = data.data;
     });
+
+    $scope.onChange = function() {
+        NavigationService.countForDashboard($scope.dash.year, function(data) {
+            console.log(data);
+            $scope.dynamic = data;
+        });
+    }
+    $scope.onChange();
 })
 
 .controller('schoolCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal) {
@@ -216,6 +228,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
         function checkSportContact() {
             for (var i = 0; i < $scope.school.department.length; i++) {
+                $scope.school.department[i].contact = $scope.school.department[i].contact.toString();
                 if ($scope.school.department[i].contact) {
                     if ($scope.school.department[i].contact.length != 10) {
                         $scope.errorSportContact = true;
@@ -241,12 +254,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         } else {
             $scope.errorEmail = false;
         }
-        if ($scope.school.department.length > 0) {
+        if ($scope.school.department && $scope.school.department.length > 0) {
             checkSportContact();
         } else {
             $scope.errorSportContact = false;
         }
-        checkContact();
+        if ($scope.school.contact) {
+            checkContact();
+        } else {
+            $scope.errorContact = false;
+        }
         if ($scope.errorContact === false && $scope.errorEmail === false && $scope.errorSportContact === false) {
             console.log($scope.school);
             callSave();
@@ -375,6 +392,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
         function checkSportContact() {
             for (var i = 0; i < $scope.school.department.length; i++) {
+                $scope.school.department[i].contact = $scope.school.department[i].contact.toString();
                 if ($scope.school.department[i].contact) {
                     if ($scope.school.department[i].contact.toString().length != 10) {
                         $scope.errorSportContact = true;
@@ -400,12 +418,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         } else {
             $scope.errorEmail = false;
         }
-        if ($scope.school.department.length > 0) {
+        if ($scope.school.department && $scope.school.department.length > 0) {
             checkSportContact();
         } else {
             $scope.errorSportContact = false;
         }
-        checkContact();
+        if ($scope.school.contact) {
+            checkContact();
+        } else {
+            $scope.errorContact = false;
+        }
         if ($scope.errorContact === false && $scope.errorEmail === false && $scope.errorSportContact === false) {
             console.log($scope.school);
             callSave();
@@ -437,7 +459,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     });
                 });
             });
-
         }
     });
 })
@@ -570,7 +591,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         } else {
             $scope.errorEmail = false;
         }
-        checkContact();
+        if ($scope.school.contact) {
+            checkContact();
+        } else {
+            $scope.errorContact = false;
+        }
         if ($scope.errorContact === false && $scope.errorEmail === false) {
             console.log($scope.student);
             callSave();
@@ -691,7 +716,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         } else {
             $scope.errorEmail = false;
         }
-        checkContact();
+        if ($scope.school.contact) {
+            checkContact();
+        } else {
+            $scope.errorContact = false;
+        }
         if ($scope.errorContact === false && $scope.errorEmail === false) {
             console.log($scope.student);
             callSave();
@@ -764,6 +793,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     }
 
     $scope.sport = {};
+    $scope.sport.year = "2015";
     $scope.sport.firstcategory = [];
     $scope.sport.secondcategory = [];
     $scope.sport.thirdcategory = [];
@@ -944,6 +974,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     }
 
     $scope.sport = {};
+    $scope.sport.year = "2015";
     $scope.sport.firstcategory = [];
     $scope.sport.secondcategory = [];
     $scope.sport.thirdcategory = [];

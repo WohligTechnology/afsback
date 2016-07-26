@@ -362,10 +362,19 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        countForDashboard: function(callback) {
+        countStatic: function(callback) {
             $http({
-                url: adminURL + 'config/counter',
+                url: adminURL + 'config/countStatic',
                 method: 'POST'
+            }).success(callback);
+        },
+        countForDashboard: function(year, callback) {
+            $http({
+                url: adminURL + 'config/countForDashboard',
+                method: 'POST',
+                data: {
+                    year: year
+                }
             }).success(callback);
         },
         makeactive: function(menuname) {

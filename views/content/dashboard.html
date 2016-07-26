@@ -1,5 +1,5 @@
 <!-- <div id="progressBar">
-	<div class="loader"></div>
+    <div class="loader"></div>
 </div> -->
 <!-- <div class="breadcrumbs">
     <ul>
@@ -24,36 +24,35 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="widget">
-                            <div class="widget-controls">
-                                <span class="refresh-content"><i class="fa fa-refresh"></i></span>
-                            </div>
-                            <!-- Widget Controls -->
                             <div class="mini-stats ">
-                                <span class="red-skin"><i class="fa fa-area-chart"></i></span>
-                                <p><i class="fa  fa-arrow-up up"></i> Today Views</p>
-                                <h3>22,520</h3>
+                                <span class="red-skin"><i class="fa fa-users" aria-hidden="true"></i></span>
+                                <p>No.of Students</p>
+                                <h3>{{static.student}}</h3>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="widget">
-                            <div class="widget-controls">
-                                <span class="refresh-content"><i class="fa fa-refresh"></i></span>
-                            </div>
-                            <!-- Widget Controls -->
                             <div class="mini-stats ">
-                                <span class="sky-skin"><i class="fa fa-usd"></i></span>
-                                <p><i class="fa  fa-arrow-down down"></i> Revenue</p>
-                                <h3>1,425</h3>
+                                <span class="sky-skin"><i class="fa fa-building" aria-hidden="true"></i></span>
+                                <p>No.of Students</p>
+                                <h3>{{static.student}}</h3>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-3">
                         <div class="widget">
-                            <div class="widget-controls">
-                                <span class="refresh-content"><i class="fa fa-refresh"></i></span>
-                            </div>
-                            <!-- Widget Controls -->
+                            <label>Year</label>
+                            <select class="form-control" ng-model="dash.year" ng-options="year for year in allYears" ng-change="onChange();">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-md-3">
+                        <div class="widget">
                             <div class="mini-stats ">
                                 <span class="purple-skin"><i class="fa fa-bullhorn"></i></span>
                                 <p><i class="fa  fa-arrow-down down"></i> Item Sales</p>
@@ -61,20 +60,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="widget">
-                            <div class="widget-controls">
-                                <span class="refresh-content"><i class="fa fa-refresh"></i></span>
-                            </div>
-                            <!-- Widget Controls -->
-                            <div class="mini-stats ">
-                                <span class="pink-skin"><i class="fa fa-shopping-cart"></i></span>
-                                <p><i class="fa  fa-arrow-up up"></i> New Orders</p>
-                                <h3>5,218</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </div> -->
             </div>
             <!-- Mini stats Sec -->
         </div>
