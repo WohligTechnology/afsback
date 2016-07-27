@@ -50,35 +50,47 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" ng-if="dynamic.studentSport.length <= 0">
                     <div class="col-md-3">
                         <label style="padding: 10px; margin: 0; width: 100%">Student Sports</label>
-                        <div class="bg-white" ng-repeat="item in dynamic.studentSport" ng-if="dynamic.studentSport.length > 0">
-                            {{item}}
-                            <div class="mini-stats">
-                                <span class="purple-skin"><i class="fa fa-bullhorn"></i></span>
-                                <p></p>
-                                <h3>{{}}</h3>
+                        <div class="bg-white">
+                            <div class="mini-stats  student-sport-view">
+                                No Data Available
                             </div>
-                        </div>
-                        <div class="bg-white" ng-if="dynamic.studentSport.length <= 0">
-                            No data Available
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" ng-if="dynamic.studentSport.length > 0">
+                    <label style="padding: 10px; margin: 0; width: 100%">Student Sports</label>
+                    <div class="col-md-3" ng-repeat="item in dynamic.studentSport">
+                        <div class="bg-white">
+                            <div class="mini-stats student-sport-view">
+                                <span class="purple-skin"><i class="fa fa-futbol-o"></i></span>
+                                <p>{{item.name}}</p>
+                                <h3>{{item.count}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-if="dynamic.schoolSport.length <= 0">
                     <div class="col-md-3">
                         <label style="padding: 10px; margin: 0; width: 100%">School Sports</label>
-                        <div class="bg-white" ng-repeat="item in dynamic.schoolSport" ng-if="dynamic.schoolSport.length > 0">
-                            {{item}}
-                            <!-- <div class="mini-stats">
-                                <span class="purple-skin"><i class="fa fa-bullhorn"></i></span>
-                                <p></p>
-                                <h3>6,101</h3>
-                            </div> -->
+                        <div class="bg-white">
+                            <div class="mini-stats  student-sport-view">
+                                No Data Available
+                            </div>
                         </div>
-                        <div class="bg-white" ng-if="dynamic.schoolSport.length <= 0">
-                            No data Available
+                    </div>
+                </div>
+                <div class="row" ng-if="dynamic.schoolSport.length > 0">
+                    <label style="padding: 10px; margin: 0; width: 100%">School Sports</label>
+                    <div class="col-md-3" ng-repeat="item in dynamic.schoolSport">
+                        <div class="bg-white">
+                            <div class="mini-stats  student-sport-view">
+                                <span class="purple-skin"><i class="fa fa-futbol-o"></i></span>
+                                <p>{{item.name}}</p>
+                                <h3>{{item.count}}</h3>
+                            </div>
                         </div>
                     </div>
                 </div>

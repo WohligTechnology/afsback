@@ -25,49 +25,13 @@
                 <div class="widget">
                     <div class="form-elements-sec">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Student Id*</label>
                                     <input type="text" placeholder="Student Id" class="form-control" ng-model="student.sfaid" required readonly>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="last-name">Last Name*</label>
-                                    <input type="text" class="form-control" ng-model="student.lastname" required>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="first-name">First Name*</label>
-                                    <input type="text" class="form-control" ng-model="student.firstname" required>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="middle-name">Middle Name</label>
-                                    <input type="text" class="form-control" ng-model="student.middlename">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Gender*</label>
-                                    <select class="form-control" ng-model="student.gender" required>
-                                        <option value="">Select Gender</option>
-                                        <option value="Boys">Boy</option>
-                                        <option value="Girls">Girl</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Date Of Birth*</label>
-                                    <input type="date" class="form-control" placeholder="Date Of Birth" ng-model="student.dob" required>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>School*</label>
                                     <ui-select ng-model="student.school" title="Select School">
@@ -80,6 +44,50 @@
                                             </small>
                                         </ui-select-choices>
                                     </ui-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="last-name">Last Name*</label>
+                                            <input type="text" class="form-control" ng-model="student.lastname" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="first-name">First Name*</label>
+                                            <input type="text" class="form-control" ng-model="student.firstname" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="middle-name">Middle Name</label>
+                                            <input type="text" class="form-control" ng-model="student.middlename">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Gender*</label>
+                                            <select class="form-control" ng-model="student.gender" required>
+                                                <option value="">Select Gender</option>
+                                                <option value="Boys">Boy</option>
+                                                <option value="Girls">Girl</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Date Of Birth*</label>
+                                            <input type="date" class="form-control" placeholder="Date Of Birth" ng-model="student.dob" required>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
