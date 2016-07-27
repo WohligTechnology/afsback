@@ -32,6 +32,13 @@ a {
     cursor: pointer;
     @include transition(all ease 300ms);
 }
+
+//classess
+    .bg-white {
+        background-color: white;
+    }
+// classess end 
+
 //bootstrap forms
 .btn,
 .form-control,

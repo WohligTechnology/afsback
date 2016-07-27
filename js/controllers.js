@@ -52,7 +52,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.onChange = function() {
         NavigationService.countForDashboard($scope.dash.year, function(data) {
             console.log(data);
-            $scope.dynamic = data;
+            $scope.dynamic = data.data;
         });
     }
     $scope.onChange();
@@ -591,7 +591,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         } else {
             $scope.errorEmail = false;
         }
-        if ($scope.school.contact) {
+        if ($scope.student.contact) {
             checkContact();
         } else {
             $scope.errorContact = false;
@@ -716,7 +716,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         } else {
             $scope.errorEmail = false;
         }
-        if ($scope.school.contact) {
+        if ($scope.student.contact) {
             checkContact();
         } else {
             $scope.errorContact = false;

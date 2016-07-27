@@ -35,32 +35,53 @@
                         <div class="widget">
                             <div class="mini-stats ">
                                 <span class="sky-skin"><i class="fa fa-building" aria-hidden="true"></i></span>
-                                <p>No.of Students</p>
-                                <h3>{{static.student}}</h3>
+                                <p>No.of Schools</p>
+                                <h3>{{static.school}}</h3>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <div class="widget">
-                            <label>Year</label>
-                            <select class="form-control" ng-model="dash.year" ng-options="year for year in allYears" ng-change="onChange();">
+                        <div class="">
+                            <label style="padding: 10px; margin: 0; width: 100%" for="year">Year</label>
+                            <select id="year" class="form-control" ng-model="dash.year" ng-options="year for year in allYears" ng-change="onChange();">
                             </select>
                         </div>
                     </div>
                 </div>
-                <!-- <div class="row">
+                <div class="row">
                     <div class="col-md-3">
-                        <div class="widget">
-                            <div class="mini-stats ">
+                        <label style="padding: 10px; margin: 0; width: 100%">Student Sports</label>
+                        <div class="bg-white" ng-repeat="item in dynamic.studentSport" ng-if="dynamic.studentSport.length > 0">
+                            {{item}}
+                            <div class="mini-stats">
                                 <span class="purple-skin"><i class="fa fa-bullhorn"></i></span>
-                                <p><i class="fa  fa-arrow-down down"></i> Item Sales</p>
-                                <h3>6,101</h3>
+                                <p></p>
+                                <h3>{{}}</h3>
                             </div>
                         </div>
+                        <div class="bg-white" ng-if="dynamic.studentSport.length <= 0">
+                            No data Available
+                        </div>
                     </div>
-                </div> -->
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label style="padding: 10px; margin: 0; width: 100%">School Sports</label>
+                        <div class="bg-white" ng-repeat="item in dynamic.schoolSport" ng-if="dynamic.schoolSport.length > 0">
+                            {{item}}
+                            <!-- <div class="mini-stats">
+                                <span class="purple-skin"><i class="fa fa-bullhorn"></i></span>
+                                <p></p>
+                                <h3>6,101</h3>
+                            </div> -->
+                        </div>
+                        <div class="bg-white" ng-if="dynamic.schoolSport.length <= 0">
+                            No data Available
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- Mini stats Sec -->
         </div>
