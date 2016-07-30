@@ -508,7 +508,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     }
 })
 
-.controller('createStudentCtrl', function($scope, TemplateService, NavigationService, $timeout, $state) {
+.controller('createStudentCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("createstudent");
     $scope.menutitle = NavigationService.makeactive("Students");
@@ -516,7 +516,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
     $scope.pageName = "Create Student";
-
+    $scope.create = true;
     $scope.student = {};
     $scope.student.hours = "1";
     $scope.student.minutes = "1";
@@ -529,6 +529,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.payment = ["Paid", "Unpaid"];
     $scope.student.via = "via School";
     $scope.student.payment = "Unpaid";
+    $scope.validateError = {};
+    $scope.validateError.valid = false;
 
     NavigationService.getLastStudentId(function(data) {
         console.log(data);
@@ -543,6 +545,33 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
     });
 
+    $scope.checkStud = function() {
+        if ($scope.student.school && !_.isEmpty($scope.student.school) && $scope.student.lastname && $scope.student.firstname) {
+            $scope.validateError.valid = false;
+            $scope.findStudObj = _.cloneDeep($scope.student);
+            $scope.findStudObj.school = $scope.findStudObj.school._id;
+            NavigationService.findStud($scope.findStudObj, function(data) {
+                if (data.value != false) {
+                    console.log(data.data);
+                    $.jStorage.set("showstudent", data.data);
+                    window.open(openTab);
+                } else {
+                    $scope.validateError.valid = true;
+                    $scope.validateError.message = "Student Was Not Found";
+                    $timeout(function() {
+                        $scope.validateError.valid = false;
+                    }, 3000);
+                }
+            });
+        } else {
+            console.log('test');
+            $scope.validateError.valid = true;
+            $scope.validateError.message = "Please enter required fields for checking.";
+            $timeout(function() {
+                $scope.validateError.valid = false;
+            }, 3000);
+        }
+    }
     $scope.showError = false;
     $scope.errorContact = false;
     $scope.errorEmail = false;
@@ -1587,6 +1616,26 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         })
     }
 
+})
+
+.controller('showStudentCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $stateParams) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("showstudent");
+    $scope.menutitle = NavigationService.makeactive("Student");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.template.type = 1;
+    $scope.showstudent = $.jStorage.get("showstudent");
+    console.log($scope.showstudent);
+    if ($scope.showstudent.dob) {
+        $scope.showstudent.dob = new Date($scope.showstudent.dob);
+    }
+    if ($scope.showstudent.dateOfForm) {
+        $scope.showstudent.dateOfForm = new Date($scope.showstudent.dateOfForm);
+    }
+    if ($scope.showstudent.timeOfForm) {
+        $scope.showstudent.timeOfForm = new Date($scope.showstudent.timeOfForm);
+    }
 })
 
 .controller('languageCtrl', function($scope, TemplateService, $translate, $rootScope) {

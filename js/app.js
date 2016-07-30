@@ -133,7 +133,11 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         controller: 'editAgeGroupCtrl'
     })
 
-    ;
+    .state('showstudent', {
+        url: "/showstudent",
+        templateUrl: "views/template.html",
+        controller: 'showStudentCtrl'
+    });
     $urlRouterProvider.otherwise("/dashboard");
     $locationProvider.html5Mode(isproduction);
 });

@@ -2,6 +2,9 @@ var adminURL = "http://104.199.151.75:84/";
 // var adminURL = "http://localhost:84/";
 var imgURL = "upload/";
 
+var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
+// var openTab = "http://localhost:8080/#/showstudent"
+
 var navigationservice = angular.module('navigationservice', [])
 
 .factory('NavigationService', function($http) {
@@ -375,6 +378,13 @@ var navigationservice = angular.module('navigationservice', [])
                 data: {
                     year: year
                 }
+            }).success(callback);
+        },
+        findStud: function(data, callback) {
+            $http({
+                url: adminURL + 'student/findStud',
+                method: 'POST',
+                data: data
             }).success(callback);
         },
         makeactive: function(menuname) {
