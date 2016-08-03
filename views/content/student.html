@@ -45,18 +45,18 @@
                             <tbody>
                                 <td style="width: 12%;">Search By :</td>
                                 <td style="width: 30%;">
-                                    <input type="text" placeholder="Student SFA-ID" class="form-control" ng-model="search.sfaid">
+                                    <input type="text" placeholder="Student SFA-ID" class="form-control" ng-model="pagination.sfaid" ng-change="reload(1);" only-digits>
                                 </td>
                                 <td style="width:30%">
-                                    <input type="text" placeholder="Student Name" class="form-control" ng-model="search.name">
+                                    <input type="text" placeholder="Student Name" class="form-control" ng-model="pagination.name" ng-change="reload(2);">
                                 </td>
-                                <tr ng-if="students.length <= 0 && !contentLoaded" class="loadingTable">
+                                <tr ng-if="students.data.length <= 0 && !contentLoaded" class="loadingTable">
                                     <td>Loading...</td>
                                 </tr>
-                                <tr ng-if="students.length <= 0 && contentLoaded" class="loadingTable">
+                                <tr ng-if="students.data.length <= 0 && contentLoaded" class="loadingTable">
                                     <td>No Data Available</td>
                                 </tr>
-                                <tr ng-repeat="student in students | filter:search"  ng-if="students.length>0 && contentLoaded">
+                                <tr ng-repeat="student in students.data" ng-if="students.data.length>0 && contentLoaded">
                                     <td>{{$index+1}}</td>
                                     <td>{{student.sfaid}}</td>
                                     <td>{{student.name}}</td>
@@ -81,6 +81,9 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="">
+                        <uib-pagination ng-show="students.data.length > 0" ng-change="reload();" total-items="students.total" ng-model="pagination.pagenumber" items-per-page="20"></uib-pagination>
                     </div>
                 </div>
             </div>

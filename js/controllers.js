@@ -471,29 +471,38 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
     $scope.contentLoaded = false;
+    $scope.pagination = {};
+    $scope.pagination.pagenumber = 1;
 
-    function reload() {
-        NavigationService.getAllStudent(function(data) {
+    $scope.reload = function(val) {
+        if (val === 1) {
+            $scope.pagination.name = "";
+        } else if (val === 2) {
+            $scope.pagination.sfaid = "";
+        }
+        NavigationService.getLimitedStudent($scope.pagination, function(data) {
             if (data.value !== false) {
                 $scope.contentLoaded = true;
                 $scope.students = data.data;
+            } else {
+                $scope.students = { data: [] };
             }
         });
     }
-    reload();
+    $scope.reload();
     $scope.hideStudent = function(id, status) {
         NavigationService.hideStudent({
             _id: id,
             status: status
         }, function(data2) {
             console.log(data2);
-            reload();
+            $scope.reload();
         });
     }
     $scope.confDelete = function() {
         NavigationService.deleteStudent(function(data, status) {
             console.log(data);
-            reload();
+            $scope.reload();
         });
     }
     $scope.deleteFunc = function(id) {

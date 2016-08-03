@@ -3,7 +3,7 @@ var adminURL = "http://104.199.151.75:84/";
 var imgURL = "upload/";
 
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
-// var openTab = "http://localhost:8080/#/showstudent"
+// var openTab = "http://localhost:808/#/showstudent"
 
 var navigationservice = angular.module('navigationservice', [])
 
@@ -231,6 +231,13 @@ var navigationservice = angular.module('navigationservice', [])
             $http({
                 url: adminURL + 'student/getAll',
                 method: 'POST'
+            }).success(callback);
+        },
+        getLimitedStudent: function(data, callback) {
+            $http({
+                url: adminURL + 'student/getLimited',
+                method: 'POST',
+                data: data
             }).success(callback);
         },
         getOneStudent: function(id, callback) {
