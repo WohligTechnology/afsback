@@ -148,6 +148,14 @@ width: 75px;
 .student-sport-view {
     margin: 10px 0;
 }
+
+.banner-img-holder{
+    width:300px;
+    height:200px;
+    img{
+        width:100%;
+    }
+}
 //bootstrap forms
 /* Start writing sass here */
 @import "fancybox-override";

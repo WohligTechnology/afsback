@@ -8,102 +8,58 @@
     </li>
   </ul>
 </div> -->
-
 <div class="heading-sec">
-   <div class="row">
-      <div class="col-md-4 column">
-         <div class="heading-profile">
-            <h2>{{pageName}}</h2>
-         </div>
-      </div>
-   </div>
+    <div class="row">
+        <div class="col-md-4 column">
+            <div class="heading-profile">
+                <h2>{{pageName}}</h2>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Top Bar Chart -->
 <div class="panel-content">
-   <div class="row">
-      <div class="col-md-12">
-         <form ng-submit="saveSportList();">
-            <div class="widget">
-               <div class="form-elements-sec">
-                  <div class="form-group">
-                     <label>Sport List Name</label>
-                     <input type="text" placeholder="Sport List Name" class="form-control" required ng-model="sportList.name">
-                  </div>
-                  <div class="form-group">
-                     <label>Sport List Type</label>
-                     <select class="form-control" ng-model="sportList.sporttype">
-                        <option value="">Select Sport List Type</option>
-                        <option value="Team">Team Sports</option>
-                        <option value="Racquet">Racquet Sports</option>
-                        <option value="Combat">Combat Sports</option>
-                        <option value="Target">Target Sports</option>
-                        <option value="Aquatics">Aquatics Sports</option>
-                        <option value="Individual">Individual Sports</option>
-                     </select>
-                  </div>
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="text-center mt20">
-                     <button class="btn btn-default" type="submit">Save</button>
-                     <button class="btn btn-default" ui-sref="sportlist">Cancel</button>
-                  </div>
-               </div>
-            </div>
-         </form>
-      </div>
-   </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form ng-submit="saveSportList();">
+                <div class="widget">
+                    <div class="form-elements-sec">
+                        <div class="form-group">
+                            <label>Sport List Name</label>
+                            <input type="text" placeholder="Sport List Name" class="form-control" required ng-model="sportList.name">
+                        </div>
+                        <div class="form-group">
+                            <label>Sport List Type</label>
+                            <select class="form-control" ng-model="sportList.sporttype">
+                                <option value="">Select Sport List Type</option>
+                                <option value="Team">Team Sports</option>
+                                <option value="Racquet">Racquet Sports</option>
+                                <option value="Combat">Combat Sports</option>
+                                <option value="Target">Target Sports</option>
+                                <option value="Aquatics">Aquatics Sports</option>
+                                <option value="Individual">Individual Sports</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Table Header</label>
+                            <ui-select multiple tagging tagging-label="false" ng-model="sportList.tableContent" title="Choose a header" on-select="addContent($select)">
+                                <ui-select-match placeholder="Select header">{{$item}}</ui-select-match>
+                                <ui-select-choices repeat="color in []| filter:$select.search">
+                                    {{color}}
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="text-center mt20">
+                            <button class="btn btn-default" type="submit">Save</button>
+                            <button class="btn btn-default" ui-sref="sportlist">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-<!-- <div class="widget">
-   <div class="form-elements-sec">
-      <div class="row">
-         <div class="col-md-6">
-            <div class="form-group">
-               <label for="disabledSelect">Status</label>
-               <select class="form-control">
-                  <option value="select">Select Status</option>
-                  <option value="select">Active</option>
-                  <option value="select">Inactive</option>
-               </select>
-            </div>
-            <div class="checkbox">
-               <label>
-                  <input type="checkbox"> Is a Billable Branch
-               </label>
-            </div>
-            <div class="form-group">
-               <label for="disabledSelect">Series Format</label>
-               <select class="form-control">
-                  <option value="select">Select Series Format</option>
-                  <option value="select">1</option>
-                  <option value="select">2</option>
-               </select>
-            </div>
-         </div>
-         <div class="col-md-6">
-            <label for="disabledSelect">TAT</label>
-            <div class="checkbox">
-               <label>
-                  <input type="checkbox"> STAT
-               </label>
-            </div>
-            <div class="checkbox">
-               <label>
-                  <input type="checkbox"> ITAT
-               </label>
-               <div class="checkbox">
-                  <label>
-                     <input type="checkbox"> FSR
-                  </label>
-               </div>
-               <div class="checkbox">
-                  <label>
-                     <input type="checkbox"> R2NR
-                  </label>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-</div> -->

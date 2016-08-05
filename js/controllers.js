@@ -1,4 +1,4 @@
-angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', 'ngAnimate', 'ngSanitize', 'angular-flexslider', 'ui.select'])
+angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', 'ngAnimate', 'ngSanitize', 'angular-flexslider', 'ui.select', 'imageupload', 'ui.tinymce'])
 
 .controller('headerctrl', function($scope, TemplateService, $state) {
     $scope.template = TemplateService;
@@ -67,29 +67,38 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.template.type = 1;
     $scope.contentLoaded = false;
     $scope.schools = [];
+    $scope.pagination = {};
+    $scope.pagination.pagenumber = 1;
 
-    function reload() {
-        NavigationService.getAllSchool(function(data) {
+    $scope.reload = function(val) {
+        if (val === 1) {
+            $scope.pagination.name = "";
+        } else if (val === 2) {
+            $scope.pagination.sfaid = "";
+        }
+        NavigationService.getLimitedSchool($scope.pagination, function(data) {
             if (data.value !== false) {
                 $scope.contentLoaded = true;
                 $scope.schools = data.data;
+            } else {
+                $scope.schools = { data: [] };
             }
         });
     }
-    reload();
+    $scope.reload();
     $scope.hideSchool = function(id, status) {
         NavigationService.hideSchool({
             _id: id,
             status: status
         }, function(data2) {
             console.log(data2);
-            reload();
+            $scope.reload();
         });
     }
     $scope.confDelete = function() {
         NavigationService.deleteSchool(function(data, status) {
             console.log(data);
-            reload();
+            $scope.reload();
         });
     }
     $scope.deleteFunc = function(id) {
@@ -1239,7 +1248,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }
         })
     }
-
+    $scope.addContent = function(select) {
+        $scope.sportList.tableContent = select.selected;
+    }
 })
 
 .controller('editSportListCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $stateParams) {
@@ -1269,7 +1280,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }
         })
     }
-
 })
 
 .controller('sportCtrl', function($scope, TemplateService, NavigationService, $timeout) {
@@ -1645,6 +1655,362 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     if ($scope.showstudent.timeOfForm) {
         $scope.showstudent.timeOfForm = new Date($scope.showstudent.timeOfForm);
     }
+})
+
+.controller('SportRuleCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("sportrule");
+    $scope.menutitle = NavigationService.makeactive("Sport Rule");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.template.type = 1;
+    $scope.contentLoaded = false;
+
+    function reload() {
+        NavigationService.getAllSportRule(function(data) {
+            console.log(data);
+            if (data.value != false) {
+                $scope.contentLoaded = true;
+                $scope.sportrule = data.data;
+            } else {
+                $scope.sportrule = [];
+            }
+        });
+    }
+    reload();
+
+    $scope.confDelete = function() {
+        NavigationService.deleteSportRule(function(data, status) {
+            console.log(data);
+            $scope.reload();
+        });
+    }
+    $scope.deleteFunc = function(id) {
+        console.log(id);
+        $.jStorage.set("deleteSportRule", id);
+        $.jStorage.get("deleteSportRule");
+        $uibModal.open({
+            animation: true,
+            templateUrl: "views/content/delete.html",
+            scope: $scope
+        })
+    }
+})
+
+.controller('createSportRuleCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("createsportrule");
+    $scope.menutitle = NavigationService.makeactive("Sport Rule");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.template.type = 1;
+    $scope.pageName = "Create Sport Rule";
+    $scope.sportrule = {};
+    $scope.deleteVal = "";
+    $scope.sportrule.featured = [];
+
+    NavigationService.getAllSportList(function(data) {
+        $scope.sportlist = data.data;
+    });
+
+    $scope.selectContent = function(id) {
+        NavigationService.getOneSportList(id, function(data) {
+            console.log(data.data);
+            $scope.contentheader = data.data.tableContent;
+        });
+    };
+
+    NavigationService.getAllAgeGroups(function(data) {
+        console.log(data);
+        if (data.value != false) {
+            $scope.agegroup = data.data;
+        } else {
+            $scope.agegroup = [];
+        }
+    });
+
+    NavigationService.getSchoolList(function(data) {
+        console.log(data);
+        if (data.value != false) {
+            $scope.school = data.data;
+        } else {
+            $scope.school = [];
+        }
+    });
+
+    $scope.getStudent = function(search) {
+        if (search.length >= 2) {
+            var obj = {};
+            obj.search = search;
+            obj.student = $scope.sportrule.featured;
+            NavigationService.getStudent(obj, function(data) {
+                if (data && data.value != false) {
+                    $scope.students = data.data;
+                } else {
+                    $scope.students = [];
+                }
+            });
+        } else {
+            $scope.students = [];
+        }
+    }
+
+    $scope.saveStudent = function(data, select) {
+        console.log(select);
+        $scope.sportrule.student = select.selected;
+    }
+
+    $scope.addCont = function(crdv) {
+        if (!crdv.eligibilityTable) {
+            crdv.eligibilityTable = [{
+                "agegroup": "",
+                "date": ""
+            }];
+        } else {
+            crdv.eligibilityTable.push({
+                "agegroup": "",
+                "date": ""
+            });
+        }
+    };
+
+    $scope.addWin = function(crdv) {
+        if (!crdv.winnerTable) {
+            crdv.winnerTable = [{
+                "category": "",
+                "school": ""
+            }];
+        } else {
+            crdv.winnerTable.push({
+                "category": "",
+                "school": ""
+            });
+        }
+    };
+
+    $scope.addTeam = function(crdv) {
+        if (!crdv.teamTable) {
+            crdv.teamTable = [{
+                "category": "",
+                "school": ""
+            }];
+        } else {
+            crdv.teamTable.push({
+                "category": "",
+                "school": ""
+            });
+        }
+    };
+
+    $scope.confDelete = function(val) {
+        if ($scope.deleteVal === 1) {
+            $scope.sportrule.eligibilityTable.splice($.jStorage.get("deleteEligibilityTable"), 1);
+        } else if ($scope.deleteVal === 2) {
+            $scope.sportrule.winnerTable.splice($.jStorage.get("deleteWinnerTable"), 1);
+        } else if ($scope.deleteVal === 3) {
+            $scope.sportrule.teamTable.splice($.jStorage.get("deleteTeamTable"), 1);
+        }
+    };
+
+    $scope.deleteFunc = function(id, value) {
+        if (value === 1) {
+            $scope.deleteVal = 1;
+            $.jStorage.set("deleteEligibilityTable", id);
+        } else if (value === 2) {
+            $scope.deleteVal = 2;
+            $.jStorage.set("deleteWinnerTable", id);
+        } else if (value === 3) {
+            $scope.deleteVal = 3;
+            $.jStorage.set("deleteTeamTable", id);
+        }
+        $uibModal.open({
+            animation: true,
+            templateUrl: "views/content/delete.html",
+            scope: $scope
+        });
+    };
+
+    $scope.saveSportRule = function() {
+        console.log($scope.sportrule);
+        NavigationService.saveSportRule($scope.sportrule, function(data) {
+            console.log(data);
+            if (data.value != false) {
+                $state.go('sportrule');
+            }
+        });
+    };
+})
+
+.controller('editSportRuleCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $stateParams, $uibModal) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("createsportrule");
+    $scope.menutitle = NavigationService.makeactive("Sport Rule");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.template.type = 1;
+    $scope.pageName = "Edit Sport Rule";
+    $scope.sportrule = {};
+    $scope.deleteVal = "";
+
+    NavigationService.getAllSportList(function(data) {
+        $scope.sportlist = data.data;
+    });
+
+    $scope.selectContent = function(id) {
+        NavigationService.getOneSportList(id, function(data) {
+            console.log(data.data);
+            if (data.value != false) {
+                $scope.contentheader = data.data.tableContent;
+            } else {
+                $scope.contentheader = [];
+            }
+        });
+    };
+
+    NavigationService.getOneSportRule($stateParams.id, function(data) {
+        console.log(data);
+        if (data.value != false) {
+            $scope.sportrule = data.data;
+            $scope.contentheader = _.cloneDeep($scope.sportrule.sportid);
+            console.log($scope.contentheader);
+            if ($scope.sportrule.fromDate) {
+                $scope.sportrule.fromDate = new Date($scope.sportrule.fromDate);
+            }
+            if ($scope.sportrule.toDate) {
+                $scope.sportrule.toDate = new Date($scope.sportrule.toDate);
+            }
+            if ($scope.sportrule.eligibilityTable && $scope.sportrule.eligibilityTable.length > 0) {
+                _.each($scope.sportrule.eligibilityTable, function(n) {
+                    if (n.date) {
+                        n.date = new Date(n.date);
+                    }
+                });
+            }
+            if (!$scope.sportrule.featured) {
+                $scope.sportrule.featured = [];
+            }
+        }
+    })
+    NavigationService.getAllAgeGroups(function(data) {
+        console.log(data);
+        if (data.value != false) {
+            $scope.agegroup = data.data;
+        } else {
+            $scope.agegroup = [];
+        }
+    });
+
+    NavigationService.getSchoolList(function(data) {
+        console.log(data);
+        if (data.value != false) {
+            $scope.school = data.data;
+        } else {
+            $scope.school = [];
+        }
+    });
+
+    $scope.getStudent = function(search) {
+        if (search.length >= 2) {
+            var obj = {};
+            obj.search = search;
+            obj.student = $scope.sportrule.featured;
+            NavigationService.getStudent(obj, function(data) {
+                if (data && data.value != false) {
+                    $scope.students = data.data;
+                } else {
+                    $scope.students = [];
+                }
+            });
+        } else {
+            $scope.students = [];
+        }
+    }
+
+    $scope.saveStudent = function(data, select) {
+        console.log(select);
+        $scope.sportrule.student = select.selected;
+    }
+
+    $scope.addCont = function(crdv) {
+        if (!crdv.eligibilityTable) {
+            crdv.eligibilityTable = [{
+                "agegroup": "",
+                "date": ""
+            }];
+        } else {
+            crdv.eligibilityTable.push({
+                "agegroup": "",
+                "date": ""
+            });
+        }
+    };
+
+    $scope.addWin = function(crdv) {
+        if (!crdv.winnerTable) {
+            crdv.winnerTable = [{
+                "category": "",
+                "school": ""
+            }];
+        } else {
+            crdv.winnerTable.push({
+                "category": "",
+                "school": ""
+            });
+        }
+    };
+
+    $scope.addTeam = function(crdv) {
+        if (!crdv.teamTable) {
+            crdv.teamTable = [{
+                "category": "",
+                "school": ""
+            }];
+        } else {
+            crdv.teamTable.push({
+                "category": "",
+                "school": ""
+            });
+        }
+    };
+
+    $scope.confDelete = function(val) {
+        if ($scope.deleteVal === 1) {
+            $scope.sportrule.eligibilityTable.splice($.jStorage.get("deleteEligibilityTable"), 1);
+        } else if ($scope.deleteVal === 2) {
+            $scope.sportrule.winnerTable.splice($.jStorage.get("deleteWinnerTable"), 1);
+        } else if ($scope.deleteVal === 3) {
+            $scope.sportrule.teamTable.splice($.jStorage.get("deleteTeamTable"), 1);
+        }
+    };
+
+    $scope.deleteFunc = function(id, value) {
+        if (value === 1) {
+            $scope.deleteVal = 1;
+            $.jStorage.set("deleteEligibilityTable", id);
+        } else if (value === 2) {
+            $scope.deleteVal = 2;
+            $.jStorage.set("deleteWinnerTable", id);
+        } else if (value === 3) {
+            $scope.deleteVal = 3;
+            $.jStorage.set("deleteTeamTable", id);
+        }
+        $uibModal.open({
+            animation: true,
+            templateUrl: "views/content/delete.html",
+            scope: $scope
+        });
+    };
+
+    $scope.saveSportRule = function() {
+        console.log($scope.sportrule);
+        NavigationService.saveSportRule($scope.sportrule, function(data) {
+            console.log(data);
+            if (data.value != false) {
+                $state.go('sportrule');
+            }
+        });
+    };
+
 })
 
 .controller('languageCtrl', function($scope, TemplateService, $translate, $rootScope) {

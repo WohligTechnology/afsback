@@ -184,7 +184,10 @@
                                     </div> -->
                                     <div class="form-group">
                                         <label>Profile Picture</label>
-                                        <input type="file" class="form-control" ng-model="student.profilePicturre">
+                                        <div class="banner-img-holder" ng-if="student.profilePic">
+                                            <img ng-src="{{student.profilePic|uploadpath}}" alt="" class="img-responsive margin-auto">
+                                        </div>
+                                        <upload-image ng-model="student.profilePic" no-view></upload-image>
                                     </div>
                                     <!--  <div class="row">
                                         <div class="col-md-6">

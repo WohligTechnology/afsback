@@ -1,6 +1,6 @@
 var adminURL = "http://104.199.151.75:84/";
 // var adminURL = "http://localhost:84/";
-var imgURL = "upload/";
+var uploadurl = adminURL + "upload/";
 
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
 // var openTab = "http://localhost:808/#/showstudent"
@@ -42,6 +42,12 @@ var navigationservice = angular.module('navigationservice', [])
         name: "Age Groups",
         classis: "active",
         anchor: "agegroup",
+        icon: "users",
+        subnav: []
+    }, {
+        name: "Sport Rule",
+        classis: "active",
+        anchor: "sportrule",
         icon: "users",
         subnav: []
     }];
@@ -187,6 +193,19 @@ var navigationservice = angular.module('navigationservice', [])
                 data: obj
             }).success(callback);
         },
+        getStudent: function(obj, callback) {
+            $http({
+                url: adminURL + 'student/findForDrop',
+                method: 'POST',
+                data: obj
+            }).success(callback);
+        },
+        getAllAgeGroups: function(callback) {
+            $http({
+                url: adminURL + 'agegroup/getAll',
+                method: 'POST'
+            }).success(callback);
+        },
         getLastId: function(callback) {
             $http({
                 url: adminURL + 'school/getLastId',
@@ -236,6 +255,13 @@ var navigationservice = angular.module('navigationservice', [])
         getLimitedStudent: function(data, callback) {
             $http({
                 url: adminURL + 'student/getLimited',
+                method: 'POST',
+                data: data
+            }).success(callback);
+        },
+        getLimitedSchool: function(data, callback) {
+            $http({
+                url: adminURL + 'school/getLimited',
                 method: 'POST',
                 data: data
             }).success(callback);
@@ -392,6 +418,28 @@ var navigationservice = angular.module('navigationservice', [])
                 url: adminURL + 'student/findStud',
                 method: 'POST',
                 data: data
+            }).success(callback);
+        },
+        getAllSportRule: function(callback) {
+            $http({
+                url: adminURL + 'sportrule/getAll',
+                method: 'POST'
+            }).success(callback);
+        },
+        saveSportRule: function(data, callback) {
+            $http({
+                url: adminURL + 'sportrule/saveData',
+                method: 'POST',
+                data: data
+            }).success(callback);
+        },
+        getOneSportRule: function(data, callback) {
+            $http({
+                url: adminURL + 'sportrule/getOne',
+                method: 'POST',
+                data: {
+                    _id: data
+                }
             }).success(callback);
         },
         makeactive: function(menuname) {

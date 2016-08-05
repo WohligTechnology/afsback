@@ -1,0 +1,72 @@
+<!-- <div id="progressBar">
+   <div class="loader"></div>
+</div> -->
+<!-- <div class="breadcrumbs">
+   <ul>
+      <li>
+         <a title="Home">Company Setup</a>
+      </li>
+      <li>
+         <a ui-sref="branch-list" title="Branch List">Branch List</a>
+      </li>
+   </ul>
+</div> -->
+<div class="heading-sec">
+    <div class="row">
+        <div class="col-md-4 column">
+            <div class="heading-profile">
+                <h2>Students</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Top Bar Chart -->
+<div class="panel-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="table-area">
+                    <div class="widget-title">
+                        <div class="pull-right">
+                            <a class="btn btn-primary" ui-sref="createsportrule">Add New</a>
+                        </div>
+                        <h3>List of Sport Rule</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Sport Name</th>
+                                    <th class="text-center" colspan="3">Operations</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-if="sportrule.data.length <= 0 && !contentLoaded" class="loadingTable">
+                                    <td>Loading...</td>
+                                </tr>
+                                <tr ng-if="sportrule.data.length <= 0 && contentLoaded" class="loadingTable">
+                                    <td>No Data Available</td>
+                                </tr>
+                                <tr ng-repeat="rule in sportrule" ng-if="sportrule.length>0 && contentLoaded">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{rule.sportid.name}}</td>
+                                    <td class="text-center">
+                                        <a ui-sref="editsportrule({id:rule._id})" class="btn btn-primary">
+                                            <i class="fa fa-pencil-square-o"></i>
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a ng-click="deleteFunc(rule._id)" class="btn btn-primary">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

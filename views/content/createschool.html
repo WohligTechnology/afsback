@@ -229,11 +229,14 @@
                                         <label>Principal</label>
                                         <input type="text" placeholder="Principal" class="form-control" ng-model="school.principal">
                                     </div>
-                                    <!--  <div class="form-group">
-                              <label>Logo</label>
-                              <input type="file" class="form-control">
-                           </div>
-                           <div class="form-group">
+                                    <div class="form-group">
+                                        <label>Logo</label>
+                                        <div class="banner-img-holder" ng-if="school.logo">
+                                            <img ng-src="{{school.logo|uploadpath}}" alt="" class="img-responsive margin-auto">
+                                        </div>
+                                        <upload-image ng-model="school.logo" no-view></upload-image>
+                                    </div>
+                                    <!-- <div class="form-group">
                               <div class="row">
                                  <div class="col-md-6">
                                     <label>Videos (Comma seperated)</label>
@@ -293,7 +296,7 @@
                                                         <input type="text" class="form-control" ng-model="cl.designation" placeholder="Designation">
                                                     </td>
                                                     <td>
-                                                        <input type="text" class="form-control" ng-model="cl.contact" placeholder="Contact" maxlength="10" only-digits> 
+                                                        <input type="text" class="form-control" ng-model="cl.contact" placeholder="Contact" maxlength="10" only-digits>
                                                     </td>
                                                     <td>
                                                         <input type="email" class="form-control" ng-model="cl.email" placeholder="Email">
