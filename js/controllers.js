@@ -1708,6 +1708,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.sportrule = {};
     $scope.deleteVal = "";
     $scope.sportrule.featured = [];
+    $scope.contentheader = [];
 
     NavigationService.getAllSportList(function(data) {
         $scope.sportlist = data.data;
@@ -1802,6 +1803,14 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
     };
 
+    $scope.addAge = function(crdv) {
+        if (!crdv.ageGroupTable) {
+            crdv.ageGroupTable = [{}];
+        } else {
+            crdv.ageGroupTable.push({});
+        }
+    };
+
     $scope.confDelete = function(val) {
         if ($scope.deleteVal === 1) {
             $scope.sportrule.eligibilityTable.splice($.jStorage.get("deleteEligibilityTable"), 1);
@@ -1809,6 +1818,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.sportrule.winnerTable.splice($.jStorage.get("deleteWinnerTable"), 1);
         } else if ($scope.deleteVal === 3) {
             $scope.sportrule.teamTable.splice($.jStorage.get("deleteTeamTable"), 1);
+        } else if ($scope.deleteVal === 4) {
+            $scope.sportrule.ageGroupTable.splice($.jStorage.get("deleteAgeGroupTable"), 1);
         }
     };
 
@@ -1822,6 +1833,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         } else if (value === 3) {
             $scope.deleteVal = 3;
             $.jStorage.set("deleteTeamTable", id);
+        } else if (value === 4) {
+            $scope.deleteVal = 4;
+            $.jStorage.set("deleteAgeGroupTable", id);
         }
         $uibModal.open({
             animation: true,
@@ -1871,8 +1885,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         console.log(data);
         if (data.value != false) {
             $scope.sportrule = data.data;
-            $scope.contentheader = _.cloneDeep($scope.sportrule.sportid);
-            console.log($scope.contentheader);
+            $scope.contentheader = _.cloneDeep($scope.sportrule.sportid.tableContent);
             if ($scope.sportrule.fromDate) {
                 $scope.sportrule.fromDate = new Date($scope.sportrule.fromDate);
             }
@@ -1973,6 +1986,14 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
     };
 
+    $scope.addAge = function(crdv) {
+        if (!crdv.ageGroupTable) {
+            crdv.ageGroupTable = [{}];
+        } else {
+            crdv.ageGroupTable.push({});
+        }
+    };
+
     $scope.confDelete = function(val) {
         if ($scope.deleteVal === 1) {
             $scope.sportrule.eligibilityTable.splice($.jStorage.get("deleteEligibilityTable"), 1);
@@ -1980,6 +2001,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.sportrule.winnerTable.splice($.jStorage.get("deleteWinnerTable"), 1);
         } else if ($scope.deleteVal === 3) {
             $scope.sportrule.teamTable.splice($.jStorage.get("deleteTeamTable"), 1);
+        } else if ($scope.deleteVal === 4) {
+            $scope.sportrule.ageGroupTable.splice($.jStorage.get("deleteAgeGroupTable"), 1);
         }
     };
 
@@ -1993,6 +2016,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         } else if (value === 3) {
             $scope.deleteVal = 3;
             $.jStorage.set("deleteTeamTable", id);
+        } else if (value === 4) {
+            $scope.deleteVal = 4;
+            $.jStorage.set("deleteAgeGroupTable", id);
         }
         $uibModal.open({
             animation: true,
