@@ -18,7 +18,7 @@ var jsArray = [
     './bower_components/angulartics/dist/angulartics.min.js',
     './bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js',
     "./bower_components/angular-ui-select/dist/select.js",
-    "./bower_components/tinymce-dist/tinymce.js",
+    "./bower_components/tinymce-dist/tinymce.min.js",
     "./bower_components/angular-ui-tinymce/src/tinymce.js",
     './bower_components/jStorage/jstorage.min.js',
     './js/app.js',

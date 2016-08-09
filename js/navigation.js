@@ -61,12 +61,6 @@ var navigationservice = angular.module('navigationservice', [])
         getAllYears: function() {
             return currentYears;
         },
-        getCurrentPosition: function(callback) {
-            $http({
-                url: "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDCa1LUe1vOczX1hO_iGYgyo8p_jYuGOPU",
-                method: 'POST'
-            }).success(callback);
-        },
         loginAdmin: function(formData, callback) {
             $http({
                 url: adminURL + 'admin/login',

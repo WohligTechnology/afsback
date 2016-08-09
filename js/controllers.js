@@ -1721,6 +1721,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         });
     };
 
+    $scope.removeimage = function(i) {
+        $scope.sportrule.images.splice(i, 1);
+    };
+
     NavigationService.getAllAgeGroups(function(data) {
         console.log(data);
         if (data.value != false) {
@@ -1738,6 +1742,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.school = [];
         }
     });
+
 
     $scope.getStudent = function(search) {
         if (search.length >= 2) {
@@ -1845,9 +1850,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     };
 
     $scope.saveSportRule = function() {
-        console.log($scope.sportrule);
         NavigationService.saveSportRule($scope.sportrule, function(data) {
-            console.log(data);
             if (data.value != false) {
                 $state.go('sportrule');
             }
@@ -1869,6 +1872,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     NavigationService.getAllSportList(function(data) {
         $scope.sportlist = data.data;
     });
+
+    $scope.removeimage = function(i) {
+        $scope.sportrule.images.splice(i, 1);
+    };
 
     $scope.selectContent = function(id) {
         NavigationService.getOneSportList(id, function(data) {

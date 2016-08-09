@@ -101,7 +101,8 @@
                         </div>
                         <div class="form-group">
                             <label>Eligibility Content</label>
-                            <textarea rows="5" placeholder="Eligibility Content" class="form-control" ng-model="sportrule.eligibilityContent"></textarea>
+                            <textarea ui-tinymce rows="10" class="form-control" ng-model="sportrule.eligibilityContent" placeholder="Eligibility Content">
+                            </textarea>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
@@ -147,14 +148,14 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Schedule Leader</label>
-                            <input type="text" placeholder="Schedule Leader" class="form-control" ng-model="sportrule.scheduleLeader">
+                            <label>Schedule & Draws</label>
+                            <!-- <input type="text" placeholder="Schedule & Draws" class="form-control" ng-model="sportrule.scheduleLeader"> -->
                         </div>
                         <div class="form-group">
                             <label>Year Before Content</label>
-                            <input type="text" placeholder="Year Before Content" class="form-control" ng-model="sportrule.yearBeforeContent">
+                            <textarea rows="5" placeholder="Year Before Content" class="form-control" ng-model="sportrule.yearBeforeContent"></textarea>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-md-12">
                                 <div class="widget">
                                     <div class="">
@@ -247,7 +248,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row">
                             <div class="form-group">
                                 <label>Student</label>
@@ -263,9 +264,18 @@
                         </div>
                         <div class="form-group">
                             <label>About</label>
-                            <input type="text" class="form-control" ng-model="sportrule.about" placeholder="About">
+                            <textarea rows="5" placeholder="About" class="form-control" ng-model="sportrule.about"></textarea>
                         </div>
                         <div class="form-group">
+                            <label class="block">Photos</label>
+                            <div class="banner-img-holder" ng-if="sportrule.images.length > 0" ng-repeat="image in sportrule.images">
+                                <img ng-src="{{image.name|uploadpath}}" alt="" class="img-responsive margin-auto">
+                                <button type="button" ng-click="removeimage($index);" class="btn btn-danger"><i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                            <upload-image ng-model="sportrule.images" multiple no-view inobj></upload-image>
+                        </div>
+                        <!-- <div class="form-group">
                             <label>Training Name</label>
                             <input type="text" class="form-control" ng-model="sportrule.trainingname" placeholder="Training Name">
                         </div>
@@ -288,7 +298,7 @@
                             <label>Form</label>
                             {{sportrule.form}}
                             <upload-image ng-model="sportrule.form" no-view></upload-image>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="row">
