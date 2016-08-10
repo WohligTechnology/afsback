@@ -1657,7 +1657,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     }
 })
 
-.controller('SportRuleCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+.controller('SportRuleCtrl', function($scope, TemplateService, NavigationService, $timeout,$uibModal) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("sportrule");
     $scope.menutitle = NavigationService.makeactive("Sport Rule");
@@ -1666,7 +1666,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.template.type = 1;
     $scope.contentLoaded = false;
 
-    function reload() {
+  $scope.reload=function() {
         NavigationService.getAllSportRule(function(data) {
             console.log(data);
             if (data.value != false) {
@@ -1677,7 +1677,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }
         });
     }
-    reload();
+    $scope.reload();
 
     $scope.confDelete = function() {
         NavigationService.deleteSportRule(function(data, status) {

@@ -350,6 +350,15 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
+        deleteSportRule: function(callback) {
+            $http({
+                url: adminURL + 'sportrule/deleteData',
+                method: 'POST',
+                data: {
+                    _id: $.jStorage.get("deleteSportRule")
+                }
+            }).success(callback);
+        },
         getStudentList: function(callback) {
             $http({
                 url: adminURL + 'student/getStud',
