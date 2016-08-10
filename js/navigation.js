@@ -1,5 +1,5 @@
-var adminURL = "http://104.199.151.75:84/";
-// var adminURL = "http://localhost:84/";
+// var adminURL = "http://104.199.151.75:84/";
+var adminURL = "http://192.168.1.119:1337/";
 var uploadurl = adminURL + "upload/";
 
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
@@ -188,6 +188,14 @@ var navigationservice = angular.module('navigationservice', [])
             }).success(callback);
         },
         getStudent: function(obj, callback) {
+            $http({
+                url: adminURL + 'student/findForDrop',
+                method: 'POST',
+                data: obj
+            }).success(callback);
+        },
+        getTeam: function(obj, callback) {
+          console.log(obj);
             $http({
                 url: adminURL + 'student/findForDrop',
                 method: 'POST',

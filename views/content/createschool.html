@@ -236,6 +236,23 @@
                                         </div>
                                         <upload-image ng-model="school.logo" no-view></upload-image>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Supporter Logo</label>
+                                                <div class="banner-img-holder" ng-if="school.supporterLogo">
+                                                    <img ng-src="{{school.supporterLogo|uploadpath}}" alt="" class="img-responsive margin-auto">
+                                                </div>
+                                                <upload-image ng-model="school.supporterLogo" no-view></upload-image>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Supporter Name</label>
+                                                  <input type="text" placeholder="Supporter Name" class="form-control" ng-model="school.supporterName">
+                                            </div>
+                                        </div>
+                                    </div>
                                     <!-- <div class="form-group">
                               <div class="row">
                                  <div class="col-md-6">

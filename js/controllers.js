@@ -1708,6 +1708,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.sportrule = {};
     $scope.deleteVal = "";
     $scope.sportrule.featured = [];
+    $scope.sportrule.featuredTeam = [];
     $scope.contentheader = [];
 
     NavigationService.getAllSportList(function(data) {
@@ -1760,10 +1761,30 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.students = [];
         }
     }
+    $scope.getTeam = function(search) {
+        if (search.length >= 2) {
+            var obj = {};
+            obj.search = search;
+            obj.team = $scope.sportrule.featuredTeam;
+            NavigationService.getTeam(obj, function(data) {
+                if (data && data.value != false) {
+                    $scope.teams = data.data;
+                } else {
+                    $scope.teams = [];
+                }
+            });
+        } else {
+            $scope.students = [];
+        }
+    }
 
     $scope.saveStudent = function(data, select) {
         console.log(select);
         $scope.sportrule.student = select.selected;
+    }
+    $scope.saveTeam = function(data, select) {
+        console.log(select);
+        $scope.sportrule.team = select.selected;
     }
 
     $scope.addCont = function(crdv) {
@@ -1945,10 +1966,30 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.students = [];
         }
     }
+    $scope.getTeam = function(search) {
+        if (search.length >= 2) {
+            var obj = {};
+            obj.search = search;
+            obj.team = $scope.sportrule.featuredTeam;
+            NavigationService.getTeam(obj, function(data) {
+                if (data && data.value != false) {
+                    $scope.teams = data.data;
+                } else {
+                    $scope.teams = [];
+                }
+            });
+        } else {
+            $scope.teams = [];
+        }
+    }
 
     $scope.saveStudent = function(data, select) {
         console.log(select);
         $scope.sportrule.student = select.selected;
+    }
+    $scope.saveTeam = function(data, select) {
+        console.log(select);
+        $scope.sportrule.team = select.selected;
     }
 
     $scope.addCont = function(crdv) {

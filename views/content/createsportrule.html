@@ -55,8 +55,23 @@
                             <input type="date" class="form-control" ng-model="sportrule.toDate">
                         </div>
                         <div class="form-group">
+                            <label>Last Date of Registration</label>
+                            <input type="date" class="form-control" ng-model="sportrule.lastDate">
+                        </div>
+                        <div class="form-group">
+                            <label>Venue</label>
+                            <input type="text" placeholder="Venue" class="form-control" ng-model="sportrule.venue">
+                        </div>
+                        <div class="form-group">
+                            <label>Federation Logo</label>
+                            <div class="banner-img-holder" ng-if="sportrule.federationLogo">
+                                <img ng-src="{{sportrule.federationLogo|uploadpath}}" alt="" class="img-responsive margin-auto">
+                            </div>
+                            <upload-image ng-model="sportrule.federationLogo" no-view></upload-image>
+                        </div>
+                        <div class="form-group">
                             <label>Content After Date</label>
-                            <textarea rows="5" placeholder="Content After Date" class="form-control" ng-model="sportrule.dateContent"></textarea>
+                            <textarea ui-tinymce rows="10" placeholder="Content After Date" class="form-control" ng-model="sportrule.dateContent"></textarea>
                         </div>
                         <div class="form-group">
                             <label>Rules</label>
@@ -65,7 +80,7 @@
                         </div>
                         <div class="form-group">
                             <label>Age Group Content</label>
-                            <textarea rows="5" placeholder="Age Group Content" class="form-control" ng-model="sportrule.ageGroupContent"></textarea>
+                            <textarea ui-tinymce rows="10" placeholder="Age Group Content" class="form-control" ng-model="sportrule.ageGroupContent"></textarea>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
@@ -153,7 +168,7 @@
                         </div>
                         <div class="form-group">
                             <label>Year Before Content</label>
-                            <textarea rows="5" placeholder="Year Before Content" class="form-control" ng-model="sportrule.yearBeforeContent"></textarea>
+                            <textarea ui-tinymce rows="10" placeholder="Year Before Content" class="form-control" ng-model="sportrule.yearBeforeContent"></textarea>
                         </div>
                         <!-- <div class="row">
                             <div class="col-md-12">
@@ -262,9 +277,23 @@
                                 </ui-select>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Team</label>
+                                <ui-select multiple ng-model="sportrule.featuredTeam" title="Choose Team" class="form-control" on-select="saveTeam(sportrule.featuredTeam,$select);">
+                                    <ui-select-match placeholder="Choose Team">
+                                        <span ng-bind="$item.name"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices refresh-delay="0" refresh="getTeam($select.search)" repeat="item in (teams | filter: $select.search) track by item._id">
+                                        <span ng-bind="item.name"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label>About</label>
-                            <textarea rows="5" placeholder="About" class="form-control" ng-model="sportrule.about"></textarea>
+                            <textarea ui-tinymce rows="10" placeholder="About" class="form-control" ng-model="sportrule.about"></textarea>
                         </div>
                         <div class="form-group">
                             <label class="block">Photos</label>
