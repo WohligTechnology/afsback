@@ -835,7 +835,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.sport = {};
     $scope.allYears = NavigationService.getAllYears();
     NavigationService.getSchoolList(function(data) {
-        if (data.value != false) {
+        if (data.value !== false) {
             $scope.schools = data.data;
         }
     });
@@ -849,7 +849,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $scope.sportsList = data2.data;
             });
         }
-    }
+    };
 
     $scope.sport = {};
     $scope.sport.year = "2015";
