@@ -8,7 +8,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.logout = function() {
         $.jStorage.flush();
         $state.go("login");
-    }
+    };
 })
 
 .controller('LoginCtrl', function($scope, TemplateService, NavigationService, $timeout, $state) {
@@ -94,13 +94,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             console.log(data2);
             $scope.reload();
         });
-    }
+    };
     $scope.confDelete = function() {
         NavigationService.deleteSchool(function(data, status) {
             console.log(data);
             $scope.reload();
         });
-    }
+    };
     $scope.deleteFunc = function(id) {
         $.jStorage.set("deleteSchool", id);
         $uibModal.open({
@@ -497,7 +497,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $scope.students = { data: [] };
             }
         });
-    }
+    };
     $scope.reload();
     $scope.hideStudent = function(id, status) {
         NavigationService.hideStudent({
@@ -507,13 +507,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             console.log(data2);
             $scope.reload();
         });
-    }
+    };
     $scope.confDelete = function() {
         NavigationService.deleteStudent(function(data, status) {
             console.log(data);
             $scope.reload();
         });
-    }
+    };
     $scope.deleteFunc = function(id) {
         console.log(id);
         $.jStorage.set("deleteStudent", id);
@@ -522,8 +522,20 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             animation: true,
             templateUrl: "views/content/delete.html",
             scope: $scope
-        })
-    }
+        });
+    };
+})
+.controller('teamCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("team");
+    $scope.menutitle = NavigationService.makeactive("Teams");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.template.type = 1;
+    $scope.contentLoaded = false;
+    $scope.pagination = {};
+    $scope.pagination.pagenumber = 1;
+
 })
 
 .controller('createStudentCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal) {
@@ -1666,7 +1678,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.template.type = 1;
     $scope.contentLoaded = false;
 
-  $scope.reload=function() {
+  $scope.reload = function() {
         NavigationService.getAllSportRule(function(data) {
             console.log(data);
             if (data.value != false) {

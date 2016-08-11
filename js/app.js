@@ -56,6 +56,11 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         templateUrl: "views/template.html",
         controller: 'createStudentCtrl'
     })
+    .state('team', {
+        url: "/team",
+        templateUrl: "views/template.html",
+        controller: 'teamCtrl'
+    })
 
     .state('editstudent', {
         url: "/editstudent/:id",

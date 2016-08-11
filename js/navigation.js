@@ -50,6 +50,12 @@ var navigationservice = angular.module('navigationservice', [])
         anchor: "sportrule",
         icon: "users",
         subnav: []
+    }, {
+        name: "Teams",
+        classis: "active",
+        anchor: "team",
+        icon: "users",
+        subnav: []
     }];
 
     var currentYears = ["2015", "2016"];
