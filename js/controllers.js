@@ -666,6 +666,168 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
     };
 })
+.controller('createTeamCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("createteam");
+    $scope.menutitle = NavigationService.makeactive("Teams");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.team = {};
+    $scope.team.playersArray = [];
+    $scope.team.captain = [];
+
+    $scope.minValid = false;
+
+    NavigationService.getStudentList(function(data) {
+        if (data.value !== false) {
+            $scope.students = data.data;
+            console.log($scope.students);
+        }
+    });
+
+    $scope.setTeamName = function (teamName) {
+      $scope.team.name =teamName;
+    };
+    NavigationService.getSchoolList(function(data) {
+        if (data.value !== false) {
+            $scope.schools = data.data;
+        }
+    });
+    $scope.callme = function() {
+      console.log("called me");
+      console.log($scope.team.year);
+        if ($scope.team.year && $scope.team.school && $scope.team.school._id) {
+            NavigationService.getSchoolSports($scope.team.year, $scope.team.school._id, function(data2) {
+                console.log(data2);
+                $scope.sportsList = data2.data;
+            });
+        }
+    };
+    $scope.addPlayer = function (selected) {
+
+      $scope.team.playersArray.push(selected);
+      console.log($scope.team.playersArray);
+    };
+    $scope.getOneSport = function (sport) {
+      NavigationService.getOneSport(sport,function (data) {
+        if(data.value !== false){
+          $scope.sport = data.data;
+        }
+      });
+    };
+    $scope.getPlayers = function(search) {
+        if (search.length >= 2) {
+            var obj = {};
+            obj.search = search;
+            obj.student = $scope.team.playersArray;
+            NavigationService.getStudent(obj, function(data) {
+                if (data && data.value !== false) {
+                    $scope.players = data.data;
+                } else {
+                    $scope.players = [];
+                }
+            });
+        } else {
+        }
+    };
+    $scope.savePlayer = function(data, select) {
+      if($scope.team.playersArray.length < $scope.sport.minPlayers){
+        $scope.minValid = true;
+      }else{
+        $scope.minValid = false;
+      }
+    };
+    $scope.checkStud = function() {
+        if ($scope.student.school && !_.isEmpty($scope.student.school) && $scope.student.lastname && $scope.student.firstname) {
+            $scope.validateError.valid = false;
+            $scope.findStudObj = _.cloneDeep($scope.student);
+            $scope.findStudObj.school = $scope.findStudObj.school._id;
+            NavigationService.findStud($scope.findStudObj, function(data) {
+                if (data.value !== false) {
+                    console.log(data.data);
+                    $.jStorage.set("showstudent", data.data);
+                    window.open(openTab);
+                } else {
+                    $scope.validateError.valid = true;
+                    $scope.validateError.message = "Student Was Not Found";
+                    $timeout(function() {
+                        $scope.validateError.valid = false;
+                    }, 3000);
+                }
+            });
+        } else {
+            console.log('test');
+            $scope.validateError.valid = true;
+            $scope.validateError.message = "Please enter required fields for checking.";
+            $timeout(function() {
+                $scope.validateError.valid = false;
+            }, 3000);
+        }
+    };
+    $scope.showError = false;
+    $scope.errorContact = false;
+    $scope.errorEmail = false;
+    $scope.errorSportContact = false;
+    // $scope.saveStudent = function() {
+    //
+    //     function checkContact() {
+    //         $scope.student.contact = $scope.student.contact.toString();
+    //         var split = $scope.student.contact.split(",");
+    //         for (var i = 0; i < split.length; i++) {
+    //             if (split[i].length != 10) {
+    //                 $scope.errorContact = true;
+    //                 break;
+    //             } else {
+    //                 $scope.errorContact = false;
+    //             }
+    //         }
+    //     }
+    //
+    //     function checkEmail() {
+    //         var splitEmail = $scope.student.email.split(",");
+    //         for (var i = 0; i < splitEmail.length; i++) {
+    //             var x = splitEmail[i];
+    //             var atpos = x.indexOf("@");
+    //             var dotpos = x.lastIndexOf(".");
+    //             if (atpos <= 1 || dotpos <= atpos + 2 || dotpos + 2 >= x.length) {
+    //                 $scope.errorEmail = true;
+    //                 break;
+    //             } else {
+    //                 $scope.errorEmail = false;
+    //             }
+    //         }
+    //     }
+    //
+    //     function callSave() {
+    //         NavigationService.saveStudent($scope.student, function(data) {
+    //             if (data.value !== false) {
+    //                 $scope.showError = false;
+    //                 $state.go('student');
+    //             }
+    //         });
+    //     }
+    //
+    //     if ($scope.student.email) {
+    //         checkEmail();
+    //     } else {
+    //         $scope.errorEmail = false;
+    //     }
+    //     if ($scope.student.contact) {
+    //         checkContact();
+    //     } else {
+    //         $scope.errorContact = false;
+    //     }
+    //     if ($scope.errorContact === false && $scope.errorEmail === false) {
+    //         console.log($scope.student);
+    //         callSave();
+    //     } else {
+    //         $scope.showError = true;
+    //         $timeout(function() {
+    //             $scope.showError = false;
+    //         }, 3000);
+    //     }
+    // };
+})
 
 .controller('editStudentCtrl', function($scope, TemplateService, NavigationService, $timeout, $stateParams, $state) {
     //Used to name the .html file
@@ -693,10 +855,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.pageName = "Edit School";
 
     NavigationService.getSchoolList(function(data) {
-        if (data.value != false) {
+        if (data.value !== false) {
             $scope.schools = data.data;
         }
-    })
+    });
     NavigationService.getOneStudent($stateParams.id, function(data) {
         if (data.value != false) {
             $scope.student = data.data;
@@ -905,7 +1067,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             obj.firstcategory = $scope.sport.firstcategory;
             console.log(obj);
             NavigationService.getFirstCategories(obj, function(data) {
-                if (data && data.value != false) {
+                if (data && data.value !== false) {
                     $scope.firstcategories = data.data;
                 } else {
                     $scope.firstcategories = [];
@@ -914,7 +1076,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         } else {
             $scope.firstcategories = [];
         }
-    }
+    };
 
     $scope.saveFirstCategory = function(data, select) {
         _.each(data, function(n, key) {
@@ -923,7 +1085,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     name: _.capitalize(n)
                 };
                 NavigationService.saveFirstCategory(item, function(data) {
-                    if (data.value != false) {
+                    if (data.value !== false) {
                         item._id = data.data._id;
                     }
                 });
@@ -932,7 +1094,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $scope.sport.firstcategory = select.selected;
             }
         });
-    }
+    };
 
     $scope.getSecondCategory = function(search) {
         if (search.length >= 2) {
@@ -940,7 +1102,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             obj.search = search;
             obj.secondcategory = $scope.sport.secondcategory;
             NavigationService.getSecondCategories(obj, function(data) {
-                if (data && data.value != false) {
+                if (data && data.value !== false) {
                     $scope.secondcategories = data.data;
                 } else {
                     $scope.secondcategories = [];
@@ -949,7 +1111,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         } else {
             $scope.secondcategories = [];
         }
-    }
+    };
 
     $scope.saveSecondCategory = function(data, select) {
         _.each(data, function(n, key) {
@@ -1316,8 +1478,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         NavigationService.deleteSport(id, function(data2) {
             reload();
         });
-    }
-
+    };
 })
 
 .controller('createSportCtrl', function($scope, TemplateService, NavigationService, $timeout, $state) {
@@ -1333,20 +1494,20 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     NavigationService.getAllSportList(function(data) {
         console.log(data);
-        if (data.value != false) {
+        if (data.value !== false) {
             $scope.sportsList = data.data;
         }
-    })
+    });
 
     $scope.saveSport = function() {
         console.log($scope.sport);
         NavigationService.saveSport($scope.sport, function(data) {
             console.log(data);
-            if (data.value != false) {
+            if (data.value !== false) {
                 $state.go('sport');
             }
-        })
-    }
+        });
+    };
 
 })
 
@@ -1762,6 +1923,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             var obj = {};
             obj.search = search;
             obj.student = $scope.sportrule.featured;
+            console.log($scope.sportrule.featured);
             NavigationService.getStudent(obj, function(data) {
                 if (data && data.value != false) {
                     $scope.students = data.data;

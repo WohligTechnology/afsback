@@ -43,6 +43,14 @@
                      </select>
                   </div>
                   <div class="form-group">
+                     <label>Min Players </label>
+                       <input type="text" placeholder="Min Players" class="form-control" only-digits ng-model="sport.minPlayers"   maxlength="4">
+                  </div>
+                  <div class="form-group">
+                     <label>Max Players </label>
+                       <input type="text" placeholder="Max Players" class="form-control" only-digits ng-model="sport.maxPlayers"   maxlength="4">
+                  </div>
+                  <div class="form-group">
                      <label>Category</label>
                      <ui-select multiple limit="1" tagging tagging-label="false" ng-model="sport.firstcategory" title="Choose Category" class="form-control" on-select="saveFirstCategory(sport.firstcategory,$select);">
                         <ui-select-match placeholder="Choose Category">
