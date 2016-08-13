@@ -1,5 +1,5 @@
 // var adminURL = "http://104.199.151.75:84/";
-var adminURL = "http://192.168.1.110:1337/";
+var adminURL = "http://192.168.1.119:1337/";
 var uploadurl = adminURL + "upload/";
 
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
@@ -165,9 +165,23 @@ var navigationservice = angular.module('navigationservice', [])
                 data: obj
             }).success(callback);
         },
+        getAllFirstCategories: function(callback) {
+            $http({
+                url: adminURL + 'firstcategory/getAll',
+                method: 'POST'
+            }).success(callback);
+        },
         saveFirstCategory: function(obj, callback) {
             $http({
                 url: adminURL + 'firstcategory/saveData',
+                method: 'POST',
+                data: obj
+            }).success(callback);
+
+        },
+        getMinMaxForTeam: function(obj, callback) {
+            $http({
+                url: adminURL + 'sport/getMinMaxForTeam',
                 method: 'POST',
                 data: obj
             }).success(callback);
@@ -182,6 +196,13 @@ var navigationservice = angular.module('navigationservice', [])
         saveSecondCategory: function(obj, callback) {
             $http({
                 url: adminURL + 'secondcategory/saveData',
+                method: 'POST',
+                data: obj
+            }).success(callback);
+        },
+        saveTeam: function(obj, callback) {
+            $http({
+                url: adminURL + 'team/saveData',
                 method: 'POST',
                 data: obj
             }).success(callback);
@@ -263,6 +284,13 @@ var navigationservice = angular.module('navigationservice', [])
         getLimitedStudent: function(data, callback) {
             $http({
                 url: adminURL + 'student/getLimited',
+                method: 'POST',
+                data: data
+            }).success(callback);
+        },
+        getLimitedTeam: function(data, callback) {
+            $http({
+                url: adminURL + 'team/getLimited',
                 method: 'POST',
                 data: data
             }).success(callback);

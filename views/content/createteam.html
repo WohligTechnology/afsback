@@ -21,14 +21,14 @@
 <div class="panel-content">
     <div class="row">
         <div class="col-md-12">
-            <form ng-submit="saveSportRule();">
+            <form ng-submit="checkTeam();">
                 <div class="widget">
                     <div class="form-elements-sec">
                       <div class="form-group" >
                           <label>Year</label>
                           <input type="text" placeholder="Year" class="form-control" ng-model="team.year"   maxlength="4">
                       </div>
-                      <div class="form-group">
+                      <div class="form-group" ng-if="team.year">
                           <label>School *</label>
                           <ui-select ng-model="team.school" title="Select School" ng-change="setTeamName($select.selected.name)" on-select="callme();">
                               <ui-select-match placeholder="Select School">{{$select.selected.name}}</ui-select-match>
@@ -42,12 +42,12 @@
                           </ui-select>
 
                       </div>
-                      <div class="form-group" >
+                      <div class="form-group" ng-if="team.school">
                           <label>Team Name</label>
                           <input type="text" disabled placeholder="Team Name" class="form-control" ng-model="team.name" >
                       </div>
 
-                      <div class="form-group">
+                      <div class="form-group" ng-if="team.school">
                           <label>Sport *</label>
                           <ui-select ng-model="team.sport" title="Select School" >
                               <ui-select-match placeholder="Select School">{{$select.selected.name}}</ui-select-match>
@@ -61,13 +61,40 @@
                           </ui-select>
 
                       </div>
-                      <div class="form-group">
+                      <div class="form-group" ng-if="team.sport">
+                          <label>Category *</label>
+                          <ui-select ng-model="team.category" title="Select School" >
+                              <ui-select-match placeholder="Select Sport category">{{$select.selected.name}}</ui-select-match>
+                              <ui-select-choices repeat="sport in firstcategories | filter: $select.search">
+                                  <div ng-bind-html="sport.name | highlight: $select.search"></div>
+                                  <small>
+
+                                      Primary-ID:<span ng-bind-html="sport._id | highlight: $select.search"></span>
+                                  </small>
+                              </ui-select-choices>
+                          </ui-select>
+
+                      </div>
+                      <div class="form-group" >
                           <label>Gender*</label>
-                          <select class="form-control" ng-model="student.gender" required>
+                          <select class="form-control" ng-model="team.gender" required>
                               <option value="">Select Gender</option>
                               <option value="Boys">Boy</option>
                               <option value="Girls">Girl</option>
                           </select>
+                      </div>
+                      <div class="form-group" ng-if =" team.sport && team.school && team.gender">
+                        <label>Age Group *</label>
+                        <ui-select ng-model="team.agegroup" title="Select Age Group" on-select = "getMinMaxForTeam()">
+                            <ui-select-match placeholder="Select Age Group">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="captain in agegroups | filter: $select.search">
+                                <div ng-bind-html="captain.name | highlight: $select.search"></div>
+                                <small>
+                                    SFA-ID:<span ng-bind-html="captain.sfaid | highlight: $select.search"></span>
+
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
                       </div>
                       <div class="form-group" >
                           <label>Coach</label>
@@ -76,7 +103,7 @@
                       <div class="form-group">
                         <label>Captain *</label>
                         <ui-select ng-model="team.captain" title="Select Captain" ng-change="addPlayer($select.selected)">
-                            <ui-select-match placeholder="Select School">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-match placeholder="Select Captain">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="captain in students | filter: $select.search">
                                 <div ng-bind-html="captain.name | highlight: $select.search"></div>
                                 <small>
@@ -87,7 +114,7 @@
                         </ui-select>
                       </div>
                       <div class="form-group">
-                          <label>Players</label>
+                          <label>Players : <span ng-if= "sport.minPlayers">Minimum {{sport.minPlayers}} players</span></label>
                           <ui-select multiple ng-model="team.playersArray" title="Choose Student" class="form-control" on-select="savePlayer(team.playersArray,$select)">
                               <ui-select-match placeholder="Choose Student">
                                   <span ng-bind="$item.name"></span>
@@ -101,7 +128,7 @@
                           </div>
                       </div>
 
-                        
+
                     </div>
                 </div>
                 <div class="row">
