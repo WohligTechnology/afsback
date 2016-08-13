@@ -357,6 +357,15 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
+        deleteTeam: function(id, callback) {
+            $http({
+                url: adminURL + 'team/deleteData',
+                method: 'POST',
+                data: {
+                    _id: id
+                }
+            }).success(callback);
+        },
         deleteAgegroup: function(id, callback) {
             $http({
                 url: adminURL + 'agegroup/deleteData',

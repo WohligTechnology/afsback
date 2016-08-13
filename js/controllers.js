@@ -587,15 +587,14 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         };
         $scope.confDelete = function() {
-            NavigationService.deleteStudent(function(data, status) {
+            NavigationService.deleteTeam($.jStorage.get("deleteTeam"),function(data, status) {
                 console.log(data);
                 $scope.reload();
             });
         };
         $scope.deleteFunc = function(id) {
             console.log(id);
-            $.jStorage.set("deleteStudent", id);
-            $.jStorage.get("deleteStudent");
+            $.jStorage.set("deleteTeam", id);
             $uibModal.open({
                 animation: true,
                 templateUrl: "views/content/delete.html",
@@ -748,7 +747,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         NavigationService.getStudentList(function(data) {
             if (data.value !== false) {
                 $scope.students = data.data;
-                console.log($scope.students);
             }
         });
         NavigationService.getAllFirstCategories(function(data) {
@@ -772,7 +770,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             console.log($scope.team.year);
             if ($scope.team.year && $scope.team.school && $scope.team.school._id) {
                 console.log("team.year");
-                NavigationService.getSchoolSports($scope.team.year, $scope.team.school._id, function(data2) {
+                NavigationService.getSchoolSports($scope.team.year.toString(), $scope.team.school._id, function(data2) {
                     console.log(data2);
                     $scope.sportsList = data2.data;
                 });
@@ -877,16 +875,29 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.team.players = _.map($scope.team.playersArray,function (key) {
               return key._id;
             });
-            var request = {
-              category : $scope.team.category._id,
-              school : $scope.team.school._id,
-              sport : $scope.team.sport._id,
-              players : $scope.team.players,
-              agegroup : $scope.team.agegroup._id,
-              gender: $scope.team.gender,
-              name :  $scope.team.name,
-              coach : $scope.team.coach
-            };
+            var request = {};
+            if($scope.team.category){
+               request = {
+                category : $scope.team.category._id,
+                school : $scope.team.school._id,
+                sport : $scope.team.sport._id,
+                players : $scope.team.players,
+                agegroup : $scope.team.agegroup._id,
+                gender: $scope.team.gender,
+                name :  $scope.team.name,
+                coach : $scope.team.coach
+              };
+            }else{
+              request = {
+               school : $scope.team.school._id,
+               sport : $scope.team.sport._id,
+               players : $scope.team.players,
+               agegroup : $scope.team.agegroup._id,
+               gender: $scope.team.gender,
+               name :  $scope.team.name,
+               coach : $scope.team.coach
+             };
+            }
             NavigationService.saveTeam(request,function (data) {
               if(data.value){
                 $state.go('team');
