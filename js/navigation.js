@@ -1,5 +1,5 @@
 var adminURL = "http://104.199.151.75:84/";
-// var adminURL = "http://192.168.1.119:1337/";
+// var adminURL = "http://192.168.0.112:1337/";
 var uploadurl = adminURL + "upload/";
 
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
@@ -163,6 +163,22 @@ var navigationservice = angular.module('navigationservice', [])
                 url: adminURL + 'firstcategory/findForDrop',
                 method: 'POST',
                 data: obj
+            }).success(callback);
+        },
+        filterCategory: function(request, callback) {
+            $http({
+                url: adminURL + 'sport/filterCategory',
+                method: 'POST',
+                data: {
+                  sportList : request._id
+                }
+            }).success(callback);
+        },
+        findForDropSingle: function(request, callback) {
+            $http({
+                url: adminURL + 'sport/findForDropSingle',
+                method: 'POST',
+                data: request
             }).success(callback);
         },
         getAllFirstCategories: function(callback) {

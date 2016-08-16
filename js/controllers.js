@@ -587,7 +587,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         };
         $scope.confDelete = function() {
-            NavigationService.deleteTeam($.jStorage.get("deleteTeam"),function(data, status) {
+            NavigationService.deleteTeam($.jStorage.get("deleteTeam"), function(data, status) {
                 console.log(data);
                 $scope.reload();
             });
@@ -740,23 +740,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.navigation = NavigationService.getnav();
         $scope.team = {};
         $scope.team.playersArray = [];
-        $scope.team.captain = [];
-
+        // $scope.team.captain = [];
+        // $scope.team.agegroup = {};
         $scope.minValid = false;
 
-        NavigationService.getStudentList(function(data) {
-            if (data.value !== false) {
-                $scope.students = data.data;
-            }
-        });
-        NavigationService.getAllFirstCategories(function(data) {
-            if (data && data.value !== false) {
-                $scope.firstcategories = data.data;
-                $scope.firstcategories.unshift(null);
-            } else {
-                $scope.firstcategories = [];
-            }
-        });
+        // NavigationService.getStudentList(function(data) {
+        //     if (data.value !== false) {
+        //         $scope.students = data.data;
+        //     }
+        // });
+
         $scope.setTeamName = function(teamName) {
             $scope.team.name = teamName;
         };
@@ -774,6 +767,54 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     console.log(data2);
                     $scope.sportsList = data2.data;
                 });
+            }
+        };
+        $scope.teamNameGenerate = function() {
+            $scope.team.name = '';
+            if ($scope.team.school) {
+                $scope.team.name += " " + $scope.team.school.name;
+            }
+            if ($scope.team.sport) {
+                $scope.team.name += " " + $scope.team.sport.name;
+            }
+            if ($scope.team.gender !== undefined && $scope.team.gender !== null) {
+                $scope.team.name += " " + $scope.team.gender;
+            }
+            if ($scope.team.category !== undefined && $scope.team.category.name !== null) {
+                $scope.team.name += " " + $scope.team.category.name;
+            }
+            if ($scope.team.agegroup) {
+                $scope.team.name += " " + $scope.team.agegroup.name;
+            }
+
+
+        };
+        $scope.sportSelected = function() {
+            $scope.team.name = $scope.team.school.name + $scope.team;
+            $scope.teamNameGenerate();
+            NavigationService.filterCategory($scope.team.sport, function(data) {
+                if (data) {
+                    console.log(data);
+                    $scope.firstcategories = data.data[0].firstcategory;
+                    console.log($scope.firstcategories);
+                }
+            });
+        };
+        $scope.getCaptain = function(search) {
+        console.log(search);
+            if (search.length >= 2) {
+                var obj = {};
+                obj.search = search;
+                NavigationService.findForDropSingle(obj, function(data) {
+                    if (data && data.value !== false) {
+                        $scope.students = data.data;
+                        console.log($scope.students);
+                    } else {
+                        $scope.students = [];
+                    }
+                });
+            } else {
+                $scope.students = [];
             }
         };
         $scope.addPlayer = function(selected) {
@@ -811,25 +852,26 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.getMinMaxForTeam = function() {
             console.log($scope.team);
             var minmaxforteam = {};
-             if($scope.team.category){
-               minmaxforteam = {
-                  "sport": $scope.team.sport._id,
-                  "category": $scope.team.category._id,
-                  "agegroup": $scope.team.agegroup._id,
-                  "gender": $scope.team.gender
-              };
-             }else{
-               minmaxforteam = {
-                  "sport": $scope.team.sport._id,
-                  "agegroup": $scope.team.agegroup._id,
-                  "gender": $scope.team.gender
-              };
-             }
-            NavigationService.getMinMaxForTeam(minmaxforteam, function(data){
+            $scope.teamNameGenerate();
+            if ($scope.team.category) {
+                minmaxforteam = {
+                    "sport": $scope.team.sport._id,
+                    "category": $scope.team.category._id,
+                    "agegroup": $scope.team.agegroup._id,
+                    "gender": $scope.team.gender
+                };
+            } else {
+                minmaxforteam = {
+                    "sport": $scope.team.sport._id,
+                    "agegroup": $scope.team.agegroup._id,
+                    "gender": $scope.team.gender
+                };
+            }
+            NavigationService.getMinMaxForTeam(minmaxforteam, function(data) {
                 if (data.value) {
-                if (data.data) {
-                    $scope.sport = data.data[0];
-                }
+                    if (data.data) {
+                        $scope.sport = data.data[0];
+                    }
                 } else {
 
                 }
@@ -870,44 +912,46 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         //         }, 3000);
         //     }
         // };
-        $scope.checkTeam = function () {
-          if(!$scope.minValid){
-            $scope.team.players = _.map($scope.team.playersArray,function (key) {
-              return key._id;
-            });
-            var request = {};
-            if($scope.team.category){
-               request = {
-                category : $scope.team.category._id,
-                school : $scope.team.school._id,
-                sport : $scope.team.sport._id,
-                players : $scope.team.players,
-                agegroup : $scope.team.agegroup._id,
-                gender: $scope.team.gender,
-                name :  $scope.team.name,
-                coach : $scope.team.coach
-              };
-            }else{
-              request = {
-               school : $scope.team.school._id,
-               sport : $scope.team.sport._id,
-               players : $scope.team.players,
-               agegroup : $scope.team.agegroup._id,
-               gender: $scope.team.gender,
-               name :  $scope.team.name,
-               coach : $scope.team.coach
-             };
+        $scope.checkTeam = function() {
+            if (!$scope.minValid) {
+                $scope.team.players = _.map($scope.team.playersArray, function(key) {
+                    return key._id;
+                });
+                var request = {};
+                if ($scope.team.category) {
+                    request = {
+                        category: $scope.team.category._id,
+                        school: $scope.team.school._id,
+                        sport: $scope.team.sport._id,
+                        players: $scope.team.players,
+                        agegroup: $scope.team.agegroup._id,
+                        gender: $scope.team.gender,
+                        name: $scope.team.name,
+                        coach: $scope.team.coach,
+                        captain: $scope.team.captain._id
+                    };
+                } else {
+                    request = {
+                        school: $scope.team.school._id,
+                        sport: $scope.team.sport._id,
+                        players: $scope.team.players,
+                        agegroup: $scope.team.agegroup._id,
+                        gender: $scope.team.gender,
+                        name: $scope.team.name,
+                        coach: $scope.team.coach,
+                        captain: $scope.team.captain._id
+                    };
+                }
+                NavigationService.saveTeam(request, function(data) {
+                    if (data.value) {
+                        $state.go('team');
+                    } else {
+
+                    }
+                });
+            } else {
+
             }
-            NavigationService.saveTeam(request,function (data) {
-              if(data.value){
-                $state.go('team');
-              }else{
-
-              }
-            });
-          }else{
-
-          }
         };
         $scope.showError = false;
         $scope.errorContact = false;
@@ -1141,7 +1185,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         console.log($scope.sport);
         NavigationService.saveStudentSport($scope.sport, function(data) {
             console.log(data);
-            if (data.value != false) {
+            if (data.value !== false) {
                 $state.go("studentsport", {
                     id: $stateParams.id
                 });
