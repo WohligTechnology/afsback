@@ -26,11 +26,11 @@
                     <div class="form-elements-sec">
                       <div class="form-group" >
                           <label>Year</label>
-                          <input type="text" placeholder="Year" class="form-control" only-digits ng-model="team.year"   maxlength="4">
+                          <input type="text" placeholder="Year" class="form-control" required only-digits ng-model="team.year"   maxlength="4">
                       </div>
                       <div class="form-group" ng-if="team.year">
                           <label>School *</label>
-                          <ui-select ng-model="team.school" title="Select School" ng-change="setTeamName($select.selected.name)" on-select="callme();">
+                          <ui-select ng-model="team.school" title="Select School" required ng-change="setTeamName($select.selected.name)" on-select="callme();">
                               <ui-select-match placeholder="Select School">{{$select.selected.name}}</ui-select-match>
                               <ui-select-choices repeat="school in schools | filter: $select.search">
                                   <div ng-bind-html="school.name | highlight: $select.search"></div>
@@ -44,12 +44,12 @@
                       </div>
                       <div class="form-group" ng-if="team.school">
                           <label>Team Name</label>
-                          <input type="text" disabled placeholder="Team Name" class="form-control" ng-model="team.name" >
+                          <input type="text" disabled placeholder="Team Name"  class="form-control" ng-model="team.name" >
                       </div>
 
                       <div class="form-group" ng-if="team.school">
                           <label>Sport *</label>
-                          <ui-select ng-model="team.sport" title="Select Sport" on-select="sportSelected();">
+                          <ui-select ng-model="team.sport" required title="Select Sport" on-select="sportSelected();">
                               <ui-select-match placeholder="Select Sport" >{{$select.selected.name}}</ui-select-match>
                               <ui-select-choices repeat="sport in sportsList | filter: $select.search">
                                   <div ng-bind-html="sport.name | highlight: $select.search"></div>
@@ -85,7 +85,7 @@
                       </div>
                       <div class="form-group" ng-if =" team.sport && team.school && team.gender">
                         <label>Age Group *</label>
-                        <ui-select ng-model="team.agegroup" title="Select Age Group" on-select = "getMinMaxForTeam()">
+                        <ui-select ng-model="team.agegroup" required title="Select Age Group" on-select = "getMinMaxForTeam()">
                             <ui-select-match placeholder="Select Age Group">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="captain in agegroups | filter: $select.search">
                                 <div ng-bind-html="captain.name | highlight: $select.search"></div>
@@ -102,7 +102,7 @@
                       </div>
                       <div class="form-group">
                         <label>Captain *</label>
-                        <ui-select ng-model="team.captain" title="Select Captain" ng-change="addPlayer($select.selected)">
+                        <ui-select required ng-model="team.captain" title="Select Captain" ng-change="addPlayer($select.selected)">
                             <ui-select-match placeholder="Select Captain">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices refresh-delay="0" refresh="getCaptain($select.search)" repeat="captain in students | filter: $select.search">
                               <div ng-bind-html="captain.name | highlight: $select.search"></div>
@@ -115,7 +115,7 @@
                       </div>
                       <div class="form-group">
                           <label>Players : <span ng-if= "sport.minPlayers">Minimum {{sport.minPlayers}} players</span></label>
-                          <ui-select multiple ng-model="team.playersArray" title="Choose Student" class="form-control" on-select="savePlayer(team.playersArray,$select)">
+                          <ui-select required multiple ng-model="team.playersArray" title="Choose Student" class="form-control" on-select="savePlayer(team.playersArray,$select)">
                               <ui-select-match placeholder="Choose Student">
                                   <span ng-bind="$item.name"></span>
                               </ui-select-match>
