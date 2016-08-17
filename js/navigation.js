@@ -1,5 +1,5 @@
-// var adminURL = "http://104.199.151.75:84/";
-var adminURL = "http://192.168.0.106:1337/";
+var adminURL = "http://104.154.89.21:83/";
+// var adminURL = "http://192.168.0.106:1337/";
 var uploadurl = adminURL + "upload/";
 
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
@@ -176,7 +176,7 @@ var navigationservice = angular.module('navigationservice', [])
         },
         findForDropSingle: function(request, callback) {
             $http({
-                url: adminURL + 'sport/findForDropSingle',
+                url: adminURL + 'student/findForDropSingle',
                 method: 'POST',
                 data: request
             }).success(callback);
@@ -233,6 +233,13 @@ var navigationservice = angular.module('navigationservice', [])
         getStudent: function(obj, callback) {
             $http({
                 url: adminURL + 'student/findForDrop',
+                method: 'POST',
+                data: obj
+            }).success(callback);
+        },
+        getStudentBySchool: function(obj, callback) {
+            $http({
+                url: adminURL + 'student/findForDropBySchool',
                 method: 'POST',
                 data: obj
             }).success(callback);
