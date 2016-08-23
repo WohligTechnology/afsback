@@ -61,10 +61,20 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         templateUrl: "views/template.html",
         controller: 'createTeamCtrl'
     })
+    .state('createknockout', {
+        url: "/createknockout",
+        templateUrl: "views/template.html",
+        controller: 'createKnockoutCtrl'
+    })
     .state('team', {
         url: "/team",
         templateUrl: "views/template.html",
         controller: 'teamCtrl'
+    })
+    .state('knockout', {
+        url: "/knockout",
+        templateUrl: "views/template.html",
+        controller: 'knockoutCtrl'
     })
 
     .state('editstudent', {
