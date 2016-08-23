@@ -71,8 +71,8 @@
                           <label>Participant Type *</label>
                           <select class="form-control" ng-model="knockout.participantType" required>
                               <option value="">Select Participant Type</option>
-                              <option value="team">Teams</option>
-                              <option value="player">Players</option>
+                              <option value="team">Team</option>
+                              <option value="player">Player</option>
                           </select>
                       </div>
                       <div class="form-group">
@@ -100,6 +100,27 @@
                           <label>Order * </label>
                           <input type="text" placeholder="Order" class="form-control" required  ng-model="knockout.order" only-digits ng-change="getLastOrder()" >
                       </div>
+                      <div class="form-group" >
+                          <label>Result {{knockout.participantType | uppercase }} 1  *</label>
+                          <select class="form-control" ng-model="knockout['result'+{{knockout.participantType}}+'1']" required>
+                              <option value="">Select status</option>
+                              <option value="Won">Won</option>
+                              <option value="Bye">Bye</option>
+                              <option value="No Show">No Show</option>
+                              <option value="Loss">Loss</option>
+                          </select>
+                      </div>
+                      <div class="form-group" >
+                          <label>Result {{ knockout.participantType}} 2  *</label>
+                          <select class="form-control" ng-model="knockout['result'+{{knockout.participantType}}+'2']" required>
+                              <option value="">Select status</option>
+                              <option value="Won">Won</option>
+                              <option value="Bye">Bye</option>
+                              <option value="No Show">No Show</option>
+                              <option value="Loss">Loss</option>
+                          </select>
+                      </div>
+
 
 
                     </div>

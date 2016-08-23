@@ -765,8 +765,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }
             NavigationService.getLimitedTeam($scope.pagination, function(data) {
                 if (data.value !== false) {
+                  console.log(data);
                     $scope.contentLoaded = true;
                     $scope.teams = data.data.data;
+                    $scope.team= data.data;
                     console.log($scope.teams);
                 } else {
                     $scope.teams = {
@@ -1234,7 +1236,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }
             });
         };
-        
+
 
 
 
