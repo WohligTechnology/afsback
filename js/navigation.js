@@ -1,5 +1,5 @@
-var adminURL = "http://104.154.89.21:83/";  
-// var adminURL = "http://192.168.1.109:1337/"; 
+// var adminURL = "http://104.154.89.21:83/";
+var adminURL = "http://192.168.1.109:1337/";
 var uploadurl = adminURL + "upload/";
 
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
@@ -56,14 +56,13 @@ var navigationservice = angular.module('navigationservice', [])
         anchor: "team",
         icon: "users",
         subnav: []
+    }, {
+        name: "Knockout",
+        classis: "active",
+        anchor: "knockout",
+        icon: "users",
+        subnav: []
     }
-    // , {
-    //     name: "Knockout",
-    //     classis: "active",
-    //     anchor: "knockout",
-    //     icon: "users",
-    //     subnav: []
-    // }
   ];
 
     var currentYears = ["2015", "2016"];
