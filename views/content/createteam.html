@@ -120,7 +120,11 @@
                                   <span ng-bind="$item.name"></span>
                               </ui-select-match>
                               <ui-select-choices refresh-delay="0" refresh="getPlayers($select.search)" repeat="item in (players | filter: $select.search) track by item._id">
-                                  <span ng-bind="item.name"></span>
+                                  <div ng-bind="item.name"></div>
+                                  <small>
+                                      SFA-ID:<span ng-bind-html="item.sfaid | highlight: $select.search"></span>
+
+                                  </small>
                               </ui-select-choices>
                           </ui-select>
                           <div ng-if="minValid && sport">

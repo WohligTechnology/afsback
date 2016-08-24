@@ -566,22 +566,30 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         };
         $scope.getCaptain = function(search) {
-            console.log(search);
-            if (search.length >= 2) {
-                var obj = {};
+            console.log(search.length);
+            $scope.students = [];
+
+
+            var obj = {};
+            obj.search = search;
+            if (isNaN(search)) {
                 obj.search = search;
-                obj.school = $scope.team.school._id;
-                NavigationService.findForDropSingle(obj, function(data) {
-                    if (data && data.value !== false) {
-                        $scope.students = data.data;
-                        console.log($scope.students);
-                    } else {
-                        $scope.students = [];
-                    }
-                });
+                obj.sfaid = undefined;
             } else {
-                $scope.students = [];
+                obj.search = undefined;
+                obj.sfaid = parseInt(search);
             }
+            obj.school = $scope.team.school._id;
+
+            NavigationService.findForDropSingle(obj, function(data) {
+                if (data && data.value !== false) {
+                    $scope.students = data.data;
+                    console.log($scope.students);
+                } else {
+                    $scope.students = [];
+                }
+            });
+
         };
         $scope.addPlayer = function(selected) {
 
@@ -596,19 +604,26 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         };
         $scope.getPlayers = function(search) {
-            if (search.length >= 2) {
-                var obj = {};
+
+            var obj = {};
+            obj.search = search;
+            if (isNaN(search)) {
                 obj.search = search;
-                obj.student = $scope.team.playersArray;
-                obj.school = $scope.team.school._id;
-                NavigationService.getStudentBySchool(obj, function(data) {
-                    if (data && data.value !== false) {
-                        $scope.players = data.data;
-                    } else {
-                        $scope.players = [];
-                    }
-                });
-            } else {}
+                obj.sfaid = undefined;
+            } else {
+                obj.search = undefined;
+                obj.sfaid = parseInt(search);
+            }
+            obj.student = $scope.team.playersArray;
+            obj.school = $scope.team.school._id;
+            NavigationService.getStudentBySchool(obj, function(data) {
+                if (data && data.value !== false) {
+                    $scope.players = data.data;
+                } else {
+                    $scope.players = [];
+                }
+            });
+
         };
 
         NavigationService.getAllAgeGroup(function(data) {
@@ -765,10 +780,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }
             NavigationService.getLimitedTeam($scope.pagination, function(data) {
                 if (data.value !== false) {
-                  console.log(data);
+                    console.log(data);
                     $scope.contentLoaded = true;
                     $scope.teams = data.data.data;
-                    $scope.team= data.data;
+                    $scope.team = data.data;
                     console.log($scope.teams);
                 } else {
                     $scope.teams = {
@@ -1057,23 +1072,30 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         };
         $scope.getCaptain = function(search) {
-            console.log(search);
-            if (search.length >= 2) {
-                var obj = {};
-                obj.search = search;
-                obj.school = $scope.team.school._id;
+            console.log(search.length);
+            $scope.students = [];
 
-                NavigationService.findForDropSingle(obj, function(data) {
-                    if (data && data.value !== false) {
-                        $scope.students = data.data;
-                        console.log($scope.students);
-                    } else {
-                        $scope.students = [];
-                    }
-                });
+
+            var obj = {};
+            obj.search = search;
+            if (isNaN(search)) {
+                obj.search = search;
+                obj.sfaid = undefined;
             } else {
-                $scope.students = [];
+                obj.search = undefined;
+                obj.sfaid = parseInt(search);
             }
+            obj.school = $scope.team.school._id;
+
+            NavigationService.findForDropSingle(obj, function(data) {
+                if (data && data.value !== false) {
+                    $scope.students = data.data;
+                    console.log($scope.students);
+                } else {
+                    $scope.students = [];
+                }
+            });
+
         };
         $scope.addPlayer = function(selected) {
 
@@ -1088,19 +1110,26 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         };
         $scope.getPlayers = function(search) {
-            if (search.length >= 2) {
-                var obj = {};
+
+            var obj = {};
+            obj.search = search;
+            if (isNaN(search)) {
                 obj.search = search;
-                obj.student = $scope.team.playersArray;
-                obj.school = $scope.team.school._id;
-                NavigationService.getStudentBySchool(obj, function(data) {
-                    if (data && data.value !== false) {
-                        $scope.players = data.data;
-                    } else {
-                        $scope.players = [];
-                    }
-                });
-            } else {}
+                obj.sfaid = undefined;
+            } else {
+                obj.search = undefined;
+                obj.sfaid = parseInt(search);
+            }
+            obj.student = $scope.team.playersArray;
+            obj.school = $scope.team.school._id;
+            NavigationService.getStudentBySchool(obj, function(data) {
+                if (data && data.value !== false) {
+                    $scope.players = data.data;
+                } else {
+                    $scope.players = [];
+                }
+            });
+
         };
 
         NavigationService.getAllAgeGroup(function(data) {
@@ -1226,13 +1255,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 "participantType": $scope.knockout.participantType,
                 "gender": $scope.knockout.gender,
                 "event": $scope.knockout.event,
-                "roundno":$scope.knockout.roundno
+                "roundno": $scope.knockout.roundno
             };
             NavigationService.getLastOrder(constraints, function(response) {
                 if (response.value) {
                     $scope.knockout.order = parseInt(response.data) + 1;
-                }else{
-                  $scope.knockout.order = 0;
+                } else {
+                    $scope.knockout.order = 0;
                 }
             });
         };
