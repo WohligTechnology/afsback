@@ -1,5 +1,5 @@
-// var adminURL = "http://104.154.89.21:83/";
-var adminURL = "http://192.168.1.109:1337/";
+// var adminURL = "http://104.154.89.21:83/api/";
+var adminURL = "http://192.168.1.109:1337/api/";
 var uploadurl = adminURL + "upload/";
 
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
@@ -258,6 +258,13 @@ var navigationservice = angular.module('navigationservice', [])
                 data: obj
             }).success(callback);
         },
+        getStudentsbySport: function(request, callback) {
+            $http({
+                url: adminURL + 'studentsport/getStudentsbySport',
+                method: 'POST',
+                data: request
+            }).success(callback);
+        },
         getTeam: function(obj, callback) {
           console.log(obj);
             $http({
@@ -337,6 +344,13 @@ var navigationservice = angular.module('navigationservice', [])
         getLimitedTeam: function(data, callback) {
             $http({
                 url: adminURL + 'team/getLimited',
+                method: 'POST',
+                data: data
+            }).success(callback);
+        },
+        getLimitedKnockout: function(data, callback) {
+            $http({
+                url: adminURL + 'knockout/getLimited',
                 method: 'POST',
                 data: data
             }).success(callback);
@@ -469,6 +483,13 @@ var navigationservice = angular.module('navigationservice', [])
                 url: adminURL + 'studentsport/saveData',
                 method: 'POST',
                 data: data
+            }).success(callback);
+        },
+        submitKnockout: function(request, callback) {
+            $http({
+                url: adminURL + 'knockout/saveData',
+                method: 'POST',
+                data: request
             }).success(callback);
         },
         getStudentSports: function(data, callback) {

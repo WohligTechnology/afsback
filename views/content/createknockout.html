@@ -21,12 +21,12 @@
 <div class="panel-content">
     <div class="row">
         <div class="col-md-12">
-            <form ng-submit="checkTeam();">
+            <form ng-submit="submitKnockout();">
                 <div class="widget">
                     <div class="form-elements-sec">
 
                       <!-- <div class="form-group" ng-if="knockout.year">
-                          <label>School *</label>
+                          <label>School</label>
                           <ui-select ng-model="knockout.school" title="Select School" required ng-change="setTeamName($select.selected.name)" on-select="callme();">
                               <ui-select-match placeholder="Select School">{{$select.selected.name}}</ui-select-match>
                               <ui-select-choices repeat="school in schools | filter: $select.search">
@@ -103,14 +103,16 @@
                           <label>Order * </label>
                           <input type="text" placeholder="Order" class="form-control" required  ng-model="knockout.order" only-digits ng-change="getLastOrder()" >
                       </div>
-                      <div class="form-group">
-                        <label>Player *</label>
-                        <ui-select required ng-model="team.captain" title="Select Player" ng-change="addPlayer($select.selected)">
+
+
+                      <div class="form-group" ng-if="knockout.participantType == 'player'">
+                        <label>Player 1 *</label>
+                        <ui-select required ng-model="knockout.player1" title="Select Player 1" ng-change="addPlayer($select.selected)">
                             <ui-select-match placeholder="Select Player">{{$select.selected.name}}</ui-select-match>
-                            <ui-select-choices refresh-delay="0" refresh="getPlayer($select.search)" repeat="captain in students | filter: $select.search">
-                              <div ng-bind-html="captain.name | highlight: $select.search"></div>
+                            <ui-select-choices refresh-delay="0" refresh="getKnockoutPlayer($select.search)" repeat="player1 in students | filter: $select.search">
+                              <div ng-bind-html="player1.name | highlight: $select.search"></div>
                               <small>
-                                  SFA-ID:<span ng-bind-html="captain.sfaid | highlight: $select.search"></span>
+                                  SFA-ID:<span ng-bind-html="player1.sfaid | highlight: $select.search"></span>
 
                               </small>
                             </ui-select-choices>
@@ -118,7 +120,7 @@
                       </div>
                       <div class="form-group" ng-if="knockout.participantType == 'player'">
                           <label>Result player 1 *</label>
-                          <select class="form-control" ng-model="knockout.resultplayer1" required>
+                          <select class="form-control" ng-model="knockout.resultplayer1" >
                               <option value="">Select status</option>
                               <option value="Won">Won</option>
                               <option value="Bye">Bye</option>
@@ -126,14 +128,14 @@
                               <option value="Loss">Loss</option>
                           </select>
                       </div>
-                      <div class="form-group">
-                        <label>Captain *</label>
-                        <ui-select required ng-model="team.captain" title="Select Captain" ng-change="addPlayer($select.selected)">
-                            <ui-select-match placeholder="Select Captain">{{$select.selected.name}}</ui-select-match>
-                            <ui-select-choices refresh-delay="0" refresh="getCaptain($select.search)" repeat="captain in students | filter: $select.search">
-                              <div ng-bind-html="captain.name | highlight: $select.search"></div>
+                      <div class="form-group" ng-if="knockout.participantType == 'player'">
+                        <label>Player 2 *</label>
+                        <ui-select required ng-model="knockout.player2" title="Select Player 2" ng-change="addPlayer($select.selected)">
+                            <ui-select-match placeholder="Select Player">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices refresh-delay="0" refresh="getKnockoutPlayer($select.search)" repeat="player2 in students | filter: $select.search">
+                              <div ng-bind-html="player2.name | highlight: $select.search"></div>
                               <small>
-                                  SFA-ID:<span ng-bind-html="captain.sfaid | highlight: $select.search"></span>
+                                  SFA-ID:<span ng-bind-html="player2.sfaid | highlight: $select.search"></span>
 
                               </small>
                             </ui-select-choices>
@@ -141,7 +143,7 @@
                       </div>
                       <div class="form-group" ng-if="knockout.participantType == 'player'">
                           <label>Result player 2 *</label>
-                          <select class="form-control" ng-model="knockout.resultplayer2" required>
+                          <select class="form-control" ng-model="knockout.resultplayer2" >
                               <option value="">Select status</option>
                               <option value="Won">Won</option>
                               <option value="Bye">Bye</option>
@@ -149,9 +151,10 @@
                               <option value="Loss">Loss</option>
                           </select>
                       </div>
+
                       <div class="form-group" ng-if="knockout.participantType == 'team'">
                           <label>Result team 1 *</label>
-                          <select class="form-control" ng-model="knockout.resultteam1" required>
+                          <select class="form-control" ng-model="knockout.resultteam1">
                               <option value="">Select status</option>
                               <option value="Won">Won</option>
                               <option value="Bye">Bye</option>
@@ -161,7 +164,7 @@
                       </div>
                       <div class="form-group" ng-if="knockout.participantType == 'team'">
                           <label>Result team 2 *</label>
-                          <select class="form-control" ng-model="knockout.resultteam2" required>
+                          <select class="form-control" ng-model="knockout.resultteam2">
                               <option value="">Select status</option>
                               <option value="Won">Won</option>
                               <option value="Bye">Bye</option>
@@ -169,6 +172,27 @@
                               <option value="Loss">Loss</option>
                           </select>
                       </div>
+                      <div class="form-group" >
+                          <label>Date *</label>
+                          <input type="date" placeholder="Event" class="form-control" required  ng-model="knockout.date" >
+                      </div>
+                      <div class="form-group" >
+                          <label>Start Time</label>
+                          <input type="text" placeholder="Event" class="form-control" ng-model="knockout.startTime" >
+                      </div>
+                      <div class="form-group" >
+                          <label>End Time</label>
+                          <input type="text" placeholder="Event" class="form-control" ng-model="knockout.endTime" >
+                      </div>
+                      <div class="form-group" >
+                          <label>Total Time</label>
+                          <input type="text" placeholder="Event" class="form-control" ng-model="knockout.totalTime" >
+                      </div>
+                      <div class="form-group" >
+                          <label>Score</label>
+                          <input type="text" placeholder="Event" class="form-control" ng-model="knockout.score" >
+                      </div>
+
 
 
 

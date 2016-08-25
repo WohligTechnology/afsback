@@ -31,15 +31,20 @@
                   <div class="pull-right">
                      <a class="btn btn-primary" ui-sref="createknockout">Add New</a>
                   </div>
-                  <h3>List of Teams</h3>
+                  <h3>List of Knockouts</h3>
                </div>
                <div class="table-responsive">
                   <table class="table" >
                      <thead>
                         <tr>
                            <th>#</th>
-                           <th>Team Name</th>
-                           <th>Team Details</th>
+                           <th>Knockout Details</th>
+                           <th>ParticipantType 1</th>
+                           <th>R 1</th>
+                           <th>ParticipantType 2</th>
+                           <th>R 2</th>
+                           <th>Round</th>
+                           <th>Order</th>
                            <th class="text-center" colspan="2">Operations</th>
                         </tr>
                      </thead>
@@ -60,8 +65,13 @@
                         </tr>
                         <tr ng-repeat="value in knockouts | filter:search">
                            <td>{{$index+1}}</td>
-                           <td>{{value.name}}</td>
-                           <td>{{value.sport.name}} {{value.category.name}} {{value.gender}} {{value.agegroup.name}}</td>
+                           <td>{{value.sport.name}} {{value.gender}} {{value.agegroup.name}}</td>
+                           <td ng-if="value.participantType == 'player'">{{value.player1.name}}</td>
+                           <td ng-if="value.participantType == 'player'">{{value.resultplayer1}}</td>
+                           <td ng-if="value.participantType == 'player'">{{value.player2.name}}</td>
+                           <td ng-if="value.participantType == 'player'">{{value.resultplayer2}}</td>
+                           <td>{{value.roundno}}</td>
+                           <td>{{value.order}}</td>
                            <td class="text-center">
                               <a ui-sref="editknockout({id:value._id})" class="btn btn-primary">
                                  <i class="fa fa-pencil-square-o"></i>
