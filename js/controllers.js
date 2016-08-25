@@ -839,7 +839,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             NavigationService.getLimitedKnockout($scope.pagination, function(data) {
                 if (data.value !== false) {
                     $scope.knockouts = data.data.data;
-                    console.log($scope.teams);
+                    $scope.knockout = data.data;
                 } else {
                     $scope.teams = {
                         data: []
@@ -1232,6 +1232,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.navigation = NavigationService.getnav();
         $scope.knockout  = {};
         $scope.knockout.roundno = 0;
+        $scope.statuses = {};
+        $scope.statuses.inedit = false;
         $scope.knockout.event = "Knockout";
         $scope.sportSelected = function() {
 
@@ -1268,7 +1270,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.getParticipants = function() {
             if ($scope.knockout.year && $scope.knockout.participantType && $scope.knockout.sport && $scope.knockout.sport._id) {
                 if ($scope.knockout.participantType == "player") {
-                  $scope.getPlayers();
+                    $scope.getPlayers();
                 } else {
 
                 }
@@ -1285,10 +1287,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 constraints.search = undefined;
                 constraints.sfaid = parseInt(search);
             }
-            if($scope.knockout.sport){
-              constraints.sport = $scope.knockout.sport._id;
+            if ($scope.knockout.sport) {
+                constraints.sport = $scope.knockout.sport._id;
             }
-            constraints.year = $scope.knockout.year.toString() ;
+            if ($scope.knockout.gender) {
+                constraints.gender = $scope.knockout.gender;
+            }
+            constraints.year = $scope.knockout.year.toString();
             NavigationService.getStudentsbySport(constraints, function(data) {
                 if (data && data.value !== false) {
                     $scope.students = data.data;
@@ -1298,24 +1303,135 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
 
         };
-        $scope.submitKnockout = function () {
-          console.log($scope.knockout);
-          var request = {};
-           request = $scope.knockout;
-           request.sport = $scope.knockout.sport._id;
-           request.player1 = $scope.knockout.player1._id;
-           request.player2 = $scope.knockout.player2._id;
-           request.agegroup = $scope.knockout.agegroup._id;
-           request.year = $scope.knockout.year.toString();
-           NavigationService.submitKnockout(request, function (data) {
-             if(data.value){
-               $state.go("knockout");
-             }else{
-               //error
-             }
-           });
+        $scope.submitKnockout = function() {
+            console.log($scope.knockout);
+            var request = {};
+            request = $scope.knockout;
+            request.sport = $scope.knockout.sport._id;
+            request.player1 = $scope.knockout.player1._id;
+            request.player2 = $scope.knockout.player2._id;
+            request.agegroup = $scope.knockout.agegroup._id;
+            request.year = $scope.knockout.year.toString();
+            NavigationService.submitKnockout(request, function(data) {
+                if (data.value) {
+                    $state.go("knockout");
+                } else {
+                    //error
+                }
+            });
         };
 
+
+
+    })
+    .controller('editKnockoutCtrl', function($scope, TemplateService, $stateParams, NavigationService, $timeout, $state, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("createknockout");
+        $scope.menutitle = NavigationService.makeactive("Teams");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.knockout  = {};
+        $scope.knockout.roundno = 0;
+        $scope.statuses = {};
+        $scope.statuses.inedit = true;
+        $scope.knockout.event = "Knockout";
+
+
+        NavigationService.getAllSportList(function(response) {
+            if (response.value) {
+                $scope.sportsList = response.data;
+            }
+        });
+        NavigationService.getAllAgeGroup(function(data) {
+            if (data.value) {
+                $scope.agegroups = data.data;
+            }
+        });
+        $scope.getLastOrder = function() {
+            var constraints = {};
+            if(!$stateParams.id){
+              constraints = {
+                  "sport": $scope.knockout.sport._id,
+                  "agegroup": $scope.knockout.agegroup._id,
+                  "participantType": $scope.knockout.participantType,
+                  "gender": $scope.knockout.gender,
+                  "event": $scope.knockout.event,
+                  "roundno": $scope.knockout.roundno
+              };
+              NavigationService.getLastOrder(constraints, function(response) {
+                  if (response.value) {
+                      $scope.knockout.order = parseInt(response.data) + 1;
+                  } else {
+                      $scope.knockout.order = 0;
+                  }
+              });
+            }
+        };
+        $scope.getParticipants = function() {
+            if ($scope.knockout.year && $scope.knockout.participantType && $scope.knockout.sport && $scope.knockout.sport._id) {
+                if ($scope.knockout.participantType == "player") {
+                    $scope.getPlayers();
+                } else {
+
+                }
+            }
+        };
+        $scope.getKnockoutPlayer = function(search) {
+            $scope.students = [];
+            var constraints = {};
+            constraints.search = search;
+            if (isNaN(search) || search === null || search === undefined || search === "") {
+                constraints.search = search;
+                constraints.sfaid = undefined;
+            } else {
+                constraints.search = undefined;
+                constraints.sfaid = parseInt(search);
+            }
+            if ($scope.knockout.sport) {
+                constraints.sport = $scope.knockout.sport._id;
+            }
+            if ($scope.knockout.gender) {
+                constraints.gender = $scope.knockout.gender;
+            }
+            constraints.year = $scope.knockout.year.toString();
+            NavigationService.getStudentsbySport(constraints, function(data) {
+                if (data && data.value !== false) {
+                    $scope.students = data.data;
+                } else {
+                    $scope.students = [];
+                }
+            });
+
+        };
+        $scope.submitKnockout = function() {
+            console.log($scope.knockout);
+            var request = {};
+            request = $scope.knockout;
+            request.sport = $scope.knockout.sport._id;
+            request.player1 = $scope.knockout.player1._id;
+            request.player2 = $scope.knockout.player2._id;
+            request.agegroup = $scope.knockout.agegroup._id;
+            request.year = $scope.knockout.year.toString();
+            NavigationService.submitKnockout(request, function(data) {
+                if (data.value) {
+                    $state.go("knockout");
+                } else {
+                    //error
+                }
+            });
+        };
+        if ($stateParams.id) {
+            NavigationService.getOneKnockout($stateParams, function(response) {
+                if (response.value) {
+                    $scope.knockout = response.data;
+                    $scope.knockout.date = new Date($scope.knockout.date);
+                    $scope.getParticipants();
+                    $scope.getKnockoutPlayer("");
+                } else {
+
+                }
+            });
+        }
 
 
     })

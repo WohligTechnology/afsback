@@ -282,6 +282,15 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
+        getOneKnockout: function(request, callback) {
+            $http({
+                url: adminURL + 'knockout/getOne',
+                method: 'POST',
+                data: {
+                  _id : request.id
+                }
+            }).success(callback);
+        },
         getAllAgeGroups: function(callback) {
             $http({
                 url: adminURL + 'agegroup/getAll',

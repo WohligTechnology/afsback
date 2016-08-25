@@ -87,6 +87,11 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         templateUrl: "views/template.html",
         controller: 'editTeamCtrl'
     })
+    .state('editknockout', {
+        url: "/editknockout/:id",
+        templateUrl: "views/template.html",
+        controller: 'editKnockoutCtrl'
+    })
 
     .state('studentsport', {
         url: "/studentsport/:id",
@@ -229,7 +234,16 @@ firstapp.directive('img', function($compile, $parse) {
         }
     };
 });
-
+firstapp.filter('letterLimit',function(){
+  return function (value,limit) {
+    console.log(value);
+    if(value.length < limit){
+      return value;
+    }else{
+      return value.slice(0,limit - 2)+ "..";
+    }
+  };
+});
 firstapp.directive('fancyboxBox', function($document) {
     return {
         restrict: 'EA',
