@@ -195,6 +195,13 @@ var navigationservice = angular.module('navigationservice', [])
                 data: request
             }).success(callback);
         },
+        getLastKnockout: function(request, callback) {
+            $http({
+                url: adminURL + 'knockout/getLastKnockout',
+                method: 'POST',
+                data: request
+            }).success(callback);
+        },
         getAllFirstCategories: function(callback) {
             $http({
                 url: adminURL + 'firstcategory/getAll',

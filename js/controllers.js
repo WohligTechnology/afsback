@@ -1238,7 +1238,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.sportSelected = function() {
 
         };
-
+        NavigationService.getLastKnockout({},function (response) {
+          if(response.value){
+            $scope.knockout.matchid = response.data;
+          }
+        });
         NavigationService.getAllSportList(function(response) {
             if (response.value) {
                 $scope.sportsList = response.data;

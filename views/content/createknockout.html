@@ -44,6 +44,10 @@
                           <input type="text" disabled placeholder="Team Name"  class="form-control" ng-model="knockout.name" >
                       </div> -->
                       <div class="form-group" >
+                          <label>MatchId *</label>
+                          <input type="text" placeholder="Match ID" class="form-control" required  ng-model="knockout.matchid" only-digits disabled>
+                      </div>
+                      <div class="form-group" >
                           <label>Year *</label>
                           <input type="text" placeholder="Year" class="form-control" required  ng-model="knockout.year" only-digits>
                       </div>
