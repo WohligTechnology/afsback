@@ -53,14 +53,14 @@
                            <td>Search By :</td>
                            <td>
                               <input type="text" placeholder="Name" class="form-control" ng-change="reload(pagination)" ng-model="pagination.name">
-                              <!-- <ui-select ng-model="selected.value">
+                              <ui-select ng-model="selected.value">
                                  <ui-select-match>
                                     <span ng-bind="$select.selected.name"></span>
                                  </ui-select-match>
                                  <ui-select-choices repeat="item in (ageGroups | filter: $select.search) track by item._id">
                                     <span ng-bind="item.name"></span>
                                  </ui-select-choices>
-                              </ui-select> -->
+                              </ui-select>
                            </td>
                         </tr> -->
                         <tr ng-repeat="value in knockouts | filter:search">

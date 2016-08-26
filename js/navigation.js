@@ -1,5 +1,5 @@
 // var adminURL = "http://104.154.89.21:83/api/";
-var adminURL = "http://192.168.1.109:1337/api/";
+var adminURL = "http://192.168.1.106:1337/api/";
 var uploadurl = adminURL + "upload/";
 
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
@@ -429,6 +429,15 @@ var navigationservice = angular.module('navigationservice', [])
         deleteTeam: function(id, callback) {
             $http({
                 url: adminURL + 'team/deleteData',
+                method: 'POST',
+                data: {
+                    _id: id
+                }
+            }).success(callback);
+        },
+        deleteKnockout: function(id, callback) {
+            $http({
+                url: adminURL + 'knockout/deleteData',
                 method: 'POST',
                 data: {
                     _id: id

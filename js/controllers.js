@@ -859,7 +859,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         };
         $scope.confDelete = function() {
-            NavigationService.deleteTeam($.jStorage.get("deleteTeam"), function(data, status) {
+            NavigationService.deleteKnockout($.jStorage.get("deleteTeam"), function(data, status) {
                 console.log(data);
                 $scope.reload();
             });
