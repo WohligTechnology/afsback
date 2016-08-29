@@ -25,6 +25,10 @@
          <form ng-submit="saveSport();">
             <div class="widget">
                <div class="form-elements-sec">
+                 <div class="form-group" >
+                     <label>Year *</label>
+                     <input type="text" placeholder="Year" class="form-control" required  ng-model="sport.year" only-digits>
+                 </div>
                   <div class="form-group">
                      <label>Sport Name*</label>
                      <ui-select ng-model="sport.sportslist" title="Select Sport" required>

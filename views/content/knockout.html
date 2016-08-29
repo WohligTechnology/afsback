@@ -38,6 +38,7 @@
                      <thead>
                         <tr>
                            <th>#</th>
+                           <th>Match ID</th>
                            <th>Knockout Details</th>
                            <th>Participant 1</th>
                            <th>R 1</th>
@@ -65,6 +66,7 @@
                         </tr> -->
                         <tr ng-repeat="value in knockouts | filter:search">
                            <td>{{$index+1}}</td>
+                           <td>{{value.matchid}}</td>
                            <td>{{value.sport.name}} {{value.gender}} {{value.agegroup.name}}</td>
                            <td ng-if="value.participantType == 'player'">{{value.player1.name || 'Not Declared' | letterLimit :13}}</td>
                            <td ng-if="value.participantType == 'player'">{{value.resultplayer1 || 'Not Declared'}}</td>
