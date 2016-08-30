@@ -37,7 +37,7 @@ a {
     .bg-white {
         background-color: white;
     }
-// classess end 
+// classess end
 
 //bootstrap forms
 .btn,
@@ -167,6 +167,10 @@ width: 75px;
 .block {
     display: block;
 }
+.margin0{
+  margin: 0px;
+}
+.mt20.my-btn .btn {padding: 10px 20px 10px 20px;margin: 0px 0px 8px 0px;}
 //bootstrap forms
 /* Start writing sass here */
 @import "fancybox-override";
