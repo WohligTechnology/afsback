@@ -338,6 +338,13 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
+        knockoutSports: function(request, callback) {
+            $http({
+                url: adminURL + 'sport/knockoutSports',
+                method: 'POST',
+                data: request
+            }).success(callback);
+        },
         getLastStudentId: function(callback) {
             $http({
                 url: adminURL + 'student/getLastId',

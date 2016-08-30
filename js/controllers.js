@@ -904,52 +904,27 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.template.type = 1;
-        $scope.contentLoaded = false;
-        $scope.pagination = {};
-        $scope.pagination.pagenumber = 1;
-
-        $scope.reload = function(val) {
-            if (val === 1) {
-                $scope.pagination.name = "";
-            } else if (val === 2) {
-                $scope.pagination.sfaid = "";
+        $scope.getOneSport = function (id) {
+          NavigationService.getOneSportList(id,function (response) {
+            if(response.value){
+              $scope.sportSelected = response.data;
             }
-            NavigationService.getLimitedKnockout($scope.pagination, function(data) {
-                if (data.value !== false) {
-                    $scope.knockouts = data.data.data;
-                    $scope.knockout = data.data;
-                } else {
-                    $scope.teams = {
-                        data: []
-                    };
-                }
-            });
+          });
         };
-
-        $scope.reload();
-        $scope.hideStudent = function(id, status) {
-            NavigationService.hideStudent({
-                _id: id,
-                status: status
-            }, function(data2) {
-                console.log(data2);
-                $scope.reload();
-            });
-        };
-        $scope.confDelete = function() {
-            NavigationService.deleteKnockout($.jStorage.get("deleteTeam"), function(data, status) {
-                console.log(data);
-                $scope.reload();
-            });
-        };
-        $scope.deleteFunc = function(id) {
-            console.log(id);
-            $.jStorage.set("deleteTeam", id);
-            $uibModal.open({
-                animation: true,
-                templateUrl: "views/content/delete.html",
-                scope: $scope
-            });
+        $scope.getOneSport($stateParams.id);
+        $scope.knockoutSports = function () {
+          NavigationService.knockoutSports(function (response) {
+            if(response.value){
+              $scope.sports= _.chain(response.data)
+                  .groupBy("year")
+                  .toPairs()
+                  .map(function(currentItem) {
+                      return _.zipObject(["year", "sports"], currentItem);
+                  })
+                  .value();
+                  console.log($scope.sports);
+            }
+          });
         };
 
     })

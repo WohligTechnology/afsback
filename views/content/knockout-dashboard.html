@@ -14,8 +14,8 @@
                 <div class="form-elements-sec">
                     <div class="main-s mt20" ng-repeat="key in sports">
                         <h4 class="margin0">{{key.sporttype}} Sport</h4>
-                        <div class="mt20 my-btn" ng-repeat="item in key.name">
-                            <button class="btn btn-default" ui-sref="knockoutsport({id:item._id})">{{item.name}}</button>
+                        <div class="mt20 my-btn" >
+                            <button class="btn btn-default" ui-sref="knockoutsport({id:item._id})" ng-repeat="item in key.name">{{item.name}}</button>
 
                         </div>
                     </div>
