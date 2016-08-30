@@ -342,7 +342,9 @@ var navigationservice = angular.module('navigationservice', [])
             $http({
                 url: adminURL + 'sport/knockoutSports',
                 method: 'POST',
-                data: request
+                data: {
+                  sportlist:request.id
+                }
             }).success(callback);
         },
         getLastStudentId: function(callback) {

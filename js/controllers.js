@@ -908,12 +908,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
           NavigationService.getOneSportList(id,function (response) {
             if(response.value){
               $scope.sportSelected = response.data;
+              $scope.knockoutSports($stateParams);
             }
           });
         };
         $scope.getOneSport($stateParams.id);
-        $scope.knockoutSports = function () {
-          NavigationService.knockoutSports(function (response) {
+        $scope.knockoutSports = function (constraints) {
+          NavigationService.knockoutSports(constraints,function (response) {
             if(response.value){
               $scope.sports= _.chain(response.data)
                   .groupBy("year")
@@ -922,6 +923,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                       return _.zipObject(["year", "sports"], currentItem);
                   })
                   .value();
+                  console.log($scope.sports);
                   console.log($scope.sports);
             }
           });
