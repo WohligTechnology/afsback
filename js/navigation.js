@@ -59,7 +59,7 @@ var navigationservice = angular.module('navigationservice', [])
     }, {
         name: "Knockout",
         classis: "active",
-        anchor: "knockout",
+        anchor: "viewknockout",
         icon: "users",
         subnav: []
     }

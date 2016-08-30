@@ -875,6 +875,118 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
 
     })
+    .controller('knockoutDashboardCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("knockout-dashboard");
+        $scope.menutitle = NavigationService.makeactive("Knockout");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.template.type = 1;
+        $scope.contentLoaded = false;
+        $scope.pagination = {};
+        $scope.pagination.pagenumber = 1;
+
+        $scope.reload = function(val) {
+            if (val === 1) {
+                $scope.pagination.name = "";
+            } else if (val === 2) {
+                $scope.pagination.sfaid = "";
+            }
+            NavigationService.getLimitedKnockout($scope.pagination, function(data) {
+                if (data.value !== false) {
+                    $scope.knockouts = data.data.data;
+                    $scope.knockout = data.data;
+                } else {
+                    $scope.teams = {
+                        data: []
+                    };
+                }
+            });
+        };
+
+        $scope.reload();
+        $scope.hideStudent = function(id, status) {
+            NavigationService.hideStudent({
+                _id: id,
+                status: status
+            }, function(data2) {
+                console.log(data2);
+                $scope.reload();
+            });
+        };
+        $scope.confDelete = function() {
+            NavigationService.deleteKnockout($.jStorage.get("deleteTeam"), function(data, status) {
+                console.log(data);
+                $scope.reload();
+            });
+        };
+        $scope.deleteFunc = function(id) {
+            console.log(id);
+            $.jStorage.set("deleteTeam", id);
+            $uibModal.open({
+                animation: true,
+                templateUrl: "views/content/delete.html",
+                scope: $scope
+            });
+        };
+
+    })
+    .controller('knockoutSportCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("knockout-sport");
+        $scope.menutitle = NavigationService.makeactive("Knockout");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.template.type = 1;
+        $scope.contentLoaded = false;
+        $scope.pagination = {};
+        $scope.pagination.pagenumber = 1;
+
+        $scope.reload = function(val) {
+            if (val === 1) {
+                $scope.pagination.name = "";
+            } else if (val === 2) {
+                $scope.pagination.sfaid = "";
+            }
+            NavigationService.getLimitedKnockout($scope.pagination, function(data) {
+                if (data.value !== false) {
+                    $scope.knockouts = data.data.data;
+                    $scope.knockout = data.data;
+                } else {
+                    $scope.teams = {
+                        data: []
+                    };
+                }
+            });
+        };
+
+        $scope.reload();
+        $scope.hideStudent = function(id, status) {
+            NavigationService.hideStudent({
+                _id: id,
+                status: status
+            }, function(data2) {
+                console.log(data2);
+                $scope.reload();
+            });
+        };
+        $scope.confDelete = function() {
+            NavigationService.deleteKnockout($.jStorage.get("deleteTeam"), function(data, status) {
+                console.log(data);
+                $scope.reload();
+            });
+        };
+        $scope.deleteFunc = function(id) {
+            console.log(id);
+            $.jStorage.set("deleteTeam", id);
+            $uibModal.open({
+                animation: true,
+                templateUrl: "views/content/delete.html",
+                scope: $scope
+            });
+        };
+
+    })
 
 .controller('createStudentCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal) {
         //Used to name the .html file
