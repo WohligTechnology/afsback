@@ -881,57 +881,23 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("Knockout");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.template.type = 1;
-        $scope.contentLoaded = false;
-        $scope.pagination = {};
-        $scope.pagination.pagenumber = 1;
-
-        $scope.reload = function(val) {
-            if (val === 1) {
-                $scope.pagination.name = "";
-            } else if (val === 2) {
-                $scope.pagination.sfaid = "";
-            }
-            NavigationService.getLimitedKnockout($scope.pagination, function(data) {
-                if (data.value !== false) {
-                    $scope.knockouts = data.data.data;
-                    $scope.knockout = data.data;
-                } else {
-                    $scope.teams = {
-                        data: []
-                    };
+        $scope.getSportList = function() {
+            NavigationService.getAllSportList(function(response) {
+                if (response.value) {
+                    $scope.sports = response.data;
+                    $scope.sports = _.chain(response.data)
+                        .groupBy("sporttype")
+                        .toPairs()
+                        .map(function(currentItem) {
+                            return _.zipObject(["sporttype", "name"], currentItem);
+                        })
+                        .value();
                 }
             });
         };
-
-        $scope.reload();
-        $scope.hideStudent = function(id, status) {
-            NavigationService.hideStudent({
-                _id: id,
-                status: status
-            }, function(data2) {
-                console.log(data2);
-                $scope.reload();
-            });
-        };
-        $scope.confDelete = function() {
-            NavigationService.deleteKnockout($.jStorage.get("deleteTeam"), function(data, status) {
-                console.log(data);
-                $scope.reload();
-            });
-        };
-        $scope.deleteFunc = function(id) {
-            console.log(id);
-            $.jStorage.set("deleteTeam", id);
-            $uibModal.open({
-                animation: true,
-                templateUrl: "views/content/delete.html",
-                scope: $scope
-            });
-        };
-
+        $scope.getSportList();
     })
-    .controller('knockoutSportCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal) {
+    .controller('knockoutSportCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal,$stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("knockout-sport");
         $scope.menutitle = NavigationService.makeactive("Knockout");
@@ -1350,10 +1316,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.sportSelected = function() {
 
         };
-        NavigationService.getLastKnockout({},function (response) {
-          if(response.value){
-            $scope.knockout.matchid = response.data;
-          }
+        NavigationService.getLastKnockout({}, function(response) {
+            if (response.value) {
+                $scope.knockout.matchid = response.data;
+            }
         });
         NavigationService.getAllSportList(function(response) {
             if (response.value) {
@@ -1465,22 +1431,22 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         });
         $scope.getLastOrder = function() {
             var constraints = {};
-            if(!$stateParams.id){
-              constraints = {
-                  "sport": $scope.knockout.sport._id,
-                  "agegroup": $scope.knockout.agegroup._id,
-                  "participantType": $scope.knockout.participantType,
-                  "gender": $scope.knockout.gender,
-                  "event": $scope.knockout.event,
-                  "roundno": $scope.knockout.roundno
-              };
-              NavigationService.getLastOrder(constraints, function(response) {
-                  if (response.value) {
-                      $scope.knockout.order = parseInt(response.data) + 1;
-                  } else {
-                      $scope.knockout.order = 0;
-                  }
-              });
+            if (!$stateParams.id) {
+                constraints = {
+                    "sport": $scope.knockout.sport._id,
+                    "agegroup": $scope.knockout.agegroup._id,
+                    "participantType": $scope.knockout.participantType,
+                    "gender": $scope.knockout.gender,
+                    "event": $scope.knockout.event,
+                    "roundno": $scope.knockout.roundno
+                };
+                NavigationService.getLastOrder(constraints, function(response) {
+                    if (response.value) {
+                        $scope.knockout.order = parseInt(response.data) + 1;
+                    } else {
+                        $scope.knockout.order = 0;
+                    }
+                });
             }
         };
         $scope.getParticipants = function() {

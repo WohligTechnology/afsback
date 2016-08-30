@@ -82,7 +82,7 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         controller: 'knockoutDashboardCtrl'
     })
     .state('knockoutsport', {
-        url: "/knockoutsport",
+        url: "/knockoutsport/:id",
         templateUrl: "views/template.html",
         controller: 'knockoutSportCtrl'
     })
