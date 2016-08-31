@@ -819,7 +819,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
 
     })
-    .controller('knockoutCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal,$stateParams) {
+    .controller('knockoutCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("knockout");
         $scope.menutitle = NavigationService.makeactive("Knockout");
@@ -830,6 +830,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.pagination = {};
         $scope.pagination.pagenumber = 1;
         $scope.pagination.sport = $stateParams.id;
+        NavigationService.getOneSport($stateParams.id,function (response) {
+          if(response.value){
+            $scope.selectedsport = response.data;
+          }
+        });
         $scope.reload = function(val) {
             if (val === 1) {
                 $scope.pagination.name = "";
@@ -897,35 +902,36 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
         $scope.getSportList();
     })
-    .controller('knockoutSportCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal,$stateParams) {
+    .controller('knockoutSportCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("knockout-sport");
         $scope.menutitle = NavigationService.makeactive("Knockout");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.template.type = 1;
-        $scope.getOneSport = function (id) {
-          NavigationService.getOneSportList(id,function (response) {
-            if(response.value){
-              $scope.sportSelected = response.data;
-              $scope.knockoutSports($stateParams);
-            }
-          });
+        $scope.getOneSport = function(id) {
+            NavigationService.getOneSportList(id, function(response) {
+                if (response.value) {
+                    $scope.sportSelected = response.data;
+                    $scope.knockoutSports($stateParams);
+                }
+            });
         };
         $scope.getOneSport($stateParams.id);
-        $scope.knockoutSports = function (constraints) {
-          NavigationService.knockoutSports(constraints,function (response) {
-            if(response.value){
-              $scope.sports= _.chain(response.data)
-                  .groupBy("year")
-                  .toPairs()
-                  .map(function(currentItem) {
-                      return _.zipObject(["year", "sports"], currentItem);
-                  })
-                  .value();
-                  console.log($scope.sports);
-            }
-          });
+        $scope.knockoutSports = function(constraints) {
+          $scope.sports = [];
+            NavigationService.knockoutSports(constraints, function(response) {
+                if (response.value) {
+                    $scope.sports = _.chain(response.data)
+                        .groupBy("year")
+                        .toPairs()
+                        .map(function(currentItem) {
+                            return _.zipObject(["year", "sports"], currentItem);
+                        })
+                        .value();
+                    console.log($scope.sports);
+                }
+            });
         };
 
     })
@@ -1294,26 +1300,26 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
         NavigationService.getLastKnockout({}, function(response) {
             if (response.value) {
-                $scope.knockout.matchid = response.data;
+                $scope.knockout.matchid = response.data +1;
             }
         });
-        NavigationService.getAllSportList(function(response) {
-            if (response.value) {
-                $scope.sportsList = response.data;
-            }
-        });
-        NavigationService.getAllAgeGroup(function(data) {
-            if (data.value) {
-                $scope.agegroups = data.data;
-            }
-        });
+        $scope.getSportsByYear = function() {
+            $scope.sportsList = [];
+
+            NavigationService.getSportsByYear($scope.knockout, function(response) {
+                if (response.value) {
+                    $scope.sportsList = response.data;
+                } else {
+                    $scope.sportsList = [];
+                }
+            });
+        };
         $scope.getLastOrder = function() {
             var constraints = {};
             constraints = {
+              "year":$scope.knockout.year,
                 "sport": $scope.knockout.sport._id,
-                "agegroup": $scope.knockout.agegroup._id,
                 "participantType": $scope.knockout.participantType,
-                "gender": $scope.knockout.gender,
                 "event": $scope.knockout.event,
                 "roundno": $scope.knockout.roundno
             };
@@ -1346,10 +1352,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 constraints.sfaid = parseInt(search);
             }
             if ($scope.knockout.sport) {
-                constraints.sport = $scope.knockout.sport._id;
+                constraints.sport = $scope.knockout.sport.sportslist._id;
             }
-            if ($scope.knockout.gender) {
-                constraints.gender = $scope.knockout.gender;
+            if ($scope.knockout.sport.gender) {
+                constraints.gender = $scope.knockout.sport.gender;
             }
             constraints.year = $scope.knockout.year.toString();
             NavigationService.getStudentsbySport(constraints, function(data) {
@@ -1359,7 +1365,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     $scope.students = [];
                 }
             });
-
         };
         $scope.submitKnockout = function() {
             console.log($scope.knockout);
@@ -1368,11 +1373,15 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             request.sport = $scope.knockout.sport._id;
             request.player1 = $scope.knockout.player1._id;
             request.player2 = $scope.knockout.player2._id;
-            request.agegroup = $scope.knockout.agegroup._id;
             request.year = $scope.knockout.year.toString();
             NavigationService.submitKnockout(request, function(data) {
                 if (data.value) {
-                    $state.go("knockout");
+                  console.log({
+                    id:request.sport
+                  });
+                    $state.go("viewknockout",{
+                      id:request.sport
+                    });
                 } else {
                     //error
                 }
@@ -1407,23 +1416,20 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         });
         $scope.getLastOrder = function() {
             var constraints = {};
-            if (!$stateParams.id) {
-                constraints = {
-                    "sport": $scope.knockout.sport._id,
-                    "agegroup": $scope.knockout.agegroup._id,
-                    "participantType": $scope.knockout.participantType,
-                    "gender": $scope.knockout.gender,
-                    "event": $scope.knockout.event,
-                    "roundno": $scope.knockout.roundno
-                };
-                NavigationService.getLastOrder(constraints, function(response) {
-                    if (response.value) {
-                        $scope.knockout.order = parseInt(response.data) + 1;
-                    } else {
-                        $scope.knockout.order = 0;
-                    }
-                });
-            }
+            constraints = {
+              "year":$scope.knockout.year,
+                "sport": $scope.knockout.sport._id,
+                "participantType": $scope.knockout.participantType,
+                "event": $scope.knockout.event,
+                "roundno": $scope.knockout.roundno
+            };
+            NavigationService.getLastOrder(constraints, function(response) {
+                if (response.value) {
+                    $scope.knockout.order = parseInt(response.data) + 1;
+                } else {
+                    $scope.knockout.order = 0;
+                }
+            });
         };
         $scope.getParticipants = function() {
             if ($scope.knockout.year && $scope.knockout.participantType && $scope.knockout.sport && $scope.knockout.sport._id) {
@@ -1446,10 +1452,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 constraints.sfaid = parseInt(search);
             }
             if ($scope.knockout.sport) {
-                constraints.sport = $scope.knockout.sport._id;
+                constraints.sport = $scope.knockout.sport.sportslist._id;
             }
-            if ($scope.knockout.gender) {
-                constraints.gender = $scope.knockout.gender;
+            if ($scope.knockout.sport.gender) {
+                constraints.gender = $scope.knockout.sport.gender;
             }
             constraints.year = $scope.knockout.year.toString();
             NavigationService.getStudentsbySport(constraints, function(data) {
@@ -1459,7 +1465,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     $scope.students = [];
                 }
             });
-
         };
         $scope.submitKnockout = function() {
             console.log($scope.knockout);
@@ -1468,11 +1473,15 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             request.sport = $scope.knockout.sport._id;
             request.player1 = $scope.knockout.player1._id;
             request.player2 = $scope.knockout.player2._id;
-            request.agegroup = $scope.knockout.agegroup._id;
             request.year = $scope.knockout.year.toString();
             NavigationService.submitKnockout(request, function(data) {
                 if (data.value) {
-                    $state.go("knockout");
+                  console.log({
+                    id:request.sport
+                  });
+                    $state.go("viewknockout",{
+                      id:request.sport
+                    });
                 } else {
                     //error
                 }
@@ -1483,7 +1492,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 if (response.value) {
                     $scope.knockout = response.data;
                     $scope.knockout.date = new Date($scope.knockout.date);
-                    $scope.getParticipants();
+                    // $scope.getParticipants();
                     $scope.getKnockoutPlayer("");
                 } else {
 

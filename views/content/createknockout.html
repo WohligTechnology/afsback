@@ -49,17 +49,20 @@
                       </div>
                       <div class="form-group" >
                           <label>Year *</label>
-                          <input type="text" placeholder="Year" class="form-control" required  ng-model="knockout.year" only-digits>
+                          <input type="text" placeholder="Year" class="form-control" required  ng-model="knockout.year" ng-change="getSportsByYear()" only-digits>
                       </div>
-                      <div class="form-group">
+                      <div class="form-group" ng-if="knockout.year">
                           <label>Sport *</label>
                           <ui-select ng-model="knockout.sport" required title="Select Sport" on-select="sportSelected();">
-                              <ui-select-match placeholder="Select Sport" >{{$select.selected.name}}</ui-select-match>
-                              <ui-select-choices repeat="sport in sportsList | filter: $select.search">
-                                  <div ng-bind-html="sport.name | highlight: $select.search"></div>
+                              <ui-select-match placeholder="Select Sport" >{{$select.selected.sportslist.name}} {{$select.selected.gender}} {{$select.selected.firstcategory.name}} {{$select.selected.secondcategory.name}} {{$select.selected.agegroup.name}}</ui-select-match>
+                              <ui-select-choices repeat="sport in sportsList | filter: $select.search" refresh="getSportsByYear()">
+                                  <div ng-bind-html="sport.sportslist.name | highlight: $select.search"></div>
                                   <small>
-                                      SFA-ID:<span ng-bind-html="sport.sfaid | highlight: $select.search"></span>
-                                      Primary-ID:<span ng-bind-html="sport._id | highlight: $select.search"></span>
+                                      <span ng-bind-html="sport.gender | highlight: $select.search"></span>
+                                      <span ng-bind-html="sport.agegroup.name | highlight: $select.search"></span>
+                                       <span ng-bind-html="sport.firstcategory.name | highlight: $select.search"></span>
+                                        <span ng-bind-html="sport.secondcategory.name | highlight: $select.search"></span>
+
                                   </small>
                               </ui-select-choices>
                           </ui-select>
@@ -76,7 +79,7 @@
                       </div> -->
                       <div class="form-group" >
                           <label>Participant Type *</label>
-                          <select class="form-control" ng-model="knockout.participantType" required>
+                          <select class="form-control" ng-change="getLastOrder()" ng-model="knockout.participantType" required>
                               <option value="">Select Participant Type</option>
                               <option value="team">Team</option>
                               <option value="player">Player</option>
@@ -178,23 +181,23 @@
                       </div>
                       <div class="form-group" >
                           <label>Date *</label>
-                          <input type="date" placeholder="Event" class="form-control" required  ng-model="knockout.date" >
+                          <input type="date" placeholder="Date" class="form-control" required  ng-model="knockout.date" >
                       </div>
                       <div class="form-group" >
                           <label>Start Time</label>
-                          <input type="text" placeholder="Event" class="form-control" ng-model="knockout.startTime" >
+                          <input type="text" placeholder="Start Time" class="form-control" ng-model="knockout.startTime" >
                       </div>
                       <div class="form-group" >
                           <label>End Time</label>
-                          <input type="text" placeholder="Event" class="form-control" ng-model="knockout.endTime" >
+                          <input type="text" placeholder="End Time" class="form-control" ng-model="knockout.endTime" >
                       </div>
                       <div class="form-group" >
                           <label>Total Time</label>
-                          <input type="text" placeholder="Event" class="form-control" ng-model="knockout.totalTime" >
+                          <input type="text" placeholder="Total Time" class="form-control" ng-model="knockout.totalTime" >
                       </div>
                       <div class="form-group" >
                           <label>Score</label>
-                          <input type="text" placeholder="Event" class="form-control" ng-model="knockout.score" >
+                          <input type="text" placeholder="Score" class="form-control" ng-model="knockout.score" >
                       </div>
 
 

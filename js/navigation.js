@@ -1,5 +1,5 @@
 // var adminURL = "http://104.154.89.21:83/";
-var adminURL = "http://192.168.1.101:1337/api/";
+var adminURL = "http://192.168.1.110:1337/api/";
 var uploadurl = adminURL + "upload/";
 
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
@@ -344,6 +344,15 @@ var navigationservice = angular.module('navigationservice', [])
                 method: 'POST',
                 data: {
                   sportlist:request.id
+                }
+            }).success(callback);
+        },
+        getSportsByYear: function(request, callback) {
+            $http({
+                url: adminURL + 'sport/getSportsByYear',
+                method: 'POST',
+                data: {
+                  year:request.year
                 }
             }).success(callback);
         },
