@@ -72,7 +72,7 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         controller: 'teamCtrl'
     })
     .state('viewknockout', {
-        url: "/viewknockout",
+        url: "/viewknockout/:id",
         templateUrl: "views/template.html",
         controller: 'knockoutCtrl'
     })

@@ -819,7 +819,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
 
     })
-    .controller('knockoutCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal) {
+    .controller('knockoutCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal,$stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("knockout");
         $scope.menutitle = NavigationService.makeactive("Knockout");
@@ -829,7 +829,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.contentLoaded = false;
         $scope.pagination = {};
         $scope.pagination.pagenumber = 1;
-
+        $scope.pagination.sport = $stateParams.id;
         $scope.reload = function(val) {
             if (val === 1) {
                 $scope.pagination.name = "";
@@ -923,7 +923,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                       return _.zipObject(["year", "sports"], currentItem);
                   })
                   .value();
-                  console.log($scope.sports);
                   console.log($scope.sports);
             }
           });
