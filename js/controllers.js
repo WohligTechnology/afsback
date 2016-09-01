@@ -1681,7 +1681,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             console.log(data);
             reload();
         });
-    }
+    };
     $scope.deleteFunc = function(id) {
         console.log(id);
         $.jStorage.set("deleteStudentSport", id);
@@ -1689,8 +1689,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             animation: true,
             templateUrl: "views/content/delete.html",
             scope: $scope
-        })
-    }
+        });
+    };
 })
 
 .controller('createStudentSportCtrl', function($scope, TemplateService, NavigationService, $timeout, $stateParams, $state) {
@@ -1701,6 +1701,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.template.type = 1;
     $scope.pageName = "Create Student Sports";
     $scope.sport = {};
+    $scope.studentId = $stateParams.id;
+
     $scope.allYears = NavigationService.getAllYears();
     NavigationService.getSchoolList(function(data) {
         if (data.value !== false) {
@@ -1766,24 +1768,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 });
             }
         });
-    }
+    };
 
-    $scope.getFirstCategory = function(search) {
-        if (search.length >= 2) {
+    $scope.getFirstCategory = function() {
+
             var obj = {};
-            obj.search = search;
-            obj.firstcategory = $scope.sport.firstcategory;
-            console.log(obj);
-            NavigationService.getFirstCategories(obj, function(data) {
+            obj.sport = $scope.sport.sportslist._id;
+            // console.log(obj);
+            NavigationService.getFirstCategoryFromSport(obj, function(data) {
                 if (data && data.value !== false) {
-                    $scope.firstcategories = data.data;
+                    $scope.firstcategories = data.data[0].category;
                 } else {
                     $scope.firstcategories = [];
                 }
             });
-        } else {
-            $scope.firstcategories = [];
-        }
+
     };
 
     $scope.saveFirstCategory = function(data, select) {
@@ -1882,11 +1881,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
+    $scope.studentId = $stateParams.id;
+
     $scope.pageName = "Edit School";
     $scope.sport = {};
     $scope.allYears = NavigationService.getAllYears();
     NavigationService.getSchoolList(function(data) {
-        if (data.value != false) {
+        if (data.value !== false) {
             $scope.schools = data.data;
         }
     });
@@ -1900,7 +1901,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $scope.sportsList = data2.data;
             });
         }
-    }
+    };
 
     $scope.sport = {};
     $scope.sport.year = "2015";
@@ -1915,7 +1916,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.agegroups = [];
     NavigationService.getOneStudentSport($stateParams.id, function(data) {
         console.log(data);
-        if (data.value != false) {
+        if (data.value !== false) {
             $scope.sport = data.data;
             if (!$scope.sport.firstcategory) {
                 $scope.sport.firstcategory = [];

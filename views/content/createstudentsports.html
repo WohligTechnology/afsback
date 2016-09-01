@@ -40,7 +40,7 @@
                         </div>
                         <div class="form-group">
                             <label>Sport Name*</label>
-                            <ui-select ng-model="sport.sportslist" title="Select Sport" required>
+                            <ui-select ng-model="sport.sportslist" title="Select Sport" required on-select="getFirstCategory()">
                                 <ui-select-match placeholder="Select Sport">{{$select.selected.name}}</ui-select-match>
                                 <ui-select-choices repeat="sport in sportsList | filter: $select.search">
                                     <span ng-bind-html="sport.name | highlight: $select.search"></span>
@@ -49,11 +49,11 @@
                         </div>
                         <div class="form-group">
                             <label>Category</label>
-                            <ui-select multiple limit="1" tagging tagging-label="false" ng-model="sport.firstcategory" title="Choose Category" class="form-control" on-select="saveFirstCategory(sport.firstcategory,$select);">
+                            <ui-select multiple limit="1" tagging tagging-label="false" ng-model="sport.firstcategory" title="Choose Category" class="form-control">
                                 <ui-select-match placeholder="Choose Category">
                                     <span ng-bind="$item.name"></span>
                                 </ui-select-match>
-                                <ui-select-choices refresh-delay="0" refresh="getFirstCategory($select.search)" repeat="item in (firstcategories | filter: $select.search) track by item._id">
+                                <ui-select-choices refresh-delay="0" refresh="getFirstCategory()" repeat="item in (firstcategories | filter: $select.search) track by item._id">
                                     <span ng-bind="item.name"></span>
                                 </ui-select-choices>
                             </ui-select>
@@ -86,7 +86,7 @@
                     <div class="col-md-12">
                         <div class="text-center mt20">
                             <button class="btn btn-default" type="submit">Save</button>
-                            <button class="btn btn-default" ui-sref="sport">Cancel</button>
+                            <button class="btn btn-default" ui-sref="studentsport({id:studentId})">Cancel</button>
                         </div>
                     </div>
                 </div>

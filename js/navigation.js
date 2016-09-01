@@ -1,4 +1,4 @@
-// var adminURL = "http://104.154.89.21:83/";
+// var adminURL = "http://104.154.89.21:83/api/";
 var adminURL = "http://192.168.1.110:1337/api/";
 var uploadurl = adminURL + "upload/";
 
@@ -117,6 +117,13 @@ var navigationservice = angular.module('navigationservice', [])
         saveSportList: function(formData, callback) {
             $http({
                 url: adminURL + 'sportslist/saveData',
+                method: 'POST',
+                data: formData
+            }).success(callback);
+        },
+        getFirstCategoryFromSport: function(formData, callback) {
+            $http({
+                url: adminURL + 'studentsport/getFirstCategoryFromSport',
                 method: 'POST',
                 data: formData
             }).success(callback);
