@@ -1,5 +1,5 @@
 // var adminURL = "http://104.154.89.21:83/";
-var adminURL = "http://192.168.1.110:1337/api/";
+var adminURL = "http://192.168.1.102:1337/api/";
 var uploadurl = adminURL + "upload/";
 
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
@@ -268,6 +268,13 @@ var navigationservice = angular.module('navigationservice', [])
         getStudentsbySport: function(request, callback) {
             $http({
                 url: adminURL + 'studentsport/getStudentsbySport',
+                method: 'POST',
+                data: request
+            }).success(callback);
+        },
+        getTeamsbySport: function(request, callback) {
+            $http({
+                url: adminURL + 'team/getTeamsbySport',
                 method: 'POST',
                 data: request
             }).success(callback);

@@ -72,6 +72,10 @@
                            <td ng-if="value.participantType == 'player'">{{value.resultplayer1 || 'Not Declared'}}</td>
                            <td ng-if="value.participantType == 'player'">{{value.player2.name || 'Not Declared' | letterLimit :13 }}</td>
                            <td ng-if="value.participantType == 'player'">{{value.resultplayer2 || 'Not Declared'}}</td>
+                           <td ng-if="value.participantType == 'team'">{{value.team1.name || 'Not Declared' | letterLimit :13}}</td>
+                           <td ng-if="value.participantType == 'team'">{{value.resultteam1 || 'Not Declared'}}</td>
+                           <td ng-if="value.participantType == 'team'">{{value.team2.name || 'Not Declared' | letterLimit :13 }}</td>
+                           <td ng-if="value.participantType == 'team'">{{value.resultteam2 || 'Not Declared'}}</td>
                            <td>{{value.roundno}}</td>
                            <td>{{value.order}}</td>
                            <td class="text-center">
