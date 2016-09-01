@@ -14,8 +14,8 @@
                 <div class="form-elements-sec">
                     <div class="main-s mt20" ng-repeat="sport in sports" ng-if="sports.length > 0">
                         <h4 class="margin0">{{sport.year}}</h4 >
-                        <div class="mt20 my-btn"  >
-                           <button class="btn btn-default" ng-repeat="item in sport.sports" ui-sref="viewknockout({id:item._id})">{{item.gender}} {{item.firstcategory.name}} {{item.secondcategory.name}} {{item.thirdcategory.name}} {{item.agegroup.name}}</button><br>
+                        <div class="mt20 my-btn" ng-repeat="item in sport.sports" >
+                           <button class="btn btn-default"  ui-sref="viewknockout({id:item._id})">{{item.gender}} {{item.firstcategory.name}} {{item.secondcategory.name}} {{item.thirdcategory.name}} {{item.agegroup.name}}</button><br>
 
                         </div>
                     </div>
