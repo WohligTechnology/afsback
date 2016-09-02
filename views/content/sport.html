@@ -76,6 +76,11 @@
                   <div class="text-center" ng-if="sports.length==0">
                      <h5>No results found</h5>
                   </div>
+                  <div class="">
+                      <uib-pagination ng-show="sport.data.length > 0" ng-change="reload();" total-items="sport.total" ng-model="pagination.pagenumber" items-per-page="20">
+
+                      </uib-pagination>
+                  </div>
                </div>
             </div>
          </div>

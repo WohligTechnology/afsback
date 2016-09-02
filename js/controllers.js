@@ -1771,13 +1771,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     };
 
     $scope.getFirstCategory = function() {
-
+      console.log("getFirstCategory");
             var obj = {};
             obj.sport = $scope.sport.sportslist._id;
             // console.log(obj);
             NavigationService.getFirstCategoryFromSport(obj, function(data) {
                 if (data && data.value !== false) {
-                    $scope.firstcategories = data.data[0].category;
+                    $scope.firstcategories = _.uniqBy(data.data[0].category,function (key) {
+                      return key._id;
+                    });
+                    console.log($scope.firstcategories);
                 } else {
                     $scope.firstcategories = [];
                 }
@@ -1942,6 +1945,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $scope.sport.agegroup = [$scope.sport.agegroup];
             }
             console.log($scope.sport);
+            $scope.studentId = $scope.sport.student;
+
             $scope.callme();
         }
     });
@@ -2175,21 +2180,72 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
 
-    function reload() {
-        NavigationService.getAllSport(function(data) {
-            console.log(data);
-            if (data.value != false) {
-                $scope.sports = data.data;
+    // function reload() {
+    //     NavigationService.getAllSport(function(data) {
+    //         console.log(data);
+    //         if (data.value != false) {
+    //             $scope.sports = data.data;
+    //         }
+    //     });
+    // }
+    // reload();
+    //
+    // $scope.deleteFunc = function(id) {
+    //     NavigationService.deleteSport(id, function(data2) {
+    //         reload();
+    //     });
+    // };
+    $scope.contentLoaded = false;
+    $scope.pagination = {};
+    $scope.pagination.pagenumber = 1;
+
+    $scope.reload = function(val) {
+        if (val === 1) {
+            $scope.pagination.name = "";
+        } else if (val === 2) {
+            $scope.pagination.sfaid = "";
+        }
+        NavigationService.getLimitedSport($scope.pagination, function(data) {
+            if (data.value !== false) {
+                console.log(data);
+                $scope.contentLoaded = true;
+                $scope.sports = data.data.data;
+                $scope.sport = data.data;
+                console.log($scope.teams);
+            } else {
+                $scope.teams = {
+                    data: []
+                };
+                $scope.sport= {};
             }
         });
-    }
-    reload();
-
-    $scope.deleteFunc = function(id) {
-        NavigationService.deleteSport(id, function(data2) {
-            reload();
+    };
+    $scope.reload();
+    $scope.hideStudent = function(id, status) {
+        NavigationService.hideStudent({
+            _id: id,
+            status: status
+        }, function(data2) {
+            console.log(data2);
+            $scope.reload();
         });
     };
+    $scope.confDelete = function() {
+        NavigationService.deleteSport($.jStorage.get("deleteTeam"), function(data, status) {
+            console.log(data);
+            $scope.reload();
+        });
+    };
+    $scope.deleteFunc = function(id) {
+        console.log(id);
+        $.jStorage.set("deleteTeam", id);
+        $uibModal.open({
+            animation: true,
+            templateUrl: "views/content/delete.html",
+            scope: $scope
+        });
+    };
+
 })
 
 .controller('createSportCtrl', function($scope, TemplateService, NavigationService, $timeout, $state) {
