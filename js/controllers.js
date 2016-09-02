@@ -887,7 +887,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.getSportList = function() {
-            NavigationService.getAllSportList(function(response) {
+            NavigationService.getAllKnockoutSport(function(response) {
                 if (response.value) {
                     $scope.sports = response.data;
                     $scope.sports = _.chain(response.data)
@@ -929,6 +929,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                             return _.zipObject(["year", "sports"], currentItem);
                         })
                         .value();
+                    _.each($scope.sports,function (key) {
+                      key.sports = _.chain(key.sports)
+                      .groupBy("agegroup.name")
+                      .toPairs()
+                      .map(function(currentItem) {
+                          return _.zipObject(["agegroup", "sports"], currentItem);
+                      })
+                      .value();
+
+                    });
                     console.log($scope.sports);
                 }
             });
