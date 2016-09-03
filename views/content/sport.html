@@ -34,7 +34,7 @@
                   <h3>List of Sports</h3>
                </div>
                <div class="table-responsive">
-                  <table class="table" ng-if="sports.length>0">
+                  <table class="table" >
                      <thead>
                         <tr>
                            <th>#</th>
@@ -46,7 +46,7 @@
                         <tr>
                            <td>Search By :</td>
                            <td>
-                              <input type="text" placeholder="Sport" class="form-control" ng-model="search.$">
+                              <input type="text" placeholder="Sport" class="form-control" ng-model="pagination.name" ng-change="reload()">
                               <!-- <ui-select ng-model="selected.value">
                                  <ui-select-match>
                                     <span ng-bind="$select.selected.name"></span>
@@ -57,7 +57,7 @@
                               </ui-select> -->
                            </td>
                         </tr>
-                        <tr ng-repeat="value in sports | filter:search">
+                        <tr ng-repeat="value in sports | filter:search" ng-if="sports.length>0">
                            <td>{{$index+1}}</td>
                            <td>{{value.sportslist.name}} {{value.gender}} {{value.firstcategory.name}} {{value.secondcategory.name}} {{value.thirdcategory.name}} {{value.agegroup.name}} - {{value.drawFormat}} - {{value.year}}</td>
                            <td class="text-center">

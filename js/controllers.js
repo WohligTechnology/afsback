@@ -2212,8 +2212,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.reload = function(val) {
         if (val === 1) {
             $scope.pagination.name = "";
-        } else if (val === 2) {
-            $scope.pagination.sfaid = "";
         }
         NavigationService.getLimitedSport($scope.pagination, function(data) {
             if (data.value !== false) {
