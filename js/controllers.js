@@ -2189,7 +2189,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
-
+    $scope.adminURL = adminURL;
+    
     // function reload() {
     //     NavigationService.getAllSport(function(data) {
     //         console.log(data);
