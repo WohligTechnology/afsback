@@ -771,7 +771,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.contentLoaded = false;
         $scope.pagination = {};
         $scope.pagination.pagenumber = 1;
-
+        $scope.adminURL=adminURL;
         $scope.reload = function(val) {
             if (val === 1) {
                 $scope.pagination.name = "";
@@ -2190,7 +2190,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
     $scope.adminURL = adminURL;
-    
+
     // function reload() {
     //     NavigationService.getAllSport(function(data) {
     //         console.log(data);
