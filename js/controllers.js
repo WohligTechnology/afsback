@@ -716,7 +716,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.contentLoaded = false;
         $scope.pagination = {};
         $scope.pagination.pagenumber = 1;
-
+        $scope.adminURL = adminURL;
         $scope.reload = function(val) {
             if (val === 1) {
                 $scope.pagination.name = "";
