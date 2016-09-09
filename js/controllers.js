@@ -1568,6 +1568,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 if (response.value) {
                     $scope.knockout = response.data;
                     $scope.knockout.date = new Date($scope.knockout.date);
+                    $scope.knockout.startTime = new Date($scope.knockout.startTime);
+                    $scope.knockout.endTime = new Date($scope.knockout.endTime);
                     // $scope.getParticipants();
                     $scope.getKnockoutPlayer("");
                 } else {
