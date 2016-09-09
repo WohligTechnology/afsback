@@ -966,7 +966,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.via = ["via School", "Individual"];
         $scope.payment = ["Paid", "Unpaid"];
         $scope.student.via = "via School";
-        $scope.student.payment = "Unpaid";
         $scope.validateError = {};
         $scope.validateError.valid = false;
 
@@ -1634,9 +1633,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }
             if (!$scope.student.via) {
                 $scope.student.via = "via School";
-            }
-            if (!$scope.student.payment) {
-                $scope.student.payment = "Unpaid";
             }
         }
     });
