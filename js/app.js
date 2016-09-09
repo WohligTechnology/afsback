@@ -207,13 +207,13 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
 firstapp.filter('uploadpath', function() {
     return function(input, width, height, style) {
         var other = "";
-        if (width && width != "") {
+        if (width && width !== "") {
             other += "&width=" + width;
         }
-        if (height && height != "") {
+        if (height && height !== "") {
             other += "&height=" + height;
         }
-        if (style && style != "") {
+        if (style && style !== "") {
             other += "&style=" + style;
         }
         if (input) {

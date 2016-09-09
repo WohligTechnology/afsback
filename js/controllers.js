@@ -1346,7 +1346,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 if ($scope.knockout.participantType == "player") {
                     $scope.getKnockoutPlayer("");
                 } else {
-                  $scope.getKnockoutTeam();
+                  $scope.getKnockoutTeam("");
                 }
             }
         };
@@ -1389,12 +1389,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }
             if ($scope.knockout.sport) {
                 constraints.sport = $scope.knockout.sport.sportslist._id;
+                // constraints.agegroup = $scope.knockout.sport.agegroup;
             }
             if ($scope.knockout.sport.gender) {
                 constraints.gender = $scope.knockout.sport.gender;
             }
-            constranst.agegroup = $scope.knockout.sport.agegroup._id;
             constraints.year = $scope.knockout.year.toString();
+            console.log(constraints);
             NavigationService.getTeamsbySport(constraints, function(data) {
                 if (data && data.value !== false) {
                     $scope.teams = data.data;
@@ -1475,12 +1476,40 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
         $scope.getParticipants = function() {
             if ($scope.knockout.year && $scope.knockout.participantType && $scope.knockout.sport && $scope.knockout.sport._id) {
-                if ($scope.knockout.participantType == "player") {
-                    $scope.getPlayers();
-                } else {
-
-                }
+              if ($scope.knockout.participantType == "player") {
+                  $scope.getKnockoutPlayer("");
+              } else {
+                $scope.getKnockoutTeam("");
+              }
             }
+        };
+        $scope.getKnockoutTeam = function(search) {
+            $scope.teams = [];
+            var constraints = {};
+            constraints.search = search;
+            if (isNaN(search) || search === null || search === undefined || search === "") {
+                constraints.search = search;
+                constraints.sfaid = undefined;
+            } else {
+                constraints.search = undefined;
+                constraints.sfaid = parseInt(search);
+            }
+            if ($scope.knockout.sport) {
+                constraints.sport = $scope.knockout.sport.sportslist._id;
+                // constraints.agegroup = $scope.knockout.sport.agegroup;
+            }
+            if ($scope.knockout.sport.gender) {
+                constraints.gender = $scope.knockout.sport.gender;
+            }
+            constraints.year = $scope.knockout.year.toString();
+            console.log(constraints);
+            NavigationService.getTeamsbySport(constraints, function(data) {
+                if (data && data.value !== false) {
+                    $scope.teams = data.data;
+                } else {
+                    $scope.teams = [];
+                }
+            });
         };
         $scope.getKnockoutPlayer = function(search) {
             $scope.students = [];
@@ -1513,8 +1542,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             var request = {};
             request = $scope.knockout;
             request.sport = $scope.knockout.sport._id;
-            request.player1 = $scope.knockout.player1._id;
-            request.player2 = $scope.knockout.player2._id;
+            if($scope.knockout.participantType == "player"){
+              request.player1 = $scope.knockout.player1._id;
+              request.player2 = $scope.knockout.player2._id;
+            }else{
+              request.team1 = $scope.knockout.team1._id;
+              request.team2 = $scope.knockout.team2._id;
+            }
             request.year = $scope.knockout.year.toString();
             NavigationService.submitKnockout(request, function(data) {
                 if (data.value) {
