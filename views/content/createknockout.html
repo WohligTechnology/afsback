@@ -49,11 +49,11 @@
                       </div>
                       <div class="form-group" >
                           <label>Year *</label>
-                          <input type="text" placeholder="Year" class="form-control" required  ng-model="knockout.year" ng-change="getSportsByYear()" only-digits>
+                          <input type="text" placeholder="Year" class="form-control" required  ng-model="knockout.year" ng-change="getSportsByYear()" only-digits disabled>
                       </div>
-                      <div class="form-group" ng-if="knockout.year">
+                      <div class="form-group">
                           <label>Sport *</label>
-                          <ui-select ng-model="knockout.sport" required title="Select Sport" on-select="sportSelected();">
+                          <ui-select ng-model="knockout.sport" required title="Select Sport" on-select="sportSelected();" ng-disabled="true">
                               <ui-select-match placeholder="Select Sport" >{{$select.selected.sportslist.name}} {{$select.selected.gender}} {{$select.selected.firstcategory.name}} {{$select.selected.secondcategory.name}} {{$select.selected.agegroup.name}}</ui-select-match>
                               <ui-select-choices repeat="sport in sportsList | filter: $select.search" refresh="getSportsByYear()">
                                   <div ng-bind-html="sport.sportslist.name | highlight: $select.search"></div>
@@ -236,7 +236,7 @@
                     <div class="col-md-12">
                         <div class="text-center mt20">
                             <button class="btn btn-default" type="submit">Save</button>
-                            <button class="btn btn-default" ui-sref="viewknockout">Cancel</button>
+                            <button class="btn btn-default" ui-sref="viewknockout({id:sportid})">Cancel</button>
                         </div>
                     </div>
                 </div>

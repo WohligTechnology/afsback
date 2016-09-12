@@ -62,7 +62,7 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         controller: 'createTeamCtrl'
     })
     .state('createknockout', {
-        url: "/createknockout",
+        url: "/createknockout/:sportid",
         templateUrl: "views/template.html",
         controller: 'createKnockoutCtrl'
     })
@@ -98,7 +98,7 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         controller: 'editTeamCtrl'
     })
     .state('editknockout', {
-        url: "/editknockout/:id",
+        url: "/editknockout/:id/:sportid",
         templateUrl: "views/template.html",
         controller: 'editKnockoutCtrl'
     })

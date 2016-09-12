@@ -1293,7 +1293,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.errorSportContact = false;
 
     })
-    .controller('createKnockoutCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal) {
+    .controller('createKnockoutCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal,$stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("createknockout");
         $scope.menutitle = NavigationService.makeactive("Teams");
@@ -1307,6 +1307,15 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.sportSelected = function() {
 
         };
+        $scope.sportid = $stateParams.sportid;
+        if($stateParams.sportid){
+          NavigationService.getOneSport($stateParams.sportid,function (response) {
+            if(response.value){
+              $scope.knockout.sport = response.data;
+              $scope.knockout.year = response.data.year;
+            }
+          });
+        }
         NavigationService.getLastKnockout({}, function(response) {
             if (response.value) {
                 $scope.knockout.matchid = response.data +1;
@@ -1444,7 +1453,14 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.statuses = {};
         $scope.statuses.inedit = true;
         $scope.knockout.event = "Knockout";
-
+        $scope.sportid = $stateParams.sportid;
+        // if($stateParams.sportid){
+        //   NavigationService.getOneSport($stateParams.sportid,function (response) {
+        //     if(response.value){
+        //       $scope.knockout.sport = response.data;
+        //     }
+        //   });
+        // }
 
         NavigationService.getAllSportList(function(response) {
             if (response.value) {

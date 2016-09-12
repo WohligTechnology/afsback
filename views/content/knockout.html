@@ -29,7 +29,7 @@
             <div class="table-area">
                <div class="widget-title">
                   <div class="pull-right">
-                     <a class="btn btn-primary" ui-sref="createknockout">Add New</a>
+                     <a class="btn btn-primary" ui-sref="createknockout({sportid:selectedsport._id})">Add New</a>
                   </div>
                   <h3>List of Knockouts</h3>
                </div>
@@ -81,7 +81,7 @@
                            <td>{{value.order}}</td>
                            <td ng-class="{'bckgrnd-red':!value.score}">{{value.score}}</td>
                            <td class="text-center">
-                              <a ui-sref="editknockout({id:value._id})" class="btn btn-primary">
+                              <a ui-sref="editknockout({id:value._id,sportid:selectedsport._id})" class="btn btn-primary">
                                  <i class="fa fa-pencil-square-o"></i>
                               </a>
                            </td>
