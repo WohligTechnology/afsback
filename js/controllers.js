@@ -1759,6 +1759,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.template.type = 1;
     $scope.pageName = "Create Student Sports";
     $scope.sport = {};
+    $scope.oneSchool = {};
     $scope.studentId = $stateParams.id;
 
     $scope.allYears = NavigationService.getAllYears();
@@ -1775,8 +1776,17 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             NavigationService.getSchoolSports($scope.sport.year, $scope.sport.school._id, function(data2) {
                 console.log(data2);
                 $scope.sportsList = data2.data;
+
             });
         }
+        NavigationService.getOneSchool($scope.sport.school._id,function (response) {
+          if(response.value){
+            $scope.oneSchool = response.data;
+            console.log($scope.oneSchool);
+          }else{
+            $scope.oneSchool = {};
+          }
+        });
     };
 
     $scope.sport = {};
@@ -1946,6 +1956,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     $scope.pageName = "Edit School";
     $scope.sport = {};
+    $scope.oneSchool = {};
+
     $scope.allYears = NavigationService.getAllYears();
     NavigationService.getSchoolList(function(data) {
         if (data.value !== false) {
@@ -1958,10 +1970,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.callme = function() {
         if ($scope.sport.year && $scope.sport.school && $scope.sport.school._id) {
             NavigationService.getSchoolSports($scope.sport.year, $scope.sport.school._id, function(data2) {
-                console.log(data2);
                 $scope.sportsList = data2.data;
             });
         }
+        NavigationService.getOneSchool($scope.sport.school._id,function (response) {
+          if(response.value){
+            $scope.oneSchool = response.data;
+          }else{
+            $scope.oneSchool = {};
+          }
+        });
     };
 
     $scope.sport = {};
