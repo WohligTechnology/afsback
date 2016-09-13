@@ -24,15 +24,16 @@
             <form ng-submit="saveSchool()">
                 <div class="widget">
                     <div class="form-elements-sec">
-                        <!-- <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Year*</label>
-                                    <input type="text" placeholder="Year" only-digits class="form-control" ng-model="school.year" required >
-                                </div>
-                            </div>
+                      <!-- <div class="form-elements-sec"> -->
+                          <div class="form-group">
+                              <label>Year</label>
+                              <div class="checkbox" ng-repeat="key in allYears" >
+                                  <label>
+                                      <input type="checkbox" ng-change="addYear()" ng-model="checked[key]">{{key}}
+                                  </label>
+                              </div>
+                          </div>
 
-                        </div> -->
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">

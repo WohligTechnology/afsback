@@ -124,8 +124,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.sportsListArr = [];
     $scope.school = {};
     var schoolSports = [];
+    $scope.checked = {};
     $scope.allYears = NavigationService.getAllYears();
     $scope.deleteId = 0;
+    $scope.school.year = [];
     $scope.status = [{
         id: "",
         name: "Is Verified?"
@@ -148,6 +150,15 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 "student": ""
             });
         }
+    };
+    $scope.addYear = function () {
+      $scope.school.year = [];
+      _.each($scope.checked,function (key,property) {
+        if(key){
+          $scope.school.year.push(property);
+        }
+      });
+      console.log($scope.school.year);
     };
     $scope.addDept = function(crdv) {
         if (!crdv.department) {
@@ -305,6 +316,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.template.type = 1;
         $scope.pageName = "Edit School";
         $scope.school = {};
+        $scope.checked = {};
         $scope.allYears = NavigationService.getAllYears();
         $scope.status = [{
             id: "",
@@ -330,7 +342,15 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 });
             }
         };
-
+        $scope.addYear = function () {
+          $scope.school.year = [];
+          _.each($scope.checked,function (key,property) {
+            if(key){
+              $scope.school.year.push(property);
+            }
+          });
+          console.log($scope.school.year);
+        };
         $scope.addDept = function(crdv) {
             if (!crdv.department) {
                 crdv.department = [{
@@ -486,6 +506,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                                 }
                             });
                         });
+                    });
+                    _.each($scope.school.year,function (key) {
+                      $scope.checked[key]=true;
                     });
                 });
             }
