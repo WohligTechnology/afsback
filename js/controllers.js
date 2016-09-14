@@ -981,6 +981,71 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
 
     })
+    .controller('heatDashboardCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("heat-dashboard");
+        $scope.menutitle = NavigationService.makeactive("Heat");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.getSportList = function() {
+            NavigationService.getAllHeatSport(function(response) {
+                if (response.value) {
+                    $scope.sports = response.data;
+                    $scope.sports = _.chain(response.data)
+                        .groupBy("sporttype")
+                        .toPairs()
+                        .map(function(currentItem) {
+                            return _.zipObject(["sporttype", "name"], currentItem);
+                        })
+                        .value();
+                }
+            });
+        };
+        $scope.getSportList();
+    })
+    .controller('heatSportCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("heat-sport");
+        $scope.menutitle = NavigationService.makeactive("Heat");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.template.type = 1;
+        $scope.getOneSport = function(id) {
+            NavigationService.getOneSportList(id, function(response) {
+                if (response.value) {
+                    $scope.sportSelected = response.data;
+                    $scope.heatSports($stateParams);
+                }
+            });
+        };
+        $scope.getOneSport($stateParams.id);
+        $scope.heatSports = function(constraints) {
+          $scope.sports = [];
+            NavigationService.heatSports(constraints, function(response) {
+                if (response.value) {
+                    $scope.sports = _.chain(response.data)
+                        .groupBy("year")
+                        .toPairs()
+                        .map(function(currentItem) {
+                            return _.zipObject(["year", "sports"], currentItem);
+                        })
+                        .value();
+                    _.each($scope.sports,function (key) {
+                      key.sports = _.chain(key.sports)
+                      .groupBy("agegroup.name")
+                      .toPairs()
+                      .map(function(currentItem) {
+                          return _.zipObject(["agegroup", "sports"], currentItem);
+                      })
+                      .value();
+
+                    });
+                    console.log($scope.sports);
+                }
+            });
+        };
+
+    })
 
 .controller('createStudentCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal) {
         //Used to name the .html file

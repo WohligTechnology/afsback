@@ -86,10 +86,20 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         templateUrl: "views/template.html",
         controller: 'knockoutDashboardCtrl'
     })
+    .state('heatdashboard', {
+        url: "/heatdashboard",
+        templateUrl: "views/template.html",
+        controller: 'heatDashboardCtrl'
+    })
     .state('knockoutsport', {
         url: "/knockoutsport/:id",
         templateUrl: "views/template.html",
         controller: 'knockoutSportCtrl'
+    })
+    .state('heatsport', {
+        url: "/heatsport/:id",
+        templateUrl: "views/template.html",
+        controller: 'heatSportCtrl'
     })
 
     .state('editstudent', {

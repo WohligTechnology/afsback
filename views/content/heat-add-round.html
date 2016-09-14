@@ -1,9 +1,9 @@
 <div class="heading-sec">
     <div class="row">
         <!-- <div class="col-md-4 column"> -->
-            <div class="heading-profile text-center">
-                <h2>Heat Dashboard</h2>
-            </div>
+        <div class="heading-profile text-center">
+            <h2>Heat Dashboard</h2>
+        </div>
         <!-- </div> -->
     </div>
 </div>
@@ -12,87 +12,87 @@
         <div class="col-md-12">
             <div class="widget">
                 <div class="form-elements-sec">
-                  <div class="main-dv">
+                    <div class="main-dv">
 
 
-                  <div class="widget-title">
+                        <div class="widget-title">
 
-                      <h3>Add Round</h3>
-                  </div>
-                  <div class="w-body">
-                    <div class="row">
-                    <div class="col-md-2">
-                      <span>Order</span>
-                      <input type="text" placeholder="School SFA-ID" class="form-control w20" ng-model="pagination.sfaid" only-digits>
+                            <h3>Add Round</h3>
+                        </div>
+                        <div class="w-body">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <span>Order</span>
+                                    <input type="text" placeholder="School SFA-ID" class="form-control w20" ng-model="pagination.sfaid" only-digits>
+                                </div>
+                                <div class="col-md-6">
+                                    <span>Round</span>
+                                    <input type="text" placeholder="School SFA-ID" class="form-control" ng-model="pagination.sfaid" only-digits>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="pull-left mt18">
+                                        <a class="btn btn-primary" ui-sref="createschool">Add New</a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                      <span>Round</span>
-                      <input type="text" placeholder="School SFA-ID" class="form-control" ng-model="pagination.sfaid" only-digits>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="pull-left mt18">
-                          <a class="btn btn-primary" ui-sref="createschool">Add New</a>
-                      </div>
-                    </div>
-                    </div>
+                    <div class="main-dv mt50">
 
 
-                  </div>
-                    </div>
-                  <div class="main-dv mt50">
+                        <div class="widget-title">
+                            <div class="pull-right">
+                                <a class="btn btn-primary" ui-sref="createschool">Add Heat</a>
+                            </div>
+                            <h3>Qualify Round</h3>
+                        </div>
+                        <div class="w-body">
+                            <div class="">
+                                <!-- <div class="widget-title">
+                                    <div class="pull-right">
 
+                                        <a class="btn btn-primary" ui-sref="createsport">Add New</a>
+                                    </div>
+                                    <h3>List of Sports</h3>
+                                </div> -->
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Test</th>
+                                                <th>Sport</th>
+                                                <th>Operations</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>test2</td>
+                                                <td>
+                                                    test3
+                                                </td>
+                                                <td>
+                                                    test4
+                                                </td>
+                                            </tr>
 
-                  <div class="widget-title">
-                    <div class="pull-right mt18">
-                        <a class="btn btn-primary" ui-sref="createschool">Add Heat</a>
-                    </div>
-                      <h3>Qualify Round</h3>
-                  </div>
-                  <div class="w-body">
-                    <div class="">
-                       <div class="widget-title">
-                          <div class="pull-right">
+                                        </tbody>
+                                    </table>
+                                    <div class="text-center" ng-if="sports.length==0">
+                                        <h5>No results found</h5>
+                                    </div>
+                                    <div class="">
+                                        <uib-pagination ng-show="sport.data.length > 0" ng-change="reload();" total-items="sport.total" ng-model="pagination.pagenumber" items-per-page="20">
 
-                             <a class="btn btn-primary" ui-sref="createsport">Add New</a>
-                          </div>
-                          <h3>List of Sports</h3>
-                       </div>
-                       <div class="table-responsive">
-                          <table class="table" >
-                             <thead>
-                                <tr>
-                                   <th>Test</th>
-                                   <th>Sport</th>
-                                   <th>Operations</th>
-                                </tr>
-                             </thead>
-                             <tbody>
-                                <tr>
-                                   <td>test2</td>
-                                   <td>
-                                      test3
-                                   </td>
-                                   <td>
-                                      test4
-                                   </td>
-                                </tr>
-
-                             </tbody>
-                          </table>
-                          <div class="text-center" ng-if="sports.length==0">
-                             <h5>No results found</h5>
-                          </div>
-                          <div class="">
-                              <uib-pagination ng-show="sport.data.length > 0" ng-change="reload();" total-items="sport.total" ng-model="pagination.pagenumber" items-per-page="20">
-
-                              </uib-pagination>
-                          </div>
-                       </div>
-                    </div>
-                  </div>
+                                        </uib-pagination>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
         </div>
     </div>
-  </div>
 </div>
