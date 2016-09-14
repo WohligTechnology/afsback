@@ -62,6 +62,12 @@ var navigationservice = angular.module('navigationservice', [])
         anchor: "knockoutdashboard",
         icon: "users",
         subnav: []
+    }, {
+        name: "Heats",
+        classis: "active",
+        anchor: "heataddround",
+        icon: "users",
+        subnav: []
     }
   ];
 

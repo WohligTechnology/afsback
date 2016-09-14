@@ -112,6 +112,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         });
     };
 })
+.controller('heatAddRoundCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("heat-add-round");
+    $scope.menutitle = NavigationService.makeactive("Heats");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.template.type = 1;
+    $scope.contentLoaded = false;
+    $scope.schools = [];
+    $scope.pagination = {};
+    $scope.pagination.pagenumber = 1;
+
+})
 
 .controller('createSchoolCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal) {
     //Used to name the .html file
