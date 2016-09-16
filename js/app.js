@@ -67,7 +67,7 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         controller: 'createKnockoutCtrl'
     })
     .state('heataddround', {
-        url: "/heataddround",
+        url: "/heataddround/:id",
         templateUrl: "views/template.html",
         controller: 'heatAddRoundCtrl'
     })

@@ -112,7 +112,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         });
     };
 })
-.controller('heatAddRoundCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal) {
+.controller('heatAddRoundCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal,$stateParams) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("heat-add-round");
     $scope.menutitle = NavigationService.makeactive("Heats");
@@ -123,7 +123,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.schools = [];
     $scope.pagination = {};
     $scope.pagination.pagenumber = 1;
-
+    NavigationService.getOneSport($stateParams.id,function (response) {
+      if(response.value){
+        $scope.selectedsport = response.data;
+      }
+    });
 })
 
 .controller('createSchoolCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal) {
