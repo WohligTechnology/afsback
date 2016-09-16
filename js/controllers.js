@@ -121,6 +121,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.template.type = 1;
     $scope.contentLoaded = false;
     $scope.schools = [];
+    $scope.heat = {};
+    $scope.heat.sport = $stateParams.id;
     $scope.pagination = {};
     $scope.pagination.pagenumber = 1;
     NavigationService.getOneSport($stateParams.id,function (response) {
@@ -128,6 +130,36 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.selectedsport = response.data;
       }
     });
+    $scope.addRound = function () {
+
+      NavigationService.saveHeat($scope.heat, function (response) {
+        if(response.value){
+          $scope.heat.order = null;
+          $scope.heat.round = null;
+          $scope.getHeats();
+        }else{
+
+        }
+      });
+    };
+    $scope.getHeats = function () {
+      NavigationService.getHeats({
+        sport: $stateParams.id
+      },function (response) {
+        if(response.value){
+          $scope.heats = _.chain(response.data)
+              .groupBy("round")
+              .toPairs()
+              .map(function(currentItem) {
+                currentItem[2]= currentItem[1][0].order;
+                  return _.zipObject(["round", "heats","order"], currentItem);
+              })
+              .value();
+              console.log($scope.heats);
+        }
+      });
+    };
+    $scope.getHeats();
 })
 
 .controller('createSchoolCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal) {

@@ -15,23 +15,23 @@
                     <div class="main-dv">
 
 
-                        <div class="widget-title">
+                        <!-- <div class="widget-title">
 
                             <h3>Add Round</h3>
-                        </div>
+                        </div> -->
                         <div class="w-body">
                             <div class="row">
                                 <div class="col-md-2">
                                     <span>Order</span>
-                                    <input type="text" placeholder="School SFA-ID" class="form-control w20" ng-model="pagination.sfaid" only-digits>
+                                    <input type="text" placeholder="Order" class="form-control w20" ng-model="heat.order" only-digits>
                                 </div>
                                 <div class="col-md-6">
                                     <span>Round</span>
-                                    <input type="text" placeholder="School SFA-ID" class="form-control" ng-model="pagination.sfaid" only-digits>
+                                    <input type="text" placeholder="Round Name" class="form-control" ng-model="heat.round" >
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="pull-left mt18">
-                                        <a class="btn btn-primary" ui-sref="createschool">Add New</a>
+                                    <div class="pull-right mt18">
+                                        <a class="btn btn-primary" ng-click="addRound()">Add Round</a>
                                     </div>
                                 </div>
                             </div>
@@ -39,14 +39,14 @@
 
                         </div>
                     </div>
-                    <div class="main-dv mt50">
+                    <div class="main-dv mt50" ng-repeat= "heat in heats | orderBy:'-order'">
 
 
                         <div class="widget-title">
                             <div class="pull-right">
                                 <a class="btn btn-primary" ui-sref="createschool">Add Heat</a>
                             </div>
-                            <h3>Qualify Round</h3>
+                            <h3>{{heat.round}}</h3>
                         </div>
                         <div class="w-body">
                             <div class="">
@@ -61,16 +61,16 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>Test</th>
-                                                <th>Sport</th>
+                                                <th>Match ID</th>
+                                                <th>Heat</th>
                                                 <th>Operations</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>test2</td>
+                                        <tbody >
+                                            <tr ng-repeat="singleheat in heat.heats">
+                                                <td>{{singleheat.matchid}}</td>
                                                 <td>
-                                                    test3
+                                                    {{singleheat.heat}}
                                                 </td>
                                                 <td>
                                                     test4

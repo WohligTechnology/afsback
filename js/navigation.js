@@ -1,5 +1,5 @@
 // var adminURL = "http://104.154.89.21:83/api/";
-var adminURL = "http://192.168.1.103:1337/api/";
+var adminURL = "http://192.168.0.115:1337/api/";
 var uploadurl = adminURL + "upload/";
 
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
@@ -437,6 +437,13 @@ var navigationservice = angular.module('navigationservice', [])
                 data: request
             }).success(callback);
         },
+        getHeats: function(request, callback) {
+            $http({
+                url: adminURL + 'heat/getAll',
+                method: 'POST',
+                data: request
+            }).success(callback);
+        },
         getLimitedSchool: function(data, callback) {
             $http({
                 url: adminURL + 'school/getLimited',
@@ -579,6 +586,13 @@ var navigationservice = angular.module('navigationservice', [])
         submitKnockout: function(request, callback) {
             $http({
                 url: adminURL + 'knockout/saveData',
+                method: 'POST',
+                data: request
+            }).success(callback);
+        },
+        saveHeat: function(request, callback) {
+            $http({
+                url: adminURL + 'heat/saveData',
                 method: 'POST',
                 data: request
             }).success(callback);
