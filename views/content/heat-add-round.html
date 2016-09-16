@@ -22,16 +22,19 @@
                         <div class="w-body">
                             <div class="row">
                                 <div class="col-md-2">
-                                    <span>Order</span>
+                                    <span><b>Order</b></span>
                                     <input type="text" placeholder="Order" class="form-control w20" ng-model="heat.order" only-digits>
                                 </div>
                                 <div class="col-md-6">
-                                    <span>Round</span>
+                                    <span><b>Round</b></span>
                                     <input type="text" placeholder="Round Name" class="form-control" ng-model="heat.round" >
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="pull-right mt18">
+                                    <div class="pull-left mt18">
                                         <a class="btn btn-primary" ng-click="addRound()">Add Round</a>
+                                    </div>
+                                    <div class="pull-right mt18">
+                                        <a class="btn btn-default" ui-sref="heatsport({id:selectedsport.sportslist._id})">< Back to {{selectedsport.sportslist.name}}</a>
                                     </div>
                                 </div>
                             </div>
@@ -42,13 +45,13 @@
                     <div class="main-dv mt50" ng-repeat= "heat in heats | orderBy:'-order'">
 
 
-                        <div class="widget-title">
+                        <div class="widget-title w-title">
                             <div class="pull-right">
-                                <a class="btn btn-primary" ui-sref="createschool">Add Heat</a>
+                                <a class="btn btn-primary" ui-sref="createheat({'sportid':selectedsport._id,'round':heat.round,'order':heat.order})">Add Heat</a>
                             </div>
-                            <h3>{{heat.round}}</h3>
+                            <h3>#{{heat.order}} {{heat.round}}</h3>
                         </div>
-                        <div class="w-body">
+                        <div class="heat-body">
                             <div class="">
                                 <!-- <div class="widget-title">
                                     <div class="pull-right">
@@ -57,13 +60,13 @@
                                     </div>
                                     <h3>List of Sports</h3>
                                 </div> -->
-                                <div class="table-responsive">
+                                <div class="table-responsive ">
                                     <table class="table">
                                         <thead>
                                             <tr>
                                                 <th>Match ID</th>
                                                 <th>Heat</th>
-                                                <th>Operations</th>
+                                                <th class="text-center" colspan="2">Operations</th>
                                             </tr>
                                         </thead>
                                         <tbody >
@@ -72,8 +75,15 @@
                                                 <td>
                                                     {{singleheat.heat}}
                                                 </td>
-                                                <td>
-                                                    test4
+                                                <td class="text-center">
+                                                   <a ui-sref="editknockout({id:value._id,sportid:selectedsport._id})" class="btn btn-primary">
+                                                      <i class="fa fa-pencil-square-o"></i>
+                                                   </a>
+                                                </td>
+                                                <td class="text-center">
+                                                   <a ng-click="deleteFunc(singleheat._id)" class="btn btn-primary">
+                                                      <i class="fa fa-trash"></i>
+                                                   </a>
                                                 </td>
                                             </tr>
 

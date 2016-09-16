@@ -142,6 +142,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
       });
     };
+    $scope.confDelete = function() {
+        NavigationService.deleteHeat($.jStorage.get("deleteTeam"), function(data, status) {
+            console.log(data);
+            $scope.getHeats();
+        });
+    };
+    $scope.deleteFunc = function(id) {
+        console.log(id);
+        $.jStorage.set("deleteTeam", id);
+        $uibModal.open({
+            animation: true,
+            templateUrl: "views/content/delete.html",
+            scope: $scope
+        });
+    };
     $scope.getHeats = function () {
       NavigationService.getHeats({
         sport: $stateParams.id
@@ -1101,7 +1116,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.hours.shift();
         $scope.timer = ["am", "pm"];
         $scope.via = ["via School", "Individual"];
-        $scope.payment = ["Paid", "Unpaid"];
+        $scope.payment = ["","Paid", "Unpaid"];
         $scope.student.via = "via School";
         $scope.validateError = {};
         $scope.validateError.valid = false;
@@ -1433,7 +1448,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     .controller('createKnockoutCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal,$stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("createknockout");
-        $scope.menutitle = NavigationService.makeactive("Teams");
+        $scope.menutitle = NavigationService.makeactive("Knockout");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.knockout  = {};
@@ -1579,10 +1594,31 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 
     })
+    .controller('createHeatCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal,$stateParams) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("createheat");
+        $scope.menutitle = NavigationService.makeactive("Heats");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.heat  = {};
+        $scope.heat.roundno = 0;
+        $scope.statuses = {};
+        $scope.statuses.inedit = false;
+        $scope.heat.event = "Heats";
+        $scope.sportid = $stateParams.sportid;
+        if($stateParams.sportid){
+          NavigationService.getOneSport($stateParams.sportid,function (response) {
+            if(response.value){
+              $scope.heat.sport = response.data;
+              $scope.heat.year = response.data.year;
+            }
+          });
+        }
+    })
     .controller('editKnockoutCtrl', function($scope, TemplateService, $stateParams, NavigationService, $timeout, $state, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("createknockout");
-        $scope.menutitle = NavigationService.makeactive("Teams");
+        $scope.menutitle = NavigationService.makeactive("Knockout");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.knockout  = {};
@@ -1747,7 +1783,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.hours.shift();
     $scope.timer = ["am", "pm"];
     $scope.via = ["via School", "Individual"];
-    $scope.payment = ["Paid", "Unpaid"];
+    $scope.payment = ["","Paid", "Unpaid"];
     $scope.subMenuList = [{
         title: "Back to Student",
         redirect: "student"
