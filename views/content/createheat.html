@@ -26,15 +26,15 @@
                     <div class="form-elements-sec">
                       <!-- <div class="form-group" >
                           <label>MatchId *</label>
-                          <input type="text" placeholder="Match ID" class="form-control" required  ng-model="knockout.matchid" only-digits disabled>
+                          <input type="text" placeholder="Match ID" class="form-control" required  ng-model="heat.matchid" only-digits disabled>
                       </div> -->
                       <div class="form-group" >
                           <label>Year *</label>
-                          <input type="text" placeholder="Year" class="form-control" required  ng-model="knockout.year" ng-change="getSportsByYear()" only-digits disabled>
+                          <input type="text" placeholder="Year" class="form-control" required  ng-model="heat.year" ng-change="getSportsByYear()" only-digits disabled>
                       </div>
                       <div class="form-group">
                           <label>Sport *</label>
-                          <ui-select ng-model="knockout.sport" required title="Select Sport" on-select="sportSelected();" ng-disabled="true">
+                          <ui-select ng-model="heat.sport" required title="Select Sport" on-select="sportSelected();" ng-disabled="true">
                               <ui-select-match placeholder="Select Sport" >{{$select.selected.sportslist.name}} {{$select.selected.gender}} {{$select.selected.firstcategory.name}} {{$select.selected.secondcategory.name}} {{$select.selected.agegroup.name}}</ui-select-match>
                               <ui-select-choices repeat="sport in sportsList | filter: $select.search" refresh="getSportsByYear()">
                                   <div ng-bind-html="sport.sportslist.name | highlight: $select.search"></div>
@@ -50,56 +50,75 @@
 
                       </div>
 
-                      <!-- <div class="form-group" >
-                          <label>Gender *</label>
-                          <select class="form-control" ng-model="knockout.gender" ng-change = "knockoutNameGenerate()" required>
-                              <option value="">Select Gender</option>
-                              <option value="Boys">Boy</option>
-                              <option value="Girls">Girl</option>
-                          </select>
-                      </div> -->
                       <div class="form-group" >
                           <label>Participant Type *</label>
-                          <select class="form-control" ng-change="getLastOrder()" ng-model="knockout.participantType" required>
+                          <select class="form-control" ng-model="heat.participantType" required>
                               <option value="">Select Participant Type</option>
                               <option value="team">Team</option>
                               <option value="player">Player</option>
                           </select>
                       </div>
-                      <!-- <div class="form-group">
-                        <label>Age Group *</label>
-                        <ui-select ng-model="knockout.agegroup" required title="Select Age Group" on-select = "getLastOrder()">
-                            <ui-select-match placeholder="Select Age Group">{{$select.selected.name}}</ui-select-match>
-                            <ui-select-choices repeat="knockage in agegroups | filter: $select.search">
-                                <div ng-bind-html="knockage.name | highlight: $select.search"></div>
-                                <small>
-                                    SFA-ID:<span ng-bind-html="knockage.sfaid | highlight: $select.search"></span>
-
-                                </small>
-                            </ui-select-choices>
-                        </ui-select>
-                      </div> -->
                       <div class="form-group" >
-                          <label>Event *</label>
-                          <input type="text" placeholder="Event" class="form-control" required  ng-model="knockout.event" disabled>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>Order *</label>
+                                <input type="text" placeholder="Order" required class="form-control w20" ng-model="heat.order" only-digits disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Round *</label>
+                                <input type="text" placeholder="Round Name" required class="form-control" ng-model="heat.round"  disabled>
+                            </div>
+                        </div>
                       </div>
-                      <div class="form-group" >
-                          <label>Pseudo Round No. *</label>
-                          <input type="text" placeholder="Round No." class="form-control" required  ng-model="knockout.roundno" only-digits ng-change="getLastOrder()" >
-                      </div>
-                      <div class="form-group" >
-                          <label>Round name. *</label>
-                          <input type="text" placeholder="Round name" class="form-control" required  ng-model="knockout.round">
-                      </div>
-                      <div class="form-group" ng-if="knockout.sport && knockout.participantType">
-                          <label>Order * </label>
-                          <input type="text" placeholder="Order" class="form-control" required  ng-model="knockout.order" only-digits ng-change="getLastOrder()" >
+                      <div class="row">
+                          <div class="col-md-12">
+                              <div class="widget">
+                                  <div class="">
+                                      <div class="form-group">
+                                          <label>Heats</label>
+                                      </div>
+                                      <div class="form-group">
+                                          <a ng-click="addCont(sportrule);" class="btn btn-success pull-right">Add Content</a>
+                                          <table class="table table-bordered">
+                                              <thead>
+                                                  <tr>
+                                                      <td>ID</td>
+                                                      <td></td>
+                                                      <td>Age Group</td>
+                                                      <td>Cut Off Date</td>
+                                                      <td>Operation</td>
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                                  <tr ng-repeat="content in sportrule.eligibilityTable">
+                                                      <td style="width:40%">
+                                                          <div class="form-group">
+                                                              <ui-select ng-model="content.agegroup" title="Select Age Group">
+                                                                  <ui-select-match placeholder="Select Age Group">{{$select.selected.name}}</ui-select-match>
+                                                                  <ui-select-choices repeat="age in agegroup | filter: $select.search">
+                                                                      <div ng-bind-html="age.name | highlight: $select.search"></div>
+                                                                  </ui-select-choices>
+                                                              </ui-select>
+                                                          </div>
+                                                      </td>
+                                                      <td>
+                                                          <input type="date" class="form-control" ng-model="content.date">
+                                                      </td>
+                                                      <td>
+                                                          <input class="btn btn-danger" type="button" ng-click="deleteFunc(sportrule.eligibilityTable.indexOf(content),1);" value="Delete">
+                                                      </td>
+                                                  </tr>
+                                              </tbody>
+                                          </table>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
                       </div>
 
-
-                      <div class="form-group" ng-if="knockout.participantType == 'player'">
+                      <!-- <div class="form-group" ng-if="heat.participantType == 'player'">
                         <label>Player 1 *</label>
-                        <ui-select required ng-model="knockout.player1" title="Select Player 1" ng-change="addPlayer($select.selected)">
+                        <ui-select required ng-model="heat.player1" title="Select Player 1" ng-change="addPlayer($select.selected)">
                             <ui-select-match placeholder="Select Player">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices refresh-delay="0" refresh="getHeatPlayer($select.search)" repeat="player1 in students | filter: $select.search">
                               <div ng-bind-html="player1.name | highlight: $select.search"></div>
@@ -110,9 +129,9 @@
                             </ui-select-choices>
                         </ui-select>
                       </div>
-                      <div class="form-group" ng-if="knockout.participantType == 'team'">
+                      <div class="form-group" ng-if="heat.participantType == 'team'">
                         <label>Team 1 *</label>
-                        <ui-select required ng-model="knockout.team1" title="Select Team 1" ng-change="addTeam($select.selected)">
+                        <ui-select required ng-model="heat.team1" title="Select Team 1" ng-change="addTeam($select.selected)">
                             <ui-select-match placeholder="Select Team">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices refresh-delay="0" refresh="getHeatTeam($select.search)" repeat="team1 in teams | filter: $select.search">
                               <div ng-bind-html="team1.name | highlight: $select.search"></div>
@@ -123,9 +142,9 @@
                             </ui-select-choices>
                         </ui-select>
                       </div>
-                      <div class="form-group" ng-if="knockout.participantType == 'player' && statuses.inedit">
+                      <div class="form-group" ng-if="heat.participantType == 'player' && statuses.inedit">
                           <label>Result player 1 *</label>
-                          <select class="form-control" ng-model="knockout.resultplayer1" >
+                          <select class="form-control" ng-model="heat.resultplayer1" >
                               <option value="">Select status</option>
                               <option value="Won">Won</option>
                               <option value="Bye">Bye</option>
@@ -133,9 +152,9 @@
                               <option value="Loss">Loss</option>
                           </select>
                       </div>
-                      <div class="form-group" ng-if="knockout.participantType == 'team' && statuses.inedit">
+                      <div class="form-group" ng-if="heat.participantType == 'team' && statuses.inedit">
                           <label>Result team 1 *</label>
-                          <select class="form-control" ng-model="knockout.resultteam1">
+                          <select class="form-control" ng-model="heat.resultteam1">
                               <option value="">Select status</option>
                               <option value="Won">Won</option>
                               <option value="Bye">Bye</option>
@@ -143,9 +162,9 @@
                               <option value="Loss">Loss</option>
                           </select>
                       </div>
-                      <div class="form-group" ng-if="knockout.participantType == 'player'">
+                      <div class="form-group" ng-if="heat.participantType == 'player'">
                         <label>Player 2 *</label>
-                        <ui-select required ng-model="knockout.player2" title="Select Player 2" ng-change="addPlayer($select.selected)">
+                        <ui-select required ng-model="heat.player2" title="Select Player 2" ng-change="addPlayer($select.selected)">
                             <ui-select-match placeholder="Select Player">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices refresh-delay="0" refresh="getHeatPlayer($select.search)" repeat="player2 in students | filter: $select.search">
                               <div ng-bind-html="player2.name | highlight: $select.search"></div>
@@ -156,9 +175,9 @@
                             </ui-select-choices>
                         </ui-select>
                       </div>
-                      <div class="form-group" ng-if="knockout.participantType == 'team'">
+                      <div class="form-group" ng-if="heat.participantType == 'team'">
                         <label>Team 2 *</label>
-                        <ui-select required ng-model="knockout.team2" title="Select Team 2" ng-change="addTeam($select.selected)">
+                        <ui-select required ng-model="heat.team2" title="Select Team 2" ng-change="addTeam($select.selected)">
                             <ui-select-match placeholder="Select Team">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices refresh-delay="0" refresh="getHeatTeam($select.search)" repeat="team2 in teams | filter: $select.search">
                               <div ng-bind-html="team2.name | highlight: $select.search"></div>
@@ -169,9 +188,9 @@
                             </ui-select-choices>
                         </ui-select>
                       </div>
-                      <div class="form-group" ng-if="knockout.participantType == 'player' && statuses.inedit">
+                      <div class="form-group" ng-if="heat.participantType == 'player' && statuses.inedit">
                           <label>Result player 2 *</label>
-                          <select class="form-control" ng-model="knockout.resultplayer2" >
+                          <select class="form-control" ng-model="heat.resultplayer2" >
                               <option value="">Select status</option>
                               <option value="Won">Won</option>
                               <option value="Bye">Bye</option>
@@ -181,9 +200,9 @@
                       </div>
 
 
-                      <div class="form-group" ng-if="knockout.participantType == 'team' && statuses.inedit">
+                      <div class="form-group" ng-if="heat.participantType == 'team' && statuses.inedit">
                           <label>Result team 2 *</label>
-                          <select class="form-control" ng-model="knockout.resultteam2">
+                          <select class="form-control" ng-model="heat.resultteam2">
                               <option value="">Select status</option>
                               <option value="Won">Won</option>
                               <option value="Bye">Bye</option>
@@ -193,24 +212,24 @@
                       </div>
                       <div class="form-group" >
                           <label>Date *</label>
-                          <input type="date" placeholder="Date" class="form-control" required  ng-model="knockout.date" >
+                          <input type="date" placeholder="Date" class="form-control" required  ng-model="heat.date" >
                       </div>
                       <div class="form-group" >
                           <label>Start Time</label>
-                          <input type="time" placeholder="Start Time" class="form-control" ng-model="knockout.startTime" >
+                          <input type="time" placeholder="Start Time" class="form-control" ng-model="heat.startTime" >
                       </div>
                       <div class="form-group" >
                           <label>End Time</label>
-                          <input type="time" placeholder="End Time" class="form-control" ng-model="knockout.endTime" >
+                          <input type="time" placeholder="End Time" class="form-control" ng-model="heat.endTime" >
                       </div>
                       <div class="form-group" >
                           <label>Total Time</label>
-                          <input type="text" placeholder="Total Time" class="form-control" ng-model="knockout.totalTime" >
+                          <input type="text" placeholder="Total Time" class="form-control" ng-model="heat.totalTime" >
                       </div>
                       <div class="form-group" >
                           <label>Score</label>
-                          <input type="text" placeholder="Score" class="form-control" ng-model="knockout.score" >
-                      </div>
+                          <input type="text" placeholder="Score" class="form-control" ng-model="heat.score" >
+                      </div> -->
 
 
 

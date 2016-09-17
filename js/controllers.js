@@ -1606,14 +1606,34 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.statuses.inedit = false;
         $scope.heat.event = "Heats";
         $scope.sportid = $stateParams.sportid;
+        $scope.getSportsByYearHeat = function() {
+            $scope.sportsList = [];
+
+            NavigationService.getSportsByYearHeat($scope.heat, function(response) {
+                if (response.value) {
+                    $scope.sportsList = response.data;
+                } else {
+                    $scope.sportsList = [];
+                }
+            });
+        };
         if($stateParams.sportid){
           NavigationService.getOneSport($stateParams.sportid,function (response) {
             if(response.value){
               $scope.heat.sport = response.data;
               $scope.heat.year = response.data.year;
+              $scope.getSportsByYearHeat();
+
             }
           });
         }
+        if($stateParams.round){
+          $scope.heat.round = $stateParams.round;
+        }
+        if($stateParams.order){
+          $scope.heat.order = $stateParams.order;
+        }
+
     })
     .controller('editKnockoutCtrl', function($scope, TemplateService, $stateParams, NavigationService, $timeout, $state, $uibModal) {
         //Used to name the .html file
