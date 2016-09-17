@@ -1636,6 +1636,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
         if($stateParams.order){
           $scope.heat.order = $stateParams.order;
+          console.log($scope.heat.order);
+          console.log(parseInt($scope.heat.order));
         }
         $scope.getHeatTeam = function(search) {
             $scope.teams = [];
@@ -1691,6 +1693,26 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     $scope.students = [];
                 }
             });
+        };
+        $scope.submitHeat = function () {
+          console.log($scope.heat);
+          var request = $scope.heat;
+          request.sport = $scope.heat.sport._id;
+
+          request.heats = _.map(request.heats,function (key) {
+            console.log(key);
+            key[request.participantType] = key[request.participantType]._id;
+            return key;
+          });
+          NavigationService.saveHeat(request, function (response) {
+            if(response.value){
+              $state.go('heataddround',{
+                id:request.sport
+              });
+            }else{
+              // do nothing
+            }
+          });
         };
 
     })

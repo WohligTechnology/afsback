@@ -59,6 +59,10 @@
                           </select>
                         </div>
                         <div class="form-group">
+                            <label>Name </label>
+                            <input type="text" placeholder="Heat Name" class="form-control" required ng-model="heat.name">
+                        </div>
+                        <div class="form-group">
                             <div class="row">
                                 <div class="col-md-2">
                                     <label>Order *</label>
@@ -122,10 +126,10 @@
                                                                 </ui-select>
                                                             </div>
                                                         </td>
-                                                        <td><input type="text" placeholder="Lane No " class="form-control" required ng-model="detail.laneno" only-digits></td>
-                                                        <td><input type="text" placeholder="Result {{$index +1}}" class="form-control" required ng-model="detail.result"></td>
-                                                        <td><input type="text" placeholder="Timing" class="form-control" required ng-model="detail.timing"></td>
-                                                        <td><input type="text" placeholder="Standing" class="form-control" required ng-model="detail.standing" only-digits></td>
+                                                        <td><input type="text" placeholder="Lane No " class="form-control" ng-model="detail.laneno" only-digits></td>
+                                                        <td><input type="text" placeholder="Result {{$index +1}}" class="form-control" ng-model="detail.result"></td>
+                                                        <td><input type="text" placeholder="Timing" class="form-control" ng-model="detail.timing"></td>
+                                                        <td><input type="text" placeholder="Standing" class="form-control" ng-model="detail.standing" only-digits></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
