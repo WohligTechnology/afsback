@@ -128,6 +128,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     NavigationService.getOneSport($stateParams.id,function (response) {
       if(response.value){
         $scope.selectedsport = response.data;
+        $scope.heat.year= $scope.selectedsport.year;
       }
     });
     $scope.addRound = function () {
