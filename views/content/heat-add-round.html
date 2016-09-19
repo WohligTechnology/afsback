@@ -7,7 +7,7 @@
         <!-- </div> -->
     </div>
 </div>
-<div class="panel-content">
+  <div class="panel-content">
     <div class="row">
         <div class="col-md-12">
             <div class="widget">
@@ -76,7 +76,7 @@
                                                     {{singleheat.name}}
                                                 </td>
                                                 <td class="text-center">
-                                                   <a ui-sref="editknockout({id:value._id,sportid:selectedsport._id})" class="btn btn-primary">
+                                                   <a ui-sref="editheat({id:singleheat._id,sportid:singleheat.sport,round:heat.round,order:heat.order})" class="btn btn-primary">
                                                       <i class="fa fa-pencil-square-o"></i>
                                                    </a>
                                                 </td>

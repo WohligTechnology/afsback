@@ -1,5 +1,5 @@
 // var adminURL = "http://104.154.89.21:83/api/";
-var adminURL = "http://192.168.0.110:1337/api/";
+var adminURL = "http://192.168.0.108:1337/api/";
 var uploadurl = adminURL + "upload/";
 
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
@@ -324,6 +324,15 @@ var navigationservice = angular.module('navigationservice', [])
         getOneKnockout: function(request, callback) {
             $http({
                 url: adminURL + 'knockout/getOne',
+                method: 'POST',
+                data: {
+                  _id : request.id
+                }
+            }).success(callback);
+        },
+        getOneHeat: function(request, callback) {
+            $http({
+                url: adminURL + 'heat/getOne',
                 method: 'POST',
                 data: {
                   _id : request.id

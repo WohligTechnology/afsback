@@ -1594,6 +1594,135 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 
     })
+    .controller('editHeatCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal,$stateParams) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("createheat");
+        $scope.menutitle = NavigationService.makeactive("Heats");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.heat  = {};
+        $scope.heat.roundno = 0;
+        $scope.statuses = {};
+        $scope.statuses.inedit = false;
+        $scope.heat.event = "Heats";
+        $scope.heat.heats = [];
+        $scope.sportid = $stateParams.sportid;
+        $scope.addParticipant= function () {
+          $scope.heat.heats.push({});
+        };
+        $scope.getSportsByYearHeat = function() {
+            $scope.sportsList = [];
+
+            NavigationService.getSportsByYearHeat($scope.heat, function(response) {
+                if (response.value) {
+                    $scope.sportsList = response.data;
+                } else {
+                    $scope.sportsList = [];
+                }
+            });
+        };
+
+        if($stateParams.round){
+          $scope.heat.round = $stateParams.round;
+        }
+        if($stateParams.order){
+          $scope.heat.order = $stateParams.order;
+          console.log($scope.heat.order);
+          console.log(parseInt($scope.heat.order));
+        }
+        $scope.getHeatTeam = function(search) {
+            $scope.teams = [];
+            var constraints = {};
+            constraints.search = search;
+            if (isNaN(search) || search === null || search === undefined || search === "") {
+                constraints.search = search;
+                constraints.sfaid = undefined;
+            } else {
+                constraints.search = undefined;
+                constraints.sfaid = parseInt(search);
+            }
+            if ($scope.heat.sport) {
+                constraints.sport = $scope.heat.sport.sportslist._id;
+                // constraints.agegroup = $scope.heat.sport.agegroup;
+            }
+            if ($scope.heat.sport.gender) {
+                constraints.gender = $scope.heat.sport.gender;
+            }
+            constraints.year = $scope.heat.year.toString();
+            console.log(constraints);
+            NavigationService.getTeamsbySport(constraints, function(data) {
+                if (data && data.value !== false) {
+                    $scope.teams = data.data;
+                } else {
+                    $scope.teams = [];
+                }
+            });
+        };
+
+        $scope.getHeatPlayer = function(search) {
+            $scope.students = [];
+            var constraints = {};
+            constraints.search = search;
+            if (isNaN(search) || search === null || search === undefined || search === "") {
+                constraints.search = search;
+                constraints.sfaid = undefined;
+            } else {
+                constraints.search = undefined;
+                constraints.sfaid = parseInt(search);
+            }
+            if ($scope.heat.sport) {
+                constraints.sport = $scope.heat.sport.sportslist._id;
+            }
+            if ($scope.heat.sport.gender) {
+                constraints.gender = $scope.heat.sport.gender;
+            }
+            constraints.year = $scope.heat.year.toString();
+            NavigationService.getStudentsbySport(constraints, function(data) {
+                if (data && data.value !== false) {
+                    $scope.students = data.data;
+                } else {
+                    $scope.students = [];
+                }
+            });
+        };
+        $scope.submitHeat = function () {
+          console.log($scope.heat);
+          var request = $scope.heat;
+          request.sport = $scope.heat.sport._id;
+
+          request.heats = _.map(request.heats,function (key) {
+            console.log(key);
+            key[request.participantType] = key[request.participantType]._id;
+            return key;
+          });
+          NavigationService.saveHeat(request, function (response) {
+            if(response.value){
+              $state.go('heataddround',{
+                id:request.sport
+              });
+            }else{
+              // do nothing
+            }
+          });
+        };
+        if($stateParams.id){
+          NavigationService.getOneHeat($stateParams,function (response) {
+            if(response.value){
+              $scope.heat = response.data;
+              // NavigationService.getOneSport($stateParams.sportid,function (response) {
+              //   if(response.value){
+              //     $scope.heat.sport = response.data;
+              //     $scope.heat.year = response.data.year;
+              //     $scope.getSportsByYearHeat();
+              //   }
+              // });
+            }else{
+
+            }
+          });
+        }
+
+    })
     .controller('createHeatCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal,$stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("createheat");
@@ -1607,6 +1736,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.heat.event = "Heats";
         $scope.heat.heats = [];
         $scope.sportid = $stateParams.sportid;
+        $scope.addParticipant= function () {
+          $scope.heat.heats.push({});
+        };
         $scope.getSportsByYearHeat = function() {
             $scope.sportsList = [];
 
