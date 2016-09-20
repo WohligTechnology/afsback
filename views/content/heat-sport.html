@@ -15,9 +15,10 @@
                     <div class="main-s mt20" ng-repeat="sport in sports" ng-if="sports.length > 0">
                         <h4 class="margin0">{{sport.year}}</h4 >
                         <div class="mt20 my-btn" ng-repeat="item in sport.sports" >
-                          <h5>{{item.agegroup}}</h5 >
-
-                           <button class="btn btn-default" ng-repeat="single in item.sports"  ui-sref="heataddround({id:single._id})">{{single.gender}} {{single.firstcategory.name}} {{single.secondcategory.name}} {{single.thirdcategory.name}}</button><br>
+                          <div class="main-s mt20" ng-repeat = "gendersport in item.sports">
+  <h5>{{item.agegroup}} {{gendersport.gender}}</h5>
+               <button class="btn btn-default" ng-repeat="single in gendersport.sports"  ui-sref="heataddround({id:single._id})"> {{single.firstcategory.name}} {{single.secondcategory.name}} {{single.thirdcategory.name}}</button><br>
+                          </div>
 
                         </div>
                     </div>

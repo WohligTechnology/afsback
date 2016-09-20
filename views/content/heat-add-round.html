@@ -20,25 +20,26 @@
                             <h3>Add Round</h3>
                         </div> -->
                         <div class="w-body">
+                          <form name="addRoundForm" ng-submit="addRound()">
                             <div class="row">
                                 <div class="col-md-2">
                                     <span><b>Order</b></span>
-                                    <input type="text" placeholder="Order" class="form-control w20" ng-model="heat.order" only-digits>
+                                    <input type="text" placeholder="Order" name="order" class="form-control w20" ng-model="heat.order" only-digits required>
                                 </div>
                                 <div class="col-md-6">
                                     <span><b>Round</b></span>
-                                    <input type="text" placeholder="Round Name" class="form-control" ng-model="heat.round" >
+                                    <input type="text" placeholder="Round Name" name="round" class="form-control" ng-model="heat.round" required>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="pull-left mt18">
-                                        <a class="btn btn-primary" ng-click="addRound()">Add Round</a>
+                                        <button type="submit" class="btn btn-primary" >Add Round</button>
                                     </div>
                                     <div class="pull-right mt18">
                                         <a class="btn btn-default" ui-sref="heatsport({id:selectedsport.sportslist._id})">< Back to {{selectedsport.sportslist.name}}</a>
                                     </div>
                                 </div>
                             </div>
-
+  </form>
 
                         </div>
                     </div>

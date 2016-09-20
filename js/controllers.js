@@ -1088,9 +1088,15 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                       .toPairs()
                       .map(function(currentItem) {
                           return _.zipObject(["agegroup", "sports"], currentItem);
-                      })
-                      .value();
-
+                      }).value();
+                      _.each(key.sports,function (iteratee) {
+                        iteratee.sports =  _.chain(iteratee.sports)
+                        .groupBy("gender")
+                        .toPairs()
+                        .map(function(currentItem) {
+                            return _.zipObject(["gender", "sports"], currentItem);
+                        }).value();
+                      });
                     });
                     console.log($scope.sports);
                 }
