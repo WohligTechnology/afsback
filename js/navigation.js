@@ -1,7 +1,6 @@
-// var adminURL = "http://104.154.89.21:83/api/";
-var adminURL = "http://192.168.0.108:1337/api/";
+var adminURL = "http://104.155.129.33:83/api/";
+// var adminURL = "http://192.168.0.107:1337/api/";
 var uploadurl = adminURL + "upload/";
-
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
 // var openTab = "http://localhost:808/#/showstudent"
 
@@ -66,6 +65,12 @@ var navigationservice = angular.module('navigationservice', [])
         name: "Heats",
         classis: "active",
         anchor: "heatdashboard",
+        icon: "users",
+        subnav: []
+    }, {
+        name: "Media",
+        classis: "active",
+        anchor: "media",
         icon: "users",
         subnav: []
     }
