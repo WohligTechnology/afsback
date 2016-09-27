@@ -7,13 +7,20 @@ var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
 var navigationservice = angular.module('navigationservice', [])
 
 .factory('NavigationService', function($http) {
-    var navigation = [{
+    var navigation = [
+      {
         name: "Dashboard",
         classis: "active",
         anchor: "dashboard",
         icon: "dashboard",
         subnav: []
-    }, {
+    },{
+        name: "Home Banner",
+        classis: "active",
+        anchor: "banner",
+        icon: "banner",
+        subnav: []
+    },{
         name: "Schools",
         classis: "active",
         anchor: "school",
