@@ -87,6 +87,11 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         templateUrl: "views/template.html",
         controller: 'teamCtrl'
     })
+    .state('media', {
+        url: "/media",
+        templateUrl: "views/template.html",
+        controller: 'mediaCtrl'
+    })
     .state('viewknockout', {
         url: "/viewknockout/:id",
         templateUrl: "views/template.html",

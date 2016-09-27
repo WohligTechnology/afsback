@@ -2604,7 +2604,31 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         NavigationService.deleteSportsList(id, function(data2) {
             reload();
         });
+    };
+})
+.controller('mediaCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("media");
+    $scope.menutitle = NavigationService.makeactive("Media");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.template.type = 1;
+
+    function reload() {
+        NavigationService.getMedia(function(data) {
+            console.log(data);
+            if (data.value !== false) {
+                $scope.media = data.data;
+            }
+        });
     }
+    reload();
+
+    $scope.deleteFunc = function(id) {
+        NavigationService.deleteSportsList(id, function(data2) {
+            reload();
+        });
+    };
 })
 
 .controller('createSportListCtrl', function($scope, TemplateService, NavigationService, $timeout, $state) {

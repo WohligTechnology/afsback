@@ -105,6 +105,12 @@ var navigationservice = angular.module('navigationservice', [])
                 method: 'POST'
             }).success(callback);
         },
+        getMedia: function(callback) {
+            $http({
+                url: adminURL + 'media/getLimited',
+                method: 'POST'
+            }).success(callback);
+        },
         getAllKnockoutSport: function(callback) {
             $http({
                 url: adminURL + 'sportslist/getAllKnockoutSport',
