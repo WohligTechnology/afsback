@@ -63,6 +63,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.template = TemplateService.changecontent("school");
     $scope.menutitle = NavigationService.makeactive("Schools");
     TemplateService.title = $scope.menutitle;
+    $scope.adminURL = adminURL;
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
     $scope.contentLoaded = false;
