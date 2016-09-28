@@ -1,5 +1,5 @@
-var adminURL = "http://104.155.129.33:83/api/";
-// var adminURL = "http://192.168.0.107:1337/api/";
+// var adminURL = "http://104.155.129.33:83/api/";
+var adminURL = "http://192.168.0.111:1337/api/";
 var uploadurl = adminURL + "upload/";
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
 // var openTab = "http://localhost:808/#/showstudent"
@@ -148,6 +148,20 @@ var navigationservice = angular.module('navigationservice', [])
                 data: {
                     _id: id
                 }
+            }).success(callback);
+        },
+        getOneTeamByName: function(request, callback) {
+            $http({
+                url: adminURL + 'team/getOneTeamByName',
+                method: 'POST',
+                data: request
+            }).success(callback);
+        },
+        getOneStudentByName: function(request, callback) {
+            $http({
+                url: adminURL + 'student/getOneStudentByName',
+                method: 'POST',
+                data: request
             }).success(callback);
         },
         saveSportList: function(formData, callback) {

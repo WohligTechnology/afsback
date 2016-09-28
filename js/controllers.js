@@ -1475,6 +1475,25 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }
           });
         }
+        $scope.addNoMatch = function (participantType,model) {
+          if(participantType == 'player'){
+            NavigationService.getOneStudentByName({
+              name:"No Match "
+            },function (response) {
+              if(response.value){
+                $scope.knockout[model] = response.data;
+              }
+            });
+          }else{
+            NavigationService.getOneTeamByName({
+              name:"No Match "
+            },function (response) {
+              if(response.value){
+                $scope.knockout[model] = response.data;
+              }
+            });
+          }
+        };
         NavigationService.getLastKnockout({}, function(response) {
             if (response.value) {
                 $scope.knockout.matchid = response.data +1;
@@ -1577,11 +1596,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             request = $scope.knockout;
             request.sport = $scope.knockout.sport._id;
             if($scope.knockout.participantType == "player"){
-              request.player1 = $scope.knockout.player1._id;
-              request.player2 = $scope.knockout.player2._id;
+              if($scope.knockout.player1){
+                request.player1 = $scope.knockout.player1._id;
+              }
+              if($scope.knockout.player2){
+                request.player2 = $scope.knockout.player2._id;
+              }
             }else{
-              request.team1 = $scope.knockout.team1._id;
-              request.team2 = $scope.knockout.team2._id;
+              if($scope.knockout.team1){
+                request.team1 = $scope.knockout.team1._id;
+              }
+              if($scope.knockout.team2){
+                request.team2 = $scope.knockout.team2._id;
+              }
             }
             request.year = $scope.knockout.year.toString();
             NavigationService.submitKnockout(request, function(data) {
@@ -1902,6 +1929,25 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }
             });
         };
+        $scope.addNoMatch = function (participantType,model) {
+          if(participantType == 'player'){
+            NavigationService.getOneStudentByName({
+              name:"No Match "
+            },function (response) {
+              if(response.value){
+                $scope.knockout[model] = response.data;
+              }
+            });
+          }else{
+            NavigationService.getOneTeamByName({
+              name:"No Match "
+            },function (response) {
+              if(response.value){
+                $scope.knockout[model] = response.data;
+              }
+            });
+          }
+        };
         $scope.getParticipants = function() {
             if ($scope.knockout.year && $scope.knockout.participantType && $scope.knockout.sport && $scope.knockout.sport._id) {
               if ($scope.knockout.participantType == "player") {
@@ -1971,11 +2017,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             request = $scope.knockout;
             request.sport = $scope.knockout.sport._id;
             if($scope.knockout.participantType == "player"){
-              request.player1 = $scope.knockout.player1._id;
-              request.player2 = $scope.knockout.player2._id;
+              if($scope.knockout.player1){
+                request.player1 = $scope.knockout.player1._id;
+              }
+              if($scope.knockout.player2){
+                request.player2 = $scope.knockout.player2._id;
+              }
             }else{
-              request.team1 = $scope.knockout.team1._id;
-              request.team2 = $scope.knockout.team2._id;
+              if($scope.knockout.team1){
+                request.team1 = $scope.knockout.team1._id;
+              }
+              if($scope.knockout.team2){
+                request.team2 = $scope.knockout.team2._id;
+              }
             }
             request.year = $scope.knockout.year.toString();
             NavigationService.submitKnockout(request, function(data) {
