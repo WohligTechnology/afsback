@@ -25,57 +25,29 @@
                 <div class="widget">
                     <div class="form-elements-sec">
                         <div class="form-group">
-                            <label>Banner List Name</label>
-                            <input type="text" placeholder="Banner List Name" class="form-control" required ng-model="banner.name">
+                            <label>Banner Order</label>
+                            <input type="text" placeholder="Banner Order" class="form-control" required ng-model="banner.order" only-digits>
                         </div>
                         <div class="form-group">
-                            <label>Banner List Type</label>
-                            <select class="form-control" ng-model="banner.sporttype">
-                                <option value="">Select Banner List Type</option>
-                                <option value="Team">Team Banners</option>
-                                <option value="Racquet">Racquet Banners</option>
-                                <option value="Combat">Combat Banners</option>
-                                <option value="Target">Target Banners</option>
-                                <option value="Aquatics">Aquatics Banners</option>
-                                <option value="Individual">Individual Banners</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Table Header</label>
-                            <ui-select multiple tagging tagging-label="false" ng-model="banner.tableContent" title="Choose a header" on-select="addContent($select)">
-                                <ui-select-match placeholder="Select header">{{$item}}</ui-select-match>
-                                <ui-select-choices repeat="color in []| filter:$select.search">
-                                    {{color}}
-                                </ui-select-choices>
-                            </ui-select>
-                        </div>
-                        <div class="form-group">
-                           <label>Draw Format*</label>
-                           <select class="form-control" ng-model="banner.drawFormat" required>
-                              <option value="">Select Draw Format</option>
-                              <option value="Knockout">Knockout</option>
-                              <option value="League">League</option>
-                              <option value="League cum Knockout">League cum Knockout</option>
-                              <option value="Heats">Heats</option>
-                              <option value="Qualifying Round">Qualifying Round</option>
-                              <option value="Swiss League">Swiss League</option>
-                              <!-- <option value="Round Robin-Knockout">Round Robin-Knockout</option> -->
-                           </select>
-                        </div>
-                        <!-- <div class="form-group">
-                            <label>Inactive Icon</label>
-                            <div class="banner-img-holder" ng-if="banner.inactiveimage">
-                                <img ng-src="{{banner.inactiveimage|uploadpath}}" alt="" class="img-responsive margin-auto">
-                            </div>
-                            <upload-image ng-model="banner.inactiveimage" ></upload-image>
-                        </div> -->
-                        <div class="form-group">
-                            <label>Icon</label>
+                            <label>Image</label>
                             <div class="banner-img-holder" ng-if="banner.image">
                                 <img ng-src="{{banner.image|uploadpath}}" alt="" class="img-responsive margin-auto">
                             </div>
                             <upload-image ng-model="banner.image" ></upload-image>
                         </div>
+                        <div class="form-group">
+                            <label>Banner Link</label>
+                            <input type="text" placeholder="Banner Link" class="form-control" required ng-model="banner.link" >
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select class="form-control" ng-model="banner.status">
+                                <!-- <option value="">Select Status</option> -->
+                                <option value="true">Enabled</option>
+                                <option value="false">Disabled</option>
+                            </select>
+                        </div>
+
                     </div>
                 </div>
                 <div class="row">

@@ -113,6 +113,61 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         });
     };
 })
+.controller('bannerCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("banner");
+    $scope.menutitle = NavigationService.makeactive("Schools");
+    TemplateService.title = $scope.menutitle;
+    $scope.adminURL = adminURL;
+    $scope.navigation = NavigationService.getnav();
+    $scope.template.type = 1;
+    $scope.contentLoaded = false;
+    $scope.banners = [];
+    $scope.pagination = {};
+    $scope.pagination.pagenumber = 1;
+
+    $scope.reload = function(val) {
+        if (val === 1) {
+            $scope.pagination.name = "";
+        } else if (val === 2) {
+            $scope.pagination.sfaid = "";
+        }
+        NavigationService.getLimitedSchool($scope.pagination, function(data) {
+            if (data.value !== false) {
+                $scope.contentLoaded = true;
+                $scope.banners = data.data;
+            } else {
+                $scope.banners = {
+                    data: []
+                };
+            }
+        });
+    };
+    $scope.reload();
+    $scope.hideSchool = function(id, status) {
+        NavigationService.hideSchool({
+            _id: id,
+            status: status
+        }, function(data2) {
+            console.log(data2);
+            $scope.reload();
+        });
+    };
+    $scope.confDelete = function() {
+        NavigationService.deleteSchool(function(data, status) {
+            console.log(data);
+            $scope.reload();
+        });
+    };
+    $scope.deleteFunc = function(id) {
+        $.jStorage.set("deleteSchool", id);
+        $uibModal.open({
+            animation: true,
+            templateUrl: "views/content/delete.html",
+            scope: $scope
+        });
+    };
+})
 .controller('heatAddRoundCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal,$stateParams) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("heat-add-round");
@@ -2719,14 +2774,38 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         console.log($scope.sportList);
         NavigationService.saveSportList($scope.sportList, function(data) {
             console.log(data);
-            if (data.value != false) {
+            if (data.value !== false) {
                 $state.go('sportlist');
             }
-        })
-    }
+        });
+    };
     $scope.addContent = function(select) {
         $scope.sportList.tableContent = select.selected;
-    }
+    };
+})
+.controller('createBannerCtrl', function($scope, TemplateService, NavigationService, $timeout, $state) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("createbanner");
+    $scope.menutitle = NavigationService.makeactive("Banner");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.template.type = 1;
+    $scope.pageName = "Create Banner";
+
+    $scope.sportList = {};
+
+    $scope.saveBanner = function() {
+        console.log($scope.sportList);
+        NavigationService.saveBanner($scope.sportList, function(data) {
+            console.log(data);
+            if (data.value !== false) {
+                $state.go('banner');
+            }
+        });
+    };
+    $scope.addContent = function(select) {
+        $scope.sportList.tableContent = select.selected;
+    };
 })
 
 .controller('editSportListCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $stateParams) {
