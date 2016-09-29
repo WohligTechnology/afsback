@@ -127,20 +127,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.pagination.pagenumber = 1;
 
     $scope.reload = function(val) {
-        if (val === 1) {
-            $scope.pagination.name = "";
-        } else if (val === 2) {
-            $scope.pagination.sfaid = "";
-        }
-        NavigationService.getLimitedSchool($scope.pagination, function(data) {
-            if (data.value !== false) {
-                $scope.contentLoaded = true;
-                $scope.banners = data.data;
-            } else {
-                $scope.banners = {
-                    data: []
-                };
-            }
+        NavigationService.getAllBanners(function (response) {
+          if(response.value){
+            $scope.contentLoaded =true;
+            $scope.banners = response.data;
+          }else{
+            $scope.banners = [];
+          }
         });
     };
     $scope.reload();
@@ -2791,13 +2784,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
     $scope.pageName = "Create Banner";
-
+    $scope.banner = {};
     $scope.sportList = {};
 
     $scope.saveBanner = function() {
-        console.log($scope.sportList);
-        NavigationService.saveBanner($scope.sportList, function(data) {
-            console.log(data);
+        NavigationService.saveBanner($scope.banner, function(data) {
             if (data.value !== false) {
                 $state.go('banner');
             }

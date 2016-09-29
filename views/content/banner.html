@@ -57,7 +57,7 @@
                                 <tr ng-if="banners.data.length <= 0 && contentLoaded" class="loadingTable">
                                     <td>No Data Available</td>
                                 </tr>
-                                <tr ng-repeat="banner in banners.data" ng-if="banners.data.length>0 && contentLoaded">
+                                <tr ng-repeat="banner in banners" ng-if="banners.data.length>0 && contentLoaded">
                                     <td>{{$index+1}}</td>
                                     <td>{{banner.sfaid}}</td>
                                     <td>{{banner.name}}</td>
