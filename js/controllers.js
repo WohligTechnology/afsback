@@ -2668,20 +2668,38 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
-
-    function reload() {
-        NavigationService.getMedia(function(data) {
-            console.log(data);
+    $scope.pagination = {};
+    $scope.adminURL = adminURL;
+    $scope.uploadurl = adminURL+"media/uploadMedia/";
+    // $scope.yefunctioncallkiya = function () {
+    //   console.log($scope.thismodel);
+    // }
+    $scope.pagination.pagenumber = 1;
+    $scope.reload = function(val) {
+        if (val === 1) {
+            $scope.pagination.name = "";
+        } else if (val === 2) {
+            $scope.pagination.sfaid = "";
+        }
+        NavigationService.getLimitedTeam($scope.pagination, function(data) {
             if (data.value !== false) {
-                $scope.media = data.data;
+                console.log(data);
+                $scope.contentLoaded = true;
+                $scope.teams = data.data.data;
+                $scope.team = data.data;
+                console.log($scope.teams);
+            } else {
+                $scope.teams = {
+                    data: []
+                };
             }
         });
-    }
-    reload();
+    };
+    $scope.reload();
 
     $scope.deleteFunc = function(id) {
         NavigationService.deleteSportsList(id, function(data2) {
-            reload();
+            $scope.reload();
         });
     };
 })
