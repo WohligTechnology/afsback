@@ -1,0 +1,93 @@
+<!-- <div id="progressBar">
+   <div class="loader"></div>
+</div> -->
+<!-- <div class="breadcrumbs">
+   <ul>
+      <li>
+         <a title="Home">Company Setup</a>
+      </li>
+      <li>
+         <a ui-sref="branch-list" title="Branch List">Branch List</a>
+      </li>
+   </ul>
+</div> -->
+<div class="heading-sec">
+    <div class="row">
+        <div class="col-md-4 column">
+            <div class="heading-profile">
+                <h2>Banners</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Top Bar Chart -->
+<div class="panel-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="table-area">
+                    <div class="widget-title">
+                        <div class="pull-right">
+                          <!-- <a class="btn btn-info" href="{{adminURL}}banner/excelDownload"><i class="fa fa-download"></i>&nbsp; All Banner Excel</a> -->
+                            <a class="btn btn-primary" ui-sref="createbanner">Add New</a>
+                        </div>
+                        <h3>List of Banners</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Banner Id</th>
+                                    <th>Banner Name</th>
+                                    <th class="text-center" colspan="2">Operations</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <td style="width: 12%;">Search By :</td>
+                                <td style="width: 30%;">
+                                    <input type="text" placeholder="Banner SFA-ID" class="form-control" ng-model="pagination.sfaid" ng-change="reload(1);" only-digits>
+                                </td>
+                                <td style="width:30%">
+                                    <input type="text" placeholder="Banner Name" class="form-control" ng-model="pagination.name" ng-change="reload(2);">
+                                </td>
+                                <tr ng-if="banners.data.length <= 0 && !contentLoaded" class="loadingTable">
+                                    <td>Loading...</td>
+                                </tr>
+                                <tr ng-if="banners.data.length <= 0 && contentLoaded" class="loadingTable">
+                                    <td>No Data Available</td>
+                                </tr>
+                                <tr ng-repeat="banner in banners.data" ng-if="banners.data.length>0 && contentLoaded">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{banner.sfaid}}</td>
+                                    <td>{{banner.name}}</td>
+                                    <td class="text-center">
+                                        <a ui-sref="editbanner({id:banner._id})" class="btn btn-primary">
+                                            <i class="fa fa-pencil-square-o"></i>
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a ng-click="hidebanner(banner._id,true)" class="btn btn-primary wd75" ng-if="banner.deleteStatus == false">
+                                            <span>Hide</span>
+                                        </a>
+                                        <a ng-click="hidebanner(banner._id,false)" class="btn btn-primary wd75" ng-if="banner.deleteStatus == true">
+                                            <span>Unhide</span>
+                                        </a>
+                                    </td>
+                                    <!-- <td class="text-center">
+                                        <a ng-click="deleteFunc(banner._id)" class="btn btn-primary">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="">
+                        <uib-pagination ng-show="banners.data.length > 0" ng-change="reload();" total-items="banners.total" ng-model="pagination.pagenumber" items-per-page="20"></uib-pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
