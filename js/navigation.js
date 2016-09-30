@@ -1,5 +1,5 @@
 var adminURL = "http://104.155.129.33:83/api/";
-// var adminURL = "http://192.168.0.111:1337/api/";
+// var adminURL = "http://192.168.0.109:1337/api/";
 var uploadurl = adminURL + "upload/";
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
 // var openTab = "http://localhost:808/#/showstudent"
@@ -150,6 +150,15 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
+        getOneBanner: function(id, callback) {
+            $http({
+                // url: adminURL + 'banner/getOne',
+                method: 'POST',
+                data: {
+                    _id: id
+                }
+            }).success(callback);
+        },
         getOneTeamByName: function(request, callback) {
             $http({
                 url: adminURL + 'team/getOneTeamByName',
@@ -169,6 +178,20 @@ var navigationservice = angular.module('navigationservice', [])
                 url: adminURL + 'sportslist/saveData',
                 method: 'POST',
                 data: formData
+            }).success(callback);
+        },
+        saveBanner: function(formData, callback) {
+          console.log(formData);
+            $http({
+                url: adminURL + 'banner/saveData',
+                method: 'POST',
+                data: formData
+            }).success(callback);
+        },
+        getAllBanners: function( callback) {
+            $http({
+                url: adminURL + 'banner/getall',
+                method: 'POST'
             }).success(callback);
         },
         getFirstCategoryFromSport: function(formData, callback) {
@@ -598,6 +621,15 @@ var navigationservice = angular.module('navigationservice', [])
                 method: 'POST',
                 data: {
                     _id: $.jStorage.get("deleteSchool")
+                }
+            }).success(callback);
+        },
+        deleteBanner: function(callback) {
+            $http({
+                url: adminURL + 'banner/deleteData',
+                method: 'POST',
+                data: {
+                    _id: $.jStorage.get("deleteBanner")
                 }
             }).success(callback);
         },

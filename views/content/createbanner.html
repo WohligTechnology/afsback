@@ -26,18 +26,11 @@
                     <div class="form-elements-sec">
                         <div class="form-group">
                             <label>Banner Order</label>
-                            <input type="text" placeholder="Banner Order" class="form-control" required ng-model="banner.order" only-digits>
-                        </div>
-                        <div class="form-group">
-                            <label>Image</label>
-                            <div class="banner-img-holder" ng-if="banner.image">
-                                <img ng-src="{{banner.image|uploadpath}}" alt="" class="img-responsive margin-auto">
-                            </div>
-                            <upload-image ng-model="banner.image" ></upload-image>
+                            <input type="text" placeholder="Banner Order" class="form-control" ng-model="banner.order" only-digits>
                         </div>
                         <div class="form-group">
                             <label>Banner Link</label>
-                            <input type="text" placeholder="Banner Link" class="form-control" required ng-model="banner.link" >
+                            <input type="text" placeholder="Banner Link" class="form-control" ng-model="banner.link" >
                         </div>
                         <div class="form-group">
                             <label>Status</label>
@@ -47,6 +40,15 @@
                                 <option value="false">Disabled</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label>Image</label>
+                            <div class="banner-img-holder" ng-if="banner.image">
+                                <img ng-src="{{banner.image|uploadpath}}" alt="" class="img-responsive margin-auto">
+                            </div>
+                            <upload-image ng-model="banner.image" no-view></upload-image>
+                        </div>
+
+
 
                     </div>
                 </div>
@@ -54,7 +56,7 @@
                     <div class="col-md-12">
                         <div class="text-center mt20">
                             <button class="btn btn-default" type="submit">Save</button>
-                            <button class="btn btn-default" ui-sref="sportlist">Cancel</button>
+                            <button class="btn btn-default" ui-sref="banner">Cancel</button>
                         </div>
                     </div>
                 </div>

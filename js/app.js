@@ -48,6 +48,11 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         templateUrl: "views/template.html",
         controller: 'createBannerCtrl'
     })
+    .state('editbanner', {
+        url: "/editbanner/:id",
+        templateUrl: "views/template.html",
+        controller: 'editBannerCtrl'
+    })
 
     .state('editschool', {
         url: "/editschool/:id",

@@ -147,13 +147,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         });
     };
     $scope.confDelete = function() {
-        NavigationService.deleteSchool(function(data, status) {
+        NavigationService.deleteBanner(function(data, status) {
             console.log(data);
             $scope.reload();
         });
     };
     $scope.deleteFunc = function(id) {
-        $.jStorage.set("deleteSchool", id);
+        $.jStorage.set("deleteBanner", id);
         $uibModal.open({
             animation: true,
             templateUrl: "views/content/delete.html",
@@ -2787,6 +2787,36 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.banner = {};
     $scope.sportList = {};
 
+    $scope.saveBanner = function() {
+        NavigationService.saveBanner($scope.banner, function(data) {
+            if (data.value !== false) {
+                $state.go('banner');
+            }
+        });
+    };
+    $scope.addContent = function(select) {
+        $scope.sportList.tableContent = select.selected;
+    };
+})
+.controller('editBannerCtrl', function($scope, TemplateService, NavigationService, $timeout, $state,$stateParams) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("createbanner");
+    $scope.menutitle = NavigationService.makeactive("Banner");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.template.type = 1;
+    $scope.pageName = "Edit Banner";
+    $scope.banner = {};
+    $scope.sportList = {};
+    $scope.getOneBanner = function () {
+      NavigationService.getOneBanner($stateParams.id,function (response) {
+        if(response.value){
+          $scope.banner=response.data;
+          $scope.banner.status = $scope.banner.status.toString();
+        }
+      });
+    };
+    $scope.getOneBanner();
     $scope.saveBanner = function() {
         NavigationService.saveBanner($scope.banner, function(data) {
             if (data.value !== false) {

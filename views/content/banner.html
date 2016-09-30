@@ -38,40 +38,46 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Banner Id</th>
+                                    <th>Banner Image</th>
                                     <th>Banner Name</th>
                                     <th class="text-center" colspan="2">Operations</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <td style="width: 12%;">Search By :</td>
+                                <!-- <td style="width: 12%;">Search By :</td>
                                 <td style="width: 30%;">
                                     <input type="text" placeholder="Banner SFA-ID" class="form-control" ng-model="pagination.sfaid" ng-change="reload(1);" only-digits>
                                 </td>
                                 <td style="width:30%">
                                     <input type="text" placeholder="Banner Name" class="form-control" ng-model="pagination.name" ng-change="reload(2);">
-                                </td>
-                                <tr ng-if="banners.data.length <= 0 && !contentLoaded" class="loadingTable">
+                                </td> -->
+                                <tr ng-if="banners.length <= 0 && !contentLoaded" class="loadingTable">
                                     <td>Loading...</td>
                                 </tr>
-                                <tr ng-if="banners.data.length <= 0 && contentLoaded" class="loadingTable">
-                                    <td>No Data Available</td>
-                                </tr>
-                                <tr ng-repeat="banner in banners" ng-if="banners.data.length>0 && contentLoaded">
+                                <!-- <tr ng-if="banners.length <= 0 && contentLoaded" class="loadingTable">
+                                    <td >No Data Available</td>
+                                </tr> -->
+                                <tr ng-repeat="banner in banners" ng-if="banners.length>0 && contentLoaded">
                                     <td>{{$index+1}}</td>
-                                    <td>{{banner.sfaid}}</td>
-                                    <td>{{banner.name}}</td>
+                                    <td>{{banner.order}}</td>
+                                    <td>
+                                      <img style="width:150px;"ng-src="{{banner.image | uploadpath}}" alt="">
+                                    </td>
+                                    <td>{{banner.link}}</td>
                                     <td class="text-center">
                                         <a ui-sref="editbanner({id:banner._id})" class="btn btn-primary">
                                             <i class="fa fa-pencil-square-o"></i>
                                         </a>
                                     </td>
                                     <td class="text-center">
-                                        <a ng-click="hidebanner(banner._id,true)" class="btn btn-primary wd75" ng-if="banner.deleteStatus == false">
+                                        <!-- <a ng-click="hidebanner(banner._id,true)" class="btn btn-primary wd75" ng-if="banner.deleteStatus == false">
                                             <span>Hide</span>
                                         </a>
                                         <a ng-click="hidebanner(banner._id,false)" class="btn btn-primary wd75" ng-if="banner.deleteStatus == true">
                                             <span>Unhide</span>
+                                        </a> -->
+                                        <a ng-click="deleteFunc(banner._id)" class="btn btn-primary">
+                                           <i class="fa fa-trash"></i>
                                         </a>
                                     </td>
                                     <!-- <td class="text-center">
@@ -83,9 +89,12 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="">
-                        <uib-pagination ng-show="banners.data.length > 0" ng-change="reload();" total-items="banners.total" ng-model="pagination.pagenumber" items-per-page="20"></uib-pagination>
+                    <div class="text-center" ng-if="banners.length==0">
+                       <h5>No banners found</h5>
                     </div>
+                    <!-- <div class="">
+                        <uib-pagination ng-show="banners.data.length > 0" ng-change="reload();" total-items="banners.total" ng-model="pagination.pagenumber" items-per-page="20"></uib-pagination>
+                    </div> -->
                 </div>
             </div>
         </div>
