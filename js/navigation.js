@@ -152,7 +152,7 @@ var navigationservice = angular.module('navigationservice', [])
         },
         getOneBanner: function(id, callback) {
             $http({
-                // url: adminURL + 'banner/getOne',
+                url: adminURL + 'banner/getOne',
                 method: 'POST',
                 data: {
                     _id: id
