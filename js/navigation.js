@@ -1,5 +1,5 @@
-var adminURL = "http://104.155.129.33:83/api/";
-// var adminURL = "http://192.168.0.109:1337/api/";
+// var adminURL = "http://104.155.129.33:83/api/";
+var adminURL = "http://192.168.0.106:1337/api/";
 var uploadurl = adminURL + "upload/";
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
 // var openTab = "http://localhost:808/#/showstudent"
@@ -492,6 +492,13 @@ var navigationservice = angular.module('navigationservice', [])
         getLimitedTeam: function(data, callback) {
             $http({
                 url: adminURL + 'team/getLimited',
+                method: 'POST',
+                data: data
+            }).success(callback);
+        },
+        getLimitedMedia: function(data, callback) {
+            $http({
+                url: adminURL + 'media/getLimited',
                 method: 'POST',
                 data: data
             }).success(callback);

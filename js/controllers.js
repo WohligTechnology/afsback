@@ -2709,7 +2709,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         });
     };
 })
-.controller('mediaCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+.controller('mediaCtrl', function($scope, TemplateService, NavigationService, $timeout,$state) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("media");
     $scope.menutitle = NavigationService.makeactive("Media");
@@ -2718,6 +2718,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.template.type = 1;
     $scope.pagination = {};
     $scope.adminURL = adminURL;
+    $scope.cs = $state;
     $scope.uploadurl = adminURL+"media/uploadMedia/";
     // $scope.yefunctioncallkiya = function () {
     //   console.log($scope.thismodel);
@@ -2729,12 +2730,12 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         } else if (val === 2) {
             $scope.pagination.sfaid = "";
         }
-        NavigationService.getLimitedTeam($scope.pagination, function(data) {
+        NavigationService.getLimitedMedia($scope.pagination, function(data) {
             if (data.value !== false) {
                 console.log(data);
                 $scope.contentLoaded = true;
-                $scope.teams = data.data.data;
-                $scope.team = data.data;
+                $scope.medias = data.data.data;
+                $scope.media = data.data;
                 console.log($scope.teams);
             } else {
                 $scope.teams = {

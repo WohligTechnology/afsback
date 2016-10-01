@@ -413,15 +413,24 @@ firstapp.directive('imageonload', function() {
         }
     };
 });
-
 firstapp.directive('uploadImage', function($http, $filter) {
     return {
         templateUrl: 'views/directive/uploadFile.html',
         scope: {
             model: '=ngModel',
-            callback: "=ngCallback"
+            callback: "=ngCallback",
+            uploadurl: "=uploadhere",
+            state:"=currentState"
         },
         link: function($scope, element, attrs) {
+
+            $scope.showImage = function() {
+                console.log($scope.image);
+            };
+
+            if($scope.uploadurl){
+              uploadurl = $scope.uploadurl;
+            }
             $scope.isMultiple = false;
             $scope.inObject = false;
             if (attrs.multiple || attrs.multiple === "") {
@@ -431,12 +440,19 @@ firstapp.directive('uploadImage', function($http, $filter) {
             if (attrs.noView || attrs.noView === "") {
                 $scope.noShow = true;
             }
+
+            $scope.$watch("image", function(newVal, oldVal) {
+                if (newVal && newVal.file) {
+                    $scope.uploadNow(newVal);
+                }
+            });
+
             if ($scope.model) {
                 if (_.isArray($scope.model)) {
                     $scope.image = [];
                     _.each($scope.model, function(n) {
                         $scope.image.push({
-                            url: $filter("uploadpath")(n)
+                            url: n
                         });
                     });
                 }
@@ -449,7 +465,8 @@ firstapp.directive('uploadImage', function($http, $filter) {
                 $scope.model = [];
             };
             $scope.uploadNow = function(image) {
-                console.log(image);
+                $scope.uploadStatus = "uploading";
+
                 var Template = this;
                 image.hide = true;
                 var formData = new FormData();
@@ -460,10 +477,10 @@ firstapp.directive('uploadImage', function($http, $filter) {
                     },
                     transformRequest: angular.identity
                 }).success(function(data) {
-                    console.log("success");
                     if ($scope.callback) {
                         $scope.callback(data);
                     } else {
+                        $scope.uploadStatus = "uploaded";
                         if ($scope.isMultiple) {
                             if ($scope.inObject) {
                                 $scope.model.push({
@@ -475,12 +492,83 @@ firstapp.directive('uploadImage', function($http, $filter) {
                         } else {
                             $scope.model = data.data[0];
                         }
+                        if($scope.state){
+                          $scope.state.reload();
+                        }
                     }
                 });
             };
         }
     };
 });
+
+// firstapp.directive('uploadImage', function($http, $filter) {
+//     return {
+//         templateUrl: 'views/directive/uploadFile.html',
+//         scope: {
+//             model: '=ngModel',
+//             callback: "=ngCallback"
+//         },
+//         link: function($scope, element, attrs) {
+//             $scope.isMultiple = false;
+//             $scope.inObject = false;
+//             if (attrs.multiple || attrs.multiple === "") {
+//                 $scope.isMultiple = true;
+//                 $("#inputImage").attr("multiple", "ADD");
+//             }
+//             if (attrs.noView || attrs.noView === "") {
+//                 $scope.noShow = true;
+//             }
+//             if ($scope.model) {
+//                 if (_.isArray($scope.model)) {
+//                     $scope.image = [];
+//                     _.each($scope.model, function(n) {
+//                         $scope.image.push({
+//                             url: $filter("uploadpath")(n)
+//                         });
+//                     });
+//                 }
+//
+//             }
+//             if (attrs.inobj || attrs.inobj === "") {
+//                 $scope.inObject = true;
+//             }
+//             $scope.clearOld = function() {
+//                 $scope.model = [];
+//             };
+//             $scope.uploadNow = function(image) {
+//                 console.log(image);
+//                 var Template = this;
+//                 image.hide = true;
+//                 var formData = new FormData();
+//                 formData.append('file', image.file, image.name);
+//                 $http.post(uploadurl, formData, {
+//                     headers: {
+//                         'Content-Type': undefined
+//                     },
+//                     transformRequest: angular.identity
+//                 }).success(function(data) {
+//                     console.log("success");
+//                     if ($scope.callback) {
+//                         $scope.callback(data);
+//                     } else {
+//                         if ($scope.isMultiple) {
+//                             if ($scope.inObject) {
+//                                 $scope.model.push({
+//                                     "image": data.data[0]
+//                                 });
+//                             } else {
+//                                 $scope.model.push(data.data[0]);
+//                             }
+//                         } else {
+//                             $scope.model = data.data[0];
+//                         }
+//                     }
+//                 });
+//             };
+//         }
+//     };
+// });
 firstapp.config(function($translateProvider) {
     $translateProvider.translations('en', LanguageEnglish);
     $translateProvider.translations('hi', LanguageHindi);
