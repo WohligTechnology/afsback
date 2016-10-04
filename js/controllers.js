@@ -1184,12 +1184,32 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }
         });
 
-        NavigationService.getSchoolList(function(data) {
-            if (data.value !== false) {
-                $scope.schools = data.data;
-            }
-        });
+        // NavigationService.getSchoolList(function(data) {
+        //     if (data.value !== false) {
+        //         $scope.schools = data.data;
+        //     }
+        // });
 
+        $scope.getSchools = function(search) {
+
+            var obj = {};
+            obj.search = search;
+            if (isNaN(search)) {
+                obj.search = search;
+                obj.sfaid = undefined;
+            } else {
+                obj.search = undefined;
+                obj.sfaid = parseInt(search);
+            }
+            NavigationService.getSchoolLimited(obj, function(data) {
+                if (data && data.value !== false) {
+                    $scope.schools = data.data;
+                } else {
+                    $scope.schools = [];
+                }
+            });
+
+        };
         $scope.checkStud = function() {
             if ($scope.student.school && !_.isEmpty($scope.student.school) && $scope.student.lastname && $scope.student.firstname) {
                 $scope.validateError.valid = false;
@@ -2137,11 +2157,32 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     }];
     $scope.pageName = "Edit School";
 
-    NavigationService.getSchoolList(function(data) {
-        if (data.value !== false) {
-            $scope.schools = data.data;
+    // NavigationService.getSchoolList(function(data) {
+    //     if (data.value !== false) {
+    //         $scope.schools = data.data;
+    //     }
+    // });
+
+    $scope.getSchools = function(search) {
+
+        var obj = {};
+        obj.search = search;
+        if (isNaN(search)) {
+            obj.search = search;
+            obj.sfaid = undefined;
+        } else {
+            obj.search = undefined;
+            obj.sfaid = parseInt(search);
         }
-    });
+        NavigationService.getSchoolLimited(obj, function(data) {
+            if (data && data.value !== false) {
+                $scope.schools = data.data;
+            } else {
+                $scope.schools = [];
+            }
+        });
+
+    };
     NavigationService.getOneStudent($stateParams.id, function(data) {
         if (data.value !== false) {
             $scope.student = data.data;

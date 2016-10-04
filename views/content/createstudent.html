@@ -45,11 +45,11 @@
                                     <label>School*</label>
                                     <ui-select ng-model="student.school" title="Select School">
                                         <ui-select-match placeholder="Select School">{{$select.selected.name}}</ui-select-match>
-                                        <ui-select-choices repeat="school in schools | filter: $select.search">
+                                        <ui-select-choices refresh-delay="0" refresh="getSchools($select.search)" repeat="school in schools | filter: $select.search">
                                             <div ng-bind-html="school.name | highlight: $select.search"></div>
                                             <small>
                                                 SFA-ID:<span ng-bind-html="school.sfaid | highlight: $select.search"></span>
-                                                Primary-ID:<span ng-bind-html="school._id | highlight: $select.search"></span>
+                                                <!-- Primary-ID:<span ng-bind-html="school._id | highlight: $select.search"></span> -->
                                             </small>
                                         </ui-select-choices>
                                     </ui-select>
