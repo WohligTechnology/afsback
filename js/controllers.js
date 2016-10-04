@@ -2153,7 +2153,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     }, {
         title: "Sports",
         redirect: "",
-        url: "#/studentsport/" + $stateParams.id
+        url: "#/studentsport/" + $stateParams.id+"/"+$scope.school
     }];
     $scope.pageName = "Edit School";
 
@@ -2207,6 +2207,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             if (!$scope.student.via) {
                 $scope.student.via = "via School";
             }
+            $scope.school = $scope.student.school._id;
+            $scope.subMenuList[1].url = "#/studentsport/" + $stateParams.id+"/"+$scope.school;
+
         }
     });
 
@@ -2282,6 +2285,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.menutitle = NavigationService.makeactive("Students");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
+    $scope.school = $stateParams.school;
     $scope.template.type = 1;
 
     $scope.studentId = $stateParams.id;
@@ -2317,8 +2321,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.pageName = "Create Student Sports";
     $scope.sport = {};
     $scope.oneSchool = {};
+    $scope.school = $stateParams.school;
     $scope.studentId = $stateParams.id;
-
+    NavigationService.getOneSchool($stateParams.school,function (response) {
+      if(response.value){
+        $scope.sport.school = response.data;
+      }
+    });
     $scope.allYears = NavigationService.getAllYears();
     NavigationService.getSchoolList(function(data) {
         if (data.value !== false) {
@@ -2510,7 +2519,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
     $scope.template.type = 1;
     $scope.studentId = $stateParams.id;
-
+    $scope.school = $stateParams.school;
     $scope.pageName = "Edit School";
     $scope.sport = {};
     $scope.oneSchool = {};

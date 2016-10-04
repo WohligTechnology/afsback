@@ -150,19 +150,19 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
     })
 
     .state('studentsport', {
-        url: "/studentsport/:id",
+        url: "/studentsport/:id/:school",
         templateUrl: "views/template.html",
         controller: 'studentSportCtrl'
     })
 
     .state('createstudentsport', {
-        url: "/createstudentsport/:id",
+        url: "/createstudentsport/:id/:school",
         templateUrl: "views/template.html",
         controller: 'createStudentSportCtrl'
     })
 
     .state('editstudentsport', {
-        url: "/editstudentsport/:id/:sport",
+        url: "/editstudentsport/:id/:sport/:school",
         templateUrl: "views/template.html",
         controller: 'editStudentSportCtrl'
     })

@@ -30,7 +30,7 @@
                         <div class="pull-right">
 
                             <a class="btn btn-default" ui-sref="editstudent({id:studentId})"> < Go back to student</a>
-                            <a class="btn btn-primary" ui-sref="createstudentsport({id:studentId})">Add New</a>
+                            <a class="btn btn-primary" ui-sref="createstudentsport({id:studentId,school:school})">Add New</a>
                         </div>
                         <h3>List of Sports</h3>
                     </div>
@@ -48,7 +48,7 @@
                                     <td>1</td>
                                     <td>{{sport.sportslist.name}} {{sport.firstcategory.name}} {{sport.secondcategory.name}} {{sport.agegroup.name}} - {{sport.year}}</td>
                                     <td class="text-center">
-                                        <a ui-sref="editstudentsport({id:sport._id})" class="btn btn-primary">
+                                        <a ui-sref="editstudentsport({id:sport._id,school:school})" class="btn btn-primary">
                                             <i class="fa fa-pencil-square-o"></i>
                                         </a>
                                     </td>
