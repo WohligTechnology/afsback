@@ -26,12 +26,12 @@
                     <div class="form-elements-sec">
                         <div class="form-group">
                             <label>Year*</label>
-                            <select class="form-control" ng-model="sport.year" ng-options="year for year in allYears">
+                            <select class="form-control" ng-model="sport.year" ng-options="year for year in allYears" ng-change="callme();">
                             </select>
                         </div>
                         <div class="form-group">
                             <label>School*</label>
-                            <ui-select ng-model="sport.school" title="Select School" on-select="callme();">
+                            <ui-select ng-model="sport.school" title="Select School" >
                                 <ui-select-match placeholder="Select School">{{$select.selected.name}}</ui-select-match>
                                 <ui-select-choices repeat="school in schools | filter: $select.search">
                                     <span ng-bind-html="school.name | highlight: $select.search"></span>
