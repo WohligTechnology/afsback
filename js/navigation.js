@@ -1,5 +1,5 @@
-var adminURL = "http://104.155.129.33:83/api/";
-// var adminURL = "http://192.168.0.107:1337/api/";
+// var adminURL = "http://104.155.129.33:83/api/";
+var adminURL = "http://192.168.0.107:1337/api/";
 var uploadurl = adminURL + "upload/";
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
 // var openTab = "http://localhost:808/#/showstudent"
@@ -66,6 +66,12 @@ var navigationservice = angular.module('navigationservice', [])
         name: "Knockout",
         classis: "active",
         anchor: "knockoutdashboard",
+        icon: "users",
+        subnav: []
+    }, {
+        name: "Medals",
+        classis: "active",
+        anchor: "medaldashboard",
         icon: "users",
         subnav: []
     }, {
@@ -444,6 +450,15 @@ var navigationservice = angular.module('navigationservice', [])
         knockoutSports: function(request, callback) {
             $http({
                 url: adminURL + 'sport/knockoutSports',
+                method: 'POST',
+                data: {
+                  sportlist:request.id
+                }
+            }).success(callback);
+        },
+        medalSports: function(request, callback) {
+            $http({
+                url: adminURL + 'sport/getSportBySportlist',
                 method: 'POST',
                 data: {
                   sportlist:request.id

@@ -117,6 +117,11 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         templateUrl: "views/template.html",
         controller: 'knockoutDashboardCtrl'
     })
+    .state('medaldashboard', {
+        url: "/medaldashboard",
+        templateUrl: "views/template.html",
+        controller: 'medalDashboardCtrl'
+    })
     .state('heatdashboard', {
         url: "/heatdashboard",
         templateUrl: "views/template.html",
@@ -126,6 +131,11 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         url: "/knockoutsport/:id",
         templateUrl: "views/template.html",
         controller: 'knockoutSportCtrl'
+    })
+    .state('medalsport', {
+        url: "/medalsport/:id",
+        templateUrl: "views/template.html",
+        controller: 'medalSportCtrl'
     })
     .state('heatsport', {
         url: "/heatsport/:id",

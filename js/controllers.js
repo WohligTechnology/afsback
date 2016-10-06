@@ -1017,6 +1017,28 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
 
     })
+    .controller('medalDashboardCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("medal-dashboard");
+        $scope.menutitle = NavigationService.makeactive("Medals");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.getSportList = function() {
+            NavigationService.getAllSportList(function(response) {
+                if (response.value) {
+                    $scope.sports = response.data;
+                    $scope.sports = _.chain(response.data)
+                        .groupBy("sporttype")
+                        .toPairs()
+                        .map(function(currentItem) {
+                            return _.zipObject(["sporttype", "name"], currentItem);
+                        })
+                        .value();
+                }
+            });
+        };
+        $scope.getSportList();
+    })
     .controller('knockoutDashboardCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("knockout-dashboard");
@@ -1058,6 +1080,49 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.knockoutSports = function(constraints) {
           $scope.sports = [];
             NavigationService.knockoutSports(constraints, function(response) {
+                if (response.value) {
+                    $scope.sports = _.chain(response.data)
+                        .groupBy("year")
+                        .toPairs()
+                        .map(function(currentItem) {
+                            return _.zipObject(["year", "sports"], currentItem);
+                        })
+                        .value();
+                    _.each($scope.sports,function (key) {
+                      key.sports = _.chain(key.sports)
+                      .groupBy("agegroup.name")
+                      .toPairs()
+                      .map(function(currentItem) {
+                          return _.zipObject(["agegroup", "sports"], currentItem);
+                      })
+                      .value();
+
+                    });
+                    console.log($scope.sports);
+                }
+            });
+        };
+
+    })
+    .controller('medalSportCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("medal-sport");
+        $scope.menutitle = NavigationService.makeactive("Medals");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.template.type = 1;
+        $scope.getOneSport = function(id) {
+            NavigationService.getOneSportList(id, function(response) {
+                if (response.value) {
+                    $scope.sportSelected = response.data;
+                    $scope.medalSports($stateParams);
+                }
+            });
+        };
+        $scope.getOneSport($stateParams.id);
+        $scope.medalSports = function(constraints) {
+          $scope.sports = [];
+            NavigationService.medalSports(constraints, function(response) {
                 if (response.value) {
                     $scope.sports = _.chain(response.data)
                         .groupBy("year")
