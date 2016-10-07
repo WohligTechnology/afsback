@@ -44,7 +44,7 @@
 
                       <div class="form-group" ng-if="medal.participantType == 'player'">
                         <label>Player</label>
-                        <ui-select ng-model="medal.player" title="Select Player 1" ng-change="addPlayer($select.selected)">
+                        <ui-select ng-model="medal.player" title="Select Player " ng-change="addPlayer($select.selected)">
                             <ui-select-match placeholder="Select Player">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices refresh-delay="0" refresh="getMedalPlayer($select.search)" repeat="player1 in students | filter: $select.search">
                               <div ng-bind-html="player1.name | highlight: $select.search"></div>
@@ -57,19 +57,19 @@
                       </div>
                       <div class="form-group" ng-if="medal.participantType == 'team'">
                         <label>Team </label>
-                        <ui-select ng-model="medal.team1" title="Select Team 1" ng-change="addTeam($select.selected)">
+                        <ui-select ng-model="medal.team" title="Select Team 1" ng-change="addTeam($select.selected)">
                             <ui-select-match placeholder="Select Team">{{$select.selected.name}}</ui-select-match>
-                            <ui-select-choices refresh-delay="0" refresh="getMedalTeam($select.search)" repeat="team1 in teams | filter: $select.search">
-                              <div ng-bind-html="team1.name | highlight: $select.search"></div>
+                            <ui-select-choices refresh-delay="0" refresh="getMedalTeam($select.search)" repeat="team in teams | filter: $select.search">
+                              <div ng-bind-html="team.name | highlight: $select.search"></div>
                               <small>
-                                  SFA-ID:<span ng-bind-html="team1.sfaid | highlight: $select.search"></span>
+                                  SFA-ID:<span ng-bind-html="team.sfaid | highlight: $select.search"></span>
                               </small>
                             </ui-select-choices>
                         </ui-select>
                       </div>
                       <div class="form-group" >
                           <label>Medal *</label>
-                          <select class="form-control" ng-model="medal.medalrank" required>
+                          <select class="form-control" ng-model="medal.medal" required>
                               <option value="">Select Medal</option>
                               <option value="1">Gold</option>
                               <option value="2">Silver</option>

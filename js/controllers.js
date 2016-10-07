@@ -1830,10 +1830,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.medal  = {};
-        $scope.medal.roundno = 0;
         $scope.statuses = {};
         $scope.statuses.inedit = false;
-        $scope.medal.event = "Medal";
         $scope.sportSelected = function() {
 
         };
@@ -1842,7 +1840,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
           NavigationService.getOneSport($stateParams.sportid,function (response) {
             if(response.value){
               $scope.medal.sport = response.data;
+              console.log($scope.medal);
               $scope.medal.year = response.data.year;
+              console.log($scope.medal);
             }
           });
         }
@@ -1916,24 +1916,18 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             console.log($scope.medal);
             var request = {};
             request = $scope.medal;
-            request.sport = $scope.medal.sport._id;
-            if($scope.medal.participantType == "player"){
-              if($scope.medal.player1){
-                request.player1 = $scope.medal.player1._id;
-              }
-              if($scope.medal.player2){
-                request.player2 = $scope.medal.player2._id;
-              }
-            }else{
-              if($scope.medal.team1){
-                request.team1 = $scope.medal.team1._id;
-              }
-              if($scope.medal.team2){
-                request.team2 = $scope.medal.team2._id;
-              }
+            if($scope.medal.sport){
+              console.log($scope.medal.sport);
+              request.sport = $scope.medal.sport._id;
+
             }
-            request.year = $scope.medal.year.toString();
-            NavigationService.submitKnockout(request, function(data) {
+            if($scope.medal.participantType == 'player'){
+              request.player = $scope.medal.player._id;
+            }else{
+              request.team =$scope.medal.team._id;
+            }
+            console.log(request);
+            NavigationService.submitMedal(request, function(data) {
                 if (data.value) {
                   console.log({
                     id:request.sport
