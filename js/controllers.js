@@ -1034,20 +1034,29 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
           }
         });
         $scope.reload = function(val) {
-            if (val === 1) {
-                $scope.pagination.name = "";
-            } else if (val === 2) {
-                $scope.pagination.sfaid = "";
-            }
-            NavigationService.getLimitedKnockout($scope.pagination, function(data) {
-                if (data.value !== false) {
-                    $scope.medals = data.data.data;
-                    $scope.medal = data.data;
-                } else {
-                    $scope.teams = {
-                        data: []
-                    };
-                }
+            // if (val === 1) {
+            //     $scope.pagination.name = "";
+            // } else if (val === 2) {
+            //     $scope.pagination.sfaid = "";
+            // }
+            // NavigationService.getLimitedKnockout($scope.pagination, function(data) {
+            //     if (data.value !== false) {
+            //         $scope.medals = data.data.data;
+            //         $scope.medal = data.data;
+            //     } else {
+            //         $scope.teams = {
+            //             data: []
+            //         };
+            //     }
+            // });
+            NavigationService.getMedalBySport($scope.pagination,function (response) {
+              if (data.value !== false) {
+                      $scope.medals = data.data;
+                  } else {
+                      $scope.medals = {
+                          data: []
+                      };
+                  }
             });
         };
 
