@@ -1,0 +1,95 @@
+
+<div class="heading-sec">
+    <div class="row">
+        <div class="col-md-4 column">
+            <div class="heading-profile">
+                <h2>Medal</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Top Bar Chart -->
+<div class="panel-content">
+    <div class="row">
+        <div class="col-md-12">
+            <form ng-submit="submitMedal();">
+                <div class="widget">
+                    <div class="form-elements-sec">
+                      <div class="form-group">
+                          <label>Sport *</label>
+                          <ui-select ng-model="medal.sport" required title="Select Sport" on-select="sportSelected();" ng-disabled="true">
+                              <ui-select-match placeholder="Select Sport" >{{$select.selected.sportslist.name}} {{$select.selected.gender}} {{$select.selected.firstcategory.name}} {{$select.selected.secondcategory.name}} {{$select.selected.year}} {{$select.selected.agegroup.name}}</ui-select-match>
+                              <ui-select-choices repeat="sport in sportsList | filter: $select.search" refresh="getSportsByYear()">
+                                  <div ng-bind-html="sport.sportslist.name | highlight: $select.search"></div>
+                                  <small>
+                                      <span ng-bind-html="sport.gender | highlight: $select.search"></span>
+                                      <span ng-bind-html="sport.agegroup.name | highlight: $select.search"></span>
+                                       <span ng-bind-html="sport.firstcategory.name | highlight: $select.search"></span>
+                                        <span ng-bind-html="sport.secondcategory.name | highlight: $select.search"></span>
+
+                                  </small>
+                              </ui-select-choices>
+                          </ui-select>
+
+                      </div>
+                      <div class="form-group" >
+                          <label>Participant Type *</label>
+                          <select class="form-control" ng-model="medal.participantType" required>
+                              <option value="">Select Participant Type</option>
+                              <option value="team">Team</option>
+                              <option value="player">Player</option>
+                          </select>
+                      </div>
+
+
+                      <div class="form-group" ng-if="medal.participantType == 'player'">
+                        <label>Player</label>
+                        <ui-select ng-model="medal.player" title="Select Player 1" ng-change="addPlayer($select.selected)">
+                            <ui-select-match placeholder="Select Player">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices refresh-delay="0" refresh="getMedalPlayer($select.search)" repeat="player1 in students | filter: $select.search">
+                              <div ng-bind-html="player1.name | highlight: $select.search"></div>
+                              <small>
+                                  SFA-ID:<span ng-bind-html="player1.sfaid | highlight: $select.search"></span>
+
+                              </small>
+                            </ui-select-choices>
+                        </ui-select>
+                      </div>
+                      <div class="form-group" ng-if="medal.participantType == 'team'">
+                        <label>Team </label>
+                        <ui-select ng-model="medal.team1" title="Select Team 1" ng-change="addTeam($select.selected)">
+                            <ui-select-match placeholder="Select Team">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices refresh-delay="0" refresh="getMedalTeam($select.search)" repeat="team1 in teams | filter: $select.search">
+                              <div ng-bind-html="team1.name | highlight: $select.search"></div>
+                              <small>
+                                  SFA-ID:<span ng-bind-html="team1.sfaid | highlight: $select.search"></span>
+                              </small>
+                            </ui-select-choices>
+                        </ui-select>
+                      </div>
+                      <div class="form-group" >
+                          <label>Medal *</label>
+                          <select class="form-control" ng-model="medal.medalrank" required>
+                              <option value="">Select Medal</option>
+                              <option value="1">Gold</option>
+                              <option value="2">Silver</option>
+                              <option value="3">Bronze</option>
+                          </select>
+                      </div>
+
+
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="text-center mt20">
+                            <button class="btn btn-default" type="submit">Save</button>
+                            <button class="btn btn-default" ui-sref="viewmedal({id:sportid})">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

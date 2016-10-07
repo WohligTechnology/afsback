@@ -1833,7 +1833,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.medal.roundno = 0;
         $scope.statuses = {};
         $scope.statuses.inedit = false;
-        $scope.medal.event = "Knockout";
+        $scope.medal.event = "Medal";
         $scope.sportSelected = function() {
 
         };
@@ -1846,68 +1846,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }
           });
         }
-        $scope.addNoMatch = function (participantType,model) {
-          if(participantType == 'player'){
-            NavigationService.getOneStudentByName({
-              name:"No Match "
-            },function (response) {
-              if(response.value){
-                $scope.medal[model] = response.data;
-              }
-            });
-          }else{
-            NavigationService.getOneTeamByName({
-              name:"No Match "
-            },function (response) {
-              if(response.value){
-                $scope.medal[model] = response.data;
-              }
-            });
-          }
-        };
-        NavigationService.getLastKnockout({}, function(response) {
-            if (response.value) {
-                $scope.medal.matchid = response.data +1;
-            }
-        });
-        $scope.getSportsByYear = function() {
-            $scope.sportsList = [];
 
-            NavigationService.getSportsByYear($scope.medal, function(response) {
-                if (response.value) {
-                    $scope.sportsList = response.data;
-                } else {
-                    $scope.sportsList = [];
-                }
-            });
-        };
-        $scope.getLastOrder = function() {
-            var constraints = {};
-            constraints = {
-              "year":$scope.medal.year,
-                "sport": $scope.medal.sport._id,
-                "participantType": $scope.medal.participantType,
-                "event": $scope.medal.event,
-                "roundno": $scope.medal.roundno
-            };
-            NavigationService.getLastOrder(constraints, function(response) {
-                if (response.value) {
-                    $scope.medal.order = parseInt(response.data) + 1;
-                } else {
-                    $scope.medal.order = 0;
-                }
-            });
-        };
+
+
         $scope.getParticipants = function() {
             if ($scope.medal.year && $scope.medal.participantType && $scope.medal.sport && $scope.medal.sport._id) {
                 if ($scope.medal.participantType == "player") {
-                    $scope.getKnockoutPlayer("");
+                    $scope.getMedalPlayer("");
                 } else {
-                  $scope.getKnockoutTeam("");
+                  $scope.getMedalTeam("");
                 }
             }
         };
-        $scope.getKnockoutPlayer = function(search) {
+        $scope.getMedalPlayer = function(search) {
             $scope.students = [];
             var constraints = {};
             constraints.search = search;
@@ -1933,7 +1884,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }
             });
         };
-        $scope.getKnockoutTeam = function(search) {
+        $scope.getMedalTeam = function(search) {
             $scope.teams = [];
             var constraints = {};
             constraints.search = search;
@@ -1961,7 +1912,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }
             });
         };
-        $scope.submitKnockout = function() {
+        $scope.submitMedal = function() {
             console.log($scope.medal);
             var request = {};
             request = $scope.medal;
