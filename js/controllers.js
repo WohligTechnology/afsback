@@ -1017,6 +1017,67 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
 
     })
+    .controller('medalCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("medal");
+        $scope.menutitle = NavigationService.makeactive("Knockout");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.template.type = 1;
+        $scope.contentLoaded = false;
+        $scope.pagination = {};
+        $scope.pagination.pagenumber = 1;
+        $scope.pagination.sport = $stateParams.id;
+        NavigationService.getOneSport($stateParams.id,function (response) {
+          if(response.value){
+            $scope.selectedsport = response.data;
+          }
+        });
+        $scope.reload = function(val) {
+            if (val === 1) {
+                $scope.pagination.name = "";
+            } else if (val === 2) {
+                $scope.pagination.sfaid = "";
+            }
+            NavigationService.getLimitedKnockout($scope.pagination, function(data) {
+                if (data.value !== false) {
+                    $scope.medals = data.data.data;
+                    $scope.medal = data.data;
+                } else {
+                    $scope.teams = {
+                        data: []
+                    };
+                }
+            });
+        };
+
+        $scope.reload();
+        $scope.hideStudent = function(id, status) {
+            NavigationService.hideStudent({
+                _id: id,
+                status: status
+            }, function(data2) {
+                console.log(data2);
+                $scope.reload();
+            });
+        };
+        $scope.confDelete = function() {
+            NavigationService.deleteKnockout($.jStorage.get("deleteTeam"), function(data, status) {
+                console.log(data);
+                $scope.reload();
+            });
+        };
+        $scope.deleteFunc = function(id) {
+            console.log(id);
+            $.jStorage.set("deleteTeam", id);
+            $uibModal.open({
+                animation: true,
+                templateUrl: "views/content/delete.html",
+                scope: $scope
+            });
+        };
+
+    })
     .controller('medalDashboardCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("medal-dashboard");
@@ -1751,6 +1812,182 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     id:request.sport
                   });
                     $state.go("viewknockout",{
+                      id:request.sport
+                    });
+                } else {
+                    //error
+                }
+            });
+        };
+
+
+
+    })
+    .controller('createMedalCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal,$stateParams) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("createmedal");
+        $scope.menutitle = NavigationService.makeactive("Knockout");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.medal  = {};
+        $scope.medal.roundno = 0;
+        $scope.statuses = {};
+        $scope.statuses.inedit = false;
+        $scope.medal.event = "Knockout";
+        $scope.sportSelected = function() {
+
+        };
+        $scope.sportid = $stateParams.sportid;
+        if($stateParams.sportid){
+          NavigationService.getOneSport($stateParams.sportid,function (response) {
+            if(response.value){
+              $scope.medal.sport = response.data;
+              $scope.medal.year = response.data.year;
+            }
+          });
+        }
+        $scope.addNoMatch = function (participantType,model) {
+          if(participantType == 'player'){
+            NavigationService.getOneStudentByName({
+              name:"No Match "
+            },function (response) {
+              if(response.value){
+                $scope.medal[model] = response.data;
+              }
+            });
+          }else{
+            NavigationService.getOneTeamByName({
+              name:"No Match "
+            },function (response) {
+              if(response.value){
+                $scope.medal[model] = response.data;
+              }
+            });
+          }
+        };
+        NavigationService.getLastKnockout({}, function(response) {
+            if (response.value) {
+                $scope.medal.matchid = response.data +1;
+            }
+        });
+        $scope.getSportsByYear = function() {
+            $scope.sportsList = [];
+
+            NavigationService.getSportsByYear($scope.medal, function(response) {
+                if (response.value) {
+                    $scope.sportsList = response.data;
+                } else {
+                    $scope.sportsList = [];
+                }
+            });
+        };
+        $scope.getLastOrder = function() {
+            var constraints = {};
+            constraints = {
+              "year":$scope.medal.year,
+                "sport": $scope.medal.sport._id,
+                "participantType": $scope.medal.participantType,
+                "event": $scope.medal.event,
+                "roundno": $scope.medal.roundno
+            };
+            NavigationService.getLastOrder(constraints, function(response) {
+                if (response.value) {
+                    $scope.medal.order = parseInt(response.data) + 1;
+                } else {
+                    $scope.medal.order = 0;
+                }
+            });
+        };
+        $scope.getParticipants = function() {
+            if ($scope.medal.year && $scope.medal.participantType && $scope.medal.sport && $scope.medal.sport._id) {
+                if ($scope.medal.participantType == "player") {
+                    $scope.getKnockoutPlayer("");
+                } else {
+                  $scope.getKnockoutTeam("");
+                }
+            }
+        };
+        $scope.getKnockoutPlayer = function(search) {
+            $scope.students = [];
+            var constraints = {};
+            constraints.search = search;
+            if (isNaN(search) || search === null || search === undefined || search === "") {
+                constraints.search = search;
+                constraints.sfaid = undefined;
+            } else {
+                constraints.search = undefined;
+                constraints.sfaid = parseInt(search);
+            }
+            if ($scope.medal.sport) {
+                constraints.sport = $scope.medal.sport.sportslist._id;
+            }
+            if ($scope.medal.sport.gender) {
+                constraints.gender = $scope.medal.sport.gender;
+            }
+            constraints.year = $scope.medal.year.toString();
+            NavigationService.getStudentsbySport(constraints, function(data) {
+                if (data && data.value !== false) {
+                    $scope.students = data.data;
+                } else {
+                    $scope.students = [];
+                }
+            });
+        };
+        $scope.getKnockoutTeam = function(search) {
+            $scope.teams = [];
+            var constraints = {};
+            constraints.search = search;
+            if (isNaN(search) || search === null || search === undefined || search === "") {
+                constraints.search = search;
+                constraints.sfaid = undefined;
+            } else {
+                constraints.search = undefined;
+                constraints.sfaid = parseInt(search);
+            }
+            if ($scope.medal.sport) {
+                constraints.sport = $scope.medal.sport.sportslist._id;
+                // constraints.agegroup = $scope.medal.sport.agegroup;
+            }
+            if ($scope.medal.sport.gender) {
+                constraints.gender = $scope.medal.sport.gender;
+            }
+            constraints.year = $scope.medal.year.toString();
+            console.log(constraints);
+            NavigationService.getTeamsbySport(constraints, function(data) {
+                if (data && data.value !== false) {
+                    $scope.teams = data.data;
+                } else {
+                    $scope.teams = [];
+                }
+            });
+        };
+        $scope.submitKnockout = function() {
+            console.log($scope.medal);
+            var request = {};
+            request = $scope.medal;
+            request.sport = $scope.medal.sport._id;
+            if($scope.medal.participantType == "player"){
+              if($scope.medal.player1){
+                request.player1 = $scope.medal.player1._id;
+              }
+              if($scope.medal.player2){
+                request.player2 = $scope.medal.player2._id;
+              }
+            }else{
+              if($scope.medal.team1){
+                request.team1 = $scope.medal.team1._id;
+              }
+              if($scope.medal.team2){
+                request.team2 = $scope.medal.team2._id;
+              }
+            }
+            request.year = $scope.medal.year.toString();
+            NavigationService.submitKnockout(request, function(data) {
+                if (data.value) {
+                  console.log({
+                    id:request.sport
+                  });
+                    $state.go("viewmedal",{
                       id:request.sport
                     });
                 } else {

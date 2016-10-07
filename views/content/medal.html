@@ -1,0 +1,110 @@
+<!-- <div id="progressBar">
+	<div class="loader"></div>
+</div> -->
+<!-- <div class="breadcrumbs">
+   <ul>
+      <li>
+         <a title="Home">Company Setup</a>
+      </li>
+      <li>
+         <a ui-sref="branch-list" title="Branch List">Branch List</a>
+      </li>
+   </ul>
+</div> -->
+
+<div class="heading-sec">
+   <div class="row">
+         <div class="heading-profile text-center">
+            <h2>{{selectedsport.sportslist.name}} {{selectedsport.gender}} {{selectedsport.firstcategory.name}} {{selectedsport.secondcategory.name}} {{selectedsport.thirdcategory.name}} {{selectedsport.agegroup.name}} Medals - {{selectedsport.year}}</h2>
+         </div>
+   </div>
+</div>
+<!-- Top Bar Chart -->
+<div class="panel-content">
+   <div class="row">
+      <div class="col-md-12">
+         <div class="widget">
+            <div class="table-area">
+               <div class="widget-title">
+                  <div class="pull-right">
+                     <a class="btn btn-default" ui-sref="medalsport({id:selectedsport.sportslist._id})">< Back to {{selectedsport.sportslist.name}}</a>
+                     <a class="btn btn-primary" ui-sref="createmedal({sportid:selectedsport._id})">Add New</a>
+                  </div>
+                  <h3>List of Medals</h3>
+               </div>
+               <div class="table-responsive">
+                  <table class="table" >
+                     <thead>
+                        <tr>
+                           <th>#</th>
+                           <th>Match ID</th>
+                           <th>Medal Details</th>
+                           <th>Participant 1</th>
+                           <th>R 1</th>
+                           <th>Participant 2</th>
+                           <th>R 2</th>
+                           <th>Round Name</th>
+                           <th>Round No</th>
+                           <th>Order</th>
+                           <th >Score</th>
+                           <th class="text-center" >Operations</th>
+                        </tr>
+                     </thead>
+                     <tbody ng-if="medals.length>0">
+                        <!-- <tr>
+                           <td>Search By :</td>
+                           <td>
+                              <input type="text" placeholder="Name" class="form-control" ng-change="reload(pagination)" ng-model="pagination.name">
+                              <ui-select ng-model="selected.value">
+                                 <ui-select-match>
+                                    <span ng-bind="$select.selected.name"></span>
+                                 </ui-select-match>
+                                 <ui-select-choices repeat="item in (ageGroups | filter: $select.search) track by item._id">
+                                    <span ng-bind="item.name"></span>
+                                 </ui-select-choices>
+                              </ui-select>
+                           </td>
+                        </tr> -->
+                        <tr ng-repeat="value in medals | filter:search">
+                           <td>{{$index+1}}</td>
+                           <td>{{value.matchid}}</td>
+                           <td>{{value.sport.sportslist.name}} {{value.sport.gender}} {{value.sport.agegroup.name}}</td>
+                           <td ng-if="value.participantType == 'player'">{{value.player1.name || 'Not Declared' | letterLimit :13}}</td>
+                           <td ng-if="value.participantType == 'player'">{{value.resultplayer1 || 'Not Declared'}}</td>
+                           <td ng-if="value.participantType == 'player'">{{value.player2.name || 'Not Declared' | letterLimit :13 }}</td>
+                           <td ng-if="value.participantType == 'player'">{{value.resultplayer2 || 'Not Declared'}}</td>
+                           <td ng-if="value.participantType == 'team'">{{value.team1.name || 'Not Declared' | letterLimit :15}}</td>
+                           <td ng-if="value.participantType == 'team'">{{value.resultteam1 || 'Not Declared'}}</td>
+                           <td ng-if="value.participantType == 'team'">{{value.team2.name || 'Not Declared' | letterLimit :15 }}</td>
+                           <td ng-if="value.participantType == 'team'">{{value.resultteam2 || 'Not Declared'}}</td>
+                           <td>{{value.round}}</td>
+                           <td>{{value.roundno}}</td>
+                           <td>{{value.order}}</td>
+                           <td ng-class="{'bckgrnd-red':!value.score}">{{value.score}}</td>
+                           <!-- <td class="text-center">
+                              <a ui-sref="editmedal({id:value._id,sportid:selectedsport._id})" class="btn btn-primary">
+                                 <i class="fa fa-pencil-square-o"></i>
+                              </a>
+                           </td> -->
+                           <td class="text-center">
+                              <a ng-click="deleteFunc(value._id)" class="btn btn-primary">
+                                 <i class="fa fa-trash"></i>
+                              </a>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <div class="text-center" ng-if="medals.length==0">
+                     <h5>No medals found</h5>
+                  </div>
+                  <div class="">
+                      <uib-pagination ng-show="medal.data.length > 0" ng-change="reload();" total-items="medal.total" ng-model="pagination.pagenumber" items-per-page="20">
+
+                      </uib-pagination>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
