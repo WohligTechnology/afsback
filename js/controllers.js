@@ -1050,35 +1050,33 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             //     }
             // });
             NavigationService.getMedalBySport($scope.pagination,function (response) {
-              if (data.value !== false) {
-                      $scope.medals = data.data;
+              if (response.value !== false) {
+                      $scope.medals = response.data;
                   } else {
-                      $scope.medals = {
-                          data: []
-                      };
+                    $scope.medals = [];
                   }
             });
         };
 
         $scope.reload();
-        $scope.hideStudent = function(id, status) {
-            NavigationService.hideStudent({
-                _id: id,
-                status: status
-            }, function(data2) {
-                console.log(data2);
-                $scope.reload();
-            });
-        };
+        // $scope.hideStudent = function(id, status) {
+        //     NavigationService.hideStudent({
+        //         _id: id,
+        //         status: status
+        //     }, function(data2) {
+        //         console.log(data2);
+        //         $scope.reload();
+        //     });
+        // };
         $scope.confDelete = function() {
-            NavigationService.deleteKnockout($.jStorage.get("deleteTeam"), function(data, status) {
+            NavigationService.deleteMedal($.jStorage.get("deleteMedal"), function(data, status) {
                 console.log(data);
                 $scope.reload();
             });
         };
         $scope.deleteFunc = function(id) {
             console.log(id);
-            $.jStorage.set("deleteTeam", id);
+            $.jStorage.set("deleteMedal", id);
             $uibModal.open({
                 animation: true,
                 templateUrl: "views/content/delete.html",
