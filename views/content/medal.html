@@ -39,9 +39,13 @@
                            <th>#</th>
                            <th>Participant type</th>
                            <th>Participant</th>
-                           <th>Participant Total</th>
+                           <th>P T2K15</th>
+                           <th>P T2K16</th>
+                           <th>P T2K17</th>
                            <th>School</th>
-                           <th>School Total</th>
+                           <th>Sc. T2K15</th>
+                           <th>Sc. T2K16</th>
+                           <th>Sc. T2K17</th>
                            <th>Medal</th>
                            <!-- <th>Medal</th>
                            <th>R 2</th>
@@ -72,10 +76,16 @@
                            <td>{{value.participantType == 'player' && 'Student' || 'Team'}}</td>
                            <td ng-if="value.participantType == 'player'">{{value.player.name}}</td>
                            <td ng-if="value.participantType == 'team'">{{value.team.name}}</td>
-                           <td ng-if="value.participantType == 'player'">{{value.player.totalPoints}}</td>
+                           <td ng-if="value.participantType == 'player'">{{value.player.totalPoints2015}}</td>
+                           <td ng-if="value.participantType == 'player'">{{value.player.totalPoints2016}}</td>
+                           <td ng-if="value.participantType == 'player'">{{value.player.totalPoints2017}}</td>
+                           <td ng-if="value.participantType == 'team'">-</td>
+                           <td ng-if="value.participantType == 'team'">-</td>
                            <td ng-if="value.participantType == 'team'">-</td>
                            <td>{{value.school.name}}</td>
-                           <td>{{value.school.totalPoints}}</td>
+                           <td>{{value.school.totalPoints2015}}</td>
+                           <td>{{value.school.totalPoints2016}}</td>
+                           <td>{{value.school.totalPoints2017}}</td>
                            <td>{{(value.medal == 1 && 'Gold')|| (value.medal == 2 && 'Silver') || (value.medal == 3 && 'Bronze')}}</td>
                            <!-- <td class="text-center">
                               <a ui-sref="editmedal({id:value._id,sportid:selectedsport._id})" class="btn btn-primary">
