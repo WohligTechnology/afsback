@@ -2542,7 +2542,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.school = $stateParams.school;
     $scope.template.type = 1;
 
-    $scope.studentId = $stateParams.id;
+    // $scope.studentId = $stateParams.id;
 
     NavigationService.getStudentSports($stateParams.id, function(data2) {
         console.log(data2);
