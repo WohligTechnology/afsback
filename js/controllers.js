@@ -2580,6 +2580,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     NavigationService.getOneSchool($stateParams.school,function (response) {
       if(response.value){
         $scope.sport.school = response.data;
+        $scope.callme();
       }
     });
     $scope.allYears = NavigationService.getAllYears();
