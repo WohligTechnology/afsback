@@ -989,6 +989,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }
             });
         };
+        $scope.createNewThirdPlace = function() {
+          var constraints = {};
+          constraints.sport = $stateParams.id;
+          constraints.round = 'Third Place';
+          constraints.roundno = -1;
+          constraints.order = -1;
+          constraints.year = $scope.selectedsport.year;
+          NavigationService.submitKnockout(constraints,function (response) {
+            if(response.value){
+              $scope.reload();
+            }else{
+
+            }
+          });
+        };
 
         $scope.reload();
         $scope.hideStudent = function(id, status) {

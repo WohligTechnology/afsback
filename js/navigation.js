@@ -1,5 +1,5 @@
 var adminURL = "http://146.148.42.15:83/api/";
-// var adminURL = "http://192.168.0.106:1337/api/";
+// var adminURL = "http://192.168.0.108:1337/api/";
 var uploadurl = adminURL + "upload/";
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
 // var openTab = "http://localhost:808/#/showstudent"
@@ -33,6 +33,18 @@ var navigationservice = angular.module('navigationservice', [])
         icon: "users",
         subnav: []
     }, {
+        name: "Teams",
+        classis: "active",
+        anchor: "team",
+        icon: "users",
+        subnav: []
+    }, {
+        name: "Medals",
+        classis: "active",
+        anchor: "medaldashboard",
+        icon: "users",
+        subnav: []
+    }, {
         name: "Sports List",
         classis: "active",
         anchor: "sportlist",
@@ -45,6 +57,12 @@ var navigationservice = angular.module('navigationservice', [])
         icon: "users",
         subnav: []
     }, {
+        name: "Media",
+        classis: "active",
+        anchor: "media",
+        icon: "users",
+        subnav: []
+    }    , {
         name: "Age Groups",
         classis: "active",
         anchor: "agegroup",
@@ -57,21 +75,9 @@ var navigationservice = angular.module('navigationservice', [])
         icon: "users",
         subnav: []
     }, {
-        name: "Teams",
-        classis: "active",
-        anchor: "team",
-        icon: "users",
-        subnav: []
-    }, {
         name: "Knockout",
         classis: "active",
         anchor: "knockoutdashboard",
-        icon: "users",
-        subnav: []
-    }, {
-        name: "Medals",
-        classis: "active",
-        anchor: "medaldashboard",
         icon: "users",
         subnav: []
     }, {
@@ -81,9 +87,9 @@ var navigationservice = angular.module('navigationservice', [])
         icon: "users",
         subnav: []
     }, {
-        name: "Media",
+        name: "Leagues",
         classis: "active",
-        anchor: "media",
+        anchor: "leaguedashboard",
         icon: "users",
         subnav: []
     }

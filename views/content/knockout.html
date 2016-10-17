@@ -28,7 +28,8 @@
                <div class="widget-title">
                   <div class="pull-right">
                      <a class="btn btn-default" ui-sref="knockoutsport({id:selectedsport.sportslist._id})">< Back to {{selectedsport.sportslist.name}}</a>
-                     <a class="btn btn-primary" ui-sref="createknockout({sportid:selectedsport._id})">Add New</a>
+                     <a class="btn btn-primary" ng-if="selectedsport" ng-click="createNewThirdPlace();">Add Third Place</a>
+                     <a class="btn btn-primary" ng-if="selectedsport" ui-sref="createknockout({sportid:selectedsport._id})">Add New</a>
                   </div>
                   <h3>List of Knockouts</h3>
                </div>
@@ -77,7 +78,7 @@
                            <td ng-if="value.participantType == 'team'">{{value.resultteam1 || 'Not Declared'}}</td>
                            <td ng-if="value.participantType == 'team'">{{value.team2.name || 'Not Declared' | letterLimit :15 }}</td>
                            <td ng-if="value.participantType == 'team'">{{value.resultteam2 || 'Not Declared'}}</td>
-                           <td>{{value.round}}</td>
+                           <td ng-class="{'bckgrnd-grey':value.round == 'Third Place'}">{{value.round}}</td>
                            <td>{{value.roundno}}</td>
                            <td>{{value.order}}</td>
                            <td ng-class="{'bckgrnd-red':!value.score}">{{value.score}}</td>
