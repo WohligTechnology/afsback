@@ -1,5 +1,5 @@
-var adminURL = "http://146.148.42.15:83/api/";
-// var adminURL = "http://192.168.0.108:1337/api/";
+// var adminURL = "http://146.148.42.15:83/api/";
+var adminURL = "http://192.168.0.104:1337/api/";
 var uploadurl = adminURL + "upload/";
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
 // var openTab = "http://localhost:808/#/showstudent"
@@ -174,6 +174,13 @@ var navigationservice = angular.module('navigationservice', [])
         getOneTeamByName: function(request, callback) {
             $http({
                 url: adminURL + 'team/getOneTeamByName',
+                method: 'POST',
+                data: request
+            }).success(callback);
+        },
+        forSimilarNamesBackend: function(request, callback) {
+            $http({
+                url: adminURL + 'team/forSimilarNamesBackend',
                 method: 'POST',
                 data: request
             }).success(callback);
