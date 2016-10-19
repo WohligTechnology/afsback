@@ -49,7 +49,7 @@
                       <div class="form-group" ng-if="dropdowns.teams.length > 0">
                         Names already taken :
                           <ul>
-                            <li ng-repeat="team in dropdowns.teams">{{team.name}}</li>
+                            <li ng-repeat="singleteam in dropdowns.teams" ng-class="{'error':singleteam.name == team.name}">{{singleteam.name}}</li>
                           </ul>
                       </div>
                       <div class="form-group" ng-if="team.school">

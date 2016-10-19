@@ -137,6 +137,11 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         templateUrl: "views/template.html",
         controller: 'heatDashboardCtrl'
     })
+    .state('leaguedashboard', {
+        url: "/leaguedashboard",
+        templateUrl: "views/template.html",
+        controller: 'leagueDashboardCtrl'
+    })
     .state('knockoutsport', {
         url: "/knockoutsport/:id",
         templateUrl: "views/template.html",
