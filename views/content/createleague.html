@@ -1,0 +1,261 @@
+<!-- <div class="breadcrumbs">
+  <ul>
+    <li>
+      <a title="Home">Company Setup</a>
+    </li>
+    <li>
+      <a ui-sref="branch-list" title="Branch List">Branch List</a>
+    </li>
+  </ul>
+</div> -->
+<div class="heading-sec">
+    <div class="row">
+        <div class="col-md-4 column">
+            <div class="heading-profile">
+                <h2>League</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Top Bar Chart -->
+<div class="panel-content">
+    <div class="row">
+        <div class="col-md-12">
+            <form ng-submit="submitLeague();">
+                <div class="widget">
+                    <div class="form-elements-sec">
+
+                      <!-- <div class="form-group" ng-if="league.year">
+                          <label>School</label>
+                          <ui-select ng-model="league.school" title="Select School" required ng-change="setTeamName($select.selected.name)" on-select="callme();">
+                              <ui-select-match placeholder="Select School">{{$select.selected.name}}</ui-select-match>
+                              <ui-select-choices repeat="school in schools | filter: $select.search">
+                                  <div ng-bind-html="school.name | highlight: $select.search"></div>
+                                  <small>
+                                      SFA-ID:<span ng-bind-html="school.sfaid | highlight: $select.search"></span>
+                                      Primary-ID:<span ng-bind-html="school._id | highlight: $select.search"></span>
+                                  </small>
+                              </ui-select-choices>
+                          </ui-select>
+
+                      </div> -->
+                      <!-- <div class="form-group" ng-if="league.school">
+                          <label>Team Name</label>
+                          <input type="text" disabled placeholder="Team Name"  class="form-control" ng-model="league.name" >
+                      </div> -->
+                      <div class="form-group" >
+                          <label>MatchId *</label>
+                          <input type="text" placeholder="Match ID" class="form-control" required  ng-model="league.matchid" only-digits disabled>
+                      </div>
+                      <div class="form-group" >
+                          <label>Year *</label>
+                          <input type="text" placeholder="Year" class="form-control" required  ng-model="league.year" ng-change="getSportsByYear()" only-digits disabled>
+                      </div>
+                      <div class="form-group">
+                          <label>Sport *</label>
+                          <ui-select ng-model="league.sport" required title="Select Sport" on-select="sportSelected();" ng-disabled="true">
+                              <ui-select-match placeholder="Select Sport" >{{$select.selected.sportslist.name}} {{$select.selected.gender}} {{$select.selected.firstcategory.name}} {{$select.selected.secondcategory.name}} {{$select.selected.agegroup.name}}</ui-select-match>
+                              <ui-select-choices repeat="sport in sportsList | filter: $select.search" refresh="getSportsByYear()">
+                                  <div ng-bind-html="sport.sportslist.name | highlight: $select.search"></div>
+                                  <small>
+                                      <span ng-bind-html="sport.gender | highlight: $select.search"></span>
+                                      <span ng-bind-html="sport.agegroup.name | highlight: $select.search"></span>
+                                       <span ng-bind-html="sport.firstcategory.name | highlight: $select.search"></span>
+                                        <span ng-bind-html="sport.secondcategory.name | highlight: $select.search"></span>
+
+                                  </small>
+                              </ui-select-choices>
+                          </ui-select>
+
+                      </div>
+
+                      <!-- <div class="form-group" >
+                          <label>Gender *</label>
+                          <select class="form-control" ng-model="league.gender" ng-change = "leagueNameGenerate()" required>
+                              <option value="">Select Gender</option>
+                              <option value="Boys">Boy</option>
+                              <option value="Girls">Girl</option>
+                          </select>
+                      </div> -->
+                      <div class="form-group" >
+                          <label>Participant Type *</label>
+                          <select class="form-control" ng-change="getLastOrder()" ng-model="league.participantType" required>
+                              <option value="">Select Participant Type</option>
+                              <option value="team">Team</option>
+                              <option value="player">Player</option>
+                          </select>
+                      </div>
+                      <!-- <div class="form-group">
+                        <label>Age Group *</label>
+                        <ui-select ng-model="league.agegroup" required title="Select Age Group" on-select = "getLastOrder()">
+                            <ui-select-match placeholder="Select Age Group">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="knockage in agegroups | filter: $select.search">
+                                <div ng-bind-html="knockage.name | highlight: $select.search"></div>
+                                <small>
+                                    SFA-ID:<span ng-bind-html="knockage.sfaid | highlight: $select.search"></span>
+
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                      </div> -->
+                      <div class="form-group" >
+                          <label>Event *</label>
+                          <input type="text" placeholder="Event" class="form-control" required  ng-model="league.event" disabled>
+                      </div>
+                      <div class="form-group" >
+                          <label>Pseudo Round No. *</label>
+                          <input type="text" placeholder="Round No." class="form-control" required  ng-model="league.roundno" only-digits ng-change="getLastOrder()" >
+                      </div>
+                      <div class="form-group" >
+                          <label>Round name. *</label>
+                          <input type="text" placeholder="Round name" class="form-control" required  ng-model="league.round">
+                      </div>
+                      <div class="form-group" ng-if="league.sport && league.participantType">
+                          <label>Order * </label>
+                          <input type="text" placeholder="Order" class="form-control" required  ng-model="league.order" only-digits ng-change="getLastOrder()" >
+                      </div>
+
+
+                      <div class="form-group" ng-if="league.participantType == 'player'">
+                        <label>Player 1 </label>
+                        <ui-select ng-model="league.player1" title="Select Player 1" ng-change="addPlayer($select.selected)">
+                            <ui-select-match placeholder="Select Player">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices refresh-delay="0" refresh="getLeaguePlayer($select.search)" repeat="player1 in students | filter: $select.search">
+                              <div ng-bind-html="player1.name | highlight: $select.search"></div>
+                              <small>
+                                  SFA-ID:<span ng-bind-html="player1.sfaid | highlight: $select.search"></span>
+
+                              </small>
+                            </ui-select-choices>
+                        </ui-select>
+                        <button class="btn btn-default" ng-click="addNoMatch(league.participantType,'player1')">No Match</button>
+                      </div>
+                      <div class="form-group" ng-if="league.participantType == 'team'">
+                        <label>Team 1 </label>
+                        <ui-select ng-model="league.team1" title="Select Team 1" ng-change="addTeam($select.selected)">
+                            <ui-select-match placeholder="Select Team">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices refresh-delay="0" refresh="getLeagueTeam($select.search)" repeat="team1 in teams | filter: $select.search">
+                              <div ng-bind-html="team1.name | highlight: $select.search"></div>
+                              <small>
+                                  SFA-ID:<span ng-bind-html="team1.sfaid | highlight: $select.search"></span>
+                              </small>
+                            </ui-select-choices>
+                        </ui-select>
+                        <button class="btn btn-default" ng-click="addNoMatch(league.participantType,'team1')">No Match</button>
+
+                      </div>
+                      <div class="form-group" ng-if="league.participantType == 'player' && statuses.inedit">
+                          <label>Result player 1 *</label>
+                          <select class="form-control" ng-model="league.resultplayer1" >
+                              <option value="">Select status</option>
+                              <option value="Won">Won</option>
+                              <option value="Bye">Bye</option>
+                              <option value="Walkover">Walkover</option>
+                              <option value="No Show">No Show</option>
+                              <option value="Loss">Loss</option>
+                          </select>
+                      </div>
+                      <div class="form-group" ng-if="league.participantType == 'team' && statuses.inedit">
+                          <label>Result team 1 *</label>
+                          <select class="form-control" ng-model="league.resultteam1">
+                              <option value="">Select status</option>
+                              <option value="Won">Won</option>
+                              <option value="Bye">Bye</option>
+                              <option value="Walkover">Walkover</option>
+                              <option value="No Show">No Show</option>
+                              <option value="Loss">Loss</option>
+                          </select>
+                      </div>
+                      <div class="form-group" ng-if="league.participantType == 'player'">
+                        <label>Player 2 </label>
+                        <ui-select ng-model="league.player2" title="Select Player 2" ng-change="addPlayer($select.selected)">
+                            <ui-select-match placeholder="Select Player">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices refresh-delay="0" refresh="getLeaguePlayer($select.search)" repeat="player2 in students | filter: $select.search">
+                              <div ng-bind-html="player2.name | highlight: $select.search"></div>
+                              <small>
+                                  SFA-ID:<span ng-bind-html="player2.sfaid | highlight: $select.search"></span>
+
+                              </small>
+                            </ui-select-choices>
+                        </ui-select>
+                        <button class="btn btn-default" ng-click="addNoMatch(league.participantType,'player2')">No Match</button>
+
+                      </div>
+                      <div class="form-group" ng-if="league.participantType == 'team'">
+                        <label>Team 2 </label>
+                        <ui-select ng-model="league.team2" title="Select Team 2" ng-change="addTeam($select.selected)">
+                            <ui-select-match placeholder="Select Team">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices refresh-delay="0" refresh="getLeagueTeam($select.search)" repeat="team2 in teams | filter: $select.search">
+                              <div ng-bind-html="team2.name | highlight: $select.search"></div>
+                              <small>
+                                  SFA-ID:<span ng-bind-html="team2.sfaid | highlight: $select.search"></span>
+
+                              </small>
+                            </ui-select-choices>
+                        </ui-select>
+                        <button class="btn btn-default" ng-click="addNoMatch(league.participantType,'team2')">No Match</button>
+
+                      </div>
+
+                      <div class="form-group" ng-if="league.participantType == 'player' && statuses.inedit">
+                          <label>Result player 2 *</label>
+                          <select class="form-control" ng-model="league.resultplayer2" >
+                              <option value="">Select status</option>
+                              <option value="Won">Won</option>
+                              <option value="Bye">Bye</option>
+                              <option value="Walkover">Walkover</option>
+                              <option value="No Show">No Show</option>
+                              <option value="Loss">Loss</option>
+                          </select>
+                      </div>
+
+
+                      <div class="form-group" ng-if="league.participantType == 'team' && statuses.inedit">
+                          <label>Result team 2 *</label>
+                          <select class="form-control" ng-model="league.resultteam2">
+                              <option value="">Select status</option>
+                              <option value="Won">Won</option>
+                              <option value="Bye">Bye</option>
+                              <option value="Walkover">Walkover</option>
+                              <option value="No Show">No Show</option>
+                              <option value="Loss">Loss</option>
+                          </select>
+                      </div>
+                      <div class="form-group" >
+                          <label>Date *</label>
+                          <input type="date" placeholder="Date" class="form-control" required  ng-model="league.date" >
+                      </div>
+                      <div class="form-group" >
+                          <label>Start Time</label>
+                          <input type="time" placeholder="Start Time" class="form-control" ng-model="league.startTime" >
+                      </div>
+                      <div class="form-group" >
+                          <label>End Time</label>
+                          <input type="time" placeholder="End Time" class="form-control" ng-model="league.endTime" >
+                      </div>
+                      <div class="form-group" >
+                          <label>Total Time</label>
+                          <input type="text" placeholder="Total Time" class="form-control" ng-model="league.totalTime" >
+                      </div>
+                      <div class="form-group" >
+                          <label>Score</label>
+                          <input type="text" placeholder="Score" class="form-control" ng-model="league.score" >
+                      </div>
+
+
+
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="text-center mt20">
+                            <button class="btn btn-default" type="submit">Save</button>
+                            <button class="btn btn-default" ui-sref="viewleague({id:sportid})">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
