@@ -1047,6 +1047,82 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
 
     })
+    .controller('leagueCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("league");
+        $scope.menutitle = NavigationService.makeactive("League");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.template.type = 1;
+        $scope.contentLoaded = false;
+        $scope.pagination = {};
+        $scope.pagination.pagenumber = 1;
+        $scope.pagination.sport = $stateParams.id;
+        NavigationService.getOneSport($stateParams.id, function(response) {
+            if (response.value) {
+                $scope.selectedsport = response.data;
+            }
+        });
+        $scope.reload = function(val) {
+            if (val === 1) {
+                $scope.pagination.name = "";
+            } else if (val === 2) {
+                $scope.pagination.sfaid = "";
+            }
+            NavigationService.getLimitedLeague($scope.pagination, function(data) {
+                if (data.value !== false) {
+                    $scope.leagues = data.data.data;
+                    $scope.league = data.data;
+                } else {
+                    $scope.teams = {
+                        data: []
+                    };
+                }
+            });
+        };
+        $scope.createNewThirdPlace = function() {
+            var constraints = {};
+            constraints.sport = $stateParams.id;
+            constraints.round = 'Third Place';
+            constraints.roundno = -1;
+            constraints.order = -1;
+            constraints.year = $scope.selectedsport.year;
+            NavigationService.submitLeague(constraints, function(response) {
+                if (response.value) {
+                    $scope.reload();
+                } else {
+
+                }
+            });
+        };
+
+        $scope.reload();
+        $scope.hideStudent = function(id, status) {
+            NavigationService.hideStudent({
+                _id: id,
+                status: status
+            }, function(data2) {
+                console.log(data2);
+                $scope.reload();
+            });
+        };
+        $scope.confDelete = function() {
+            NavigationService.deleteLeague($.jStorage.get("deleteTeam"), function(data, status) {
+                console.log(data);
+                $scope.reload();
+            });
+        };
+        $scope.deleteFunc = function(id) {
+            console.log(id);
+            $.jStorage.set("deleteTeam", id);
+            $uibModal.open({
+                animation: true,
+                templateUrl: "views/content/delete.html",
+                scope: $scope
+            });
+        };
+
+    })
     .controller('medalCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("medal");
@@ -1934,6 +2010,177 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                         id: request.sport
                     });
                     $state.go("viewknockout", {
+                        id: request.sport
+                    });
+                } else {
+                    //error
+                }
+            });
+        };
+
+
+
+    })
+    .controller('createLeagueCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal, $stateParams) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("createleague");
+        $scope.menutitle = NavigationService.makeactive("League");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.league  = {};
+        $scope.statuses = {};
+        $scope.statuses.inedit = false;
+        $scope.sportid = $stateParams.sportid;
+        if ($stateParams.sportid) {
+            NavigationService.getOneSport($stateParams.sportid, function(response) {
+                if (response.value) {
+                    $scope.league.sport = response.data;
+                    $scope.league.year = response.data.year;
+                }
+            });
+        }
+        $scope.addNoMatch = function(participantType, model) {
+            if (participantType == 'player') {
+                NavigationService.getOneStudentByName({
+                    name: "No Match "
+                }, function(response) {
+                    if (response.value) {
+                        $scope.league[model] = response.data;
+                    }
+                });
+            } else {
+                NavigationService.getOneTeamByName({
+                    name: "No Match "
+                }, function(response) {
+                    if (response.value) {
+                        $scope.league[model] = response.data;
+                    }
+                });
+            }
+        };
+        NavigationService.getLastLeague({}, function(response) {
+            if (response.value) {
+                $scope.league.matchid = response.data + 1;
+            }
+        });
+        $scope.getSportsByYear = function() {
+            $scope.sportsList = [];
+
+            NavigationService.getSportsByYear($scope.league, function(response) {
+                if (response.value) {
+                    $scope.sportsList = response.data;
+                } else {
+                    $scope.sportsList = [];
+                }
+            });
+        };
+        $scope.getLastOrder = function() {
+            var constraints = {};
+            constraints = {
+                "year": $scope.league.year,
+                "sport": $scope.league.sport._id,
+                "participantType": $scope.league.participantType,
+                "event": $scope.league.event,
+                "roundno": $scope.league.roundno
+            };
+            NavigationService.getLastOrder(constraints, function(response) {
+                if (response.value) {
+                    $scope.league.order = parseInt(response.data) + 1;
+                } else {
+                    $scope.league.order = 0;
+                }
+            });
+        };
+        $scope.getParticipants = function() {
+            if ($scope.league.year && $scope.league.participantType && $scope.league.sport && $scope.league.sport._id) {
+                if ($scope.league.participantType == "player") {
+                    $scope.getLeaguePlayer("");
+                } else {
+                    $scope.getLeagueTeam("");
+                }
+            }
+        };
+        $scope.getLeaguePlayer = function(search) {
+            $scope.students = [];
+            var constraints = {};
+            constraints.search = search;
+            if (isNaN(search) || search === null || search === undefined || search === "") {
+                constraints.search = search;
+                constraints.sfaid = undefined;
+            } else {
+                constraints.search = undefined;
+                constraints.sfaid = parseInt(search);
+            }
+            if ($scope.league.sport) {
+                constraints.sport = $scope.league.sport.sportslist._id;
+            }
+            if ($scope.league.sport.gender) {
+                constraints.gender = $scope.league.sport.gender;
+            }
+            constraints.year = $scope.league.year.toString();
+            NavigationService.getStudentsbySport(constraints, function(data) {
+                if (data && data.value !== false) {
+                    $scope.students = data.data;
+                } else {
+                    $scope.students = [];
+                }
+            });
+        };
+        $scope.getLeagueTeam = function(search) {
+            $scope.teams = [];
+            var constraints = {};
+            constraints.search = search;
+            if (isNaN(search) || search === null || search === undefined || search === "") {
+                constraints.search = search;
+                constraints.sfaid = undefined;
+            } else {
+                constraints.search = undefined;
+                constraints.sfaid = parseInt(search);
+            }
+            if ($scope.league.sport) {
+                constraints.sport = $scope.league.sport.sportslist._id;
+                // constraints.agegroup = $scope.league.sport.agegroup;
+            }
+            if ($scope.league.sport.gender) {
+                constraints.gender = $scope.league.sport.gender;
+            }
+            constraints.year = $scope.league.year.toString();
+            console.log(constraints);
+            NavigationService.getTeamsbySport(constraints, function(data) {
+                if (data && data.value !== false) {
+                    $scope.teams = data.data;
+                } else {
+                    $scope.teams = [];
+                }
+            });
+        };
+        $scope.submitLeague = function() {
+            console.log($scope.league);
+            var request = {};
+            request = $scope.league;
+            request.sport = $scope.league.sport._id;
+            if ($scope.league.participantType == "player") {
+                if ($scope.league.player1) {
+                    request.player1 = $scope.league.player1._id;
+                }
+                if ($scope.league.player2) {
+                    request.player2 = $scope.league.player2._id;
+                }
+            } else {
+                if ($scope.league.team1) {
+                    request.team1 = $scope.league.team1._id;
+                }
+                if ($scope.league.team2) {
+                    request.team2 = $scope.league.team2._id;
+                }
+            }
+            request.year = $scope.league.year.toString();
+            NavigationService.submitLeague(request, function(data) {
+                if (data.value) {
+                    console.log({
+                        id: request.sport
+                    });
+                    $state.go("viewleague", {
                         id: request.sport
                     });
                 } else {

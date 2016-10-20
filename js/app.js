@@ -117,6 +117,11 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         templateUrl: "views/template.html",
         controller: 'knockoutCtrl'
     })
+    .state('viewleague', {
+        url: "/viewleague/:id",
+        templateUrl: "views/template.html",
+        controller: 'leagueCtrl'
+    })
     .state('viewmedal', {
         url: "/viewmedal/:id",
         templateUrl: "views/template.html",

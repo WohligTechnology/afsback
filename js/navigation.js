@@ -568,6 +568,13 @@ var navigationservice = angular.module('navigationservice', [])
                 data: request
             }).success(callback);
         },
+        getLimitedLeague: function(request, callback) {
+            $http({
+                url: adminURL + 'league/getLimited',
+                method: 'POST',
+                data: request
+            }).success(callback);
+        },
         getMedalBySport: function(request, callback) {
             $http({
                 url: adminURL + 'medal/getAllBySport',
