@@ -1,5 +1,5 @@
 // var adminURL = "http://146.148.42.15:83/api/";
-var adminURL = "http://192.168.0.105:1337/api/";
+var adminURL = "http://192.168.0.107:1337/api/";
 var uploadurl = adminURL + "upload/";
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
 // var openTab = "http://localhost:808/#/showstudent"
