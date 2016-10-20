@@ -15,7 +15,7 @@
 <div class="heading-sec">
    <div class="row">
          <div class="heading-profile text-center">
-            <h2>{{selectedsport.sportslist.name}} {{selectedsport.gender}} {{selectedsport.firstcategory.name}} {{selectedsport.secondcategory.name}} {{selectedsport.thirdcategory.name}} {{selectedsport.agegroup.name}} Knockouts - {{selectedsport.year}}</h2>
+            <h2>{{selectedsport.sportslist.name}} {{selectedsport.gender}} {{selectedsport.firstcategory.name}} {{selectedsport.secondcategory.name}} {{selectedsport.thirdcategory.name}} {{selectedsport.agegroup.name}} Leagues - {{selectedsport.year}}</h2>
          </div>
    </div>
 </div>
@@ -27,11 +27,11 @@
             <div class="table-area">
                <div class="widget-title">
                   <div class="pull-right">
-                     <a class="btn btn-default" ui-sref="knockoutsport({id:selectedsport.sportslist._id})">< Back to {{selectedsport.sportslist.name}}</a>
-                     <a class="btn btn-primary" ng-if="selectedsport" ng-click="createNewThirdPlace();">Add Third Place</a>
-                     <a class="btn btn-primary" ng-if="selectedsport" ui-sref="createknockout({sportid:selectedsport._id})">Add New</a>
+                     <a class="btn btn-default" ui-sref="leaguesport({id:selectedsport.sportslist._id})">< Back to {{selectedsport.sportslist.name}}</a>
+                     <!-- <a class="btn btn-primary" ng-if="selectedsport" ng-click="createNewThirdPlace();">Add Third Place</a> -->
+                     <a class="btn btn-primary" ng-if="selectedsport" ui-sref="createleague({sportid:selectedsport._id})">Add New</a>
                   </div>
-                  <h3>List of Knockouts</h3>
+                  <h3>List of Leagues</h3>
                </div>
                <div class="table-responsive">
                   <table class="table" >
@@ -39,19 +39,18 @@
                         <tr>
                            <th>#</th>
                            <th>Match ID</th>
-                           <th>Knockout Details</th>
                            <th>Participant 1</th>
                            <th>R 1</th>
+                           <th>P 1</th>
                            <th>Participant 2</th>
                            <th>R 2</th>
-                           <th>Round Name</th>
-                           <th>Round No</th>
-                           <th>Order</th>
+                           <th>P 2</th>
+
                            <th >Score</th>
                            <th class="text-center" colspan="2">Operations</th>
                         </tr>
                      </thead>
-                     <tbody ng-if="knockouts.length>0">
+                     <tbody ng-if="leagues.length>0">
                         <!-- <tr>
                            <td>Search By :</td>
                            <td>
@@ -66,24 +65,24 @@
                               </ui-select>
                            </td>
                         </tr> -->
-                        <tr ng-repeat="value in knockouts | filter:search">
+                        <tr ng-repeat="value in leagues | filter:search">
                            <td>{{$index+1}}</td>
                            <td>{{value.matchid}}</td>
-                           <td>{{value.sport.sportslist.name}} {{value.sport.gender}} {{value.sport.agegroup.name}}</td>
-                           <td ng-if="value.participantType == 'player'">{{value.player1.name || 'Not Declared' | letterLimit :13}}</td>
-                           <td ng-if="value.participantType == 'player'">{{value.resultplayer1 || 'Not Declared'}}</td>
+                           <td ng-if="value.participantType == 'player'">{{value.player1.name  | letterLimit :13}}</td>
+                           <td ng-if="value.participantType == 'player'">{{value.result1 || 'Not Declared'}}</td>
+                           <td ng-if="value.participantType == 'player'">{{value.point1 || 'Not Declared'}}</td>
                            <td ng-if="value.participantType == 'player'">{{value.player2.name || 'Not Declared' | letterLimit :13 }}</td>
-                           <td ng-if="value.participantType == 'player'">{{value.resultplayer2 || 'Not Declared'}}</td>
+                           <td ng-if="value.participantType == 'player'">{{value.result2 || 'Not Declared'}}</td>
+                           <td ng-if="value.participantType == 'player'">{{value.point2 || 'Not Declared'}}</td>
                            <td ng-if="value.participantType == 'team'">{{value.team1.name || 'Not Declared' | letterLimit :15}}</td>
-                           <td ng-if="value.participantType == 'team'">{{value.resultteam1 || 'Not Declared'}}</td>
+                           <td ng-if="value.participantType == 'team'">{{value.result1 || 'Not Declared'}}</td>
+                           <td ng-if="value.participantType == 'team'">{{value.point1 || 'Not Declared'}}</td>
                            <td ng-if="value.participantType == 'team'">{{value.team2.name || 'Not Declared' | letterLimit :15 }}</td>
-                           <td ng-if="value.participantType == 'team'">{{value.resultteam2 || 'Not Declared'}}</td>
-                           <td ng-class="{'bckgrnd-grey':value.round == 'Third Place'}">{{value.round}}</td>
-                           <td>{{value.roundno}}</td>
-                           <td>{{value.order}}</td>
+                           <td ng-if="value.participantType == 'team'">{{value.result2 || 'Not Declared'}}</td>
+                           <td ng-if="value.participantType == 'team'">{{value.point2 || 'Not Declared'}}</td>
                            <td ng-class="{'bckgrnd-red':!value.score}">{{value.score}}</td>
                            <td class="text-center">
-                              <a ui-sref="editknockout({id:value._id,sportid:selectedsport._id})" class="btn btn-primary">
+                              <a ui-sref="editleague({id:value._id,sportid:selectedsport._id})" class="btn btn-primary">
                                  <i class="fa fa-pencil-square-o"></i>
                               </a>
                            </td>
@@ -95,11 +94,11 @@
                         </tr>
                      </tbody>
                   </table>
-                  <div class="text-center" ng-if="knockouts.length==0">
-                     <h5>No knockouts found</h5>
+                  <div class="text-center" ng-if="leagues.length==0">
+                     <h5>No leagues found</h5>
                   </div>
                   <div class="">
-                      <uib-pagination ng-show="knockout.data.length > 0" ng-change="reload();" total-items="knockout.total" ng-model="pagination.pagenumber" items-per-page="20">
+                      <uib-pagination ng-show="league.data.length > 0" ng-change="reload();" total-items="league.total" ng-model="pagination.pagenumber" items-per-page="20">
 
                       </uib-pagination>
                   </div>

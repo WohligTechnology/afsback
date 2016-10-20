@@ -17,7 +17,7 @@
                         <div class="mt20 my-btn" ng-repeat="item in sport.sports" >
                           <h5>{{item.agegroup}}</h5 >
 
-                           <button class="btn btn-default" ng-repeat="single in item.sports"  ui-sref="viewknockout({id:single._id})">{{single.gender}} {{single.firstcategory.name}} {{single.secondcategory.name}} {{single.thirdcategory.name}}</button><br>
+                           <button class="btn btn-default" ng-repeat="single in item.sports"  ui-sref="viewleague({id:single._id})">{{single.gender}} {{single.firstcategory.name}} {{single.secondcategory.name}} {{single.thirdcategory.name}}</button><br>
 
                         </div>
                     </div>

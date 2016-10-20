@@ -308,6 +308,13 @@ var navigationservice = angular.module('navigationservice', [])
                 data: request
             }).success(callback);
         },
+        getLastLeague: function(request, callback) {
+            $http({
+                url: adminURL + 'league/getLastLeague',
+                method: 'POST',
+                data: request
+            }).success(callback);
+        },
         getAllFirstCategories: function(callback) {
             $http({
                 url: adminURL + 'firstcategory/getAll',

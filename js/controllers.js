@@ -1384,37 +1384,30 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
         $scope.getOneSport($stateParams.id);
         $scope.leagueSports = function(constraints) {
-            $scope.sports = [];
-            NavigationService.leagueSports(constraints, function(response) {
-                if (response.value) {
-                    $scope.sports = _.chain(response.data)
-                        .groupBy("year")
-                        .toPairs()
-                        .map(function(currentItem) {
-                            return _.zipObject(["year", "sports"], currentItem);
-                        })
-                        .value();
-                    _.each($scope.sports, function(key) {
-                        key.sports = _.chain(key.sports)
-                            .groupBy("agegroup.name")
-                            .toPairs()
-                            .map(function(currentItem) {
-                                return _.zipObject(["agegroup", "sports"], currentItem);
-                            }).value();
-                        _.each(key.sports, function(iteratee) {
-                            iteratee.sports = _.chain(iteratee.sports)
-                                .groupBy("gender")
-                                .toPairs()
-                                .map(function(currentItem) {
-                                    return _.zipObject(["gender", "sports"], currentItem);
-                                }).value();
-                        });
-                    });
-                    console.log($scope.sports);
-                }
-            });
-        };
+          $scope.sports = [];
+          NavigationService.knockoutSports(constraints, function(response) {
+              if (response.value) {
+                  $scope.sports = _.chain(response.data)
+                      .groupBy("year")
+                      .toPairs()
+                      .map(function(currentItem) {
+                          return _.zipObject(["year", "sports"], currentItem);
+                      })
+                      .value();
+                  _.each($scope.sports, function(key) {
+                      key.sports = _.chain(key.sports)
+                          .groupBy("agegroup.name")
+                          .toPairs()
+                          .map(function(currentItem) {
+                              return _.zipObject(["agegroup", "sports"], currentItem);
+                          })
+                          .value();
 
+                  });
+                  console.log($scope.sports);
+              }
+          });
+        };
     })
     .controller('heatSportCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams) {
         //Used to name the .html file
