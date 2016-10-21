@@ -1,5 +1,5 @@
 // var adminURL = "http://146.148.42.15:83/api/";
-var adminURL = "http://192.168.0.107:1337/api/";
+var adminURL = "http://192.168.1.100:1337/api/";
 var uploadurl = adminURL + "upload/";
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
 // var openTab = "http://localhost:808/#/showstudent"
@@ -765,6 +765,13 @@ var navigationservice = angular.module('navigationservice', [])
         submitKnockout: function(request, callback) {
             $http({
                 url: adminURL + 'knockout/saveData',
+                method: 'POST',
+                data: request
+            }).success(callback);
+        },
+        submitLeague: function(request, callback) {
+            $http({
+                url: adminURL + 'league/saveData',
                 method: 'POST',
                 data: request
             }).success(callback);

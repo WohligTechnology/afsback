@@ -922,13 +922,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.template.type = 1;
         $scope.contentLoaded = false;
         $scope.pagination = {};
+        $scope.filter = {};
         $scope.pagination.pagenumber = 1;
         $scope.adminURL = adminURL;
-        $scope.reload = function(val) {
-            if (val === 1) {
-                $scope.pagination.name = "";
-            } else if (val === 2) {
-                $scope.pagination.sfaid = "";
+        $scope.reload = function(search) {
+            if (isNaN(search) || search === '') {
+                $scope.pagination.name = search;
+                $scope.pagination.sfaid = undefined;
+            } else {
+              $scope.pagination.sfaid = parseInt(search);
+                $scope.pagination.name = undefined;
             }
             NavigationService.getLimitedTeam($scope.pagination, function(data) {
                 if (data.value !== false) {

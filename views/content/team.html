@@ -47,10 +47,10 @@
                      </thead>
                      <tbody >
                         <tr>
-                          <td></td>
-                           <td>Search By :</td>
-                           <td>
-                              <input type="text" placeholder="Name" class="form-control" ng-change="reload(pagination)" ng-model="pagination.name">
+                          <td>Search By :</td>
+                           <!-- <td>SFAID or Name</td> -->
+                           <td colspan="2">
+                              <input type="text" placeholder="SFAID or Name" class="form-control" ng-change="reload(filter.search)" ng-model="filter.search" >
                               <!-- <ui-select ng-model="selected.value">
                                  <ui-select-match>
                                     <span ng-bind="$select.selected.name"></span>
