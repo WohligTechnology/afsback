@@ -39,12 +39,13 @@
                         <tr>
                            <th>#</th>
                            <th>Match ID</th>
+                           <th>Participant Type</th>
                            <th>Participant 1</th>
-                           <th>R 1</th>
-                           <th>P 1</th>
+                           <th>Result 1</th>
+                           <th>Points 1</th>
                            <th>Participant 2</th>
-                           <th>R 2</th>
-                           <th>P 2</th>
+                           <th>Result 2</th>
+                           <th>Points 2</th>
 
                            <th >Score</th>
                            <th class="text-center" colspan="2">Operations</th>
@@ -68,6 +69,7 @@
                         <tr ng-repeat="value in leagues | filter:search">
                            <td>{{$index+1}}</td>
                            <td>{{value.matchid}}</td>
+                           <td>{{value.participantType == 'player' && 'Student' || 'Team'}}</td>
                            <td ng-if="value.participantType == 'player'">{{value.player1.name  | letterLimit :13}}</td>
                            <td ng-if="value.participantType == 'player'">{{value.result1 || 'Not Declared'}}</td>
                            <td ng-if="value.participantType == 'player'">{{value.point1 || 'Not Declared'}}</td>

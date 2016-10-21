@@ -1,5 +1,5 @@
-// var adminURL = "http://146.148.42.15:83/api/";
-var adminURL = "http://192.168.1.100:1337/api/";
+var adminURL = "http://146.148.42.15:83/api/";
+// var adminURL = "http://192.168.0.104:1337/api/";
 var uploadurl = adminURL + "upload/";
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
 // var openTab = "http://localhost:808/#/showstudent"
@@ -418,6 +418,15 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
+        getOneLeague: function(request, callback) {
+            $http({
+                url: adminURL + 'league/getOne',
+                method: 'POST',
+                data: {
+                  _id : request.id
+                }
+            }).success(callback);
+        },
         getOneHeat: function(request, callback) {
             $http({
                 url: adminURL + 'heat/getOne',
@@ -688,6 +697,15 @@ var navigationservice = angular.module('navigationservice', [])
         deleteHeat: function(id, callback) {
             $http({
                 url: adminURL + 'heat/deleteData',
+                method: 'POST',
+                data: {
+                    _id: id
+                }
+            }).success(callback);
+        },
+        deleteLeague: function(id, callback) {
+            $http({
+                url: adminURL + 'league/deleteData',
                 method: 'POST',
                 data: {
                     _id: id
