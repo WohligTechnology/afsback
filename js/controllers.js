@@ -4390,6 +4390,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             if ($scope.sportrule.toDate) {
                 $scope.sportrule.toDate = new Date($scope.sportrule.toDate);
             }
+            if ($scope.sportrule.lastDate) {
+                $scope.sportrule.lastDate = new Date($scope.sportrule.lastDate);
+            }
             if ($scope.sportrule.eligibilityTable && $scope.sportrule.eligibilityTable.length > 0) {
                 _.each($scope.sportrule.eligibilityTable, function(n) {
                     if (n.date) {
