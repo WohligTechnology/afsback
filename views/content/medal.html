@@ -28,7 +28,7 @@
                <div class="widget-title">
                   <div class="pull-right">
                      <a class="btn btn-default" ui-sref="medalsport({id:selectedsport.sportslist._id})">< Back to {{selectedsport.sportslist.name}}</a>
-                     <a class="btn btn-primary" ui-sref="createmedal({sportid:selectedsport._id})">Add New</a>
+                     <a class="btn btn-primary" ui-sref="createmedal({sportid:selectedsport._id})"><i class="fa fa-plus"></i>&nbsp;Add New</a>
                   </div>
                   <h3>List of Medals</h3>
                </div>
@@ -72,7 +72,7 @@
                            <td>{{value.school.totalPoints2016}}</td>
                            <!-- <td>{{value.school.totalPoints2017}}</td> -->
                            <td>{{(value.medal == 1 && 'Gold')|| (value.medal == 2 && 'Silver') || (value.medal == 3 && 'Bronze')}}</td>
-                           
+
                            <td class="text-center">
                               <a ng-if="!value.isAddedFromTeam" ng-click="deleteFunc(value._id)" class="btn btn-primary">
                                  <i class="fa fa-trash"></i>

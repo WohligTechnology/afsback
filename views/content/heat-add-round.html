@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="pull-left mt18">
-                                        <button type="submit" class="btn btn-primary" >Add Round</button>
+                                        <button type="submit" class="btn btn-primary" ><i class="fa fa-plus"></i>&nbsp;Add Round</button>
                                     </div>
                                     <div class="pull-right mt18">
                                         <a class="btn btn-default" ui-sref="heatsport({id:selectedsport.sportslist._id})">< Back to {{selectedsport.sportslist.name}}</a>
@@ -48,7 +48,7 @@
 
                         <div class="widget-title w-title">
                             <div class="pull-right">
-                                <a class="btn btn-primary" ui-sref="createheat({'sportid':selectedsport._id,'round':heat.round,'order':heat.order})">Add Heat</a>
+                                <a class="btn btn-primary" ui-sref="createheat({'sportid':selectedsport._id,'round':heat.round,'order':heat.order})"><i class="fa fa-plus"></i>&nbsp;Add Heat</a>
                             </div>
                             <h3 class="text-uppercase">#{{heat.order}} {{heat.round}}</h3>
                         </div>

@@ -32,8 +32,8 @@
                      <upload-excel button-text="buttonText" ng-model="profilePic" no-view uploadhere="uploadurl" ng-callback = "thismodel" current-state="cs" ></upload-excel>
 
 
-                     <a class="btn btn-primary" ng-if="selectedsport" ng-click="createNewThirdPlace();">Add Third Place</a>
-                     <a class="btn btn-primary" ng-if="selectedsport" ui-sref="createknockout({sportid:selectedsport._id})">Add New</a>
+                     <a class="btn btn-primary" ng-if="selectedsport" ng-click="createNewThirdPlace();"><i class="fa fa-plus"></i>&nbsp; Add Third Place</a>
+                     <a class="btn btn-primary" ng-if="selectedsport" ui-sref="createknockout({sportid:selectedsport._id})"><i class="fa fa-plus"></i>&nbsp; Add New</a>
                   </div>
                   <h3>List of Knockouts</h3>
                </div>
