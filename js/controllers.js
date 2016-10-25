@@ -48,7 +48,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         console.log(data);
         $scope.static = data.data;
     });
-
     $scope.onChange = function() {
         NavigationService.countForDashboard($scope.dash.year, function(data) {
             console.log(data);
@@ -983,6 +982,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.template.type = 1;
         $scope.contentLoaded = false;
         $scope.pagination = {};
+        $scope.adminURL = adminURL;
+        $scope.uploadurl = adminURL + "knockout/updateVideoURL/";
+        $scope.buttonText = "Update Video URLs";
         $scope.pagination.pagenumber = 1;
         $scope.pagination.sport = $stateParams.id;
         NavigationService.getOneSport($stateParams.id, function(response) {
@@ -3561,6 +3563,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.template.type = 1;
         $scope.pagination = {};
         $scope.adminURL = adminURL;
+        $scope.buttonText = "Upload Media";
         $scope.cs = $state;
         $scope.uploadurl = adminURL + "media/uploadMedia/";
         // $scope.yefunctioncallkiya = function () {
