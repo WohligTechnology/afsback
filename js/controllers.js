@@ -3563,7 +3563,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.template.type = 1;
         $scope.pagination = {};
         $scope.adminURL = adminURL;
-        $scope.buttonText = "Upload Media";
+        $scope.buttonText = "Upload Media Excel";
         $scope.cs = $state;
         $scope.uploadurl = adminURL + "media/uploadMedia/";
         // $scope.yefunctioncallkiya = function () {
