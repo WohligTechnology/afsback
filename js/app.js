@@ -442,7 +442,7 @@ firstapp.directive('capitalizeFirst', function($parse) {
                     modelCtrl.$render();
                 }
                 return capitalized;
-            }
+            };
             modelCtrl.$parsers.push(capitalize);
             capitalize($parse(attrs.ngModel)(scope)); // capitalize initial value
         }
