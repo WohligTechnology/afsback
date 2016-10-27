@@ -3712,7 +3712,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     }
 })
 
-.controller('sportCtrl', function($scope, TemplateService, NavigationService, $timeout) {
+.controller('sportCtrl', function($scope, TemplateService, NavigationService, $timeout,$uibModal) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("sport");
     $scope.menutitle = NavigationService.makeactive("Sports");
@@ -3731,11 +3731,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     // }
     // reload();
     //
-    // $scope.deleteFunc = function(id) {
-    //     NavigationService.deleteSport(id, function(data2) {
-    //         reload();
-    //     });
-    // };
+    $scope.deleteFunc = function(id) {
+        NavigationService.deleteSport(id, function(data2) {
+            $scope.reload();
+        });
+    };
     $scope.contentLoaded = false;
     $scope.pagination = {};
     $scope.pagination.pagenumber = 1;
