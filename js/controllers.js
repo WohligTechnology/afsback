@@ -979,7 +979,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
 
     })
-    .controller('knockoutCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams) {
+    .controller('knockoutCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams,$state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("knockout");
         $scope.menutitle = NavigationService.makeactive("Knockout");
