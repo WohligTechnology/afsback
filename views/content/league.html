@@ -70,7 +70,7 @@
                            <td>{{$index+1}}</td>
                            <td>{{value.matchid}}</td>
                            <td>{{value.participantType == 'player' && 'Student' || 'Team'}}</td>
-                           <td ng-if="value.participantType == 'player'">{{value.player1.name  | letterLimit :13}}</td>
+                           <td ng-if="value.participantType == 'player'">{{value.player1.name || 'Not Declared' | letterLimit :13}}</td>
                            <td ng-if="value.participantType == 'player'">{{value.result1 || 'Not Declared'}}</td>
                            <td ng-if="value.participantType == 'player'">{{value.point1 || 'Not Declared'}}</td>
                            <td ng-if="value.participantType == 'player'">{{value.player2.name || 'Not Declared' | letterLimit :13 }}</td>
