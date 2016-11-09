@@ -2622,6 +2622,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     //     $scope.getSportsByYearHeat();
                     //   }
                     // });
+                    if($scope.heat.date){
+                      $scope.heat.date = new Date($scope.heat.date);
+                    }
                 } else {
 
                 }
@@ -2662,9 +2665,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     $scope.heat.sport = response.data;
                     $scope.heat.year = response.data.year;
                     $scope.getSportsByYearHeat();
-                    for (var i = 0; i < 8; i++) {
-                        $scope.heat.heats.push({});
-                    }
+                    // for (var i = 0; i < 8; i++) {
+                    //     $scope.heat.heats.push({});
+                    // }
                     console.log($scope.heat.heats);
                 }
             });
@@ -2921,8 +2924,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             NavigationService.getOneKnockout($stateParams, function(response) {
                 if (response.value) {
                     $scope.knockout = response.data;
+                    if($scope.knockout.date)
                     $scope.knockout.date = new Date($scope.knockout.date);
+                    if($scope.knockout.startTime)
                     $scope.knockout.startTime = new Date($scope.knockout.startTime);
+                    if($scope.knockout.endTime)
                     $scope.knockout.endTime = new Date($scope.knockout.endTime);
                     // $scope.getParticipants();
                     $scope.getKnockoutPlayer("");
