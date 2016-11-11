@@ -107,6 +107,11 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         templateUrl: "views/template.html",
         controller: 'heatAddRoundCtrl'
     })
+    .state('swissaddround', {
+        url: "/swissaddround/:id",
+        templateUrl: "views/template.html",
+        controller: 'swissAddRoundCtrl'
+    })
     .state('team', {
         url: "/team",
         templateUrl: "views/template.html",

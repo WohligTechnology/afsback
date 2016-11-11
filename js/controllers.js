@@ -231,6 +231,77 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
         $scope.getHeats();
     })
+    .controller('swisAddRoundCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams,$state) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("swis-add-round");
+        $scope.menutitle = NavigationService.makeactive("Heats");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.template.type = 1;
+        $scope.contentLoaded = false;
+        $scope.schools = [];
+        $scope.swis = {};
+        $scope.adminURL = adminURL;
+        $scope.cs = $state;
+        $scope.uploadurl = adminURL + "swis/updateVideoURL/";
+
+        $scope.buttonText = "Update Video URLs";
+
+        $scope.swis.sport = $stateParams.id;
+        $scope.pagination = {};
+        $scope.pagination.pagenumber = 1;
+        NavigationService.getOneSport($stateParams.id, function(response) {
+            if (response.value) {
+                $scope.selectedsport = response.data;
+                $scope.swis.year = $scope.selectedsport.year;
+            }
+        });
+        $scope.addRound = function() {
+
+            NavigationService.saveHeat($scope.swis, function(response) {
+                if (response.value) {
+                    $scope.swis.order = null;
+                    $scope.swis.round = null;
+                    $scope.getHeats();
+                } else {
+
+                }
+            });
+        };
+        $scope.confDelete = function() {
+            NavigationService.deleteHeat($.jStorage.get("deleteTeam"), function(data, status) {
+                console.log(data);
+                $scope.getHeats();
+            });
+        };
+        $scope.deleteFunc = function(id) {
+            console.log(id);
+            $.jStorage.set("deleteTeam", id);
+            $uibModal.open({
+                animation: true,
+                templateUrl: "views/content/delete.html",
+                scope: $scope
+            });
+        };
+        $scope.getHeats = function() {
+            NavigationService.getHeats({
+                sport: $stateParams.id
+            }, function(response) {
+                if (response.value) {
+                    $scope.swiss = _.chain(response.data)
+                        .groupBy("round")
+                        .toPairs()
+                        .map(function(currentItem) {
+                            currentItem[2] = currentItem[1][0].order;
+                            return _.zipObject(["round", "swiss", "order"], currentItem);
+                        })
+                        .value();
+                    console.log($scope.swiss);
+                }
+            });
+        };
+        $scope.getHeats();
+    })
 
 .controller('createSchoolCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal) {
     //Used to name the .html file
@@ -1456,7 +1527,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             NavigationService.getOneSportList(id, function(response) {
                 if (response.value) {
                     $scope.sportSelected = response.data;
-                    $scope.swissSports($stateParams);
+                    $scope.swissSports({
+                      sportlist:$stateParams.id,
+                drawFormat:"Swiss League"
+                    });
                 }
             });
         };
