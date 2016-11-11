@@ -100,7 +100,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr ng-repeat="detail in swissleague.SwissLeagues">
+                                                    <tr ng-repeat="detail in swissleague.heats">
                                                         <!-- <td><input type="text" placeholder="ID {{$index +1}}" class="form-control" required ng-model="detail.id" only-digits></td> -->
                                                         <td ng-if="swissleague.participantType == 'player'">
                                                             <div class="form-group">
@@ -148,7 +148,7 @@
                     <div class="col-md-12">
                         <div class="text-center mt20">
                             <button class="btn btn-default" type="submit">Save</button>
-                            <button class="btn btn-default" ui-sref="SwissLeagueaddround({id:sportid})">Cancel</button>
+                            <button class="btn btn-default" ui-sref="heataddround({id:sportid})">Cancel</button>
                         </div>
                     </div>
                 </div>
