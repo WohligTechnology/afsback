@@ -618,6 +618,13 @@ var navigationservice = angular.module('navigationservice', [])
                 data: request
             }).success(callback);
         },
+        getSwissLeague: function(request, callback) {
+            $http({
+                url: adminURL + 'swissleague/getAll',
+                method: 'POST',
+                data: request
+            }).success(callback);
+        },
         getLimitedSchool: function(data, callback) {
             $http({
                 url: adminURL + 'school/getLimited',
@@ -817,6 +824,13 @@ var navigationservice = angular.module('navigationservice', [])
         saveHeat: function(request, callback) {
             $http({
                 url: adminURL + 'heat/saveData',
+                method: 'POST',
+                data: request
+            }).success(callback);
+        },
+        saveSwissLeague: function(request, callback) {
+            $http({
+                url: adminURL + 'swissleague/saveData',
                 method: 'POST',
                 data: request
             }).success(callback);

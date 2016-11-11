@@ -2,7 +2,7 @@
     <div class="row">
         <!-- <div class="col-md-4 column"> -->
         <div class="heading-profile text-center">
-            <h2>{{selectedsport.sportslist.name}} {{selectedsport.gender}} {{selectedsport.firstcategory.name}} {{selectedsport.secondcategory.name}} {{selectedsport.thirdcategory.name}} {{selectedsport.agegroup.name}} Heats - {{selectedsport.year}}</h2>
+            <h2>{{selectedsport.sportslist.name}} {{selectedsport.gender}} {{selectedsport.firstcategory.name}} {{selectedsport.secondcategory.name}} {{selectedsport.thirdcategory.name}} {{selectedsport.agegroup.name}} Swiss Leagues - {{selectedsport.year}}</h2>
         </div>
         <!-- </div> -->
     </div>
@@ -24,11 +24,11 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <span><b>Order</b></span>
-                                        <input type="text" placeholder="Order" name="order" class="form-control w20" ng-model="heat.order" only-digits required>
+                                        <input type="text" placeholder="Order" name="order" class="form-control w20" ng-model="swissleague.order" only-digits required>
                                     </div>
                                     <div class="col-md-2">
                                         <span><b>Round</b></span>
-                                        <input type="text" placeholder="Round Name" name="round" class="form-control" ng-model="heat.round" required>
+                                        <input type="text" placeholder="Round Name" name="round" class="form-control" ng-model="swissleague.round" required>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="pull-right mt18">
@@ -39,7 +39,7 @@
                                         <!-- <div class="pull-right mt18">
 
 
-                                            <a class="btn btn-default" ui-sref="heatsport({id:selectedsport.sportslist._id})">
+                                            <a class="btn btn-default" ui-sref="swissleaguesport({id:selectedsport.sportslist._id})">
                                                 < Back to {{selectedsport.sportslist.name}}</a>
                                         </div> -->
                                     </div>
@@ -47,10 +47,10 @@
                                         <div class="pull-right mt18">
 
 
-                                            <a class="btn btn-default" ui-sref="heatsport({id:selectedsport.sportslist._id})">
+                                            <a class="btn btn-default" ui-sref="swissleaguesport({id:selectedsport.sportslist._id})">
                                                 < Back to {{selectedsport.sportslist.name}}</a>
 
-                                                    <a class="btn btn-info" href="{{adminURL}}heat/exportHeat?sport={{heat.sport}}"><i class="fa fa-download"></i>&nbsp; Heats</a>
+                                                    <a class="btn btn-info" href="{{adminURL}}swissleague/exportSwiss League?sport={{swissleague.sport}}"><i class="fa fa-download"></i>&nbsp; Swiss Leagues</a>
                                                     <upload-excel button-text="buttonText" ng-model="profilePic" no-view uploadhere="uploadurl" ng-callback="thismodel" current-state="cs"></upload-excel>
                                         </div>
                                     </div>
@@ -59,16 +59,16 @@
 
                         </div>
                     </div>
-                    <div class="main-dv mt50" ng-repeat="heat in heats | orderBy:'-order'">
+                    <div class="main-dv mt50" ng-repeat="swissleague in swissleagues | orderBy:'-order'">
 
 
                         <div class="widget-title w-title">
                             <div class="pull-right">
-                                <a class="btn btn-primary" ui-sref="createheat({'sportid':selectedsport._id,'round':heat.round,'order':heat.order})"><i class="fa fa-plus"></i>&nbsp;Add Heat</a>
+                                <a class="btn btn-primary" ui-sref="createswissleague({'sportid':selectedsport._id,'round':swissleague.round,'order':swissleague.order})"><i class="fa fa-plus"></i>&nbsp;Add Swiss League</a>
                             </div>
-                            <h3 class="text-uppercase">#{{heat.order}} {{heat.round}}</h3>
+                            <h3 class="text-uppercase">#{{swissleague.order}} {{swissleague.round}}</h3>
                         </div>
-                        <div class="heat-body">
+                        <div class="swissleague-body">
                             <div class="">
                                 <!-- <div class="widget-title">
                                     <div class="pull-right">
@@ -82,23 +82,23 @@
                                         <thead>
                                             <tr>
                                                 <th>Match ID</th>
-                                                <th>Heat</th>
+                                                <th>Swiss League</th>
                                                 <th class="text-center" colspan="2">Operations</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr ng-repeat="singleheat in heat.heats">
-                                                <td>{{singleheat.matchid}}</td>
+                                            <tr ng-repeat="singleswissleague in swissleague.swissleagues">
+                                                <td>{{singleswissleague.matchid}}</td>
                                                 <td>
-                                                    {{singleheat.name}}
+                                                    {{singleswissleague.name}}
                                                 </td>
                                                 <td class="text-center">
-                                                    <a ui-sref="editheat({id:singleheat._id,sportid:singleheat.sport,round:heat.round,order:heat.order})" class="btn btn-primary">
+                                                    <a ui-sref="editswissleague({id:singleswissleague._id,sportid:singleswissleague.sport,round:swissleague.round,order:swissleague.order})" class="btn btn-primary">
                                                         <i class="fa fa-pencil-square-o"></i>
                                                     </a>
                                                 </td>
                                                 <td class="text-center">
-                                                    <a ng-click="deleteFunc(singleheat._id)" class="btn btn-primary">
+                                                    <a ng-click="deleteFunc(singleswissleague._id)" class="btn btn-primary">
                                                         <i class="fa fa-trash"></i>
                                                     </a>
                                                 </td>
