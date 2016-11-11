@@ -2909,68 +2909,22 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.statuses.inedit = false;
         $scope.swissleague.event = "Swiss League";
         $scope.sportid = $stateParams.sportid;
-        $scope.getSportsByYearHeat = function() {
-            $scope.sportsList = [];
-
-            NavigationService.getSportsByYearHeat($scope.heat, function(response) {
-                if (response.value) {
-                    $scope.sportsList = response.data;
-                } else {
-                    $scope.sportsList = [];
-                }
-            });
-        };
         if ($stateParams.sportid) {
             NavigationService.getOneSport($stateParams.sportid, function(response) {
                 if (response.value) {
-                    $scope.heat.sport = response.data;
-                    $scope.heat.year = response.data.year;
-                    $scope.getSportsByYearHeat();
-                    // for (var i = 0; i < 8; i++) {
-                    //     $scope.heat.heats.push({});
-                    // }
-                    console.log($scope.heat.heats);
+                    $scope.swissleague.sport = response.data;
+                    $scope.swissleague.year = response.data.year;
                 }
             });
         }
         if ($stateParams.round) {
-            $scope.heat.round = $stateParams.round;
+            $scope.swissleague.round = $stateParams.round;
         }
         if ($stateParams.order) {
-            $scope.heat.order = $stateParams.order;
-            console.log($scope.heat.order);
-            console.log(parseInt($scope.heat.order));
+            $scope.swissleague.order = $stateParams.order;
         }
-        $scope.getHeatTeam = function(search) {
-            $scope.teams = [];
-            var constraints = {};
-            constraints.search = search;
-            if (isNaN(search) || search === null || search === undefined || search === "") {
-                constraints.search = search;
-                constraints.sfaid = undefined;
-            } else {
-                constraints.search = undefined;
-                constraints.sfaid = parseInt(search);
-            }
-            if ($scope.heat.sport) {
-                constraints.sport = $scope.heat.sport.sportslist._id;
-                // constraints.agegroup = $scope.heat.sport.agegroup;
-            }
-            if ($scope.heat.sport.gender) {
-                constraints.gender = $scope.heat.sport.gender;
-            }
-            constraints.year = $scope.heat.year.toString();
-            console.log(constraints);
-            NavigationService.getTeamsbySport(constraints, function(data) {
-                if (data && data.value !== false) {
-                    $scope.teams = data.data;
-                } else {
-                    $scope.teams = [];
-                }
-            });
-        };
 
-        $scope.getHeatPlayer = function(search) {
+        $scope.getSwissLeaguePlayer = function(search) {
             $scope.students = [];
             var constraints = {};
             constraints.search = search;
@@ -2981,13 +2935,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 constraints.search = undefined;
                 constraints.sfaid = parseInt(search);
             }
-            if ($scope.heat.sport) {
-                constraints.sport = $scope.heat.sport.sportslist._id;
+            if ($scope.swissleague.sport) {
+                constraints.sport = $scope.swissleague.sport.sportslist._id;
             }
-            if ($scope.heat.sport.gender) {
-                constraints.gender = $scope.heat.sport.gender;
+            if ($scope.swissleague.sport.gender) {
+                constraints.gender = $scope.swissleague.sport.gender;
             }
-            constraints.year = $scope.heat.year.toString();
+            constraints.year = $scope.swissleague.year.toString();
             NavigationService.getStudentsbySport(constraints, function(data) {
                 if (data && data.value !== false) {
                     $scope.students = data.data;
