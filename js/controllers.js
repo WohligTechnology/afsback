@@ -2942,6 +2942,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 constraints.gender = $scope.swissleague.sport.gender;
             }
             constraints.year = $scope.swissleague.year.toString();
+            console.log(constraints);
             NavigationService.getStudentsbySport(constraints, function(data) {
                 if (data && data.value !== false) {
                     $scope.students = data.data;
@@ -2950,19 +2951,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }
             });
         };
-        $scope.submitHeat = function() {
-            console.log($scope.heat);
-            var request = $scope.heat;
-            request.sport = $scope.heat.sport._id;
-
-            request.heats = _.map(request.heats, function(key) {
-                console.log(key);
-                key[request.participantType] = key[request.participantType]._id;
-                return key;
-            });
-            NavigationService.saveHeat(request, function(response) {
+        $scope.submitSwissLeague = function() {
+            console.log($scope.swissleague);
+            var request = $scope.swissleague;
+            request.sport = $scope.swissleague.sport._id;
+            if($scope.swissleague.player1){
+              request.player1 = $scope.swissleague.player1._id;
+            }
+            if($scope.swissleague.player2){
+              request.player2 = $scope.swissleague.player2._id;
+            }
+            NavigationService.saveSwissLeague(request, function(response) {
                 if (response.value) {
-                    $state.go('heataddround', {
+                    $state.go('swissaddround', {
                         id: request.sport
                     });
                 } else {
