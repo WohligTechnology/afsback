@@ -45,7 +45,29 @@
                     <div class="col-md-3">
                         <div class="">
                             <label style="padding: 10px; margin: 0; width: 100%" for="year">Year</label>
-                            <select id="year" class="form-control" ng-model="dash.year" ng-options="year for year in allYears" ng-change="onChange();">
+                            <select id="year" class="form-control" ng-model="filter.year" ng-options="year for year in dropdowns.year" ng-change="exportIt();">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="">
+                            <label style="padding: 10px; margin: 0; width: 100%" for="year">Sport</label>
+                            <select id="year" class="form-control" ng-model="filter.sport" ng-options="sport._id as sport.name for sport in dropdowns.sport" ng-change="exportIt();">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="">
+                            <label style="padding: 10px; margin: 0; width: 100%" for="year">Download</label>
+                              <a class="btn btn-info" target='_blank' href="{{urls.excel}}" ng-disabled="!(filter.sport && filter.year)"><i class="fa fa-download"></i>&nbsp;{{filter.sportname +' '+ filter.year}} Excel</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="">
+                            <label style="padding: 10px; margin: 0; width: 100%" for="year">Filter Student Sports By Year</label>
+                            <select id="year" class="form-control" ng-model="dash.year" ng-options="year for year in dropdowns.year" ng-change="onChange();">
                             </select>
                         </div>
                     </div>

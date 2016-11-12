@@ -43,7 +43,31 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
     $scope.dash = {};
     $scope.dash.year = "2015";
-    $scope.allYears = NavigationService.getAllYears();
+    $scope.filter={};
+    $scope.dropdowns = {};
+    $scope.urls = {};
+    $scope.urls.excel ="#";
+    NavigationService.getAllSportList(function (response) {
+      if(response.value){
+        $scope.dropdowns.sport = response.data;
+      }else{
+        $scope.dropdowns.sport = [];
+      }
+    });
+    $scope.exportIt = function () {
+      $scope.urls.excel ="#";
+      console.log($scope.filter);
+      if($scope.filter.sport){
+        $scope.filter.sportname = _.find($scope.dropdowns.sport,function (key) {
+          return key._id == $scope.filter.sport;
+        }).name;
+        console.log($scope.filter);
+      }
+      if($scope.filter.sport && $scope.filter.year){
+        $scope.urls.excel = adminURL + 'studentsport/exportSport?sport='+$scope.filter.sport+'&year='+$scope.filter.year;
+      }
+    };
+    $scope.dropdowns.year = NavigationService.getAllYears();
     NavigationService.countStatic(function(data) {
         console.log(data);
         $scope.static = data.data;
