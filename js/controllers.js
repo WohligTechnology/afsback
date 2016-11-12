@@ -269,14 +269,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         };
         $scope.confDelete = function() {
-            NavigationService.deleteHeat($.jStorage.get("deleteTeam"), function(data, status) {
-                console.log(data);
-                $scope.getHeats();
+            NavigationService.deleteSwissLeague($.jStorage.get("deleteSwiss"), function(data, status) {
+                $scope.getSwissLeague();
             });
         };
         $scope.deleteFunc = function(id) {
             console.log(id);
-            $.jStorage.set("deleteTeam", id);
+            $.jStorage.set("deleteSwiss", id);
             $uibModal.open({
                 animation: true,
                 templateUrl: "views/content/delete.html",
@@ -3048,6 +3047,18 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         };
         // if()
+        if ($stateParams.id) {
+            NavigationService.getOneSwissLeague($stateParams, function(response) {
+                if (response.value) {
+                    $scope.swissleague = response.data;
+                    if($scope.swissleague.date){
+                      $scope.swissleague.date = new Date($scope.swissleague.date);
+                    }
+                } else {
+
+                }
+            });
+        }
     })
     .controller('editKnockoutCtrl', function($scope, TemplateService, $stateParams, NavigationService, $timeout, $state, $uibModal) {
         //Used to name the .html file

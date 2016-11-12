@@ -442,6 +442,15 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
+        getOneSwissLeague: function(request, callback) {
+            $http({
+                url: adminURL + 'swissleague/getOne',
+                method: 'POST',
+                data: {
+                  _id : request.id
+                }
+            }).success(callback);
+        },
         getAllAgeGroups: function(callback) {
             $http({
                 url: adminURL + 'agegroup/getAll',
@@ -717,6 +726,15 @@ var navigationservice = angular.module('navigationservice', [])
         deleteHeat: function(id, callback) {
             $http({
                 url: adminURL + 'heat/deleteData',
+                method: 'POST',
+                data: {
+                    _id: id
+                }
+            }).success(callback);
+        },
+        deleteSwissLeague: function(id, callback) {
+            $http({
+                url: adminURL + 'swissleague/deleteData',
                 method: 'POST',
                 data: {
                     _id: id

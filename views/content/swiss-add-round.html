@@ -50,8 +50,8 @@
                                             <a class="btn btn-default" ui-sref="swissleaguesport({id:selectedsport.sportslist._id})">
                                                 < Back to {{selectedsport.sportslist.name}}</a>
 
-                                                    <a class="btn btn-info" href="{{adminURL}}swissleague/exportSwiss League?sport={{swissleague.sport}}"><i class="fa fa-download"></i>&nbsp; Swiss Leagues</a>
-                                                    <upload-excel button-text="buttonText" ng-model="profilePic" no-view uploadhere="uploadurl" ng-callback="thismodel" current-state="cs"></upload-excel>
+                                                    <!-- <a class="btn btn-info" href="{{adminURL}}swissleague/exportSwissLeague?sport={{swissleague.sport}}"><i class="fa fa-download"></i>&nbsp; Swiss Leagues</a> -->
+                                                    <!-- <upload-excel button-text="buttonText" ng-model="profilePic" no-view uploadhere="uploadurl" ng-callback="thismodel" current-state="cs"></upload-excel> -->
                                         </div>
                                     </div>
                                 </div>
@@ -82,23 +82,33 @@
                                         <thead>
                                             <tr>
                                                 <th>Match ID</th>
-                                                <th>Swiss League</th>
+                                                <th>No 1</th>
+                                                <th>Player 1</th>
+                                                <th>Point 1</th>
+                                                <th>Result</th>
+                                                <th>Point 2</th>
+                                                <th>Player 2</th>
+                                                <th>No 2</th>
                                                 <th class="text-center" colspan="2">Operations</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr ng-repeat="singleswissleague in swissleague.swissleagues">
-                                                <td>{{singleswissleague.matchid}}</td>
-                                                <td>
-                                                    {{singleswissleague.name}}
-                                                </td>
+                                            <tr ng-repeat="key in swissleague.swissleagues | orderBy : 'matchorder'">
+                                                <td>{{key.matchid}}</td>
+                                                <td>{{key.no1}}</td>
+                                                <td>{{key.player1.name}}</td>
+                                                <td>{{key.point1}}</td>
+                                                <td>{{key.result}}</td>
+                                                <td>{{key.point2}}</td>
+                                                <td>{{key.player2.name}}</td>
+                                                <td>{{key.no2}}</td>
                                                 <td class="text-center">
-                                                    <a ui-sref="editswissleague({id:singleswissleague._id,sportid:singleswissleague.sport,round:swissleague.round,order:swissleague.order})" class="btn btn-primary">
+                                                    <a ui-sref="editswissleague({id:key._id,sportid:key.sport,round:swissleague.round,order:swissleague.order})" class="btn btn-primary">
                                                         <i class="fa fa-pencil-square-o"></i>
                                                     </a>
                                                 </td>
                                                 <td class="text-center">
-                                                    <a ng-click="deleteFunc(singleswissleague._id)" class="btn btn-primary">
+                                                    <a ng-click="deleteFunc(key._id)" class="btn btn-primary">
                                                         <i class="fa fa-trash"></i>
                                                     </a>
                                                 </td>
