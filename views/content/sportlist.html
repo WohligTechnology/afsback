@@ -38,6 +38,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Sport</th>
+                                    <th>drawFormat</th>
                                     <th class="text-center" colspan="2">Operations</th>
                                 </tr>
                             </thead>
@@ -59,6 +60,7 @@
                                 <tr ng-repeat="value in sportsList | filter:search">
                                     <td>{{$index+1}}</td>
                                     <td>{{value.name}}</td>
+                                    <td>{{value.drawFormat}}</td>
                                     <td class="text-center">
                                         <a ui-sref="editsportlist({id:value._id})" class="btn btn-primary">
                                             <i class="fa fa-pencil-square-o"></i>

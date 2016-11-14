@@ -1365,6 +1365,30 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
         $scope.getSportList();
     })
+    .controller('leagueKnockoutDashboardCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("leagueknockout-dashboard");
+        $scope.menutitle = NavigationService.makeactive("League Knockout");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.getSportList = function() {
+            NavigationService.getSportByDrawFormat({
+                drawFormat:"League cum Knockout"
+            },function(response) {
+                if (response.value) {
+                    $scope.sports = response.data;
+                    $scope.sports = _.chain(response.data)
+                        .groupBy("sporttype")
+                        .toPairs()
+                        .map(function(currentItem) {
+                            return _.zipObject(["sporttype", "name"], currentItem);
+                        })
+                        .value();
+                }
+            });
+        };
+        $scope.getSportList();
+    })
     .controller('swissDashboardCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("swiss-dashboard");

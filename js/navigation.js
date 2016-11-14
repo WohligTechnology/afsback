@@ -98,6 +98,12 @@ var navigationservice = angular.module('navigationservice', [])
         anchor: "swissdashboard",
         icon: "users",
         subnav: []
+    }, {
+        name: "League Knockout",
+        classis: "active",
+        anchor: "leagueknockoutdashboard",
+        icon: "users",
+        subnav: []
     }
   ];
 
