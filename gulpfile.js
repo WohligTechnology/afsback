@@ -18,7 +18,7 @@ var jsArray = [
     './bower_components/angulartics/dist/angulartics.min.js',
     './bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js',
     "./bower_components/angular-ui-select/dist/select.js",
-    "./bower_components/tinymce-dist/tinymce.min.js",
+    "./tinymce/tinymce.js",
     "./bower_components/angular-ui-tinymce/src/tinymce.js",
     './bower_components/jStorage/jstorage.min.js',
     './js/app.js',
@@ -204,7 +204,7 @@ gulp.task('uglify:js', function() {
     var uglify = require('gulp-uglify');
     var stripDebug = require('gulp-strip-debug');
     return gulp.src('./w/w.js')
-        .pipe(stripDebug())
+        // .pipe(stripDebug())
         .pipe(uglify({
             mangle: false
         }))
@@ -242,7 +242,11 @@ gulp.task('copy:fonts', function() {
     return gulp.src("./fonts/**")
         .pipe(gulpCopy("./production/"));
 });
-
+gulp.task('copy:tiny', function() {
+    var gulpCopy = require('gulp-copy');
+    return gulp.src(["./tinymce/**","./plugins/**","./themes/**","./skins/**"])
+        .pipe(gulpCopy("./production/"));
+});
 
 gulp.task('sass:production', function() {
     var sass = require('gulp-sass');
@@ -335,4 +339,4 @@ gulp.task('copy', ["copy:img", "copy:fonts"]);
 gulp.task('clearimage', ["clean:pImages", "clean:pFont"]);
 // gulp.task('production', gulpSequence(["copy:img", "copy:fonts", "sass:production", "minify:indexproduction", "minify:views"], 'clean:tmp', "concat:js", 'clean:tmp', "templatecache", "uglify:js", "minify:css", 'clean:tmp', "inlinesource", 'clean:tmp', "gzipfile", 'clean:tmp', 'clean:tmp', "zip"));
 // gulp.task('productionc', gulpSequence(["copy:img", "copy:fonts", "sass:production", "minify:indexproduction", "minify:views"], 'clean:tmp', "concat:js", 'clean:tmp', "templatecache", "uglify:js", "minify:css", 'clean:tmp', "inlinesource", 'clean:tmp', 'clean:production', "gzipfile", 'clean:tmp', 'clean:tmp', "zip", 'deploy'));
-gulp.task('production', gulpSequence(["copy:img", "copy:fonts", "sass:production", "minify:indexproduction", "minify:views"], 'clean:tmp', "concat:js", 'clean:tmp', "templatecache", "uglify:js", "minify:css", 'clean:tmp', "inlinesource", 'clean:tmp', "copy:indexhtml", 'clean:tmp', 'clean:tmp', "zip", 'renamePHP'));
+gulp.task('production', gulpSequence(["copy:img", "copy:tiny","copy:fonts", "sass:production", "minify:indexproduction", "minify:views"], 'clean:tmp', "concat:js", 'clean:tmp', "templatecache", "uglify:js", "minify:css", 'clean:tmp', "inlinesource", 'clean:tmp', "copy:indexhtml", 'clean:tmp', 'clean:tmp', "zip", 'renamePHP'));
