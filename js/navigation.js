@@ -693,6 +693,15 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
+        deleteMedia: function(id, callback) {
+            $http({
+                url: adminURL + 'media/deleteData',
+                method: 'POST',
+                data: {
+                    _id: id
+                }
+            }).success(callback);
+        },
         deleteSport: function(id, callback) {
             $http({
                 url: adminURL + 'sport/deleteData',

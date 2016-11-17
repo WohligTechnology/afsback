@@ -3918,7 +3918,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         };
     })
-    .controller('mediaCtrl', function($scope, TemplateService, NavigationService, $timeout, $state) {
+    .controller('mediaCtrl', function($scope, TemplateService, NavigationService, $timeout, $state,$uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("media");
         $scope.menutitle = NavigationService.makeactive("Media");
@@ -3955,10 +3955,18 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         };
         $scope.reload();
-
-        $scope.deleteFunc = function(id) {
-            NavigationService.deleteSportsList(id, function(data2) {
+        $scope.confDelete = function() {
+            NavigationService.deleteMedia($.jStorage.get("deleteMedia"), function(data, status) {
                 $scope.reload();
+            });
+        };
+        $scope.deleteFunc = function(id) {
+            console.log(id);
+            $.jStorage.set("deleteMedia", id);
+            $uibModal.open({
+                animation: true,
+                templateUrl: "views/content/delete.html",
+                scope: $scope
             });
         };
     })
