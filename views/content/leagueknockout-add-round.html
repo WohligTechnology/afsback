@@ -24,11 +24,11 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <span><b>Order</b></span>
-                                        <input type="text" placeholder="Order" name="order" class="form-control w20" ng-model="swissleague.order" only-digits required>
+                                        <input type="text" placeholder="Order" name="order" class="form-control w20" ng-model="leagueknockout.order" only-digits required>
                                     </div>
                                     <div class="col-md-2">
                                         <span><b>Round</b></span>
-                                        <input type="text" placeholder="Round Name" name="round" class="form-control" ng-model="swissleague.round" required>
+                                        <input type="text" placeholder="Round Name" name="round" class="form-control" ng-model="leagueknockout.round" required>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="pull-right mt18">
@@ -39,7 +39,7 @@
                                         <!-- <div class="pull-right mt18">
 
 
-                                            <a class="btn btn-default" ui-sref="swissleaguesport({id:selectedsport.sportslist._id})">
+                                            <a class="btn btn-default" ui-sref="leagueknockoutsport({id:selectedsport.sportslist._id})">
                                                 < Back to {{selectedsport.sportslist.name}}</a>
                                         </div> -->
                                     </div>
@@ -47,10 +47,10 @@
                                         <div class="pull-right mt18">
 
 
-                                            <a class="btn btn-default" ui-sref="swisssport({id:selectedsport.sportslist._id})">
+                                            <a class="btn btn-default" ui-sref="leagueknockoutsport({id:selectedsport.sportslist._id})">
                                                 < Back to {{selectedsport.sportslist.name}}</a>
 
-                                                    <!-- <a class="btn btn-info" href="{{adminURL}}swissleague/exportSwissLeague?sport={{swissleague.sport}}"><i class="fa fa-download"></i>&nbsp; Swiss Leagues</a> -->
+                                                    <!-- <a class="btn btn-info" href="{{adminURL}}leagueknockout/exportSwissLeague?sport={{leagueknockout.sport}}"><i class="fa fa-download"></i>&nbsp; Swiss Leagues</a> -->
                                                     <!-- <upload-excel button-text="buttonText" ng-model="profilePic" no-view uploadhere="uploadurl" ng-callback="thismodel" current-state="cs"></upload-excel> -->
                                         </div>
                                     </div>
@@ -59,16 +59,16 @@
 
                         </div>
                     </div>
-                    <div class="main-dv mt50" ng-repeat="swissleague in swissleagues | orderBy:'-order'">
+                    <div class="main-dv mt50" ng-repeat="leagueknockout in leagueknockouts | orderBy:'-order'">
 
 
                         <div class="widget-title w-title">
                             <div class="pull-right">
-                                <a class="btn btn-primary" ui-sref="createswissleague({'sportid':selectedsport._id,'round':swissleague.round,'order':swissleague.order})"><i class="fa fa-plus"></i>&nbsp;Add Swiss League</a>
+                                <a class="btn btn-primary" ui-sref="createleagueknockout({'sportid':selectedsport._id,'round':leagueknockout.round,'order':leagueknockout.order})"><i class="fa fa-plus"></i>&nbsp;Add Swiss League</a>
                             </div>
-                            <h3 class="text-uppercase">#{{swissleague.order}} {{swissleague.round}}</h3>
+                            <h3 class="text-uppercase">#{{leagueknockout.order}} {{leagueknockout.round}}</h3>
                         </div>
-                        <div class="swissleague-body">
+                        <div class="leagueknockout-body">
                             <div class="">
                                 <!-- <div class="widget-title">
                                     <div class="pull-right">
@@ -93,7 +93,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr ng-repeat="key in swissleague.swissleagues | orderBy : 'matchorder'">
+                                            <tr ng-repeat="key in leagueknockout.leagueknockouts | orderBy : 'matchorder'">
                                                 <td>{{key.matchid}}</td>
                                                 <td>{{key.no1}}</td>
                                                 <td>{{key.player1.name}}</td>
@@ -103,7 +103,7 @@
                                                 <td>{{key.player2.name}}</td>
                                                 <td>{{key.no2}}</td>
                                                 <td class="text-center">
-                                                    <a ui-sref="editswissleague({id:key._id,sportid:key.sport,round:swissleague.round,order:swissleague.order})" class="btn btn-primary">
+                                                    <a ui-sref="editleagueknockout({id:key._id,sportid:key.sport,round:leagueknockout.round,order:leagueknockout.order})" class="btn btn-primary">
                                                         <i class="fa fa-pencil-square-o"></i>
                                                     </a>
                                                 </td>

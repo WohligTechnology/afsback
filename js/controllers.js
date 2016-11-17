@@ -255,6 +255,76 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
         $scope.getHeats();
     })
+    .controller('leagueknockoutAddRoundCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams,$state) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("leagueknockout-add-round");
+        $scope.menutitle = NavigationService.makeactive("Heats");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.template.type = 1;
+        $scope.contentLoaded = false;
+        $scope.schools = [];
+        $scope.leagueknockout = {};
+        $scope.adminURL = adminURL;
+        $scope.cs = $state;
+        $scope.uploadurl = adminURL + "leagueknockout/updateVideoURL/";
+
+        $scope.buttonText = "Update Video URLs";
+
+        $scope.leagueknockout.sport = $stateParams.id;
+        $scope.pagination = {};
+        $scope.pagination.pagenumber = 1;
+        NavigationService.getOneSport($stateParams.id, function(response) {
+            if (response.value) {
+                $scope.selectedsport = response.data;
+                $scope.leagueknockout.year = $scope.selectedsport.year;
+            }
+        });
+        $scope.addRound = function() {
+
+            NavigationService.saveLeagueKnockout($scope.leagueknockout, function(response) {
+                if (response.value) {
+                    $scope.leagueknockout.order = null;
+                    $scope.leagueknockout.round = null;
+                    $scope.getLeagueKnockout();
+                } else {
+
+                }
+            });
+        };
+        $scope.confDelete = function() {
+            NavigationService.deleteLeagueKnockout($.jStorage.get("deleteSwiss"), function(data, status) {
+                $scope.getLeagueKnockout();
+            });
+        };
+        $scope.deleteFunc = function(id) {
+            console.log(id);
+            $.jStorage.set("deleteSwiss", id);
+            $uibModal.open({
+                animation: true,
+                templateUrl: "views/content/delete.html",
+                scope: $scope
+            });
+        };
+        $scope.getLeagueKnockout = function() {
+            NavigationService.getLeagueKnockout({
+                sport: $stateParams.id
+            }, function(response) {
+                if (response.value) {
+                    $scope.leagueknockouts = _.chain(response.data)
+                        .groupBy("round")
+                        .toPairs()
+                        .map(function(currentItem) {
+                            currentItem[2] = currentItem[1][0].order;
+                            return _.zipObject(["round", "leagueknockouts", "order"], currentItem);
+                        })
+                        .value();
+                    console.log($scope.leagueknockouts);
+                }
+            });
+        };
+        $scope.getLeagueKnockout();
+    })
     .controller('swissAddRoundCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams,$state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("swiss-add-round");

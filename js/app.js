@@ -122,6 +122,11 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         templateUrl: "views/template.html",
         controller: 'swissAddRoundCtrl'
     })
+    .state('leagueknockoutaddround', {
+        url: "/leagueknockoutaddround/:id",
+        templateUrl: "views/template.html",
+        controller: 'leagueknockoutAddRoundCtrl'
+    })
     .state('team', {
         url: "/team",
         templateUrl: "views/template.html",
