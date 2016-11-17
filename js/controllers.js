@@ -1608,6 +1608,51 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
           });
         };
     })
+    .controller('leagueKnockoutSportCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("leagueknockout-sport");
+        $scope.menutitle = NavigationService.makeactive("Heat");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.template.type = 1;
+        $scope.getOneSport = function(id) {
+            NavigationService.getOneSportList(id, function(response) {
+                if (response.value) {
+                    $scope.sportSelected = response.data;
+                    $scope.leagueKnockoutSports({
+                      sportlist:$stateParams.id,
+                drawFormat:"League cum Knockout"
+                    });
+                }
+            });
+        };
+        $scope.getOneSport($stateParams.id);
+        $scope.leagueKnockoutSports = function(constraints) {
+          $scope.sports = [];
+          NavigationService.leagueKnockoutSports(constraints, function(response) {
+              if (response.value) {
+                  $scope.sports = _.chain(response.data)
+                      .groupBy("year")
+                      .toPairs()
+                      .map(function(currentItem) {
+                          return _.zipObject(["year", "sports"], currentItem);
+                      })
+                      .value();
+                  _.each($scope.sports, function(key) {
+                      key.sports = _.chain(key.sports)
+                          .groupBy("agegroup.name")
+                          .toPairs()
+                          .map(function(currentItem) {
+                              return _.zipObject(["agegroup", "sports"], currentItem);
+                          })
+                          .value();
+
+                  });
+                  console.log($scope.sports);
+              }
+          });
+        };
+    })
     .controller('heatSportCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("heat-sport");
