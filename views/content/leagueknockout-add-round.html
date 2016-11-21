@@ -24,11 +24,11 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <span><b>Order</b></span>
-                                        <input type="text" placeholder="Order" name="order" class="form-control w20" ng-model="leagueknockout.order" only-digits required>
+                                        <input type="text" placeholder="Order" name="order" class="form-control w20" ng-model="leagueknockout.leagueknockoutorder" only-digits required>
                                     </div>
                                     <div class="col-md-2">
                                         <span><b>Round</b></span>
-                                        <input type="text" placeholder="Round Name" name="round" class="form-control" ng-model="leagueknockout.round" required>
+                                        <input type="text" placeholder="Round Name" name="round" class="form-control" ng-model="leagueknockout.leagueknockoutround" required>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="pull-right mt18">
@@ -60,13 +60,11 @@
                         </div>
                     </div>
                     <div class="main-dv mt50" ng-repeat="leagueknockout in leagueknockouts | orderBy:'-order'">
-
-
                         <div class="widget-title w-title">
                             <div class="pull-right">
-                                <a class="btn btn-primary" ui-sref="createleagueknockout({'sportid':selectedsport._id,'round':leagueknockout.round,'order':leagueknockout.order})"><i class="fa fa-plus"></i>&nbsp;Add Swiss League</a>
+                                <a class="btn btn-primary" ui-sref="createleagueknockout({'sportid':selectedsport._id,'round':leagueknockout.leagueknockoutround,'order':leagueknockout.leagueknockoutorder})"><i class="fa fa-plus"></i>&nbsp;Add League Knockout</a>
                             </div>
-                            <h3 class="text-uppercase">#{{leagueknockout.order}} {{leagueknockout.round}}</h3>
+                            <h3 class="text-uppercase">#{{leagueknockout.leagueknockoutorder}} {{leagueknockout.leagueknockoutround}}</h3>
                         </div>
                         <div class="leagueknockout-body">
                             <div class="">
@@ -81,29 +79,33 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>Match ID</th>
-                                                <th>No 1</th>
-                                                <th>Player 1</th>
-                                                <th>Point 1</th>
-                                                <th>Result</th>
-                                                <th>Point 2</th>
-                                                <th>Player 2</th>
-                                                <th>No 2</th>
-                                                <th class="text-center" colspan="2">Operations</th>
+                                              <th>Match ID</th>
+                                              <th>Participant Type</th>
+                                              <th>Participant 1</th>
+                                              <th>Result 1</th>
+                                              <th>Points 1</th>
+                                              <th>Participant 2</th>
+                                              <th>Result 2</th>
+                                              <th>Points 2</th>
+
+                                              <th >Score</th>
+                                              <th class="text-center" colspan="2">Operations</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="key in leagueknockout.leagueknockouts | orderBy : 'matchorder'">
-                                                <td>{{key.matchid}}</td>
-                                                <td>{{key.no1}}</td>
-                                                <td>{{key.player1.name}}</td>
-                                                <td>{{key.point1}}</td>
-                                                <td>{{key.result}}</td>
-                                                <td>{{key.point2}}</td>
-                                                <td>{{key.player2.name}}</td>
-                                                <td>{{key.no2}}</td>
+                                              <td>{{key.matchid}}</td>
+                                              <td>{{key.participantType == 'player' && 'Student' || key.participantType == 'team' && 'Team' || 'Not Declared'}}</td>
+                                              <td >{{key.participantType == 'player' && key.player1.name || key.participantType == 'team' && key.team1.name || 'Not Declared' | letterLimit :13}}</td>
+                                              <td >{{key.result1 || 'Not Declared'}}</td>
+                                              <td >{{key.point1 || 'Not Declared'}}</td>
+                                              <td >{{key.participantType == 'player' && key.player2.name || key.participantType == 'team' && key.team2.name || 'Not Declared' | letterLimit :13 }}</td>
+                                              <td >{{key.result2 || 'Not Declared'}}</td>
+                                              <td >{{key.point2 || 'Not Declared'}}</td>
+
+                                              <td ng-class="{'bckgrnd-red':!key.score}">{{value.score}}</td>
                                                 <td class="text-center">
-                                                    <a ui-sref="editleagueknockout({id:key._id,sportid:key.sport,round:leagueknockout.round,order:leagueknockout.order})" class="btn btn-primary">
+                                                    <a ui-sref="editleagueknockout({id:key._id,sportid:key.sport,round:leagueknockout.leagueknockoutround,order:leagueknockout.leagueknockoutorder})" class="btn btn-primary">
                                                         <i class="fa fa-pencil-square-o"></i>
                                                     </a>
                                                 </td>

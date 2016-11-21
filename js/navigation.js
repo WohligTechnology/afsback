@@ -439,6 +439,15 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
+        getOneLeagueKnockout: function(request, callback) {
+            $http({
+                url: adminURL + 'leagueknockout/getOne',
+                method: 'POST',
+                data: {
+                  _id : request.id
+                }
+            }).success(callback);
+        },
         getOneHeat: function(request, callback) {
             $http({
                 url: adminURL + 'heat/getOne',
@@ -640,6 +649,13 @@ var navigationservice = angular.module('navigationservice', [])
                 data: request
             }).success(callback);
         },
+        getLeagueKnockout: function(request, callback) {
+            $http({
+                url: adminURL + 'leagueknockout/getAll',
+                method: 'POST',
+                data: request
+            }).success(callback);
+        },
         getSwissLeague: function(request, callback) {
             $http({
                 url: adminURL + 'swissleague/getAll',
@@ -770,6 +786,15 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
+        deleteLeagueKnockout: function(id, callback) {
+            $http({
+                url: adminURL + 'leagueknockout/deleteData',
+                method: 'POST',
+                data: {
+                    _id: id
+                }
+            }).success(callback);
+        },
         deleteLeague: function(id, callback) {
             $http({
                 url: adminURL + 'league/deleteData',
@@ -861,6 +886,13 @@ var navigationservice = angular.module('navigationservice', [])
                 data: request
             }).success(callback);
         },
+        submitLeagueKnockout: function(request, callback) {
+            $http({
+                url: adminURL + 'leagueknockout/saveData',
+                method: 'POST',
+                data: request
+            }).success(callback);
+        },
         submitMedal: function(request, callback) {
             $http({
                 url: adminURL + 'medal/saveData',
@@ -871,6 +903,13 @@ var navigationservice = angular.module('navigationservice', [])
         saveHeat: function(request, callback) {
             $http({
                 url: adminURL + 'heat/saveData',
+                method: 'POST',
+                data: request
+            }).success(callback);
+        },
+        saveLeagueKnockout: function(request, callback) {
+            $http({
+                url: adminURL + 'leagueknockout/saveData',
                 method: 'POST',
                 data: request
             }).success(callback);
