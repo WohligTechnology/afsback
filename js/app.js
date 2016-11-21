@@ -81,6 +81,11 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         templateUrl: "views/template.html",
         controller: 'createLeagueCtrl'
     })
+    .state('createleagueknockout', {
+        url: "/createleagueknockout/:sportid/:round/:order",
+        templateUrl: "views/template.html",
+        controller: 'createLeagueKnockoutCtrl'
+    })
     .state('createknockout', {
         url: "/createknockout/:sportid",
         templateUrl: "views/template.html",

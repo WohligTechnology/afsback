@@ -2516,6 +2516,12 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }
             });
         }
+        if ($stateParams.round) {
+            $scope.leagueknockout.leagueknockoutround = $stateParams.round;
+        }
+        if ($stateParams.order) {
+            $scope.leagueknockout.order = $stateParams.order;
+        }
         $scope.addNoMatch = function(participantType, model) {
             if (participantType == 'player') {
                 NavigationService.getOneStudentByName({
@@ -2535,11 +2541,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 });
             }
         };
-        NavigationService.getLastLeagueKnockout({}, function(response) {
-            if (response.value) {
-                $scope.leagueknockout.matchid = response.data + 1;
-            }
-        });
         $scope.getSportsByYear = function() {
             $scope.sportsList = [];
 
