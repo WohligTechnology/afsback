@@ -105,7 +105,7 @@
 
                                               <td ng-class="{'bckgrnd-red':!key.score}">{{value.score}}</td>
                                                 <td class="text-center">
-                                                    <a ui-sref="editleagueknockout({id:key._id,sportid:key.sport,round:leagueknockout.leagueknockoutround,order:leagueknockout.leagueknockoutorder})" class="btn btn-primary">
+                                                    <a ui-sref="editleagueknockout({id:key._id,sportid:selectedsport._id,round:leagueknockout.leagueknockoutround,order:leagueknockout.leagueknockoutorder})" class="btn btn-primary">
                                                         <i class="fa fa-pencil-square-o"></i>
                                                     </a>
                                                 </td>
