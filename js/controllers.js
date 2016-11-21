@@ -258,7 +258,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     .controller('leagueknockoutAddRoundCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams,$state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("leagueknockout-add-round");
-        $scope.menutitle = NavigationService.makeactive("Heats");
+        $scope.menutitle = NavigationService.makeactive("League Knockout");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.template.type = 1;
@@ -1681,7 +1681,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     .controller('leagueKnockoutSportCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("leagueknockout-sport");
-        $scope.menutitle = NavigationService.makeactive("Heat");
+        $scope.menutitle = NavigationService.makeactive("League Knockout");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.template.type = 1;
