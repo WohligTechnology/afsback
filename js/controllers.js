@@ -328,7 +328,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     .controller('swissAddRoundCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams,$state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("swiss-add-round");
-        $scope.menutitle = NavigationService.makeactive("Heats");
+        $scope.menutitle = NavigationService.makeactive("Swiss League");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.template.type = 1;
