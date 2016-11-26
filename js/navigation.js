@@ -664,13 +664,6 @@ var navigationservice = angular.module('navigationservice', [])
                 data: request
             }).success(callback);
         },
-        getLeagueKnockout: function(request, callback) {
-            $http({
-                url: adminURL + 'leagueknockout/getAll',
-                method: 'POST',
-                data: request
-            }).success(callback);
-        },
         getLimitedSchool: function(data, callback) {
             $http({
                 url: adminURL + 'school/getLimited',
