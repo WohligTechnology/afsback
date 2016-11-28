@@ -132,6 +132,11 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         templateUrl: "views/template.html",
         controller: 'swissAddRoundCtrl'
     })
+    .state('qualifyingroundaddround', {
+        url: "/qualifyingroundaddround/:id",
+        templateUrl: "views/template.html",
+        controller: 'qualifyingroundAddRoundCtrl'
+    })
     .state('leagueknockoutaddround', {
         url: "/leagueknockoutaddround/:id",
         templateUrl: "views/template.html",
@@ -182,6 +187,11 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         templateUrl: "views/template.html",
         controller: 'swissDashboardCtrl'
     })
+    .state('qualifyingrounddashboard', {
+        url: "/qualifyingrounddashboard",
+        templateUrl: "views/template.html",
+        controller: 'qualifyingroundDashboardCtrl'
+    })
     .state('leaguedashboard', {
         url: "/leaguedashboard",
         templateUrl: "views/template.html",
@@ -221,6 +231,11 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         url: "/swisssport/:id",
         templateUrl: "views/template.html",
         controller: 'swissSportCtrl'
+    })
+    .state('qualifyingroundsport', {
+        url: "/qualifyingroundsport/:id",
+        templateUrl: "views/template.html",
+        controller: 'qualifyingroundSportCtrl'
     })
 
     .state('editstudent', {

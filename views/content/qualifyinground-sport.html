@@ -1,0 +1,31 @@
+<div class="heading-sec">
+    <div class="row">
+        <!-- <div class="col-md-4 column"> -->
+            <div class="heading-profile text-center">
+                <h2>{{sportSelected.name}}</h2>
+            </div>
+        <!-- </div> -->
+    </div>
+</div>
+<div class="panel-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="form-elements-sec">
+                    <div class="main-s mt20" ng-repeat="sport in sports" ng-if="sports.length > 0">
+                        <h4 class="margin0">{{sport.year}}</h4 >
+                        <div class="mt20 my-btn" ng-repeat="item in sport.sports" >
+                          <h5>{{item.agegroup}}</h5 >
+
+                           <button class="btn btn-default" ng-repeat="single in item.sports"  ui-sref="qualifyingroundaddround({id:single._id})">{{single.gender}} {{single.firstcategory.name}} {{single.secondcategory.name}} {{single.thirdcategory.name}}</button><br>
+
+                        </div>
+                    </div>
+                    <div class="main-s text-center" ng-if="sports.length == 0">
+                          No {{sportSelected.name}} Qualifying Round found. If you didn't find your sport, please check the <b>Year</b> and <b>Draw Format</b> field in <b>Sports</b>
+                    </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

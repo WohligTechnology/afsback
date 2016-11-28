@@ -1,0 +1,135 @@
+<div class="heading-sec">
+    <div class="row">
+        <!-- <div class="col-md-4 column"> -->
+        <div class="heading-profile text-center">
+            <h2>{{selectedsport.sportslist.name}} {{selectedsport.gender}} {{selectedsport.firstcategory.name}} {{selectedsport.secondcategory.name}} {{selectedsport.thirdcategory.name}} {{selectedsport.agegroup.name}} Qualifying Rounds - {{selectedsport.year}}</h2>
+        </div>
+        <!-- </div> -->
+    </div>
+</div>
+<div class="panel-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="form-elements-sec">
+                    <div class="main-dv">
+
+
+                        <!-- <div class="widget-title">
+
+                            <h3>Add Round</h3>
+                        </div> -->
+                        <div class="w-body">
+                            <form name="addRoundForm" ng-submit="addRound()">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <span><b>Order</b></span>
+                                        <input type="text" placeholder="Order" name="order" class="form-control w20" ng-model="qualifyinground.order" only-digits required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <span><b>Round</b></span>
+                                        <input type="text" placeholder="Round Name" name="round" class="form-control" ng-model="qualifyinground.round" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="pull-right mt18">
+                                            <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp;Add Round</button>
+
+                                        </div>
+
+                                        <!-- <div class="pull-right mt18">
+
+
+                                            <a class="btn btn-default" ui-sref="qualifyingroundsport({id:selectedsport.sportslist._id})">
+                                                < Back to {{selectedsport.sportslist.name}}</a>
+                                        </div> -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="pull-right mt18">
+
+
+                                            <a class="btn btn-default" ui-sref="qualifyingroundsport({id:selectedsport.sportslist._id})">
+                                                < Back to {{selectedsport.sportslist.name}}</a>
+
+                                                    <!-- <a class="btn btn-info" href="{{adminURL}}qualifyinground/exportSwissLeague?sport={{qualifyinground.sport}}"><i class="fa fa-download"></i>&nbsp; Qualifying Rounds</a> -->
+                                                    <!-- <upload-excel button-text="buttonText" ng-model="profilePic" no-view uploadhere="uploadurl" ng-callback="thismodel" current-state="cs"></upload-excel> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                    <div class="main-dv mt50" ng-repeat="qualifyinground in qualifyingrounds | orderBy:'-order'">
+
+
+                        <div class="widget-title w-title">
+                            <div class="pull-right">
+                                <a class="btn btn-primary" ui-sref="createqualifyinground({'sportid':selectedsport._id,'round':qualifyinground.round,'order':qualifyinground.order})"><i class="fa fa-plus"></i>&nbsp;Add Qualifying Round</a>
+                            </div>
+                            <h3 class="text-uppercase">#{{qualifyinground.order}} {{qualifyinground.round}}</h3>
+                        </div>
+                        <div class="qualifyinground-body">
+                            <div class="">
+                                <!-- <div class="widget-title">
+                                    <div class="pull-right">
+
+                                        <a class="btn btn-primary" ui-sref="createsport">Add New</a>
+                                    </div>
+                                    <h3>List of Sports</h3>
+                                </div> -->
+                                <div class="table-responsive ">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Match ID</th>
+                                                <th>No 1</th>
+                                                <th>Player 1</th>
+                                                <th>Point 1</th>
+                                                <th>Result</th>
+                                                <th>Point 2</th>
+                                                <th>Player 2</th>
+                                                <th>No 2</th>
+                                                <th class="text-center" colspan="2">Operations</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="key in qualifyinground.qualifyingrounds | orderBy : 'matchorder'">
+                                                <td>{{key.matchid}}</td>
+                                                <td>{{key.no1}}</td>
+                                                <td>{{key.player1.name}}</td>
+                                                <td>{{key.point1}}</td>
+                                                <td>{{key.result}}</td>
+                                                <td>{{key.point2}}</td>
+                                                <td>{{key.player2.name}}</td>
+                                                <td>{{key.no2}}</td>
+                                                <td class="text-center">
+                                                    <a ui-sref="editqualifyinground({id:key._id,sportid:key.sport,round:qualifyinground.round,order:qualifyinground.order})" class="btn btn-primary">
+                                                        <i class="fa fa-pencil-square-o"></i>
+                                                    </a>
+                                                </td>
+                                                <td class="text-center">
+                                                    <a ng-click="deleteFunc(key._id)" class="btn btn-primary">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                    <div class="text-center" ng-if="sports.length==0">
+                                        <h5>No results found</h5>
+                                    </div>
+                                    <div class="">
+                                        <uib-pagination ng-show="sport.data.length > 0" ng-change="reload();" total-items="sport.total" ng-model="pagination.pagenumber" items-per-page="20">
+
+                                        </uib-pagination>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
