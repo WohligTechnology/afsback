@@ -1,4 +1,4 @@
-var adminURL = "http://146.148.42.15:83/api/";
+var adminURL = "https://api.sfanow.in/api/";
 // var adminURL = "http://192.168.2.76:1337/api/";
 // var adminURL = "http://localhost:1337/api/";
 var uploadurl = adminURL + "upload/";
