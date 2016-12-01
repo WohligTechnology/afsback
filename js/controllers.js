@@ -395,6 +395,76 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
         $scope.getSwissLeague();
     })
+    .controller('qualifyingroundAddRoundCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams,$state) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("qualifyinground-add-round");
+        $scope.menutitle = NavigationService.makeactive("Qualifying Round");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.template.type = 1;
+        $scope.contentLoaded = false;
+        $scope.schools = [];
+        $scope.qualifyinground = {};
+        $scope.adminURL = adminURL;
+        $scope.cs = $state;
+        $scope.uploadurl = adminURL + "qualifyinground/updateVideoURL/";
+
+        $scope.buttonText = "Update Video URLs";
+
+        $scope.qualifyinground.sport = $stateParams.id;
+        $scope.pagination = {};
+        $scope.pagination.pagenumber = 1;
+        NavigationService.getOneSport($stateParams.id, function(response) {
+            if (response.value) {
+                $scope.selectedsport = response.data;
+                $scope.qualifyinground.year = $scope.selectedsport.year;
+            }
+        });
+        $scope.addRound = function() {
+
+            NavigationService.saveQualifyingRound($scope.qualifyinground, function(response) {
+                if (response.value) {
+                    $scope.qualifyinground.order = null;
+                    $scope.qualifyinground.round = null;
+                    $scope.getQualifyingRound();
+                } else {
+
+                }
+            });
+        };
+        $scope.confDelete = function() {
+            NavigationService.deleteQualifyingRound($.jStorage.get("deleteSwiss"), function(data, status) {
+                $scope.getQualifyingRound();
+            });
+        };
+        $scope.deleteFunc = function(id) {
+            console.log(id);
+            $.jStorage.set("deleteSwiss", id);
+            $uibModal.open({
+                animation: true,
+                templateUrl: "views/content/delete.html",
+                scope: $scope
+            });
+        };
+        $scope.getQualifyingRound = function() {
+            NavigationService.getQualifyingRound({
+                sport: $stateParams.id
+            }, function(response) {
+                if (response.value) {
+                    $scope.qualifyingrounds = _.chain(response.data)
+                        .groupBy("round")
+                        .toPairs()
+                        .map(function(currentItem) {
+                            currentItem[2] = currentItem[1][0].order;
+                            return _.zipObject(["round", "qualifyingrounds", "order"], currentItem);
+                        })
+                        .value();
+                    console.log($scope.qualifyingrounds);
+                }
+            });
+        };
+        $scope.getQualifyingRound();
+    })
 
 .controller('createSchoolCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal) {
     //Used to name the .html file
@@ -1704,8 +1774,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     })
     .controller('qualifyingroundSportCtrl', function($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams) {
         //Used to name the .html file
-        $scope.template = TemplateService.changecontent("swiss-sport");
-        $scope.menutitle = NavigationService.makeactive("Heat");
+        $scope.template = TemplateService.changecontent("qualifyinground-sport");
+        $scope.menutitle = NavigationService.makeactive("Qualifying Round");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.template.type = 1;

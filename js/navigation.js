@@ -1,6 +1,6 @@
 // var adminURL = "https://api.sfanow.in/api/";
-var adminURL = "http://192.168.2.51:1337/api/";
-// var adminURL = "http://localhost:1337/api/";
+// var adminURL = "http://192.168.2.51:1337/api/";
+var adminURL = "http://localhost:1337/api/";
 var uploadurl = adminURL + "upload/";
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
 // var openTab = "http://localhost:808/#/showstudent"
@@ -103,6 +103,12 @@ var navigationservice = angular.module('navigationservice', [])
         name: "League Knockout",
         classis: "active",
         anchor: "leagueknockoutdashboard",
+        icon: "users",
+        subnav: []
+    }, {
+        name: "Qualifying Round",
+        classis: "active",
+        anchor: "qualifyingrounddashboard",
         icon: "users",
         subnav: []
     }
@@ -660,6 +666,13 @@ var navigationservice = angular.module('navigationservice', [])
         getSwissLeague: function(request, callback) {
             $http({
                 url: adminURL + 'swissleague/getAll',
+                method: 'POST',
+                data: request
+            }).success(callback);
+        },
+        getQualifyingRound: function(request, callback) {
+            $http({
+                url: adminURL + 'QualifyingRound/getAll',
                 method: 'POST',
                 data: request
             }).success(callback);
