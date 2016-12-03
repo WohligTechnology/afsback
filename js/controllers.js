@@ -433,13 +433,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         };
         $scope.confDelete = function() {
-            NavigationService.deleteQualifyingRound($.jStorage.get("deleteSwiss"), function(data, status) {
+            NavigationService.deleteQualifyingRound($.jStorage.get("deleteQualifyingRound"), function(data, status) {
                 $scope.getQualifyingRound();
             });
         };
         $scope.deleteFunc = function(id) {
             console.log(id);
-            $.jStorage.set("deleteSwiss", id);
+            $.jStorage.set("deleteQualifyingRound", id);
             $uibModal.open({
                 animation: true,
                 templateUrl: "views/content/delete.html",

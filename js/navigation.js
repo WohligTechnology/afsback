@@ -793,6 +793,15 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
+        deleteQualifyingRound: function(id, callback) {
+            $http({
+                url: adminURL + 'qualifyinground/deleteData',
+                method: 'POST',
+                data: {
+                    _id: id
+                }
+            }).success(callback);
+        },
         deleteLeagueKnockout: function(id, callback) {
             $http({
                 url: adminURL + 'leagueknockout/deleteData',
@@ -924,6 +933,13 @@ var navigationservice = angular.module('navigationservice', [])
         saveSwissLeague: function(request, callback) {
             $http({
                 url: adminURL + 'swissleague/saveData',
+                method: 'POST',
+                data: request
+            }).success(callback);
+        },
+        saveQualifyingRound: function(request, callback) {
+            $http({
+                url: adminURL + 'qualifyinground/saveData',
                 method: 'POST',
                 data: request
             }).success(callback);
