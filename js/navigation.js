@@ -895,6 +895,13 @@ var navigationservice = angular.module('navigationservice', [])
                 data: request
             }).success(callback);
         },
+        removeThisStat: function(request, callback) {
+            $http({
+                url: adminURL + 'studentstats/removeThisStat',
+                method: 'POST',
+                data: request
+            }).success(callback);
+        },
         submitLeague: function(request, callback) {
             $http({
                 url: adminURL + 'league/saveData',

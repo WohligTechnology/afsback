@@ -129,6 +129,7 @@
                             </ui-select-choices>
                         </ui-select>
                         <button class="btn btn-default" ng-click="addNoMatch(knockout.participantType,'player1')">No Match</button>
+                        <a class="btn btn-default" ng-if="statuses.inedit" ng-click="deleteParticipant(knockout.participantType,'player1',knockout.player1._id)">Remove</a>
                       </div>
                       <div class="form-group" ng-if="knockout.participantType == 'team'">
                         <label>Team 1 </label>
@@ -142,7 +143,7 @@
                             </ui-select-choices>
                         </ui-select>
                         <button class="btn btn-default" ng-click="addNoMatch(knockout.participantType,'team1')">No Match</button>
-
+                      <a class="btn btn-default" ng-if="statuses.inedit" ng-click="deleteParticipant(knockout.participantType,'team1',knockout.team1._id)">Remove</a>
                       </div>
                       <div class="form-group" ng-if="knockout.participantType == 'player' && statuses.inedit">
                           <label>Result player 1 *</label>
@@ -179,6 +180,8 @@
                             </ui-select-choices>
                         </ui-select>
                         <button class="btn btn-default" ng-click="addNoMatch(knockout.participantType,'player2')">No Match</button>
+                        <a class="btn btn-default" ng-if="statuses.inedit" ng-click="deleteParticipant(knockout.participantType,'player2',knockout.player2._id)">Remove</a>
+
 
                       </div>
                       <div class="form-group" ng-if="knockout.participantType == 'team'">
@@ -194,6 +197,7 @@
                             </ui-select-choices>
                         </ui-select>
                         <button class="btn btn-default" ng-click="addNoMatch(knockout.participantType,'team2')">No Match</button>
+                        <a class="btn btn-default" ng-if="statuses.inedit" ng-click="deleteParticipant(knockout.participantType,'team2',knockout.team2._id)">Remove</a>
 
                       </div>
 

@@ -2314,6 +2314,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }
             });
         }
+
         $scope.addNoMatch = function(participantType, model) {
             if (participantType == 'player') {
                 NavigationService.getOneStudentByName({
@@ -3748,7 +3749,30 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         //     }
         //   });
         // }
-
+        $scope.confDelete = function() {
+            var constraints = {};
+            if($.jStorage.get("participantType") == "player"){
+              constraints.student = $.jStorage.get("participantId");
+            }else{
+              constraints.team = $.jStorage.get("participantId");
+            }
+            constraints.knockout = $scope.knockout._id;
+            NavigationService.removeThisStat(constraints, function(response) {
+                if(response.value){
+                  $scope.knockout[$.jStorage.get("participantModel")] = null;
+                }
+            });
+        };
+        $scope.deleteParticipant = function(participantType,model,id) {
+            $.jStorage.set("participantModel", model);
+            $.jStorage.set("participantType",participantType);
+            $.jStorage.set("participantId",id);
+            $uibModal.open({
+                animation: true,
+                templateUrl: "views/content/delete.html",
+                scope: $scope
+            });
+        };
         NavigationService.getAllSportList(function(response) {
             if (response.value) {
                 $scope.sportsList = response.data;
