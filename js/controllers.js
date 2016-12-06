@@ -3764,14 +3764,20 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         };
         $scope.deleteParticipant = function(participantType,model,id) {
-            $.jStorage.set("participantModel", model);
-            $.jStorage.set("participantType",participantType);
-            $.jStorage.set("participantId",id);
-            $uibModal.open({
-                animation: true,
-                templateUrl: "views/content/delete.html",
-                scope: $scope
-            });
+          var r = confirm("Removing participant removes stats! Use carefully. Save knockout after removing.");
+if (r === true) {
+  $.jStorage.set("participantModel", model);
+  $.jStorage.set("participantType",participantType);
+  $.jStorage.set("participantId",id);
+  $uibModal.open({
+      animation: true,
+      templateUrl: "views/content/delete.html",
+      scope: $scope
+  });
+} else {
+    txt = "You pressed Cancel!";
+}
+
         };
         NavigationService.getAllSportList(function(response) {
             if (response.value) {
