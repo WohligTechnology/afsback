@@ -66,13 +66,13 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>No 1 </label>
                             <input type="text" placeholder="No 1" class="form-control"  ng-model="qualifyinground.no1"  only-digits >
-                        </div>
+                        </div> -->
                         <div class="form-group">
-                            <label>Player 1 </label>
-                            <ui-select  ng-model="qualifyinground.player1" title="Select Player" >
+                            <label>Player</label>
+                            <ui-select  ng-model="qualifyinground.player" title="Select Player" >
                                 <ui-select-match placeholder="Select Player">{{$select.selected.name}}</ui-select-match>
                                 <ui-select-choices refresh-delay="0" refresh="getQualifyingRoundPlayer($select.search)" repeat="player1 in students | filter: $select.search">
                                     <div ng-bind-html="player1.name | highlight: $select.search"></div>
@@ -88,26 +88,13 @@
                             <label>Result</label>
                             <input type="text" placeholder="Result" class="form-control" ng-model="qualifyinground.result" >
                         </div>
-                        <div class="form-group">
-                            <label>Points 2</label>
-                            <input type="Number" placeholder="Points 2" class="form-control" name="point2" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01"  ng-model="qualifyinground.point2" >
+                        <div class="form-group" >
+                            <label>Points/Distance/Height</label>
+                            <input type="text" placeholder="Score" class="form-control" ng-model="qualifyinground.score" >
                         </div>
                         <div class="form-group">
-                            <label>Player 2 </label>
-                            <ui-select  ng-model="qualifyinground.player2" title="Select Player" >
-                                <ui-select-match placeholder="Select Player">{{$select.selected.name}}</ui-select-match>
-                                <ui-select-choices refresh-delay="0" refresh="getQualifyingRoundPlayer($select.search)" repeat="player1 in students | filter: $select.search">
-                                    <div ng-bind-html="player1.name | highlight: $select.search"></div>
-                                    <small>
-                            SFA-ID:<span ng-bind-html="player1.sfaid | highlight: $select.search"></span>
-
-                        </small>
-                                </ui-select-choices>
-                            </ui-select>
-                        </div>
-                        <div class="form-group">
-                            <label>No 2 </label>
-                            <input type="text" placeholder="No 2" class="form-control"  ng-model="qualifyinground.no2"  only-digits >
+                            <label>Video </label>
+                            <input type="text" placeholder="No 2" class="form-control"  ng-model="qualifyinground.video"  >
                         </div>
                     </div>
                 </div>
@@ -115,7 +102,7 @@
                     <div class="col-md-12">
                         <div class="text-center mt20">
                             <button class="btn btn-default" type="submit">Save</button>
-                            <button class="btn btn-default" ui-sref="swissaddround({id:sportid})">Cancel</button>
+                            <button class="btn btn-default" ui-sref="qualifyingroundaddround({id:sportid})">Cancel</button>
                         </div>
                     </div>
                 </div>

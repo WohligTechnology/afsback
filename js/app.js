@@ -109,7 +109,7 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
     .state('createqualifyinground', {
         url: "/createqualifyinground/:sportid/:round/:order",
         templateUrl: "views/template.html",
-        controller: 'createSwissLeagueCtrl'
+        controller: 'createQualifyingRoundCtrl'
     })
     .state('editheat', {
         url: "/editheat/:id/:sportid/:round/:order",

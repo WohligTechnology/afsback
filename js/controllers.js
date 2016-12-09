@@ -3569,14 +3569,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     .controller('createQualifyingRoundCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("createqualifyinground");
-        $scope.menutitle = NavigationService.makeactive("Swiss League");
+        $scope.menutitle = NavigationService.makeactive("Qualifying Round");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.qualifyinground  = {};
         $scope.qualifyinground.roundno = 0;
         $scope.statuses = {};
         $scope.statuses.inedit = false;
-        $scope.qualifyinground.event = "Swiss League";
         $scope.sportid = $stateParams.sportid;
         if ($stateParams.sportid) {
             NavigationService.getOneSport($stateParams.sportid, function(response) {
@@ -3624,12 +3623,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             console.log($scope.qualifyinground);
             var request = $scope.qualifyinground;
             request.sport = $scope.qualifyinground.sport._id;
-            if($scope.qualifyinground.player1){
-              request.player1 = $scope.qualifyinground.player1._id;
+            if($scope.qualifyinground.player){
+              request.player1 = $scope.qualifyinground.player._id;
             }
-            if($scope.qualifyinground.player2){
-              request.player2 = $scope.qualifyinground.player2._id;
-            }
+            
             NavigationService.saveQualifyingRound(request, function(response) {
                 if (response.value) {
                     $state.go('qualifyinground', {
