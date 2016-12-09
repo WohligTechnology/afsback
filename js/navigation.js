@@ -1,6 +1,6 @@
-// var adminURL = "https://api.sfanow.in/api/";
+var adminURL = "https://api.sfanow.in/api/";
 // var adminURL = "http://192.168.2.51:1337/api/";
-var adminURL = "http://localhost:1337/api/";
+// var adminURL = "http://localhost:1337/api/";
 var uploadurl = adminURL + "upload/";
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
 // var openTab = "http://localhost:808/#/showstudent"
