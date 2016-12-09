@@ -473,6 +473,15 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
+        getOneQualifyingRound: function(request, callback) {
+            $http({
+                url: adminURL + 'qualifyinground/getOne',
+                method: 'POST',
+                data: {
+                  _id : request.id
+                }
+            }).success(callback);
+        },
         getAllAgeGroups: function(callback) {
             $http({
                 url: adminURL + 'agegroup/getAll',

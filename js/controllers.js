@@ -3573,7 +3573,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.qualifyinground  = {};
-        $scope.qualifyinground.roundno = 0;
         $scope.statuses = {};
         $scope.statuses.inedit = false;
         $scope.sportid = $stateParams.sportid;
@@ -3626,10 +3625,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             if($scope.qualifyinground.player){
               request.player1 = $scope.qualifyinground.player._id;
             }
-            
+
             NavigationService.saveQualifyingRound(request, function(response) {
                 if (response.value) {
-                    $state.go('qualifyinground', {
+                    $state.go('qualifyingroundaddround', {
                         id: request.sport
                     });
                 } else {
@@ -3638,6 +3637,89 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         };
 
+    })
+    .controller('editQualifyingRoundCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal, $stateParams) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("createqualifyinground");
+        $scope.menutitle = NavigationService.makeactive("Qualifying Round");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.qualifyinground  = {};
+        $scope.statuses = {};
+        $scope.statuses.inedit = false;
+        $scope.sportid = $stateParams.sportid;
+        if ($stateParams.sportid) {
+            NavigationService.getOneSport($stateParams.sportid, function(response) {
+                if (response.value) {
+                    $scope.qualifyinground.sport = response.data;
+                    $scope.qualifyinground.year = response.data.year;
+                }
+            });
+        }
+        if ($stateParams.round) {
+            $scope.qualifyinground.round = $stateParams.round;
+        }
+        if ($stateParams.order) {
+            $scope.qualifyinground.order = $stateParams.order;
+        }
+
+        $scope.getQualifyingRoundPlayer = function(search) {
+            $scope.students = [];
+            var constraints = {};
+            constraints.search = search;
+            if (isNaN(search) || search === null || search === undefined || search === "") {
+                constraints.search = search;
+                constraints.sfaid = undefined;
+            } else {
+                constraints.search = undefined;
+                constraints.sfaid = parseInt(search);
+            }
+            if ($scope.qualifyinground.sport) {
+                constraints.sport = $scope.qualifyinground.sport.sportslist._id;
+            }
+            if ($scope.qualifyinground.sport.gender) {
+                constraints.gender = $scope.qualifyinground.sport.gender;
+            }
+            constraints.year = $scope.qualifyinground.year.toString();
+            console.log(constraints);
+            NavigationService.getStudentsbySport(constraints, function(data) {
+                if (data && data.value !== false) {
+                    $scope.students = data.data;
+                } else {
+                    $scope.students = [];
+                }
+            });
+        };
+        $scope.submitQualifyingRound = function() {
+            console.log($scope.qualifyinground);
+            var request = $scope.qualifyinground;
+            request.sport = $scope.qualifyinground.sport._id;
+            if($scope.qualifyinground.player){
+              request.player1 = $scope.qualifyinground.player._id;
+            }
+
+            NavigationService.saveQualifyingRound(request, function(response) {
+                if (response.value) {
+                    $state.go('qualifyingroundaddround', {
+                        id: request.sport
+                    });
+                } else {
+                    // do nothing
+                }
+            });
+        };
+        if ($stateParams.id) {
+            NavigationService.getOneQualifyingRound($stateParams, function(response) {
+                if (response.value) {
+                    $scope.qualifyinground = response.data;
+                    if($scope.qualifyinground.date){
+                      $scope.qualifyinground.date = new Date($scope.qualifyinground.date);
+                    }
+                } else {
+
+                }
+            });
+        }
     })
     .controller('editSwissLeagueCtrl', function($scope, TemplateService, NavigationService, $timeout, $state, $uibModal, $stateParams) {
         //Used to name the .html file

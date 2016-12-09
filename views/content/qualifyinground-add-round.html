@@ -82,26 +82,16 @@
                                         <thead>
                                             <tr>
                                                 <th>Match ID</th>
-                                                <th>No 1</th>
-                                                <th>Player 1</th>
-                                                <th>Point 1</th>
+                                                <th>Player </th>
                                                 <th>Result</th>
-                                                <th>Point 2</th>
-                                                <th>Player 2</th>
-                                                <th>No 2</th>
                                                 <th class="text-center" colspan="2">Operations</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="key in qualifyinground.qualifyingrounds | orderBy : 'matchorder'">
                                                 <td>{{key.matchid}}</td>
-                                                <td>{{key.no1}}</td>
-                                                <td>{{key.player1.name}}</td>
-                                                <td>{{key.point1}}</td>
+                                                <td>{{key.player.name}}</td>
                                                 <td>{{key.result}}</td>
-                                                <td>{{key.point2}}</td>
-                                                <td>{{key.player2.name}}</td>
-                                                <td>{{key.no2}}</td>
                                                 <td class="text-center">
                                                     <a ui-sref="editqualifyinground({id:key._id,sportid:key.sport,round:qualifyinground.round,order:qualifyinground.order})" class="btn btn-primary">
                                                         <i class="fa fa-pencil-square-o"></i>

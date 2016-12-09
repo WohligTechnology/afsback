@@ -121,6 +121,11 @@ firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $loc
         templateUrl: "views/template.html",
         controller: 'editSwissLeagueCtrl'
     })
+    .state('editqualifyinground', {
+        url: "/editqualifyinground/:id/:sportid/:round/:order",
+        templateUrl: "views/template.html",
+        controller: 'editQualifyingRoundCtrl'
+    })
     .state('editleagueknockout', {
         url: "/editleagueknockout/:id/:sportid/:round/:order",
         templateUrl: "views/template.html",
