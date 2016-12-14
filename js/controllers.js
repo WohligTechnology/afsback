@@ -1255,7 +1255,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             constraints.sport = $stateParams.id;
             constraints.round = 'Third Place';
             constraints.roundno = -1;
-            constraints.order = -1;
+            constraints.order = 0;
             constraints.year = $scope.selectedsport.year;
             NavigationService.submitKnockout(constraints, function(response) {
                 if (response.value) {
