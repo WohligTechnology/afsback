@@ -11,22 +11,27 @@
 //@import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css";
 @import "../bower_components/angular-ui-select/dist/select.css";
 body {}
+
 img.loading {
     text-align: center;
     opacity: 1;
     width: 32px !important;
     height: auto;
 }
+
 img {
     opacity: 0;
     @include transition(all 300ms ease);
 }
+
 img.doneLoading {
     opacity: 1;
 }
+
 nav li:hover .dropdown-menu {
     display: block;
 }
+
 .btn,
 a {
     cursor: pointer;
@@ -34,35 +39,40 @@ a {
 }
 
 //classess
-    .bg-white {
-        background-color: white;
-    }
-// classess end
+.bg-white {
+    background-color: white;
+}
 
+// classess end
 //bootstrap forms
 .btn,
 .form-control,
-.input-group-lg > .form-control,
-.input-group-lg > .input-group-addon,
-.input-group-lg > .input-group-btn > .btn,
+.input-group-lg>.form-control,
+.input-group-lg>.input-group-addon,
+.input-group-lg>.input-group-btn>.btn,
 .input-lg {
     border-radius: 0;
     @include box-shadow(none);
 }
+
 .form-control:focus {
     border-color: $brand-primary;
     outline: 0;
     @include box-shadow(none);
 }
+
 .mt20 {
     margin-top: 20px;
 }
+
 .widget-title .error {
     color: red;
 }
+
 input:focus {
     outline: none;
 }
+
 .input-email {
     border: 1px solid #e6eaea;
     -webkit-border-radius: 30px;
@@ -77,11 +87,13 @@ input:focus {
     padding: 13px 30px;
     width: 100%;
 }
+
 .checkbox {
     label {
         margin-right: 15px;
     }
 }
+
 .main-content {
     float: left;
     padding: 74px 11px 80px 232px;
@@ -92,6 +104,7 @@ input:focus {
     -o-transition: all 0.4s ease 0s;
     transition: all 0.4s ease 0s;
 }
+
 .submenu-content {
     padding: 119px 0 0;
     width: 100%;
@@ -102,15 +115,18 @@ input:focus {
     transition: all 0.4s ease 0s;
     margin-left: -8px;
 }
+
 .panel-content {
     float: left;
     margin-top: -26px;
     padding-top: 20px;
     width: 100%;
 }
+
 .main-content.wide-content {
     padding-left: 10px;
 }
+
 .tableSearch {
     -webkit-appearance: none;
     display: inline-block;
@@ -118,98 +134,127 @@ input:focus {
     width: 300px;
     margin-right: 20px;
 }
+
 .upload-pic {
-  padding: 0 40px 20px;
+    padding: 0 40px 20px;
 }
+
 .more-text {
- padding: 50px 20px;
+    padding: 50px 20px;
 }
+
 .modal-dialog {
     position: absolute;
     top: 50%;
     left: 50%;
-    @include transform(translate(-50%,-50%)!important);
+    @include transform(translate(-50%, -50%)!important);
 }
+
 .modal-open {
     padding-right: 0px !important;
 }
+
 .wd75 {
-width: 75px;
+    width: 75px;
 }
-.error{
-    color:red;
+
+.error {
+    color: red;
 }
+
 .select-time {
     select {
-    width:32%;
-    display: inline-block;
+        width: 32%;
+        display: inline-block;
     }
 }
+
 .student-sport-view {
     margin: 10px 0;
 }
 
-.banner-img-holder{
-    width:300px;
-    height:200px;
+.banner-img-holder {
+    width: 300px;
+    height: 200px;
     position: relative;
     margin-right: 20px;
     display: inline-block;
-    img{
-        width:100%;
+    img {
+        width: 100%;
     }
     button {
-     position: absolute;
-     top: 0px;
-     right: 0px;
+        position: absolute;
+        top: 0px;
+        right: 0px;
     }
 }
+
 .block {
     display: block;
 }
-.bckgrnd-red{
-  background: red;
-}
-.bckgrnd-grey{
-  font-weight: 800;
-}
-.margin0{
-  margin: 0px;
-}
-.w-title{
-  margin-bottom:0px;
-  border-bottom:2px solid #ddd;
-  h3{
-    margin:8px;
-    margin-left: 0px;
-    font-size: 14px;
-  }
-}
-.w-body{
-  // .col-md-2{
-  //   input["text"]{
-  //     margin: 0 !important;
-  //   }
-  // }
 
-  .w20{
-    width: 26%;
-    // margin-top: 5px;
-    margin: 0 !important;
-  }
+.bckgrnd-red {
+    background: red;
 }
-.heat-body{
-  // border:1px solid #ddd;
-  margin-left: 30px;
-  margin-right: 30px;
+
+.bckgrnd-grey {
+    font-weight: 800;
 }
-.mt18{
-  margin-top: 18px;
+
+.margin0 {
+    margin: 0px;
 }
-.mt50{
-      margin-top: 50px;
+
+.w-title {
+    margin-bottom: 0px;
+    border-bottom: 2px solid #ddd;
+    h3 {
+        margin: 8px;
+        margin-left: 0px;
+        font-size: 14px;
+    }
 }
-.mt20.my-btn .btn {padding: 10px 20px 10px 20px;margin: 0px 0px 8px 0px;}
+
+.w-body {
+    // .col-md-2{
+    //   input["text"]{
+    //     margin: 0 !important;
+    //   }
+    // }
+    .w20 {
+        width: 26%; // margin-top: 5px;
+        margin: 0 !important;
+    }
+}
+
+.heat-body {
+    // border:1px solid #ddd;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.mt18 {
+    margin-top: 18px;
+}
+
+.mt50 {
+    margin-top: 50px;
+}
+
+.mt20.my-btn .btn {
+    padding: 10px 20px 10px 20px;
+    margin: 0px 0px 8px 0px;
+}
+
+.side-menus {
+    ul {
+        height: 400px;
+        overflow-y: scroll;
+    }
+}
+
 //bootstrap forms
+
 /* Start writing sass here */
+
 @import "fancybox-override";

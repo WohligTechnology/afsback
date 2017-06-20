@@ -28,7 +28,7 @@
         "font-awesome": "^4.6.3",
         "lodash": "~4.0.0",
         "ui-router": "~0.2.15",
-        "angular": "^1.5.0",
+        "angular": "~1.5.8",
         "fancyBox": "fancybox#^2.1.5",
         "angulartics-google-analytics": "^0.1.4",
         "peity": "https://github.com/benpickles/peity.git#^3.2.0",
@@ -37,7 +37,7 @@
         "jStorage": "^0.4.12",
         "angular-ui-select": "^0.18.1",
         "angular-ui-tinymce": "~0.0.12",
-         "tinymce": "4.3.12"
+        "tinymce": "4.3.12"
     },
     "devDependencies": {
         "angular-translate": "^2.11.0"

@@ -2,7 +2,8 @@
     <div class="row">
         <!-- <div class="col-md-4 column"> -->
         <div class="heading-profile text-center">
-            <h2>{{selectedsport.sportslist.name}} {{selectedsport.gender}} {{selectedsport.firstcategory.name}} {{selectedsport.secondcategory.name}} {{selectedsport.thirdcategory.name}} {{selectedsport.agegroup.name}} Swiss Leagues - {{selectedsport.year}}</h2>
+            <h2>{{selectedsport.sportslist.name}} {{selectedsport.gender}} {{selectedsport.firstcategory.name}} {{selectedsport.secondcategory.name}}
+                {{selectedsport.thirdcategory.name}} {{selectedsport.agegroup.name}} Swiss Leagues - {{selectedsport.year}}</h2>
         </div>
         <!-- </div> -->
     </div>
@@ -24,11 +25,13 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <span><b>Order</b></span>
-                                        <input type="text" placeholder="Order" name="order" class="form-control w20" ng-model="leagueknockout.leagueknockoutorder" only-digits required>
+                                        <input type="text" placeholder="Order" name="order" class="form-control w20" ng-model="leagueknockout.leagueknockoutorder"
+                                            only-digits required>
                                     </div>
                                     <div class="col-md-2">
                                         <span><b>Round</b></span>
-                                        <input type="text" placeholder="Round Name" name="round" class="form-control" ng-model="leagueknockout.leagueknockoutround" required>
+                                        <input type="text" placeholder="Round Name" name="round" class="form-control" ng-model="leagueknockout.leagueknockoutround"
+                                            required>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="pull-right mt18">
@@ -50,8 +53,8 @@
                                             <a class="btn btn-default" ui-sref="leagueknockoutsport({id:selectedsport.sportslist._id})">
                                                 < Back to {{selectedsport.sportslist.name}}</a>
 
-                                                    <!-- <a class="btn btn-info" href="{{adminURL}}leagueknockout/exportSwissLeague?sport={{leagueknockout.sport}}"><i class="fa fa-download"></i>&nbsp; Swiss Leagues</a> -->
-                                                    <!-- <upload-excel button-text="buttonText" ng-model="profilePic" no-view uploadhere="uploadurl" ng-callback="thismodel" current-state="cs"></upload-excel> -->
+                                                    <a class="btn btn-info" href="{{adminURL}}leagueknockout/exportSwissLeague?sport={{leagueknockout.sport}}"><i class="fa fa-download"></i>&nbsp; Swiss Leagues</a>
+                                                    <upload-excel button-text="buttonText" ng-model="profilePic" no-view uploadhere="uploadurl" ng-callback="thismodel" current-state="cs"></upload-excel>
                                         </div>
                                     </div>
                                 </div>
@@ -79,33 +82,37 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                              <th>Match ID</th>
-                                              <th>Participant Type</th>
-                                              <th>Participant 1</th>
-                                              <th>Result 1</th>
-                                              <th>Points 1</th>
-                                              <th>Participant 2</th>
-                                              <th>Result 2</th>
-                                              <th>Points 2</th>
+                                                <th>Match ID</th>
+                                                <th>Participant Type</th>
+                                                <th>Participant 1</th>
+                                                <th>Result 1</th>
+                                                <th>Points 1</th>
+                                                <th>Participant 2</th>
+                                                <th>Result 2</th>
+                                                <th>Points 2</th>
 
-                                              <th >Score</th>
-                                              <th class="text-center" colspan="2">Operations</th>
+                                                <th>Score</th>
+                                                <th class="text-center" colspan="2">Operations</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="key in leagueknockout.leagueknockouts | orderBy : 'matchorder'">
-                                              <td>{{key.matchid}}</td>
-                                              <td>{{key.participantType == 'player' && 'Student' || key.participantType == 'team' && 'Team' || 'Not Declared'}}</td>
-                                              <td >{{key.participantType == 'player' && key.player1.name || key.participantType == 'team' && key.team1.name || 'Not Declared' | letterLimit :13}}</td>
-                                              <td >{{key.result1 || 'Not Declared'}}</td>
-                                              <td >{{key.point1 || 'Not Declared'}}</td>
-                                              <td >{{key.participantType == 'player' && key.player2.name || key.participantType == 'team' && key.team2.name || 'Not Declared' | letterLimit :13 }}</td>
-                                              <td >{{key.result2 || 'Not Declared'}}</td>
-                                              <td >{{key.point2 || 'Not Declared'}}</td>
+                                                <td>{{key.matchid}}</td>
+                                                <td>{{key.participantType == 'player' && 'Student' || key.participantType ==
+                                                    'team' && 'Team' || 'Not Declared'}}</td>
+                                                <td>{{key.participantType == 'player' && key.player1.name || key.participantType
+                                                    == 'team' && key.team1.name || 'Not Declared' | letterLimit :13}}</td>
+                                                <td>{{key.result1 || 'Not Declared'}}</td>
+                                                <td>{{key.point1 || 'Not Declared'}}</td>
+                                                <td>{{key.participantType == 'player' && key.player2.name || key.participantType
+                                                    == 'team' && key.team2.name || 'Not Declared' | letterLimit :13 }}</td>
+                                                <td>{{key.result2 || 'Not Declared'}}</td>
+                                                <td>{{key.point2 || 'Not Declared'}}</td>
 
-                                              <td ng-class="{'bckgrnd-red':!key.score}">{{value.score}}</td>
+                                                <td ng-class="{'bckgrnd-red':!key.score}">{{value.score}}</td>
                                                 <td class="text-center">
-                                                    <a ui-sref="editleagueknockout({id:key._id,sportid:selectedsport._id,round:leagueknockout.leagueknockoutround,order:leagueknockout.leagueknockoutorder})" class="btn btn-primary">
+                                                    <a ui-sref="editleagueknockout({id:key._id,sportid:selectedsport._id,round:leagueknockout.leagueknockoutround,order:leagueknockout.leagueknockoutorder})"
+                                                        class="btn btn-primary">
                                                         <i class="fa fa-pencil-square-o"></i>
                                                     </a>
                                                 </td>
@@ -122,7 +129,8 @@
                                         <h5>No results found</h5>
                                     </div>
                                     <div class="">
-                                        <uib-pagination ng-show="sport.data.length > 0" ng-change="reload();" total-items="sport.total" ng-model="pagination.pagenumber" items-per-page="20">
+                                        <uib-pagination ng-show="sport.data.length > 0" ng-change="reload();" total-items="sport.total" ng-model="pagination.pagenumber"
+                                            items-per-page="20">
 
                                         </uib-pagination>
                                     </div>
