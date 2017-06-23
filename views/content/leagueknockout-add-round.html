@@ -3,7 +3,7 @@
         <!-- <div class="col-md-4 column"> -->
         <div class="heading-profile text-center">
             <h2>{{selectedsport.sportslist.name}} {{selectedsport.gender}} {{selectedsport.firstcategory.name}} {{selectedsport.secondcategory.name}}
-                {{selectedsport.thirdcategory.name}} {{selectedsport.agegroup.name}} Swiss Leagues - {{selectedsport.year}}</h2>
+                {{selectedsport.thirdcategory.name}} {{selectedsport.agegroup.name}} League Knockout - {{selectedsport.year}}</h2>
         </div>
         <!-- </div> -->
     </div>
@@ -109,7 +109,7 @@
                                                 <td>{{key.result2 || 'Not Declared'}}</td>
                                                 <td>{{key.point2 || 'Not Declared'}}</td>
 
-                                                <td ng-class="{'bckgrnd-red':!key.score}">{{value.score}}</td>
+                                                <td ng-class="{'bckgrnd-red':!key.score}">{{key.score}}</td>
                                                 <td class="text-center">
                                                     <a ui-sref="editleagueknockout({id:key._id,sportid:selectedsport._id,round:leagueknockout.leagueknockoutround,order:leagueknockout.leagueknockoutorder})"
                                                         class="btn btn-primary">
