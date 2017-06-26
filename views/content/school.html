@@ -28,7 +28,7 @@
                 <div class="table-area">
                     <div class="widget-title">
                         <div class="pull-right">
-                          <a class="btn btn-info" href="{{adminURL}}school/excelDownload"><i class="fa fa-download"></i>&nbsp; All School Excel</a>
+                            <a class="btn btn-info" href="{{adminURL}}school/excelDownload"><i class="fa fa-download"></i>&nbsp; All School Excel</a>
                             <a class="btn btn-primary" ui-sref="createschool"><i class="fa fa-plus"></i>&nbsp;Add New</a>
                         </div>
                         <h3>List of Schools</h3>
@@ -67,10 +67,10 @@
                                         </a>
                                     </td>
                                     <td class="text-center">
-                                        <a ng-click="hideschool(school._id,true)" class="btn btn-primary wd75" ng-if="school.deleteStatus == false">
+                                        <a ng-click="hideSchool(school._id,true)" class="btn btn-primary wd75" ng-if="school.deleteStatus == false">
                                             <span>Hide</span>
                                         </a>
-                                        <a ng-click="hideschool(school._id,false)" class="btn btn-primary wd75" ng-if="school.deleteStatus == true">
+                                        <a ng-click="hideSchool(school._id,false)" class="btn btn-primary wd75" ng-if="school.deleteStatus == true">
                                             <span>Unhide</span>
                                         </a>
                                     </td>
@@ -84,7 +84,8 @@
                         </table>
                     </div>
                     <div class="">
-                        <uib-pagination ng-show="schools.data.length > 0" ng-change="reload();" total-items="schools.total" ng-model="pagination.pagenumber" items-per-page="20"></uib-pagination>
+                        <uib-pagination ng-show="schools.data.length > 0" ng-change="reload();" total-items="schools.total" ng-model="pagination.pagenumber"
+                            items-per-page="20"></uib-pagination>
                     </div>
                 </div>
             </div>
