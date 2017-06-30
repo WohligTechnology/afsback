@@ -3573,7 +3573,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.qualifyinground  = {};
-        $scope.qualifyinground.heats = [];
         $scope.statuses = {};
         $scope.statuses.inedit = false;
         $scope.sportid = $stateParams.sportid;
@@ -3591,36 +3590,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         if ($stateParams.order) {
             $scope.qualifyinground.order = $stateParams.order;
         }
-        $scope.addParticipant = function () {
-            $scope.qualifyinground .heats.push({});
-        };
-        $scope.getQualifyingRoundTeam = function (search) {
-            $scope.teams = [];
-            var constraints = {};
-            constraints.search = search;
-            if (isNaN(search) || search === null || search === undefined || search === "") {
-                constraints.search = search;
-                constraints.sfaid = undefined;
-            } else {
-                constraints.search = undefined;
-                constraints.sfaid = parseInt(search);
-            }
-            if ($scope.qualifyinground.sport) {
-                constraints.sport = $scope.qualifyinground.sport.sportslist._id;
-                constraints.agegroup = $scope.qualifyinground.sport.agegroup;
-            }
-            if ($scope.qualifyinground.sport.gender) {
-                constraints.gender = $scope.qualifyinground.sport.gender;
-            }
-            constraints.year = $scope.qualifyinground.year.toString();
-            NavigationService.getTeamsbySport(constraints, function (data) {
-                if (data && data.value !== false) {
-                    $scope.teams = data.data;
-                } else {
-                    $scope.teams = [];
-                }
-            });
-        };
+
         $scope.getQualifyingRoundPlayer = function (search) {
             $scope.students = [];
             var constraints = {};
@@ -3675,13 +3645,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.qualifyinground  = {};
-        $scope.qualifyinground.heats = [];
         $scope.statuses = {};
         $scope.statuses.inedit = false;
         $scope.sportid = $stateParams.sportid;
-        $scope.addParticipant = function () {
-            $scope.qualifyinground .heats.push({});
-        };
         if ($stateParams.sportid) {
             NavigationService.getOneSport($stateParams.sportid, function (response) {
                 if (response.value) {
@@ -3721,33 +3687,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     $scope.students = data.data;
                 } else {
                     $scope.students = [];
-                }
-            });
-        };
-        $scope.getQualifyingRoundTeam = function (search) {
-            $scope.teams = [];
-            var constraints = {};
-            constraints.search = search;
-            if (isNaN(search) || search === null || search === undefined || search === "") {
-                constraints.search = search;
-                constraints.sfaid = undefined;
-            } else {
-                constraints.search = undefined;
-                constraints.sfaid = parseInt(search);
-            }
-            if ($scope.qualifyinground.sport) {
-                constraints.sport = $scope.qualifyinground.sport.sportslist._id;
-                constraints.agegroup = $scope.qualifyinground.sport.agegroup;
-            }
-            if ($scope.qualifyinground.sport.gender) {
-                constraints.gender = $scope.qualifyinground.sport.gender;
-            }
-            constraints.year = $scope.qualifyinground.year.toString();
-            NavigationService.getTeamsbySport(constraints, function (data) {
-                if (data && data.value !== false) {
-                    $scope.teams = data.data;
-                } else {
-                    $scope.teams = [];
                 }
             });
         };
