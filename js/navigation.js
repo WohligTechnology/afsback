@@ -1,7 +1,7 @@
 // var adminURL = "https://api.sfanow.in/api/";
-var adminURL = "http://sfa3.wohlig.co.in/api/";
+// var adminURL = "http://sfa3.wohlig.co.in/api/";
 // var adminURL = "http://192.168.2.51:1337/api/";
-// var adminURL = "http://localhost:1337/api/";
+var adminURL = "http://localhost:1337/api/";
 var uploadurl = adminURL + "upload/";
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
 // var openTab = "http://localhost:808/#/showstudent"
@@ -109,6 +109,12 @@ var navigationservice = angular.module('navigationservice', [])
             name: "Qualifying Round",
             classis: "active",
             anchor: "qualifyingrounddashboard",
+            icon: "users",
+            subnav: []
+        }, {
+            name: "Qualifying Knockout",
+            classis: "active",
+            anchor: "qualifyingknockoutdashboard",
             icon: "users",
             subnav: []
         }];
@@ -481,6 +487,15 @@ var navigationservice = angular.module('navigationservice', [])
                     }
                 }).success(callback);
             },
+            getOneQualifyingKnockout: function (request, callback) {
+                $http({
+                    url: adminURL + 'qualifyingknockout/getOne',
+                    method: 'POST',
+                    data: {
+                        _id: request.id
+                    }
+                }).success(callback);
+            },
             getAllAgeGroups: function (callback) {
                 $http({
                     url: adminURL + 'agegroup/getAll',
@@ -685,6 +700,13 @@ var navigationservice = angular.module('navigationservice', [])
                     data: request
                 }).success(callback);
             },
+            getQualifyingKnockout: function (request, callback) {
+                $http({
+                    url: adminURL + 'QualifyingKnockout/getAll',
+                    method: 'POST',
+                    data: request
+                }).success(callback);
+            },
             getLimitedSchool: function (data, callback) {
                 $http({
                     url: adminURL + 'school/getLimited',
@@ -804,6 +826,15 @@ var navigationservice = angular.module('navigationservice', [])
             deleteQualifyingRound: function (id, callback) {
                 $http({
                     url: adminURL + 'qualifyinground/deleteData',
+                    method: 'POST',
+                    data: {
+                        _id: id
+                    }
+                }).success(callback);
+            },
+            deleteQualifyingKnockout: function (id, callback) {
+                $http({
+                    url: adminURL + 'qualifyingknockout/deleteData',
                     method: 'POST',
                     data: {
                         _id: id
@@ -955,6 +986,20 @@ var navigationservice = angular.module('navigationservice', [])
             saveQualifyingRound: function (request, callback) {
                 $http({
                     url: adminURL + 'qualifyinground/saveData',
+                    method: 'POST',
+                    data: request
+                }).success(callback);
+            },
+            saveQualifyingKnockout: function (request, callback) {
+                $http({
+                    url: adminURL + 'qualifyingknockout/saveData',
+                    method: 'POST',
+                    data: request
+                }).success(callback);
+            },
+            saveQualifyingKnockout: function (request, callback) {
+                $http({
+                    url: adminURL + 'qualifyingknockout/saveData',
                     method: 'POST',
                     data: request
                 }).success(callback);

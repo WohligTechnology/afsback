@@ -10,368 +10,392 @@ var firstapp = angular.module('firstapp', [
     'imageupload'
 ]);
 
-firstapp.config(function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
+firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
     // for http request with session
     $httpProvider.defaults.withCredentials = true;
     $stateProvider
 
         .state('dashboard', {
-        url: "/dashboard",
-        templateUrl: "views/template.html",
-        controller: 'DashboardCtrl'
-    })
+            url: "/dashboard",
+            templateUrl: "views/template.html",
+            controller: 'DashboardCtrl'
+        })
 
-    .state('login', {
-        url: "/login",
-        templateUrl: "views/template.html",
-        controller: 'LoginCtrl'
-    })
+        .state('login', {
+            url: "/login",
+            templateUrl: "views/template.html",
+            controller: 'LoginCtrl'
+        })
 
-    .state('school', {
-        url: "/school",
-        templateUrl: "views/template.html",
-        controller: 'schoolCtrl'
-    })
-    .state('banner', {
-        url: "/banner",
-        templateUrl: "views/template.html",
-        controller: 'bannerCtrl'
-    })
+        .state('school', {
+            url: "/school",
+            templateUrl: "views/template.html",
+            controller: 'schoolCtrl'
+        })
+        .state('banner', {
+            url: "/banner",
+            templateUrl: "views/template.html",
+            controller: 'bannerCtrl'
+        })
 
-    .state('createschool', {
-        url: "/createschool",
-        templateUrl: "views/template.html",
-        controller: 'createSchoolCtrl'
-    })
-    .state('createbanner', {
-        url: "/createbanner",
-        templateUrl: "views/template.html",
-        controller: 'createBannerCtrl'
-    })
-    .state('editbanner', {
-        url: "/editbanner/:id",
-        templateUrl: "views/template.html",
-        controller: 'editBannerCtrl'
-    })
+        .state('createschool', {
+            url: "/createschool",
+            templateUrl: "views/template.html",
+            controller: 'createSchoolCtrl'
+        })
+        .state('createbanner', {
+            url: "/createbanner",
+            templateUrl: "views/template.html",
+            controller: 'createBannerCtrl'
+        })
+        .state('editbanner', {
+            url: "/editbanner/:id",
+            templateUrl: "views/template.html",
+            controller: 'editBannerCtrl'
+        })
 
-    .state('editschool', {
-        url: "/editschool/:id",
-        templateUrl: "views/template.html",
-        controller: 'editSchoolCtrl'
-    })
+        .state('editschool', {
+            url: "/editschool/:id",
+            templateUrl: "views/template.html",
+            controller: 'editSchoolCtrl'
+        })
 
-    .state('student', {
-        url: "/student",
-        templateUrl: "views/template.html",
-        controller: 'studentCtrl'
-    })
+        .state('student', {
+            url: "/student",
+            templateUrl: "views/template.html",
+            controller: 'studentCtrl'
+        })
 
-    .state('createstudent', {
-        url: "/createstudent",
-        templateUrl: "views/template.html",
-        controller: 'createStudentCtrl'
-    })
-    .state('createteam', {
-        url: "/createteam",
-        templateUrl: "views/template.html",
-        controller: 'createTeamCtrl'
-    })
-    .state('createleague', {
-        url: "/createleague/:sportid",
-        templateUrl: "views/template.html",
-        controller: 'createLeagueCtrl'
-    })
-    .state('createleagueknockout', {
-        url: "/createleagueknockout/:sportid/:round/:order",
-        templateUrl: "views/template.html",
-        controller: 'createLeagueKnockoutCtrl'
-    })
-    .state('createknockout', {
-        url: "/createknockout/:sportid",
-        templateUrl: "views/template.html",
-        controller: 'createKnockoutCtrl'
-    })
-    .state('createmedal', {
-        url: "/createmedal/:sportid",
-        templateUrl: "views/template.html",
-        controller: 'createMedalCtrl'
-    })
-    .state('createheat', {
-        url: "/createheat/:sportid/:round/:order",
-        templateUrl: "views/template.html",
-        controller: 'createHeatCtrl'
-    })
-    .state('createswissleague', {
-        url: "/createswissleague/:sportid/:round/:order",
-        templateUrl: "views/template.html",
-        controller: 'createSwissLeagueCtrl'
-    })
-    .state('createqualifyinground', {
-        url: "/createqualifyinground/:sportid/:round/:order",
-        templateUrl: "views/template.html",
-        controller: 'createQualifyingRoundCtrl'
-    })
-    .state('editheat', {
-        url: "/editheat/:id/:sportid/:round/:order",
-        templateUrl: "views/template.html",
-        controller: 'editHeatCtrl'
-    })
-    .state('editswissleague', {
-        url: "/editswissleague/:id/:sportid/:round/:order",
-        templateUrl: "views/template.html",
-        controller: 'editSwissLeagueCtrl'
-    })
-    .state('editqualifyinground', {
-        url: "/editqualifyinground/:id/:sportid/:round/:order",
-        templateUrl: "views/template.html",
-        controller: 'editQualifyingRoundCtrl'
-    })
-    .state('editleagueknockout', {
-        url: "/editleagueknockout/:id/:sportid/:round/:order",
-        templateUrl: "views/template.html",
-        controller: 'editLeagueKnockoutCtrl'
-    })
+        .state('createstudent', {
+            url: "/createstudent",
+            templateUrl: "views/template.html",
+            controller: 'createStudentCtrl'
+        })
+        .state('createteam', {
+            url: "/createteam",
+            templateUrl: "views/template.html",
+            controller: 'createTeamCtrl'
+        })
+        .state('createleague', {
+            url: "/createleague/:sportid",
+            templateUrl: "views/template.html",
+            controller: 'createLeagueCtrl'
+        })
+        .state('createleagueknockout', {
+            url: "/createleagueknockout/:sportid/:round/:order",
+            templateUrl: "views/template.html",
+            controller: 'createLeagueKnockoutCtrl'
+        })
+        .state('createknockout', {
+            url: "/createknockout/:sportid",
+            templateUrl: "views/template.html",
+            controller: 'createKnockoutCtrl'
+        })
+        .state('createmedal', {
+            url: "/createmedal/:sportid",
+            templateUrl: "views/template.html",
+            controller: 'createMedalCtrl'
+        })
+        .state('createheat', {
+            url: "/createheat/:sportid/:round/:order",
+            templateUrl: "views/template.html",
+            controller: 'createHeatCtrl'
+        })
+        .state('createswissleague', {
+            url: "/createswissleague/:sportid/:round/:order",
+            templateUrl: "views/template.html",
+            controller: 'createSwissLeagueCtrl'
+        })
+        .state('createqualifyinground', {
+            url: "/createqualifyinground/:sportid/:round/:order",
+            templateUrl: "views/template.html",
+            controller: 'createQualifyingRoundCtrl'
+        })
+        .state('createqualifyingknockout', {
+            url: "/createqualifyingknockout/:sportid/:round/:order",
+            templateUrl: "views/template.html",
+            controller: 'createQualifyingKnockoutCtrl'
+        })
+        .state('editheat', {
+            url: "/editheat/:id/:sportid/:round/:order",
+            templateUrl: "views/template.html",
+            controller: 'editHeatCtrl'
+        })
+        .state('editswissleague', {
+            url: "/editswissleague/:id/:sportid/:round/:order",
+            templateUrl: "views/template.html",
+            controller: 'editSwissLeagueCtrl'
+        })
+        .state('editqualifyinground', {
+            url: "/editqualifyinground/:id/:sportid/:round/:order",
+            templateUrl: "views/template.html",
+            controller: 'editQualifyingRoundCtrl'
+        })
+        .state('editqualifyingknockout', {
+            url: "/editqualifyingknockout/:id/:sportid/:round/:order",
+            templateUrl: "views/template.html",
+            controller: 'editQualifyingKnockoutCtrl'
+        })
+        .state('editleagueknockout', {
+            url: "/editleagueknockout/:id/:sportid/:round/:order",
+            templateUrl: "views/template.html",
+            controller: 'editLeagueKnockoutCtrl'
+        })
 
-    .state('heataddround', {
-        url: "/heataddround/:id",
-        templateUrl: "views/template.html",
-        controller: 'heatAddRoundCtrl'
-    })
-    .state('swissaddround', {
-        url: "/swissaddround/:id",
-        templateUrl: "views/template.html",
-        controller: 'swissAddRoundCtrl'
-    })
-    .state('qualifyingroundaddround', {
-        url: "/qualifyingroundaddround/:id",
-        templateUrl: "views/template.html",
-        controller: 'qualifyingroundAddRoundCtrl'
-    })
-    .state('leagueknockoutaddround', {
-        url: "/leagueknockoutaddround/:id",
-        templateUrl: "views/template.html",
-        controller: 'leagueknockoutAddRoundCtrl'
-    })
-    .state('team', {
-        url: "/team",
-        templateUrl: "views/template.html",
-        controller: 'teamCtrl'
-    })
-    .state('media', {
-        url: "/media",
-        templateUrl: "views/template.html",
-        controller: 'mediaCtrl'
-    })
-    .state('viewknockout', {
-        url: "/viewknockout/:id",
-        templateUrl: "views/template.html",
-        controller: 'knockoutCtrl'
-    })
-    .state('viewleague', {
-        url: "/viewleague/:id",
-        templateUrl: "views/template.html",
-        controller: 'leagueCtrl'
-    })
-    .state('viewmedal', {
-        url: "/viewmedal/:id",
-        templateUrl: "views/template.html",
-        controller: 'medalCtrl'
-    })
-    .state('knockoutdashboard', {
-        url: "/knockoutdashboard",
-        templateUrl: "views/template.html",
-        controller: 'knockoutDashboardCtrl'
-    })
-    .state('medaldashboard', {
-        url: "/medaldashboard",
-        templateUrl: "views/template.html",
-        controller: 'medalDashboardCtrl'
-    })
-    .state('heatdashboard', {
-        url: "/heatdashboard",
-        templateUrl: "views/template.html",
-        controller: 'heatDashboardCtrl'
-    })
-    .state('swissdashboard', {
-        url: "/swissdashboard",
-        templateUrl: "views/template.html",
-        controller: 'swissDashboardCtrl'
-    })
-    .state('qualifyingrounddashboard', {
-        url: "/qualifyingrounddashboard",
-        templateUrl: "views/template.html",
-        controller: 'qualifyingroundDashboardCtrl'
-    })
-    .state('leaguedashboard', {
-        url: "/leaguedashboard",
-        templateUrl: "views/template.html",
-        controller: 'leagueDashboardCtrl'
-    })
-    .state('leagueknockoutdashboard', {
-        url: "/leagueknockoutdashboard",
-        templateUrl: "views/template.html",
-        controller: 'leagueKnockoutDashboardCtrl'
-    })
-    .state('leaguesport', {
-        url: "/leaguesport/:id",
-        templateUrl: "views/template.html",
-        controller: 'leagueSportCtrl'
-    })
-    .state('leagueknockoutsport', {
-        url: "/leagueknockoutsport/:id",
-        templateUrl: "views/template.html",
-        controller: 'leagueKnockoutSportCtrl'
-    })
-    .state('knockoutsport', {
-        url: "/knockoutsport/:id",
-        templateUrl: "views/template.html",
-        controller: 'knockoutSportCtrl'
-    })
-    .state('medalsport', {
-        url: "/medalsport/:id",
-        templateUrl: "views/template.html",
-        controller: 'medalSportCtrl'
-    })
-    .state('heatsport', {
-        url: "/heatsport/:id",
-        templateUrl: "views/template.html",
-        controller: 'heatSportCtrl'
-    })
-    .state('swisssport', {
-        url: "/swisssport/:id",
-        templateUrl: "views/template.html",
-        controller: 'swissSportCtrl'
-    })
-    .state('qualifyingroundsport', {
-        url: "/qualifyingroundsport/:id",
-        templateUrl: "views/template.html",
-        controller: 'qualifyingroundSportCtrl'
-    })
+        .state('heataddround', {
+            url: "/heataddround/:id",
+            templateUrl: "views/template.html",
+            controller: 'heatAddRoundCtrl'
+        })
+        .state('swissaddround', {
+            url: "/swissaddround/:id",
+            templateUrl: "views/template.html",
+            controller: 'swissAddRoundCtrl'
+        })
+        .state('qualifyingroundaddround', {
+            url: "/qualifyingroundaddround/:id",
+            templateUrl: "views/template.html",
+            controller: 'qualifyingroundAddRoundCtrl'
+        })
+        .state('qualifyingknockoutaddround', {
+            url: "/qualifyingknockoutaddround/:id",
+            templateUrl: "views/template.html",
+            controller: 'qualifyingknockoutAddRoundCtrl'
+        })
+        .state('leagueknockoutaddround', {
+            url: "/leagueknockoutaddround/:id",
+            templateUrl: "views/template.html",
+            controller: 'leagueknockoutAddRoundCtrl'
+        })
+        .state('team', {
+            url: "/team",
+            templateUrl: "views/template.html",
+            controller: 'teamCtrl'
+        })
+        .state('media', {
+            url: "/media",
+            templateUrl: "views/template.html",
+            controller: 'mediaCtrl'
+        })
+        .state('viewknockout', {
+            url: "/viewknockout/:id",
+            templateUrl: "views/template.html",
+            controller: 'knockoutCtrl'
+        })
+        .state('viewleague', {
+            url: "/viewleague/:id",
+            templateUrl: "views/template.html",
+            controller: 'leagueCtrl'
+        })
+        .state('viewmedal', {
+            url: "/viewmedal/:id",
+            templateUrl: "views/template.html",
+            controller: 'medalCtrl'
+        })
+        .state('knockoutdashboard', {
+            url: "/knockoutdashboard",
+            templateUrl: "views/template.html",
+            controller: 'knockoutDashboardCtrl'
+        })
+        .state('medaldashboard', {
+            url: "/medaldashboard",
+            templateUrl: "views/template.html",
+            controller: 'medalDashboardCtrl'
+        })
+        .state('heatdashboard', {
+            url: "/heatdashboard",
+            templateUrl: "views/template.html",
+            controller: 'heatDashboardCtrl'
+        })
+        .state('swissdashboard', {
+            url: "/swissdashboard",
+            templateUrl: "views/template.html",
+            controller: 'swissDashboardCtrl'
+        })
+        .state('qualifyingrounddashboard', {
+            url: "/qualifyingrounddashboard",
+            templateUrl: "views/template.html",
+            controller: 'qualifyingroundDashboardCtrl'
+        })
+        .state('qualifyingknockoutdashboard', {
+            url: "/qualifyingknockoutdashboard",
+            templateUrl: "views/template.html",
+            controller: 'qualifyingknockoutDashboardCtrl'
+        })
+        .state('leaguedashboard', {
+            url: "/leaguedashboard",
+            templateUrl: "views/template.html",
+            controller: 'leagueDashboardCtrl'
+        })
+        .state('leagueknockoutdashboard', {
+            url: "/leagueknockoutdashboard",
+            templateUrl: "views/template.html",
+            controller: 'leagueKnockoutDashboardCtrl'
+        })
+        .state('leaguesport', {
+            url: "/leaguesport/:id",
+            templateUrl: "views/template.html",
+            controller: 'leagueSportCtrl'
+        })
+        .state('leagueknockoutsport', {
+            url: "/leagueknockoutsport/:id",
+            templateUrl: "views/template.html",
+            controller: 'leagueKnockoutSportCtrl'
+        })
+        .state('knockoutsport', {
+            url: "/knockoutsport/:id",
+            templateUrl: "views/template.html",
+            controller: 'knockoutSportCtrl'
+        })
+        .state('medalsport', {
+            url: "/medalsport/:id",
+            templateUrl: "views/template.html",
+            controller: 'medalSportCtrl'
+        })
+        .state('heatsport', {
+            url: "/heatsport/:id",
+            templateUrl: "views/template.html",
+            controller: 'heatSportCtrl'
+        })
+        .state('swisssport', {
+            url: "/swisssport/:id",
+            templateUrl: "views/template.html",
+            controller: 'swissSportCtrl'
+        })
+        .state('qualifyingroundsport', {
+            url: "/qualifyingroundsport/:id",
+            templateUrl: "views/template.html",
+            controller: 'qualifyingroundSportCtrl'
+        })
+        .state('qualifyingknockoutsport', {
+            url: "/qualifyingknockoutsport/:id",
+            templateUrl: "views/template.html",
+            controller: 'qualifyingknockoutSportCtrl'
+        })
+        .state('editstudent', {
+            url: "/editstudent/:id",
+            templateUrl: "views/template.html",
+            controller: 'editStudentCtrl'
+        })
+        .state('editteam', {
+            url: "/editteam/:id",
+            templateUrl: "views/template.html",
+            controller: 'editTeamCtrl'
+        })
+        .state('editknockout', {
+            url: "/editknockout/:id/:sportid",
+            templateUrl: "views/template.html",
+            controller: 'editKnockoutCtrl'
+        })
+        .state('editleague', {
+            url: "/editleague/:id/:sportid",
+            templateUrl: "views/template.html",
+            controller: 'editLeagueCtrl'
+        })
 
-    .state('editstudent', {
-        url: "/editstudent/:id",
-        templateUrl: "views/template.html",
-        controller: 'editStudentCtrl'
-    })
-    .state('editteam', {
-        url: "/editteam/:id",
-        templateUrl: "views/template.html",
-        controller: 'editTeamCtrl'
-    })
-    .state('editknockout', {
-        url: "/editknockout/:id/:sportid",
-        templateUrl: "views/template.html",
-        controller: 'editKnockoutCtrl'
-    })
-    .state('editleague', {
-        url: "/editleague/:id/:sportid",
-        templateUrl: "views/template.html",
-        controller: 'editLeagueCtrl'
-    })
+        .state('studentsport', {
+            url: "/studentsport/:id/:school",
+            templateUrl: "views/template.html",
+            controller: 'studentSportCtrl'
+        })
 
-    .state('studentsport', {
-        url: "/studentsport/:id/:school",
-        templateUrl: "views/template.html",
-        controller: 'studentSportCtrl'
-    })
+        .state('createstudentsport', {
+            url: "/createstudentsport/:id/:school",
+            templateUrl: "views/template.html",
+            controller: 'createStudentSportCtrl'
+        })
 
-    .state('createstudentsport', {
-        url: "/createstudentsport/:id/:school",
-        templateUrl: "views/template.html",
-        controller: 'createStudentSportCtrl'
-    })
+        .state('editstudentsport', {
+            url: "/editstudentsport/:id/:sport/:school",
+            templateUrl: "views/template.html",
+            controller: 'editStudentSportCtrl'
+        })
 
-    .state('editstudentsport', {
-        url: "/editstudentsport/:id/:sport/:school",
-        templateUrl: "views/template.html",
-        controller: 'editStudentSportCtrl'
-    })
+        .state('sport', {
+            url: "/sport",
+            templateUrl: "views/template.html",
+            controller: 'sportCtrl'
+        })
 
-    .state('sport', {
-        url: "/sport",
-        templateUrl: "views/template.html",
-        controller: 'sportCtrl'
-    })
+        .state('createsport', {
+            url: "/createsport",
+            templateUrl: "views/template.html",
+            controller: 'createSportCtrl'
+        })
 
-    .state('createsport', {
-        url: "/createsport",
-        templateUrl: "views/template.html",
-        controller: 'createSportCtrl'
-    })
+        .state('editsport', {
+            url: "/editsport/:id",
+            templateUrl: "views/template.html",
+            controller: 'editSportCtrl'
+        })
 
-    .state('editsport', {
-        url: "/editsport/:id",
-        templateUrl: "views/template.html",
-        controller: 'editSportCtrl'
-    })
+        .state('sportlist', {
+            url: "/sportlist",
+            templateUrl: "views/template.html",
+            controller: 'sportListCtrl'
+        })
 
-    .state('sportlist', {
-        url: "/sportlist",
-        templateUrl: "views/template.html",
-        controller: 'sportListCtrl'
-    })
+        .state('createsportlist', {
+            url: "/createsportlist",
+            templateUrl: "views/template.html",
+            controller: 'createSportListCtrl'
+        })
 
-    .state('createsportlist', {
-        url: "/createsportlist",
-        templateUrl: "views/template.html",
-        controller: 'createSportListCtrl'
-    })
+        .state('editsportlist', {
+            url: "/editsportlist/:id",
+            templateUrl: "views/template.html",
+            controller: 'editSportListCtrl'
+        })
 
-    .state('editsportlist', {
-        url: "/editsportlist/:id",
-        templateUrl: "views/template.html",
-        controller: 'editSportListCtrl'
-    })
+        .state('agegroup', {
+            url: "/agegroup",
+            templateUrl: "views/template.html",
+            controller: 'ageGroupCtrl'
+        })
 
-    .state('agegroup', {
-        url: "/agegroup",
-        templateUrl: "views/template.html",
-        controller: 'ageGroupCtrl'
-    })
+        .state('createagegroup', {
+            url: "/createagegroup",
+            templateUrl: "views/template.html",
+            controller: 'createAgeGroupCtrl'
+        })
 
-    .state('createagegroup', {
-        url: "/createagegroup",
-        templateUrl: "views/template.html",
-        controller: 'createAgeGroupCtrl'
-    })
+        .state('editagegroup', {
+            url: "/editagegroup/:id",
+            templateUrl: "views/template.html",
+            controller: 'editAgeGroupCtrl'
+        })
 
-    .state('editagegroup', {
-        url: "/editagegroup/:id",
-        templateUrl: "views/template.html",
-        controller: 'editAgeGroupCtrl'
-    })
+        .state('showstudent', {
+            url: "/showstudent",
+            templateUrl: "views/template.html",
+            controller: 'showStudentCtrl'
+        })
 
-    .state('showstudent', {
-        url: "/showstudent",
-        templateUrl: "views/template.html",
-        controller: 'showStudentCtrl'
-    })
+        .state('sportrule', {
+            url: "/sportrule",
+            templateUrl: "views/template.html",
+            controller: 'SportRuleCtrl'
+        })
 
-    .state('sportrule', {
-        url: "/sportrule",
-        templateUrl: "views/template.html",
-        controller: 'SportRuleCtrl'
-    })
+        .state('createsportrule', {
+            url: "/createsportrule",
+            templateUrl: "views/template.html",
+            controller: 'createSportRuleCtrl'
+        })
 
-    .state('createsportrule', {
-        url: "/createsportrule",
-        templateUrl: "views/template.html",
-        controller: 'createSportRuleCtrl'
-    })
-
-    .state('editsportrule', {
-        url: "/editsportrule/:id",
-        templateUrl: "views/template.html",
-        controller: 'editSportRuleCtrl'
-    })
+        .state('editsportrule', {
+            url: "/editsportrule/:id",
+            templateUrl: "views/template.html",
+            controller: 'editSportRuleCtrl'
+        })
 
     ;
     $urlRouterProvider.otherwise("/dashboard");
     $locationProvider.html5Mode(isproduction);
 });
 
-firstapp.filter('uploadpath', function() {
-    return function(input, width, height, style) {
+firstapp.filter('uploadpath', function () {
+    return function (input, width, height, style) {
         var other = "";
         if (width && width !== "") {
             other += "&width=" + width;
@@ -391,16 +415,16 @@ firstapp.filter('uploadpath', function() {
         }
     };
 });
-firstapp.directive('img', function($compile, $parse) {
+firstapp.directive('img', function ($compile, $parse) {
     return {
         restrict: 'E',
         replace: false,
-        link: function($scope, element, attrs) {
+        link: function ($scope, element, attrs) {
             var $element = $(element);
             if (!attrs.noloading) {
                 $element.after("<img src='img/loading.gif' class='loading' />");
                 var $loading = $element.next(".loading");
-                $element.load(function() {
+                $element.load(function () {
                     $loading.remove();
                     $(this).addClass("doneLoading");
                 });
@@ -410,21 +434,21 @@ firstapp.directive('img', function($compile, $parse) {
         }
     };
 });
-firstapp.filter('letterLimit',function(){
-  return function (value,limit) {
-    console.log(value);
-    if(value.length < limit){
-      return value;
-    }else{
-      return value.slice(0,limit - 2)+ "..";
-    }
-  };
+firstapp.filter('letterLimit', function () {
+    return function (value, limit) {
+        console.log(value);
+        if (value.length < limit) {
+            return value;
+        } else {
+            return value.slice(0, limit - 2) + "..";
+        }
+    };
 });
-firstapp.directive('fancyboxBox', function($document) {
+firstapp.directive('fancyboxBox', function ($document) {
     return {
         restrict: 'EA',
         replace: false,
-        link: function(scope, element, attr) {
+        link: function (scope, element, attr) {
             var $element = $(element);
             var target;
             if (attr.rel) {
@@ -445,13 +469,13 @@ firstapp.directive('fancyboxBox', function($document) {
     };
 });
 
-firstapp.directive('menuOptions', function($document) {
+firstapp.directive('menuOptions', function ($document) {
     return {
         restrict: 'C',
         replace: false,
-        link: function(scope, element, attr) {
+        link: function (scope, element, attr) {
             var $element = $(element);
-            $(element).on("click", function() {
+            $(element).on("click", function () {
                 $(".side-header.opened-menu").toggleClass('slide-menu');
                 $(".main-content").toggleClass('wide-content');
                 $("footer").toggleClass('wide-footer');
@@ -462,11 +486,11 @@ firstapp.directive('menuOptions', function($document) {
     };
 });
 
-firstapp.directive('onlyDigits', function() {
+firstapp.directive('onlyDigits', function () {
     return {
         require: 'ngModel',
         restrict: 'A',
-        link: function(scope, element, attr, ctrl) {
+        link: function (scope, element, attr, ctrl) {
             function inputValue(val) {
                 if (val) {
                     var digits = val.replace(/[^0-9]/g, '');
@@ -484,13 +508,13 @@ firstapp.directive('onlyDigits', function() {
     };
 });
 
-firstapp.directive('oI', function($document) {
+firstapp.directive('oI', function ($document) {
     return {
         restrict: 'C',
         replace: false,
-        link: function(scope, element, attr) {
+        link: function (scope, element, attr) {
             var $element = $(element);
-            $element.click(function() {
+            $element.click(function () {
                 $element.parent().siblings().children("ul").slideUp();
                 $element.parent().siblings().removeClass("active");
                 $element.parent().children("ul").slideToggle();
@@ -502,11 +526,11 @@ firstapp.directive('oI', function($document) {
     };
 });
 
-firstapp.directive('capitalizeFirst', function($parse) {
+firstapp.directive('capitalizeFirst', function ($parse) {
     return {
         require: 'ngModel',
-        link: function(scope, element, attrs, modelCtrl) {
-            var capitalize = function(inputValue) {
+        link: function (scope, element, attrs, modelCtrl) {
+            var capitalize = function (inputValue) {
                 if (inputValue === undefined) {
                     inputValue = '';
                 }
@@ -523,33 +547,33 @@ firstapp.directive('capitalizeFirst', function($parse) {
         }
     };
 });
-firstapp.directive('imageonload', function() {
+firstapp.directive('imageonload', function () {
     return {
         restrict: 'A',
-        link: function(scope, element, attrs) {
-            element.bind('load', function() {
+        link: function (scope, element, attrs) {
+            element.bind('load', function () {
                 scope.$apply(attrs.imageonload);
             });
         }
     };
 });
-firstapp.directive('uploadImage', function($http, $filter) {
+firstapp.directive('uploadImage', function ($http, $filter) {
     return {
         templateUrl: 'views/directive/uploadFile.html',
         scope: {
             model: '=ngModel',
             callback: "=ngCallback",
             uploadurl: "=uploadhere",
-            state:"=currentState"
+            state: "=currentState"
         },
-        link: function($scope, element, attrs) {
+        link: function ($scope, element, attrs) {
 
-            $scope.showImage = function() {
+            $scope.showImage = function () {
                 console.log($scope.image);
             };
 
-            if($scope.uploadurl){
-              uploadurl = $scope.uploadurl;
+            if ($scope.uploadurl) {
+                uploadurl = $scope.uploadurl;
             }
             $scope.isMultiple = false;
             $scope.inObject = false;
@@ -561,7 +585,7 @@ firstapp.directive('uploadImage', function($http, $filter) {
                 $scope.noShow = true;
             }
 
-            $scope.$watch("image", function(newVal, oldVal) {
+            $scope.$watch("image", function (newVal, oldVal) {
                 if (newVal && newVal.file) {
                     $scope.uploadNow(newVal);
                 }
@@ -570,7 +594,7 @@ firstapp.directive('uploadImage', function($http, $filter) {
             if ($scope.model) {
                 if (_.isArray($scope.model)) {
                     $scope.image = [];
-                    _.each($scope.model, function(n) {
+                    _.each($scope.model, function (n) {
                         $scope.image.push({
                             url: n
                         });
@@ -581,10 +605,10 @@ firstapp.directive('uploadImage', function($http, $filter) {
             if (attrs.inobj || attrs.inobj === "") {
                 $scope.inObject = true;
             }
-            $scope.clearOld = function() {
+            $scope.clearOld = function () {
                 $scope.model = [];
             };
-            $scope.uploadNow = function(image) {
+            $scope.uploadNow = function (image) {
                 $scope.uploadStatus = "uploading";
 
                 var Template = this;
@@ -596,7 +620,7 @@ firstapp.directive('uploadImage', function($http, $filter) {
                         'Content-Type': undefined
                     },
                     transformRequest: angular.identity
-                }).success(function(data) {
+                }).success(function (data) {
                     if ($scope.callback) {
                         $scope.callback(data);
                     } else {
@@ -612,8 +636,8 @@ firstapp.directive('uploadImage', function($http, $filter) {
                         } else {
                             $scope.model = data.data[0];
                         }
-                        if($scope.state){
-                          $scope.state.reload();
+                        if ($scope.state) {
+                            $scope.state.reload();
                         }
                     }
                 });
@@ -621,24 +645,24 @@ firstapp.directive('uploadImage', function($http, $filter) {
         }
     };
 });
-firstapp.directive('uploadExcel', function($http, $filter) {
+firstapp.directive('uploadExcel', function ($http, $filter) {
     return {
         templateUrl: 'views/directive/uploadExcel.html',
         scope: {
             model: '=ngModel',
             callback: "=ngCallback",
             uploadurl: "=uploadhere",
-            state:"=currentState",
-            buttonText:"=buttonText"
+            state: "=currentState",
+            buttonText: "=buttonText"
         },
-        link: function($scope, element, attrs) {
+        link: function ($scope, element, attrs) {
 
-            $scope.showImage = function() {
+            $scope.showImage = function () {
                 console.log($scope.image);
             };
 
-            if($scope.uploadurl){
-              uploadurl = $scope.uploadurl;
+            if ($scope.uploadurl) {
+                uploadurl = $scope.uploadurl;
             }
             $scope.isMultiple = false;
             $scope.inObject = false;
@@ -650,7 +674,7 @@ firstapp.directive('uploadExcel', function($http, $filter) {
                 $scope.noShow = true;
             }
 
-            $scope.$watch("image", function(newVal, oldVal) {
+            $scope.$watch("image", function (newVal, oldVal) {
                 if (newVal && newVal.file) {
                     $scope.uploadNow(newVal);
                 }
@@ -659,7 +683,7 @@ firstapp.directive('uploadExcel', function($http, $filter) {
             if ($scope.model) {
                 if (_.isArray($scope.model)) {
                     $scope.image = [];
-                    _.each($scope.model, function(n) {
+                    _.each($scope.model, function (n) {
                         $scope.image.push({
                             url: n
                         });
@@ -670,10 +694,10 @@ firstapp.directive('uploadExcel', function($http, $filter) {
             if (attrs.inobj || attrs.inobj === "") {
                 $scope.inObject = true;
             }
-            $scope.clearOld = function() {
+            $scope.clearOld = function () {
                 $scope.model = [];
             };
-            $scope.uploadNow = function(image) {
+            $scope.uploadNow = function (image) {
                 $scope.uploadStatus = "uploading";
 
                 var Template = this;
@@ -685,7 +709,7 @@ firstapp.directive('uploadExcel', function($http, $filter) {
                         'Content-Type': undefined
                     },
                     transformRequest: angular.identity
-                }).success(function(data) {
+                }).success(function (data) {
                     if ($scope.callback) {
                         $scope.callback(data);
                     } else {
@@ -701,8 +725,8 @@ firstapp.directive('uploadExcel', function($http, $filter) {
                         } else {
                             $scope.model = data.data[0];
                         }
-                        if($scope.state){
-                          $scope.state.reload();
+                        if ($scope.state) {
+                            $scope.state.reload();
                         }
                     }
                 });
@@ -778,7 +802,7 @@ firstapp.directive('uploadExcel', function($http, $filter) {
 //         }
 //     };
 // });
-firstapp.config(function($translateProvider) {
+firstapp.config(function ($translateProvider) {
     $translateProvider.translations('en', LanguageEnglish);
     $translateProvider.translations('hi', LanguageHindi);
     $translateProvider.preferredLanguage('en');

@@ -40,14 +40,15 @@
                             </ui-select>
                         </div>
                         <div class="form-group">
-                           <label>Draw Format*</label>
-                           <select class="form-control" ng-model="sportList.drawFormat" required>
+                            <label>Draw Format*</label>
+                            <select class="form-control" ng-model="sportList.drawFormat" required>
                               <option value="">Select Draw Format</option>
                               <option value="Knockout">Knockout</option>
                               <option value="League">League</option>
                               <option value="League cum Knockout">League cum Knockout</option>
                               <option value="Heats">Heats</option>
                               <option value="Qualifying Round">Qualifying Round</option>
+                              <option value="Qualifying Knockout">Qualifying Knockout</option>
                               <option value="Swiss League">Swiss League</option>
                               <!-- <option value="Round Robin-Knockout">Round Robin-Knockout</option> -->
                            </select>
@@ -57,14 +58,14 @@
                             <div class="banner-img-holder" ng-if="sportList.inactiveimage">
                                 <img ng-src="{{sportList.inactiveimage|uploadpath}}" alt="" class="img-responsive margin-auto">
                             </div>
-                            <upload-image ng-model="sportList.inactiveimage" ></upload-image>
+                            <upload-image ng-model="sportList.inactiveimage"></upload-image>
                         </div>
                         <div class="form-group">
                             <label>Icon</label>
                             <div class="banner-img-holder" ng-if="sportList.image">
                                 <img ng-src="{{sportList.image|uploadpath}}" alt="" class="img-responsive margin-auto">
                             </div>
-                            <upload-image ng-model="sportList.image" ></upload-image>
+                            <upload-image ng-model="sportList.image"></upload-image>
                         </div>
                     </div>
                 </div>

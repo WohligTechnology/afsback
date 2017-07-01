@@ -465,7 +465,76 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
         $scope.getQualifyingRound();
     })
+    .controller('qualifyingknockoutAddRoundCtrl', function ($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams, $state) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("qualifyingknockout-add-knockout");
+        $scope.menutitle = NavigationService.makeactive("Qualifying Knockout");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.template.type = 1;
+        $scope.contentLoaded = false;
+        $scope.schools = [];
+        $scope.qualifyinground = {};
+        $scope.adminURL = adminURL;
+        $scope.cs = $state;
+        $scope.uploadurl = adminURL + "qualifyingknockout/updateVideoURL/";
 
+        $scope.buttonText = "Update Video URLs";
+
+        $scope.qualifyinground.sport = $stateParams.id;
+        $scope.pagination = {};
+        $scope.pagination.pagenumber = 1;
+        NavigationService.getOneSport($stateParams.id, function (response) {
+            if (response.value) {
+                $scope.selectedsport = response.data;
+                $scope.qualifyinground.year = $scope.selectedsport.year;
+            }
+        });
+        $scope.addRound = function () {
+
+            NavigationService.saveQualifyingKnockout($scope.qualifyinground, function (response) {
+                if (response.value) {
+                    $scope.qualifyinground.order = null;
+                    $scope.qualifyinground.round = null;
+                    $scope.getQualifyingRound();
+                } else {
+
+                }
+            });
+        };
+        $scope.confDelete = function () {
+            NavigationService.deleteQualifyingKnockout($.jStorage.get("deleteQualifyingKnockout"), function (data, status) {
+                $scope.getQualifyingRound();
+            });
+        };
+        $scope.deleteFunc = function (id) {
+            console.log(id);
+            $.jStorage.set("deleteQualifyingKnockout", id);
+            $uibModal.open({
+                animation: true,
+                templateUrl: "views/content/delete.html",
+                scope: $scope
+            });
+        };
+        $scope.getQualifyingRound = function () {
+            NavigationService.getQualifyingKnockout({
+                sport: $stateParams.id
+            }, function (response) {
+                if (response.value) {
+                    $scope.qualifyingrounds = _.chain(response.data)
+                        .groupBy("round")
+                        .toPairs()
+                        .map(function (currentItem) {
+                            currentItem[2] = currentItem[1][0].order;
+                            return _.zipObject(["round", "qualifyingrounds", "order"], currentItem);
+                        })
+                        .value();
+                    console.log($scope.qualifyingrounds);
+                }
+            });
+        };
+        $scope.getQualifyingRound();
+    })
     .controller('createSchoolCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("createschool");
@@ -1577,6 +1646,30 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
         $scope.getSportList();
     })
+    .controller('qualifyingknockoutDashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("qualifyingknockout-dashboard");
+        $scope.menutitle = NavigationService.makeactive("Qualifying Knockout");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.getSportList = function () {
+            NavigationService.getSportByDrawFormat({
+                drawFormat: "Qualifying Knockout"
+            }, function (response) {
+                if (response.value) {
+                    $scope.sports = response.data;
+                    $scope.sports = _.chain(response.data)
+                        .groupBy("sporttype")
+                        .toPairs()
+                        .map(function (currentItem) {
+                            return _.zipObject(["sporttype", "name"], currentItem);
+                        })
+                        .value();
+                }
+            });
+        };
+        $scope.getSportList();
+    })
     .controller('knockoutSportCtrl', function ($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("knockout-sport");
@@ -1786,6 +1879,51 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     $scope.swissSports({
                         sportlist: $stateParams.id,
                         drawFormat: "Qualifying Round"
+                    });
+                }
+            });
+        };
+        $scope.getOneSport($stateParams.id);
+        $scope.swissSports = function (constraints) {
+            $scope.sports = [];
+            NavigationService.swissSports(constraints, function (response) {
+                if (response.value) {
+                    $scope.sports = _.chain(response.data)
+                        .groupBy("year")
+                        .toPairs()
+                        .map(function (currentItem) {
+                            return _.zipObject(["year", "sports"], currentItem);
+                        })
+                        .value();
+                    _.each($scope.sports, function (key) {
+                        key.sports = _.chain(key.sports)
+                            .groupBy("agegroup.name")
+                            .toPairs()
+                            .map(function (currentItem) {
+                                return _.zipObject(["agegroup", "sports"], currentItem);
+                            })
+                            .value();
+
+                    });
+                    console.log($scope.sports);
+                }
+            });
+        };
+    })
+    .controller('qualifyingknockoutSportCtrl', function ($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("qualifyingknockout-sport");
+        $scope.menutitle = NavigationService.makeactive("Qualifying Knockout");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.template.type = 1;
+        $scope.getOneSport = function (id) {
+            NavigationService.getOneSportList(id, function (response) {
+                if (response.value) {
+                    $scope.sportSelected = response.data;
+                    $scope.swissSports({
+                        sportlist: $stateParams.id,
+                        drawFormat: "Qualifying Knockout"
                     });
                 }
             });
@@ -3710,6 +3848,230 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
         if ($stateParams.id) {
             NavigationService.getOneQualifyingRound($stateParams, function (response) {
+                if (response.value) {
+                    $scope.qualifyinground = response.data;
+                    if ($scope.qualifyinground.date) {
+                        $scope.qualifyinground.date = new Date($scope.qualifyinground.date);
+                    }
+                } else {
+
+                }
+            });
+        }
+    })
+    .controller('createQualifyingKnockoutCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, $uibModal, $stateParams) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("createqualifyingknockout");
+        $scope.menutitle = NavigationService.makeactive("Qualifying Knockout");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.qualifyinground = {};
+        $scope.qualifyinground.heats = [];
+        $scope.statuses = {};
+        $scope.statuses.inedit = false;
+        $scope.sportid = $stateParams.sportid;
+
+        $scope.addParticipant = function () {
+            $scope.qualifyinground.heats.push({});
+        };
+
+        if ($stateParams.sportid) {
+            NavigationService.getOneSport($stateParams.sportid, function (response) {
+                if (response.value) {
+                    $scope.qualifyinground.sport = response.data;
+                    $scope.qualifyinground.year = response.data.year;
+                }
+            });
+        }
+        if ($stateParams.round) {
+            $scope.qualifyinground.round = $stateParams.round;
+        }
+        if ($stateParams.order) {
+            $scope.qualifyinground.order = $stateParams.order;
+        }
+
+        $scope.getQualifyingRoundTeam = function (search) {
+            $scope.teams = [];
+            var constraints = {};
+            constraints.search = search;
+            if (isNaN(search) || search === null || search === undefined || search === "") {
+                constraints.search = search;
+                constraints.sfaid = undefined;
+            } else {
+                constraints.search = undefined;
+                constraints.sfaid = parseInt(search);
+            }
+            if ($scope.qualifyinground.sport) {
+                constraints.sport = $scope.qualifyinground.sport.sportslist._id;
+                // constraints.agegroup = $scope.heat.sport.agegroup;
+            }
+            if ($scope.qualifyinground.sport.gender) {
+                constraints.gender = $scope.qualifyinground.sport.gender;
+            }
+            constraints.year = $scope.qualifyinground.year.toString();
+            console.log(constraints);
+            NavigationService.getTeamsbySport(constraints, function (data) {
+                if (data && data.value !== false) {
+                    $scope.teams = data.data;
+                } else {
+                    $scope.teams = [];
+                }
+            });
+        };
+
+        $scope.getQualifyingRoundPlayer = function (search) {
+            $scope.students = [];
+            var constraints = {};
+            constraints.search = search;
+            if (isNaN(search) || search === null || search === undefined || search === "") {
+                constraints.search = search;
+                constraints.sfaid = undefined;
+            } else {
+                constraints.search = undefined;
+                constraints.sfaid = parseInt(search);
+            }
+            if ($scope.qualifyinground.sport) {
+                constraints.sport = $scope.qualifyinground.sport.sportslist._id;
+            }
+            if ($scope.qualifyinground.sport.gender) {
+                constraints.gender = $scope.qualifyinground.sport.gender;
+            }
+            constraints.year = $scope.qualifyinground.year.toString();
+            console.log(constraints);
+            NavigationService.getStudentsbySport(constraints, function (data) {
+                if (data && data.value !== false) {
+                    $scope.students = data.data;
+                } else {
+                    $scope.students = [];
+                }
+            });
+        };
+        $scope.submitQualifyingRound = function () {
+            console.log($scope.qualifyinground);
+            var request = $scope.qualifyinground;
+            request.sport = $scope.qualifyinground.sport._id;
+            if ($scope.qualifyinground.player) {
+                request.player1 = $scope.qualifyinground.player._id;
+            }
+
+            NavigationService.saveQualifyingKnockout(request, function (response) {
+                if (response.value) {
+                    $state.go('qualifyingknockoutaddround', {
+                        id: request.sport
+                    });
+                } else {
+                    // do nothing
+                }
+            });
+        };
+
+    })
+    .controller('editQualifyingKnockoutCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, $uibModal, $stateParams) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("createqualifyingknockout");
+        $scope.menutitle = NavigationService.makeactive("Qualifying Knockout");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.qualifyinground = {};
+        $scope.qualifyinground.heats = [];
+        $scope.statuses = {};
+        $scope.statuses.inedit = false;
+        $scope.sportid = $stateParams.sportid;
+
+        $scope.addParticipant = function () {
+            $scope.qualifyinground.heats.push({});
+        };
+
+        if ($stateParams.sportid) {
+            NavigationService.getOneSport($stateParams.sportid, function (response) {
+                if (response.value) {
+                    $scope.qualifyinground.sport = response.data;
+                    $scope.qualifyinground.year = response.data.year;
+                }
+            });
+        }
+        if ($stateParams.round) {
+            $scope.qualifyinground.round = $stateParams.round;
+        }
+        if ($stateParams.order) {
+            $scope.qualifyinground.order = $stateParams.order;
+        }
+        $scope.getQualifyingRoundTeam = function (search) {
+            $scope.teams = [];
+            var constraints = {};
+            constraints.search = search;
+            if (isNaN(search) || search === null || search === undefined || search === "") {
+                constraints.search = search;
+                constraints.sfaid = undefined;
+            } else {
+                constraints.search = undefined;
+                constraints.sfaid = parseInt(search);
+            }
+            if ($scope.qualifyinground.sport) {
+                constraints.sport = $scope.qualifyinground.sport.sportslist._id;
+                // constraints.agegroup = $scope.heat.sport.agegroup;
+            }
+            if ($scope.qualifyinground.sport.gender) {
+                constraints.gender = $scope.qualifyinground.sport.gender;
+            }
+            constraints.year = $scope.qualifyinground.year.toString();
+            console.log(constraints);
+            NavigationService.getTeamsbySport(constraints, function (data) {
+                if (data && data.value !== false) {
+                    $scope.teams = data.data;
+                } else {
+                    $scope.teams = [];
+                }
+            });
+        };
+
+        $scope.getQualifyingRoundPlayer = function (search) {
+            $scope.students = [];
+            var constraints = {};
+            constraints.search = search;
+            if (isNaN(search) || search === null || search === undefined || search === "") {
+                constraints.search = search;
+                constraints.sfaid = undefined;
+            } else {
+                constraints.search = undefined;
+                constraints.sfaid = parseInt(search);
+            }
+            if ($scope.qualifyinground.sport) {
+                constraints.sport = $scope.qualifyinground.sport.sportslist._id;
+            }
+            if ($scope.qualifyinground.sport.gender) {
+                constraints.gender = $scope.qualifyinground.sport.gender;
+            }
+            constraints.year = $scope.qualifyinground.year.toString();
+            console.log(constraints);
+            NavigationService.getStudentsbySport(constraints, function (data) {
+                if (data && data.value !== false) {
+                    $scope.students = data.data;
+                } else {
+                    $scope.students = [];
+                }
+            });
+        };
+        $scope.submitQualifyingRound = function () {
+            console.log($scope.qualifyinground);
+            var request = $scope.qualifyinground;
+            request.sport = $scope.qualifyinground.sport._id;
+            if ($scope.qualifyinground.player) {
+                request.player1 = $scope.qualifyinground.player._id;
+            }
+
+            NavigationService.saveQualifyingKnockout(request, function (response) {
+                if (response.value) {
+                    $state.go('qualifyingknockoutaddround', {
+                        id: request.sport
+                    });
+                } else {
+                    // do nothing
+                }
+            });
+        };
+        if ($stateParams.id) {
+            NavigationService.getOneQualifyingKnockout($stateParams, function (response) {
                 if (response.value) {
                     $scope.qualifyinground = response.data;
                     if ($scope.qualifyinground.date) {

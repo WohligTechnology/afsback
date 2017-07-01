@@ -35,7 +35,8 @@
                         <div class="form-group">
                             <label>Sport *</label>
                             <ui-select ng-model="qualifyinground.sport" required title="Select Sport" on-select="sportSelected();" ng-disabled="true">
-                                <ui-select-match placeholder="Select Sport">{{$select.selected.sportslist.name}} {{$select.selected.gender}} {{$select.selected.firstcategory.name}} {{$select.selected.secondcategory.name}} {{$select.selected.agegroup.name}}</ui-select-match>
+                                <ui-select-match placeholder="Select Sport">{{$select.selected.sportslist.name}} {{$select.selected.gender}} {{$select.selected.firstcategory.name}}
+                                    {{$select.selected.secondcategory.name}} {{$select.selected.agegroup.name}}</ui-select-match>
                                 <ui-select-choices repeat="sport in sportsList | filter: $select.search" refresh="getSportsByYear()">
                                     <div ng-bind-html="sport.sportslist.name | highlight: $select.search"></div>
                                     <small>
@@ -72,7 +73,7 @@
                         </div> -->
                         <div class="form-group">
                             <label>Player</label>
-                            <ui-select  ng-model="qualifyinground.player" title="Select Player" >
+                            <ui-select ng-model="qualifyinground.player" title="Select Player">
                                 <ui-select-match placeholder="Select Player">{{$select.selected.name}}</ui-select-match>
                                 <ui-select-choices refresh-delay="0" refresh="getQualifyingRoundPlayer($select.search)" repeat="player1 in students | filter: $select.search">
                                     <div ng-bind-html="player1.name | highlight: $select.search"></div>
@@ -84,21 +85,21 @@
                             </ui-select>
                         </div>
 
-                        <div class="form-group" >
+                        <div class="form-group">
                             <label>Position</label>
                             <input type="text" placeholder="Result" class="form-control" ng-model="qualifyinground.position" only-digits>
                         </div>
-                        <div class="form-group" >
+                        <div class="form-group">
                             <label>Result</label>
-                            <input type="text" placeholder="Result" class="form-control" ng-model="qualifyinground.result" >
+                            <input type="text" placeholder="Result" class="form-control" ng-model="qualifyinground.result">
                         </div>
-                        <div class="form-group" >
+                        <div class="form-group">
                             <label>Points/Distance/Height</label>
-                            <input type="text" placeholder="Score" class="form-control" ng-model="qualifyinground.score" >
+                            <input type="text" placeholder="Score" class="form-control" ng-model="qualifyinground.score">
                         </div>
                         <div class="form-group">
                             <label>Video </label>
-                            <input type="text" placeholder="Video" class="form-control"  ng-model="qualifyinground.video"  >
+                            <input type="text" placeholder="Video" class="form-control" ng-model="qualifyinground.video">
                         </div>
                     </div>
                 </div>
