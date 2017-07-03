@@ -49,7 +49,7 @@
 
 
                                             <a class="btn btn-default" ui-sref="qualifyingknockoutsport({id:selectedsport.sportslist._id})">
-                                                < Back to {{selectedsport.sportslist.name}}{{adminURL}}qualifyinground/exportQualify?sport={{qualifyinground.sport}}</a>
+                                                < Back to </a>
 
                                                     <a class="btn btn-info" href="{{adminURL}}qualifyingknockout/exportQualify?sport={{qualifyinground.sport}}"><i class="fa fa-download"></i>&nbsp; Qualifying Rounds</a>
                                                     <upload-excel button-text="buttonText" ng-model="profilePic" no-view uploadhere="uploadurl" ng-callback="thismodel" current-state="cs"></upload-excel>
@@ -82,21 +82,27 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>Match ID</th>
-                                                <th>Position</th>
-                                                <th>Player </th>
-                                                <th>Result</th>
-                                                <th>Score</th>
+                                                <th>Match ID{{qualifyinground.player1}}</th>
+                                                <th>Participant Type</th>
+                                                <th ng-if="qualifyinground.round == 'Final'">Participant 1 </th>
+                                                <th ng-if="qualifyinground.round == 'Final'">Result 1</th>
+                                                <th ng-if="qualifyinground.round == 'Final'">Participant 2</th>
+                                                <th ng-if="qualifyinground.round == 'Final'">Result 2</th>
+                                                <th ng-if="qualifyinground.round == 'Final'">Score </th>
+                                                <th ng-if="qualifyinground.round != 'Final'">Qualified Round</th>
                                                 <th class="text-center" colspan="2">Operations</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="key in qualifyinground.qualifyingrounds | orderBy : 'position'">
                                                 <td>{{key.matchid}}</td>
-                                                <td>{{key.position}}</td>
-                                                <td>{{key.player.name}}</td>
-                                                <td>{{key.result}}</td>
-                                                <td>{{key.score}}</td>
+                                                <td>{{key.participantType}}</td>
+                                                <td ng-if="qualifyinground.round == 'Final'">{{key.player1.name}}</td>
+                                                <td ng-if="qualifyinground.round == 'Final'">{{key.result1}}</td>
+                                                <td ng-if="qualifyinground.round == 'Final'">{{key.player2.name}}</td>
+                                                <td ng-if="qualifyinground.round == 'Final'">{{key.result2}}</td>
+                                                <td ng-if="qualifyinground.round == 'Final'">{{key.score}}</td>
+                                                <td ng-if="qualifyinground.round != 'Final'">{{key.name}}</td>
                                                 <td class="text-center">
                                                     <a ui-sref="editqualifyingknockout({id:key._id,sportid:key.sport,round:qualifyinground.round,order:qualifyinground.order})"
                                                         class="btn btn-primary">
