@@ -97,9 +97,9 @@
                                             <tr ng-repeat="key in qualifyinground.qualifyingrounds | orderBy : 'position'">
                                                 <td>{{key.matchid}}</td>
                                                 <td>{{key.participantType}}</td>
-                                                <td ng-if="qualifyinground.round == 'Final'">{{key.player1.name}}</td>
+                                                <td ng-if="qualifyinground.round == 'Final'">{{key.participantType == 'team' ? key.team1.name : key.player1.name}}</td>
                                                 <td ng-if="qualifyinground.round == 'Final'">{{key.result1}}</td>
-                                                <td ng-if="qualifyinground.round == 'Final'">{{key.player2.name}}</td>
+                                                <td ng-if="qualifyinground.round == 'Final'">{{key.participantType == 'team' ? key.team2.name : key.player2.name}}</td>
                                                 <td ng-if="qualifyinground.round == 'Final'">{{key.result2}}</td>
                                                 <td ng-if="qualifyinground.round == 'Final'">{{key.score}}</td>
                                                 <td ng-if="qualifyinground.round != 'Final'">{{key.name}}</td>
