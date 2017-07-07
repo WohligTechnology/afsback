@@ -102,7 +102,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'createHeatCtrl'
         })
         .state('createswissleague', {
-            url: "/createswissleague/:sportid/:round/:order",
+            url: "/createswissleague/:sportid",
             templateUrl: "views/template.html",
             controller: 'createSwissLeagueCtrl'
         })
@@ -122,7 +122,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'editHeatCtrl'
         })
         .state('editswissleague', {
-            url: "/editswissleague/:id/:sportid/:round/:order",
+            url: "/editswissleague/:id/:sportid",
             templateUrl: "views/template.html",
             controller: 'editSwissLeagueCtrl'
         })

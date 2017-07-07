@@ -381,15 +381,15 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 sport: $stateParams.id
             }, function (response) {
                 if (response.value) {
-                    $scope.swissleagues = _.chain(response.data)
-                        .groupBy("round")
-                        .toPairs()
-                        .map(function (currentItem) {
-                            currentItem[2] = currentItem[1][0].order;
-                            return _.zipObject(["round", "swissleagues", "order"], currentItem);
-                        })
-                        .value();
-                    console.log($scope.swissleagues);
+                    $scope.swissleagues = response.data;
+                    //     .groupBy("round")
+                    //     .toPairs()
+                    //     .map(function (currentItem) {
+                    //         currentItem[2] = currentItem[1][0].order;
+                    //         return _.zipObject(["round", "swissleagues", "order"], currentItem);
+                    //     })
+                    //     .value();
+                    // console.log($scope.swissleagues);
                 }
             });
         };
@@ -3648,12 +3648,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }
             });
         }
-        if ($stateParams.round) {
-            $scope.swissleague.round = $stateParams.round;
-        }
-        if ($stateParams.order) {
-            $scope.swissleague.order = $stateParams.order;
-        }
 
         $scope.getSwissLeaguePlayer = function (search) {
             $scope.students = [];
@@ -4103,12 +4097,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }
             });
         }
-        if ($stateParams.round) {
-            $scope.swissleague.round = $stateParams.round;
-        }
-        if ($stateParams.order) {
-            $scope.swissleague.order = $stateParams.order;
-        }
 
         $scope.getSwissLeaguePlayer = function (search) {
             $scope.students = [];
@@ -4165,6 +4153,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     if ($scope.swissleague.date) {
                         $scope.swissleague.date = new Date($scope.swissleague.date);
                     }
+                    if ($scope.swissleague.startTime)
+                        $scope.swissleague.startTime = new Date($scope.swissleague.startTime);
+                    if ($scope.swissleague.endTime)
+                        $scope.swissleague.endTime = new Date($scope.swissleague.endTime);
                 } else {
 
                 }

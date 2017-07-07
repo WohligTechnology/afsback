@@ -2,7 +2,8 @@
     <div class="row">
         <!-- <div class="col-md-4 column"> -->
         <div class="heading-profile text-center">
-            <h2>{{selectedsport.sportslist.name}} {{selectedsport.gender}} {{selectedsport.firstcategory.name}} {{selectedsport.secondcategory.name}} {{selectedsport.thirdcategory.name}} {{selectedsport.agegroup.name}} Swiss Leagues - {{selectedsport.year}}</h2>
+            <h2>{{selectedsport.sportslist.name}} {{selectedsport.gender}} {{selectedsport.firstcategory.name}} {{selectedsport.secondcategory.name}}
+                {{selectedsport.thirdcategory.name}} {{selectedsport.agegroup.name}} Swiss Leagues - {{selectedsport.year}}</h2>
         </div>
         <!-- </div> -->
     </div>
@@ -12,13 +13,14 @@
         <div class="col-md-12">
             <div class="widget">
                 <div class="form-elements-sec">
-                    <div class="main-dv">
+                    <!--<div class="main-dv">
 
 
                         <!-- <div class="widget-title">
 
                             <h3>Add Round</h3>
-                        </div> -->
+                        </div> /->
+
                         <div class="w-body">
                             <form name="addRoundForm" ng-submit="addRound()">
                                 <div class="row">
@@ -41,7 +43,7 @@
 
                                             <a class="btn btn-default" ui-sref="swissleaguesport({id:selectedsport.sportslist._id})">
                                                 < Back to {{selectedsport.sportslist.name}}</a>
-                                        </div> -->
+                                        </div> /->
                                     </div>
                                     <div class="col-md-6">
                                         <div class="pull-right mt18">
@@ -50,24 +52,29 @@
                                             <a class="btn btn-default" ui-sref="swisssport({id:selectedsport.sportslist._id})">
                                                 < Back to {{selectedsport.sportslist.name}}</a>
 
-                                                    <!-- <a class="btn btn-info" href="{{adminURL}}swissleague/exportSwissLeague?sport={{swissleague.sport}}"><i class="fa fa-download"></i>&nbsp; Swiss Leagues</a> -->
-                                                    <!-- <upload-excel button-text="buttonText" ng-model="profilePic" no-view uploadhere="uploadurl" ng-callback="thismodel" current-state="cs"></upload-excel> -->
+                                                    <!-- <a class="btn btn-info" href="{{adminURL}}swissleague/exportSwissLeague?sport={{swissleague.sport}}"><i class="fa fa-download"></i>&nbsp; Swiss Leagues</a> 
+                                                    <!-- <upload-excel button-text="buttonText" ng-model="profilePic" no-view uploadhere="uploadurl" ng-callback="thismodel" current-state="cs"></upload-excel> 
                                         </div>
                                     </div>
                                 </div>
                             </form>
 
                         </div>
-                    </div>
-                    <div class="main-dv mt50" ng-repeat="swissleague in swissleagues | orderBy:'-order'">
+                    </div>-->
+                    <div class="widget-title">
+                        <div class="pull-right">
+                            <a class="btn btn-default" ui-sref="knockoutsport({id:selectedsport.sportslist._id})">
+                                < Back to {{selectedsport.sportslist.name}}</a>
+                                    <a class="btn btn-info" href="{{adminURL}}swissleague/exportSwissLeague?sport={{selectedsport._id}}"><i class="fa fa-download"></i>&nbsp; Knockouts</a>
+                                    <upload-excel button-text="buttonText" ng-model="profilePic" no-view uploadhere="uploadurl" ng-callback="thismodel" current-state="cs"></upload-excel>
 
 
-                        <div class="widget-title w-title">
-                            <div class="pull-right">
-                                <a class="btn btn-primary" ui-sref="createswissleague({'sportid':selectedsport._id,'round':swissleague.round,'order':swissleague.order})"><i class="fa fa-plus"></i>&nbsp;Add Swiss League</a>
-                            </div>
-                            <h3 class="text-uppercase">#{{swissleague.order}} {{swissleague.round}}</h3>
+                                    <!--<a class="btn btn-primary" ng-if="selectedsport" ng-click="createNewThirdPlace();"><i class="fa fa-plus"></i>&nbsp; Add Third Place</a>-->
+                                    <a class="btn btn-primary" ng-if="selectedsport" ui-sref="createswissleague({sportid:selectedsport._id})"><i class="fa fa-plus"></i>&nbsp; Add New</a>
                         </div>
+                        <h3>List of Knockouts</h3>
+                    </div>
+                    <div class="main-dv mt50">
                         <div class="swissleague-body">
                             <div class="">
                                 <!-- <div class="widget-title">
@@ -81,36 +88,40 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
+                                                <th>#</th>
                                                 <th>Match ID</th>
-                                                <th>No 1</th>
-                                                <th>Player 1</th>
-                                                <th>Point 1</th>
-                                                <th>Result</th>
-                                                <th>Point 2</th>
-                                                <th>Player 2</th>
-                                                <th>No 2</th>
+                                                <th>League Details</th>
+                                                <th>Participant 1</th>
+                                                <th>R 1</th>
+                                                <th>Participant 2</th>
+                                                <th>R 2</th>
+                                                <th>Round Name</th>
+                                                <th>Round No</th>
+                                                <th>Order</th>
                                                 <th class="text-center" colspan="2">Operations</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr ng-repeat="key in swissleague.swissleagues | orderBy : 'matchorder'">
-                                                <td>{{key.matchid}}</td>
-                                                <td>{{key.no1}}</td>
-                                                <td>{{key.player1.name}}</td>
-                                                <td>{{key.point1}}</td>
-                                                <td>{{key.result}}</td>
-                                                <td>{{key.point2}}</td>
-                                                <td>{{key.player2.name}}</td>
-                                                <td>{{key.no2}}</td>
+                                            <tr ng-repeat="value in swissleagues | orderBy : 'matchorder'">
+                                                <td>{{$index+1}}</td>
+                                                <td>{{value.matchid}}</td>
+                                                <td>{{value.sport.sportslist.name}} {{value.sport.gender}} {{value.sport.agegroup.name}}</td>
+                                                <td>{{value.player1.name || 'Not Declared' | letterLimit :13}}</td>
+                                                <td>{{value.result1 || 'Not Declared'}}</td>
+                                                <td>{{value.player2.name || 'Not Declared' | letterLimit :13 }}</td>
+                                                <td>{{value.result2 || 'Not Declared'}}</td>
+                                                <td>{{value.round}}</td>
+                                                <td>{{value.roundno}}</td>
+                                                <td>{{value.order}}</td>
                                                 <td class="text-center">
-                                                    <a ui-sref="editswissleague({id:key._id,sportid:key.sport,round:swissleague.round,order:swissleague.order})" class="btn btn-primary">
-                                                        <i class="fa fa-pencil-square-o"></i>
-                                                    </a>
+                                                    <a ui-sref="editswissleague({id:value._id,sportid:selectedsport._id})" class="btn btn-primary">
+                                 <i class="fa fa-pencil-square-o"></i>
+                              </a>
                                                 </td>
                                                 <td class="text-center">
-                                                    <a ng-click="deleteFunc(key._id)" class="btn btn-primary">
-                                                        <i class="fa fa-trash"></i>
-                                                    </a>
+                                                    <a ng-click="deleteFunc(value._id)" class="btn btn-primary">
+                                 <i class="fa fa-trash"></i>
+                              </a>
                                                 </td>
                                             </tr>
 
@@ -120,7 +131,8 @@
                                         <h5>No results found</h5>
                                     </div>
                                     <div class="">
-                                        <uib-pagination ng-show="sport.data.length > 0" ng-change="reload();" total-items="sport.total" ng-model="pagination.pagenumber" items-per-page="20">
+                                        <uib-pagination ng-show="sport.data.length > 0" ng-change="reload();" total-items="sport.total" ng-model="pagination.pagenumber"
+                                            items-per-page="20">
 
                                         </uib-pagination>
                                     </div>

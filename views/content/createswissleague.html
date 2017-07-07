@@ -30,12 +30,14 @@
                       </div> -->
                         <div class="form-group">
                             <label>Year *</label>
-                            <input type="text" placeholder="Year" class="form-control" required ng-model="swissleague.year" ng-change="getSportsByYear()" only-digits disabled>
+                            <input type="text" placeholder="Year" class="form-control" required ng-model="swissleague.year" ng-change="getSportsByYear()"
+                                only-digits disabled>
                         </div>
                         <div class="form-group">
                             <label>Sport *</label>
                             <ui-select ng-model="swissleague.sport" required title="Select Sport" on-select="sportSelected();" ng-disabled="true">
-                                <ui-select-match placeholder="Select Sport">{{$select.selected.sportslist.name}} {{$select.selected.gender}} {{$select.selected.firstcategory.name}} {{$select.selected.secondcategory.name}} {{$select.selected.agegroup.name}}</ui-select-match>
+                                <ui-select-match placeholder="Select Sport">{{$select.selected.sportslist.name}} {{$select.selected.gender}} {{$select.selected.firstcategory.name}}
+                                    {{$select.selected.secondcategory.name}} {{$select.selected.agegroup.name}}</ui-select-match>
                                 <ui-select-choices repeat="sport in sportsList | filter: $select.search" refresh="getSportsByYear()">
                                     <div ng-bind-html="sport.sportslist.name | highlight: $select.search"></div>
                                     <small>
@@ -56,52 +58,47 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label>Match Order (is sorted Ascending) *</label>
-                                    <input type="text" placeholder="Order" required class="form-control w20" ng-model="swissleague.matchorder" only-digits>
+                                    <label>Order *</label>
+                                    <input type="text" placeholder="Order" required class="form-control w20" ng-model="swissleague.order" only-digits>
                                 </div>
                                 <div class="col-md-3">
-                                    <label>Order *</label>
-                                    <input type="text" placeholder="Order" required class="form-control w20" ng-model="swissleague.order" only-digits disabled>
+                                    <label>Pseudo Round No. *</label>
+                                    <input type="text" placeholder="Order" required class="form-control w20" ng-model="swissleague.roundno" only-digits>
                                 </div>
                                 <div class="col-md-6">
                                     <label>Round *</label>
-                                    <input type="text" placeholder="Round Name" required class="form-control" ng-model="swissleague.round" disabled>
+                                    <input type="text" placeholder="Round Name" required class="form-control" ng-model="swissleague.round">
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label>No 1 </label>
-                            <input type="text" placeholder="No 1" class="form-control"  ng-model="swissleague.no1"  only-digits >
+                            <label>Player 1 </label>
+                            <ui-select ng-model="swissleague.player1" title="Select Player">
+                                <ui-select-match placeholder="Select Player">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices refresh-delay="0" refresh="getSwissLeaguePlayer($select.search)" repeat="player1 in students | filter: $select.search">
+                                    <div ng-bind-html="player1.name | highlight: $select.search"></div>
+                                    <small>
+                            SFA-ID:<span ng-bind-html="player1.sfaid | highlight: $select.search"></span>
+                        </small>
+                                </ui-select-choices>
+                            </ui-select>
                         </div>
                         <div class="form-group">
-                            <label>Player 1 </label>
-                            <ui-select  ng-model="swissleague.player1" title="Select Player" >
-                                <ui-select-match placeholder="Select Player">{{$select.selected.name}}</ui-select-match>
-                                <ui-select-choices refresh-delay="0" refresh="getSwissLeaguePlayer($select.search)" repeat="player1 in students | filter: $select.search">
-                                    <div ng-bind-html="player1.name | highlight: $select.search"></div>
-                                    <small>
-                            SFA-ID:<span ng-bind-html="player1.sfaid | highlight: $select.search"></span>
+                            <label>Result 1 *</label>
+                            <select class="form-control" ng-model="swissleague.result1">
+                              <option value=""></option>
+                              <option value="Won">Won</option>
+                              <option value="Bye">Bye</option>
+                              <option value="Walkover">Walkover</option>
+                              <option value="No Show">No Show</option>
+                              <option value="Loss">Loss</option>
+                          </select>
+                        </div>
 
-                        </small>
-                                </ui-select-choices>
-                            </ui-select>
-                        </div>
-                        <div class="form-group" >
-                            <label>Points 1</label>
-                            <input type="Number" placeholder="Points 1" class="form-control" name="point1" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01"  ng-model="swissleague.point1" >
-                        </div>
-                        <div class="form-group" >
-                            <label>Result</label>
-                            <input type="text" placeholder="Result" class="form-control" ng-model="swissleague.result" >
-                        </div>
-                        <div class="form-group"  ng-if="swissleague.round !== 'Final'">
-                            <label>Points 2</label>
-                            <input type="Number" placeholder="Points 2" class="form-control" name="point2" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01"  ng-model="swissleague.point2" >
-                        </div>
-                        <div class="form-group"  ng-if="swissleague.round !== 'Final'">
+                        <div class="form-group">
                             <label>Player 2 </label>
-                            <ui-select  ng-model="swissleague.player2" title="Select Player" >
+                            <ui-select ng-model="swissleague.player2" title="Select Player">
                                 <ui-select-match placeholder="Select Player">{{$select.selected.name}}</ui-select-match>
                                 <ui-select-choices refresh-delay="0" refresh="getSwissLeaguePlayer($select.search)" repeat="player1 in students | filter: $select.search">
                                     <div ng-bind-html="player1.name | highlight: $select.search"></div>
@@ -112,9 +109,28 @@
                                 </ui-select-choices>
                             </ui-select>
                         </div>
-                        <div class="form-group"  ng-if="swissleague.round !== 'Final'">
-                            <label>No 2 </label>
-                            <input type="text" placeholder="No 2" class="form-control"  ng-model="swissleague.no2"  only-digits >
+                        <div class="form-group">
+                            <label>Result 2 *</label>
+                            <select class="form-control" ng-model="swissleague.result2">
+                              <option value=""></option>
+                              <option value="Won">Won</option>
+                              <option value="Bye">Bye</option>
+                              <option value="Walkover">Walkover</option>
+                              <option value="No Show">No Show</option>
+                              <option value="Loss">Loss</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Start Time</label>
+                            <input type="time" placeholder="Start Time" class="form-control" ng-model="swissleague.startTime">
+                        </div>
+                        <div class="form-group">
+                            <label>End Time</label>
+                            <input type="time" placeholder="End Time" class="form-control" ng-model="swissleague.endTime">
+                        </div>
+                        <div class="form-group">
+                            <label>Total Time</label>
+                            <input type="text" placeholder="Total Time" class="form-control" ng-model="swissleague.totalTime">
                         </div>
                     </div>
                 </div>
