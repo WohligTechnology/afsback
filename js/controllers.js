@@ -3795,6 +3795,35 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.qualifyinground.order = $stateParams.order;
         }
 
+        $scope.getQualifyingRoundTeam = function (search) {
+            $scope.teams = [];
+            var constraints = {};
+            constraints.search = search;
+            if (isNaN(search) || search === null || search === undefined || search === "") {
+                constraints.search = search;
+                constraints.sfaid = undefined;
+            } else {
+                constraints.search = undefined;
+                constraints.sfaid = parseInt(search);
+            }
+            if ($scope.qualifyinground.sport) {
+                constraints.sport = $scope.qualifyinground.sport.sportslist._id;
+                // constraints.agegroup = $scope.heat.sport.agegroup;
+            }
+            if ($scope.qualifyinground.sport.gender) {
+                constraints.gender = $scope.qualifyinground.sport.gender;
+            }
+            constraints.year = $scope.qualifyinground.year.toString();
+            console.log(constraints);
+            NavigationService.getTeamsbySport(constraints, function (data) {
+                if (data && data.value !== false) {
+                    $scope.teams = data.data;
+                } else {
+                    $scope.teams = [];
+                }
+            });
+        };
+
         $scope.getQualifyingRoundPlayer = function (search) {
             $scope.students = [];
             var constraints = {};
