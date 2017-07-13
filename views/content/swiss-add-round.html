@@ -65,14 +65,14 @@
                         <div class="pull-right">
                             <a class="btn btn-default" ui-sref="knockoutsport({id:selectedsport.sportslist._id})">
                                 < Back to {{selectedsport.sportslist.name}}</a>
-                                    <a class="btn btn-info" href="{{adminURL}}swissleague/exportSwissLeague?sport={{selectedsport._id}}"><i class="fa fa-download"></i>&nbsp; Knockouts</a>
+                                    <a class="btn btn-info" href="{{adminURL}}swissleague/exportSwissLeague?sport={{selectedsport._id}}"><i class="fa fa-download"></i>&nbsp; Swiss League</a>
                                     <upload-excel button-text="buttonText" ng-model="profilePic" no-view uploadhere="uploadurl" ng-callback="thismodel" current-state="cs"></upload-excel>
 
 
                                     <!--<a class="btn btn-primary" ng-if="selectedsport" ng-click="createNewThirdPlace();"><i class="fa fa-plus"></i>&nbsp; Add Third Place</a>-->
                                     <a class="btn btn-primary" ng-if="selectedsport" ui-sref="createswissleague({sportid:selectedsport._id})"><i class="fa fa-plus"></i>&nbsp; Add New</a>
                         </div>
-                        <h3>List of Knockouts</h3>
+                        <h3>List of Swiss League</h3>
                     </div>
                     <div class="main-dv mt50">
                         <div class="swissleague-body">
