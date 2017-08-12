@@ -29,8 +29,17 @@
                             <input type="text" placeholder="Banner Order" class="form-control" ng-model="banner.order" only-digits>
                         </div>
                         <div class="form-group">
+                            <label>Banner City</label>
+                            <!-- <input type="text" placeholder="Select Banner City" class="form-control" ng-model="banner.city"> -->
+                            <select name="city" class="form-control" placeholder="Select Banner City" id="city" ng-model="banner.city">
+                                <option>Mumbai</option>
+                                <option>Hyderabad</option>
+                                <option>Ahmedabad</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label>Banner Link</label>
-                            <input type="text" placeholder="Banner Link" class="form-control" ng-model="banner.link" >
+                            <input type="text" placeholder="Banner Link" class="form-control" ng-model="banner.link">
                         </div>
                         <div class="form-group">
                             <label>Status</label>
