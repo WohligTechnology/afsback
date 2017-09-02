@@ -5915,6 +5915,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         };
 
+
+        
         NavigationService.getOneSportRule($stateParams.id, function (data) {
             console.log(data);
             if (data.value != false) {
