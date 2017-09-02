@@ -389,6 +389,18 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'editSportRuleCtrl'
         })
 
+        .state('cityrule', {
+            url: "/cityrule/:city/:type",
+            templateUrl: "views/template.html",
+            controller: 'CityRuleCtrl'
+        })
+
+        .state('detailcityrule', {
+            url: "/detailcityrule/:city/:type/:id",
+            templateUrl: "views/template.html",
+            controller: 'detailCityRuleCtrl'
+        })
+
     ;
     $urlRouterProvider.otherwise("/dashboard");
     $locationProvider.html5Mode(isproduction);
@@ -442,6 +454,14 @@ firstapp.filter('letterLimit', function () {
         } else {
             return value.slice(0, limit - 2) + "..";
         }
+    };
+});
+firstapp.filter('firstcapitalize', function () {
+    return function (input, all) {
+        var reg = (all) ? /([^\W_]+[^\s-]*) */g : /([^\W_]+[^\s-]*)/;
+        return (!!input) ? input.replace(reg, function (txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        }) : '';
     };
 });
 firstapp.directive('fancyboxBox', function ($document) {

@@ -58,6 +58,42 @@ var navigationservice = angular.module('navigationservice', [])
             icon: "users",
             subnav: []
         }, {
+            name: "City Rule",
+            classis: "active",
+            anchor: "",
+            icon: "users",
+            subnav: [{
+                name: "Mumbai School",
+                classis: "",
+                anchor: "#/cityrule/mumbai/school",
+                icon: ""
+            }, {
+                name: "Mumbai College",
+                classis: "",
+                anchor: "#/cityrule/mumbai/college",
+                icon: ""
+            }, {
+                name: "Hyderabad School",
+                classis: "",
+                anchor: "#/cityrule/hyderabad/school",
+                icon: ""
+            }, {
+                name: "Hyderabad College",
+                classis: "",
+                anchor: "#/cityrule/hyderabad/college",
+                icon: ""
+            }, {
+                name: "Ahmedabad School",
+                classis: "",
+                anchor: "#/cityrule/ahmedabad/school",
+                icon: ""
+            }, {
+                name: "Ahmedabad College",
+                classis: "",
+                anchor: "#/cityrule/ahmedabad/college",
+                icon: ""
+            }]
+        }, {
             name: "Media",
             classis: "active",
             anchor: "media",
@@ -1066,6 +1102,42 @@ var navigationservice = angular.module('navigationservice', [])
                     data: {
                         _id: data
                     }
+                }).success(callback);
+            },
+            getRules: function (data, callback) {
+                $http({
+                    url: adminURL + 'cityrule/getOne',
+                    method: 'POST',
+                    data: data
+                }).success(callback);
+            },
+            saveRules: function (data, callback) {
+                $http({
+                    url: adminURL + 'cityrule/saveData',
+                    method: 'POST',
+                    data: data
+                }).success(callback);
+            },
+            saveRule: function (data, callback) {
+                $http({
+                    url: adminURL + 'cityrule/saveData',
+                    method: 'POST',
+                    data: data
+                }).success(callback);
+            },
+            deleteRules: function (data, callback) {
+                console.log(data);
+                $http({
+                    url: adminURL + 'cityrule/deleteData',
+                    method: 'POST',
+                    data: data
+                }).success(callback);
+            },
+            getAllRules: function (data, callback) {
+                $http({
+                    url: adminURL + 'cityrule/getAllRules',
+                    method: 'POST',
+                    data: data
                 }).success(callback);
             },
             makeactive: function (menuname) {

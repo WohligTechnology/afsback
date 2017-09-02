@@ -1,4 +1,4 @@
-angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', 'ngAnimate', 'ngSanitize', 'angular-flexslider', 'ui.select', 'imageupload', 'ui.tinymce'])
+angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', 'ngAnimate', 'ngSanitize', 'angular-flexslider', 'ui.select', 'imageupload', 'ui.tinymce', 'toastr'])
 
     .controller('headerctrl', function ($scope, TemplateService, $state) {
         $scope.template = TemplateService;
@@ -6114,4 +6114,262 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }
             }
         };
+    })
+
+    .controller('CityRuleCtrl', function ($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams, toastr, $state, $rootScope) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("city-rule");
+        $scope.menutitle = NavigationService.makeactive("City Rule");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.city = $stateParams.city;
+        $scope.institutionType = $stateParams.type;
+        $scope.contentLoaded = false;
+        $scope.formData = {};
+        $scope.formData.page = 1;
+        $scope.formData.type = '';
+        $scope.formData.keyword = '';
+        $scope.value = '';
+        // $scope.selectedStatus = 'All';
+        $scope.searchInTable = function (data) {
+            $scope.formData.page = 1;
+            if (data.length >= 2) {
+                $scope.formData.keyword = data;
+                $scope.viewTable();
+            } else if (data.length == '') {
+                $scope.formData.keyword = data;
+                $scope.viewTable();
+            }
+        }
+        $scope.viewTable = function () {
+            $scope.formData.page = $scope.formData.page++;
+            $scope.formData.city = $stateParams.city;
+            $scope.formData.institutionType = $stateParams.type;
+            NavigationService.getAllRules($scope.formData, function (data) {
+                console.log("data.value", data);
+                if (_.isEmpty(data.data.data)) {
+                    $scope.cityrule = data.data.data;
+                    $scope.value = 'null';
+                } else {
+                    $scope.contentLoaded = true;
+                    $scope.cityrule = data.data.data;
+                    $scope.totalItems = data.data.total;
+                    $scope.maxRow = 10;
+                }
+
+            });
+
+        }
+        $scope.viewTable();
+        $scope.deleteFunc = function (data) {
+            console.log(data);
+            $rootScope.id = data;
+            $scope.modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'views/content/delete.html',
+                backdrop: 'static',
+                keyboard: false,
+                size: 'sm',
+                scope: $scope
+
+            });
+        };
+
+        $scope.noDelete = function () {
+            $scope.modalInstance.close();
+        }
+        $scope.confDelete = function (data) {
+            console.log(data);
+            $scope.constraints = {};
+            $scope.constraints._id = $rootScope.id;
+            console.log($scope.constraints)
+            NavigationService.deleteRules($scope.constraints, function (data) {
+                console.log("data.value", data);
+                if (data.value) {
+                    toastr.success('Successfully Deleted', 'Rules Message');
+                    $scope.modalInstance.close();
+                    $scope.viewTable();
+                } else {
+                    toastr.error('Something went wrong while Deleting', 'Rules Message');
+                }
+            });
+        }
+    })
+
+    .controller('detailCityRuleCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, $uibModal, $stateParams, $filter, $state, $stateParams, toastr, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("detail-rule");
+        $scope.menutitle = NavigationService.makeactive("Detail City Rule");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.template.type = 1;
+        $scope.formData = {};
+        $scope.formData.city = $stateParams.city;
+        $scope.formData.institutionType = $stateParams.type;
+        $scope.tinymceOptions = {
+            selector: 'textarea',
+            height: 500,
+            theme: 'modern',
+            plugins: [
+                'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                'searchreplace wordcount visualblocks visualchars code fullscreen',
+                'insertdatetime media nonbreaking save table contextmenu directionality',
+                'emoticons template paste textcolor colorpicker textpattern imagetools '
+            ],
+            toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            toolbar2: 'print preview media | forecolor backcolor emoticons',
+            image_advtab: true,
+            templates: [{
+                title: 'Test template 1',
+                content: 'Test 1'
+            }, {
+                title: 'Test template 2',
+                content: 'Test 2'
+            }],
+            content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                '//www.tinymce.com/css/codepen.min.css'
+            ]
+        };
+        $scope.deleteVal = "";
+        console.log('enter');
+
+        if ($stateParams.id !== '') {
+            //edit
+            $scope.title = 'Edit';
+            $scope.getOneOldSchoolById = function () {
+                // $scope.url = "Rules/getOne";
+                $scope.constraints = {};
+                $scope.constraints._id = $stateParams.id;
+                // $scope.constraints.city = $stateParams.city;
+                // $scope.constraints.institutionType = $stateParams.type;
+                NavigationService.getRules($scope.constraints, function (data) {
+                    console.log(data);
+                    $scope.formData = data.data;
+                });
+
+            };
+            $scope.getOneOldSchoolById();
+            $scope.saveData = function (data) {
+                if (data) {
+                    NavigationService.saveRules(data, function (data) {
+                        // console.log("data.value", data);
+                        // if (data.data.nModified == '1') {
+
+
+                        // }
+                        toastr.success(" Updated Successfully", "Rules Message");
+                        $state.go('cityrule', {
+                            city: $stateParams.city,
+                            type: $stateParams.type
+                        });
+
+                    });
+                } else {
+                    toastr.error("invalid data", "Rules Message");
+                }
+            };
+            //edit
+        } else {
+            $scope.title = "Create";
+            $scope.saveData = function (data) {
+                if (data) {
+                    console.log(data);
+                    NavigationService.saveRules(data, function (data) {
+                        console.log("data.value", data);
+                        if (data.value === true) {
+                            toastr.success(" Saved Successfully", "Rules Message");
+                            $state.go('cityrule', {
+                                city: $stateParams.city,
+                                type: $stateParams.type
+                            });
+                        }
+                    });
+                } else {
+                    toastr.error("invalid data", "Rules Message");
+                }
+            };
+        }
+        //cancel
+        $scope.onCancel = function (sendTo) {
+            $state.go(sendTo, {
+                city: $stateParams.city,
+                type: $stateParams.type
+            });
+        };
+        $scope.addCont = function (crdv) {
+            console.log('enter', crdv)
+            if (!crdv.eligibilityTable) {
+                crdv.eligibilityTable = [{
+                    "agegroup": "",
+                    "date": ""
+                }];
+            } else {
+                crdv.eligibilityTable.push({
+                    "agegroup": "",
+                    "date": ""
+                });
+            }
+        };
+        $scope.addAge = function (crdv) {
+            if (!crdv.ageGroupTable) {
+                crdv.ageGroupTable = [{
+                    "agegroup": "",
+                    "weight": ""
+                }];
+            } else {
+                crdv.ageGroupTable.push({
+                    "agegroup": "",
+                    "weight": ""
+                });
+            }
+        };
+
+        $scope.confDelete = function (val) {
+            if ($scope.deleteVal === 1) {
+                $scope.formData.eligibilityTable.splice($.jStorage.get("deleteEligibilityTable"), 1);
+            }
+            // else if ($scope.deleteVal === 2) {
+            //     $scope.formData.winnerTable.splice($.jStorage.get("deleteWinnerTable"), 1);
+            // } else if ($scope.deleteVal === 3) {
+            //     $scope.formData.teamTable.splice($.jStorage.get("deleteTeamTable"), 1);
+            // }
+            else if ($scope.deleteVal === 4) {
+                $scope.formData.ageGroupTable.splice($.jStorage.get("deleteAgeGroupTable"), 1);
+            }
+        };
+
+        $scope.deleteFunc = function (id, value) {
+            if (value === 1) {
+                $scope.deleteVal = 1;
+                $.jStorage.set("deleteEligibilityTable", id);
+                // $scope.confDel($.jStorage.set("deleteEligibilityTable", id));
+            }
+            //  else if (value === 2) {
+            //     $scope.deleteVal = 2;
+            //     $.jStorage.set("deleteWinnerTable", id);
+            // } else if (value === 3) {
+            //     $scope.deleteVal = 3;
+            //     $.jStorage.set("deleteTeamTable", id);
+            // }
+            else if (value === 4) {
+                $scope.deleteVal = 4;
+                $.jStorage.set("deleteAgeGroupTable", id);
+            }
+            $scope.modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'views/content/delete.html',
+                backdrop: 'static',
+                keyboard: false,
+                size: 'sm',
+                scope: $scope
+
+            });
+        };
+        $scope.noDelete = function () {
+            $scope.modalInstance.close();
+        };
+        //end cancel
+
+
     });

@@ -5,6 +5,7 @@
 @import "../bower_components/font-awesome/css/font-awesome.min.css";
 @import "../bower_components/fancyBox/source/jquery.fancybox.css";
 @import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "../bower_components/angular-toastr/dist/angular-toastr";
 @import "template/icons";
 @import "template/main";
 @import "template/responsive";
@@ -250,6 +251,11 @@ input:focus {
     ul {
         height: 400px;
         overflow-y: scroll;
+        li {
+            ul {
+                height: auto;
+            }
+        }
     }
 }
 
