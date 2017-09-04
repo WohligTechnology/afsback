@@ -37,7 +37,8 @@
     "jStorage": "^0.4.12",
     "angular-ui-select": "^0.18.1",
     "angular-ui-tinymce": "~0.0.12",
-    "tinymce": "tinymce-dist#^4.6.4"
+    "tinymce": "tinymce-dist#^4.6.4",
+    "angular-toastr": "^2.1.1"
   },
   "devDependencies": {
     "angular-translate": "^2.11.0"
