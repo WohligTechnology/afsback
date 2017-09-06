@@ -69,19 +69,31 @@
                             </div>
                             <upload-image ng-model="sportrule.federationLogo" no-view></upload-image>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group tinymce">
                             <label>Content After Date</label>
-                            <textarea ui-tinymce="tinymceOptions" rows="10" placeholder="Content After Date" class="form-control" ng-model="sportrule.dateContent"></textarea>
+                            <text-angular ng-model="sportrule.dateContent"></text-angular>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
+                                <label>Content After Date</label>
+                            <textarea ui-tinymce="tinymceOptions" rows="10" placeholder="Content After Date" class="form-control" ng-model="sportrule.dateContent"></textarea>
+                        </div> -->
+                        <div class="form-group tinymce">
+                            <label>Rules</label>
+                            <text-angular ng-model="sportrule.rules"></text-angular>
+                        </div>
+                        <!-- <div class="form-group">
                             <label>Rules</label>
                             <textarea ui-tinymce="tinymceOptions" rows="10" class="form-control" ng-model="sportrule.rules" placeholder="Rules">
                             </textarea>
+                        </div> -->
+                        <div class="form-group tinymce">
+                            <label>Age Group Content</label>
+                            <text-angular ng-model="sportrule.ageGroupContent"></text-angular>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>Age Group Content</label>
                             <textarea ui-tinymce="tinymceOptions" rows="10" placeholder="Age Group Content" class="form-control" ng-model="sportrule.ageGroupContent"></textarea>
-                        </div>
+                        </div> -->
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="widget">
@@ -114,11 +126,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group tinymce">
+                            <label>Eligibility Content</label>
+                            <text-angular ng-model="sportrule.eligibilityContent"></text-angular>
+                        </div>
+                        <!-- <div class="form-group">
                             <label>Eligibility Content</label>
                             <textarea ui-tinymce="tinymceOptions" rows="10" class="form-control" ng-model="sportrule.eligibilityContent" placeholder="Eligibility Content">
                             </textarea>
-                        </div>
+                        </div> -->
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="widget">
@@ -166,10 +182,14 @@
                             <label>Schedule & Draws</label>
                             <!-- <input type="text" placeholder="Schedule & Draws" class="form-control" ng-model="sportrule.scheduleLeader"> -->
                         </div>
-                        <div class="form-group">
+                        <div class="form-group tinymce">
+                            <label>Year Before Content</label>
+                            <text-angular ng-model="sportrule.yearBeforeContent"></text-angular>
+                        </div>
+                        <!-- <div class="form-group">
                             <label>Year Before Content</label>
                             <textarea ui-tinymce="tinymceOptions" rows="10" placeholder="Year Before Content" class="form-control" ng-model="sportrule.yearBeforeContent"></textarea>
-                        </div>
+                        </div> -->
                         <!-- <div class="row">
                             <div class="col-md-12">
                                 <div class="widget">
@@ -291,10 +311,14 @@
                                 </ui-select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group tinymce">
+                            <label>About</label>
+                            <text-angular ng-model="sportrule.about"></text-angular>
+                        </div>
+                        <!-- <div class="form-group">
                             <label>About</label>
                             <textarea ui-tinymce="tinymceOptions" rows="10" placeholder="About" class="form-control" ng-model="sportrule.about"></textarea>
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label class="block">Photos</label>
                             <div class="banner-img-holder" ng-if="sportrule.images.length > 0" ng-repeat="image in sportrule.images">
