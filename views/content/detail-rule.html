@@ -22,39 +22,32 @@
                                     <div class="error-msg" ng-if="detailForm.rulesname.$invalid && detailForm.rulesname.$touched">Please Enter Valid Name *</div>
                                 </div>
                                 <div class="form-group">
-                                    <label>City</label>
-                                    <input type="text" name="rulesnames" ng-model="formData.city |firstcapitalize" class="form-control" placeholder="Enter City"
-                                        readOnly>
+                                    <label>City*</label>
+                                    <input type="text" name="rulescity" ng-model="formData.city" class="form-control" placeholder="Enter City" required>
+                                    <div class="error-msg" ng-if="detailForm.rulescity.$invalid && detailForm.rulescity.$touched">Please Enter Valid City *</div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Type</label>
-                                    <input type="text" name="rulesnamess" ng-model="formData.institutionType | firstcapitalize" class="form-control" placeholder="Enter Type"
-                                        readOnly>
+                                    <label>Institution Type*</label>
+                                    <input type="text" name="rulesIT" ng-model="formData.institutionType" class="form-control" placeholder="Enter Institution Type"
+                                        required>
+                                    <div class="error-msg" ng-if="detailForm.rulesIT.$invalid && detailForm.rulesIT.$touched">Please Enter Valid Institution Type *</div>
                                 </div>
                                 <!--ageGroupTable: Schema.Types.Mixed,
-          eligibilityContent: String,
-          eligibilityTable: Schema.Types.Mixed,-->
+                               eligibilityContent: String,
+                                eligibilityTable: Schema.Types.Mixed,-->
                                 <div class="form-group tinymce">
-                                    <label>Tournament Format*</label>
-                                    <textarea ui-tinymce="tinymceOptions" rows="6" placeholder="About" class="form-control" ng-model="formData.tournamentFormat"
-                                        name="tournamentFormat" required></textarea>
-                                    <div class="error-msg" ng-if="detailForm.tournamentFormat.$invalid && detailForm.tournamentFormat.$touched">Please enter valid Text</div>
-                                </div>
-                                <!-- <div class="form-group tinymce">
                                     <label>Tournament Format*</label>
                                     <text-angular ng-model="formData.tournamentFormat" name="tournamentFormat" required></text-angular>
                                     <div class="error-msg" ng-if="detailForm.tournamentFormat.$invalid && detailForm.tournamentFormat.$touched">Please enter valid Text</div>
-                                </div> -->
+                                </div>
                                 <div class="form-group tinymce">
                                     <label>Rules and Regulations*</label>
-                                    <textarea ui-tinymce="tinymceOptions" rows="6" placeholder="About" class="form-control" ng-model="formData.rulesAndRegulation"
-                                        name="rulestext" required></textarea>
+                                    <text-angular ng-model="formData.rulesAndRegulation" name="rulestext" required></text-angular>
                                     <div class="error-msg" ng-if="detailForm.rulestext.$invalid && detailForm.rulestext.$touched">Please enter valid Text</div>
                                 </div>
                                 <div class="form-group tinymce">
                                     <label>Age Group Content</label>
-                                    <textarea ui-tinymce="tinymceOptions" rows="6" placeholder="About" class="form-control" ng-model="formData.ageGroupContent"
-                                        name="ageGroupContent"></textarea>
+                                    <text-angular ng-model="formData.ageGroupContent" name="ageGroupContent"></text-angular>
                                     <div class="error-msg" ng-if="detailForm.ageGroupContent.$invalid && detailForm.ageGroupContent.$touched">Please enter valid Text</div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -95,8 +88,7 @@
                                 <div class="clearfix"></div>
                                 <div class="form-group tinymce">
                                     <label>Eligibility Content</label>
-                                    <textarea ui-tinymce="tinymceOptions" rows="6" placeholder="About" class="form-control" ng-model="formData.eligibilityContent"
-                                        name="eligibletext"></textarea>
+                                    <text-angular ng-model="formData.eligibilityContent" name="eligibletext"></text-angular>
                                     <div class="error-msg" ng-if="detailForm.eligibletext.$invalid && detailForm.eligibletext.$touched">Please enter valid Text</div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -121,11 +113,11 @@
                                                             <div class="form-group">
                                                                 <input type="text" class="form-control" ng-model="content.agegroup">
                                                                 <!--<ui-select ng-model="content.agegroup" title="Select Age Group">
-                                        <ui-select-match placeholder="Select Age Group">{{$select.selected.name}}</ui-select-match>
-                                        <ui-select-choices repeat="age in agegroup | filter: $select.search">
-                                          <div ng-bind-html="age.name | highlight: $select.search"></div>
-                                        </ui-select-choices>
-                                      </ui-select>-->
+                                                    <ui-select-match placeholder="Select Age Group">{{$select.selected.name}}</ui-select-match>
+                                                    <ui-select-choices repeat="age in agegroup | filter: $select.search">
+                                                      <div ng-bind-html="age.name | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                  </ui-select>-->
                                                             </div>
                                                         </td>
                                                         <td>
@@ -143,13 +135,12 @@
                                 <div class="clearfix"></div>
                                 <div class="form-group tinymce">
                                     <label>Tournament Organizing Committee</label>
-                                    <textarea ui-tinymce="tinymceOptions" rows="6" placeholder="About" class="form-control" ng-model="formData.tournamentCommittee"
-                                        name="tournamentCommittee"></textarea>
+                                    <text-angular ng-model="formData.tournamentCommittee" name="tournamentCommittee"></text-angular>
                                     <div class="error-msg" ng-if="detailForm.tournamentCommittee.$invalid && detailForm.tournamentCommittee.$touched">Please enter valid Text</div>
                                 </div>
                                 <div class="text-center mt20 odd-even-button">
                                     <button class="btn btn-default" type="submit" ng-click="saveData(formData)">Save</button>
-                                    <button class="btn btn-default" ng-click="onCancel('cityrule')">Cancel</button>
+                                    <button class="btn btn-default" ng-click="onCancel('rules')">Cancel</button>
                                 </div>
                             </div>
                         </div>

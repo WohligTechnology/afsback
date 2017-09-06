@@ -1,4 +1,4 @@
-angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', 'ngAnimate', 'ngSanitize', 'angular-flexslider', 'ui.select', 'imageupload', 'ui.tinymce', 'toastr'])
+angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', 'ngAnimate', 'ngSanitize', 'angular-flexslider', 'ui.select', 'imageupload', 'ui.tinymce', 'toastr', 'textAngular'])
 
     .controller('headerctrl', function ($scope, TemplateService, $state) {
         $scope.template = TemplateService;
@@ -5916,7 +5916,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
 
 
-        
+
         NavigationService.getOneSportRule($stateParams.id, function (data) {
             console.log(data);
             if (data.value != false) {
