@@ -39,7 +39,8 @@
                                     <td>No Data Available</td>
                                 </tr>
                                 <tr ng-repeat="rule in cityrule" ng-if="cityrule.length>0 && contentLoaded">
-                                    <td>{{$index+1}}</td>
+                                    <!-- <td>{{$index+1}}</td> -->
+                                    <td>{{($index + 1)+((formData.page-1)*maxRow)}}</td>
                                     <td>{{rule.name}}</td>
                                     <td class="text-center">
                                         <a ui-sref="detailcityrule({
@@ -59,6 +60,8 @@
                             </tbody>
                         </table>
                     </div>
+                    <ul ng-if="totalItems" ng-change="viewTable();" uib-pagination total-items="totalItems" items-per-page="maxRow" ng-model="formData.page"
+                        max-size="template.pageMax" class="pagination-sm" boundary-links="true " force-ellipses="true "></ul>
                 </div>
             </div>
         </div>
