@@ -2435,7 +2435,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("Knockout");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.knockout  = {};
+        $scope.knockout = {};
         $scope.knockout.roundno = 0;
         $scope.statuses = {};
         $scope.statuses.inedit = false;
@@ -2612,7 +2612,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("League");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.league  = {};
+        $scope.league = {};
         $scope.statuses = {};
         $scope.statuses.inedit = false;
         $scope.sportid = $stateParams.sportid;
@@ -2782,7 +2782,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("League Knockout");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.leagueknockout  = {};
+        $scope.leagueknockout = {};
         $scope.statuses = {};
         $scope.statuses.inedit = false;
         $scope.sportid = $stateParams.sportid;
@@ -2917,7 +2917,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("League Knockout");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.leagueknockout  = {};
+        $scope.leagueknockout = {};
         $scope.statuses = {};
         $scope.statuses.inedit = false;
         $scope.sportid = $stateParams.sportid;
@@ -3070,7 +3070,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("League");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.league  = {};
+        $scope.league = {};
         $scope.statuses = {};
         $scope.statuses.inedit = true;
         $scope.sportid = $stateParams.sportid;
@@ -3256,7 +3256,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("Knockout");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.medal  = {};
+        $scope.medal = {};
         $scope.statuses = {};
         $scope.statuses.inedit = false;
         $scope.sportSelected = function () {
@@ -3377,7 +3377,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("Heats");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.heat  = {};
+        $scope.heat = {};
         $scope.heat.roundno = 0;
         $scope.statuses = {};
         $scope.statuses.inedit = false;
@@ -3509,7 +3509,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("Heats");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.heat  = {};
+        $scope.heat = {};
         $scope.heat.roundno = 0;
         $scope.statuses = {};
         $scope.statuses.inedit = false;
@@ -3634,7 +3634,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("Swiss League");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.swissleague  = {};
+        $scope.swissleague = {};
         $scope.swissleague.roundno = 0;
         $scope.statuses = {};
         $scope.statuses.inedit = false;
@@ -3704,7 +3704,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("Qualifying Round");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.qualifyinground  = {};
+        $scope.qualifyinground = {};
         $scope.statuses = {};
         $scope.statuses.inedit = false;
         $scope.sportid = $stateParams.sportid;
@@ -3776,7 +3776,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("Qualifying Round");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.qualifyinground  = {};
+        $scope.qualifyinground = {};
         $scope.statuses = {};
         $scope.statuses.inedit = false;
         $scope.sportid = $stateParams.sportid;
@@ -4112,7 +4112,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("Swiss League");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.swissleague  = {};
+        $scope.swissleague = {};
         $scope.swissleague.roundno = 0;
         $scope.statuses = {};
         $scope.statuses.inedit = false;
@@ -4198,7 +4198,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("Knockout");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.knockout  = {};
+        $scope.knockout = {};
         $scope.knockout.roundno = 0;
         $scope.statuses = {};
         $scope.statuses.inedit = true;
@@ -6374,4 +6374,221 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         //end cancel
 
 
+    })
+    .controller('rankingTableDashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("rankingtable-dashboard");
+        $scope.menutitle = NavigationService.makeactive("Ranking Table");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.getSportList = function () {
+            NavigationService.getSportByDrawFormat({
+                drawFormat: "League cum Knockout"
+            }, function (response) {
+                if (response.value) {
+                    $scope.sports = response.data;
+                    $scope.sports = _.chain(response.data)
+                        .groupBy("sporttype")
+                        .toPairs()
+                        .map(function (currentItem) {
+                            return _.zipObject(["sporttype", "name"], currentItem);
+                        })
+                        .value();
+                }
+            });
+        };
+        $scope.getSportList();
+    })
+    .controller('createRankingTableCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("createrankingtable");
+        $scope.menutitle = NavigationService.makeactive("Ranking Table");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.template.type = 1;
+        $scope.pageName = "Create School";
+        $scope.sportsListArr = [];
+        $scope.school = {};
+        var schoolSports = [];
+        $scope.checked = {};
+        $scope.allYears = NavigationService.getAllYears();
+        $scope.deleteId = 0;
+        $scope.school.year = [];
+        $scope.status = [{
+            id: "",
+            name: "Is Verified?"
+        }, {
+            id: "true",
+            name: "Yes"
+        }, {
+            id: "false",
+            name: "No"
+        }];
+        $scope.add = function (crdv) {
+            if (!crdv.contingentLeader) {
+                crdv.contingentLeader = [{
+                    "year": "",
+                    "student": ""
+                }];
+            } else {
+                crdv.contingentLeader.push({
+                    "year": "",
+                    "student": ""
+                });
+            }
+        };
+        $scope.addYear = function () {
+            $scope.school.year = [];
+            _.each($scope.checked, function (key, property) {
+                if (key) {
+                    $scope.school.year.push(property);
+                }
+            });
+            console.log($scope.school.year);
+        };
+        $scope.addDept = function (crdv) {
+            if (!crdv.department) {
+                crdv.department = [{
+                    "year": "",
+                    "name": "",
+                    "designation": "",
+                    "contact": "",
+                    "email": ""
+                }];
+            } else {
+                crdv.department.push({
+                    "year": "",
+                    "name": "",
+                    "designation": "",
+                    "contact": "",
+                    "email": ""
+                });
+            }
+        };
+        $scope.confDelete = function () {
+            if ($scope.deleteId === 1) {
+                $scope.school.department.splice($.jStorage.get("deleteDept"), 1);
+            } else {
+                $scope.school.contingentLeader.splice($.jStorage.get("deleteLeader"), 1);
+            }
+        };
+        $scope.deleteFunc = function (id, value) {
+            if (value === 1) {
+                $scope.deleteId = 1;
+                $.jStorage.set("deleteDept", id);
+            } else {
+                $scope.deleteId = 2;
+                $.jStorage.set("deleteLeader", id);
+            }
+            $uibModal.open({
+                animation: true,
+                templateUrl: "views/content/delete.html",
+                scope: $scope
+            });
+        };
+
+        NavigationService.getAllSportListSchool(function (data) {
+            console.log(data);
+            $scope.sportsListArr = data;
+        });
+
+        NavigationService.getLastId(function (data) {
+            if (data.value !== false) {
+                $scope.school.sfaid = data.data;
+            }
+        });
+        NavigationService.getStudentList(function (data) {
+            if (data.value !== false) {
+                $scope.students = data.data;
+            }
+        });
+        $scope.showError = false;
+        $scope.errorContact = false;
+        $scope.errorEmail = false;
+        $scope.errorSportContact = false;
+        $scope.saveSchool = function () {
+            var schoolSports = [];
+            _.each($scope.sportsListArr, function (years) {
+                _.each(years, function (category) {
+                    schoolSports.push(_.filter(category, "checked"));
+                });
+            });
+            $scope.school.sports = schoolSports = _.flattenDeep(schoolSports);
+
+            function checkContact() {
+                $scope.school.contact = $scope.school.contact.toString();
+                var split = $scope.school.contact.split(",");
+                for (var i = 0; i < split.length; i++) {
+                    if (split[i].length != 10) {
+                        $scope.errorContact = true;
+                        break;
+                    } else {
+                        $scope.errorContact = false;
+                    }
+                }
+            }
+
+            function checkEmail() {
+                var splitEmail = $scope.school.email.split(",");
+                for (var i = 0; i < splitEmail.length; i++) {
+                    var x = splitEmail[i];
+                    var atpos = x.indexOf("@");
+                    var dotpos = x.lastIndexOf(".");
+                    if (atpos <= 1 || dotpos <= atpos + 2 || dotpos + 2 >= x.length) {
+                        $scope.errorEmail = true;
+                        break;
+                    } else {
+                        $scope.errorEmail = false;
+                    }
+                }
+            }
+
+            function checkSportContact() {
+                for (var i = 0; i < $scope.school.department.length; i++) {
+                    $scope.school.department[i].contact = $scope.school.department[i].contact.toString();
+                    if ($scope.school.department[i].contact) {
+                        if ($scope.school.department[i].contact.length != 10) {
+                            $scope.errorSportContact = true;
+                            break;
+                        } else {
+                            $scope.errorSportContact = false;
+                        }
+                    }
+                }
+            }
+
+            function callSave() {
+                NavigationService.saveSchool($scope.school, function (data) {
+                    if (data.value !== false) {
+                        $scope.showError = false;
+                        $state.go('school');
+                    }
+                });
+            }
+
+            if ($scope.school.email) {
+                checkEmail();
+            } else {
+                $scope.errorEmail = false;
+            }
+            if ($scope.school.department && $scope.school.department.length > 0) {
+                checkSportContact();
+            } else {
+                $scope.errorSportContact = false;
+            }
+            if ($scope.school.contact) {
+                checkContact();
+            } else {
+                $scope.errorContact = false;
+            }
+            if ($scope.errorContact === false && $scope.errorEmail === false && $scope.errorSportContact === false) {
+                console.log($scope.school);
+                callSave();
+            } else {
+                $scope.showError = true;
+                $timeout(function () {
+                    $scope.showError = false;
+                }, 3000);
+            }
+        };
     });

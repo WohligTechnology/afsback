@@ -400,8 +400,18 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             templateUrl: "views/template.html",
             controller: 'detailCityRuleCtrl'
         })
+        .state('rankingTabledashboard', {
+            url: "/rankingtabledashboard",
+            templateUrl: "views/template.html",
+            controller: 'rankingTableDashboardCtrl'
+        })
+        .state('createrankingtable', {
+            url: "/createrankingtable",
+            templateUrl: "views/template.html",
+            controller: 'createRankingTableCtrl'
+        })
 
-    ;
+        ;
     $urlRouterProvider.otherwise("/dashboard");
     $locationProvider.html5Mode(isproduction);
 });
