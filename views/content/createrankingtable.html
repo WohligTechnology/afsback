@@ -1,14 +1,3 @@
-<!-- <div class="breadcrumbs">
-  <ul>
-    <li>
-      <a title="Home">Company Setup</a>
-    </li>
-    <li>
-      <a ui-sref="branch-list" title="Branch List">Branch List</a>
-    </li>
-  </ul>
-</div> -->
-
 <div class="heading-sec">
   <div class="row">
     <div class="col-md-4 column">
@@ -20,117 +9,105 @@
 </div>
 <!-- Top Bar Chart -->
 <div class="panel-content">
-  <div class="row">
-    <div class="col-md-12">
-      <form ng-submit="saveSport();">
-        <div class="widget">
-          <div class="form-elements-sec">
-            <div class="form-group">
-              <label>Year *</label>
-              <input type="text" placeholder="Year" class="form-control" required ng-model="sport.year" only-digits>
+  <div class="widget">
+    <div class="form-elements-sec">
+    <form >
+      <!-- CITY INSTITUTION SELECT -->
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>City Name*</label>
+            <ui-select ng-model="sport.sportslist" title="Select Sport" required>
+              <ui-select-match placeholder="Select Sport">{{$select.selected.name}}</ui-select-match>
+              <ui-select-choices repeat="sport in sportsList | filter: $select.search">
+                <span ng-bind-html="sport.name | highlight: $select.search"></span>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Institution Type</label>
+            <ui-select ng-model="sport.sportslist" title="Select Sport" required>
+              <ui-select-match placeholder="Select Sport">{{$select.selected.name}}</ui-select-match>
+              <ui-select-choices repeat="sport in sportsList | filter: $select.search">
+                <span ng-bind-html="sport.name | highlight: $select.search"></span>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+        </div>
+      </div>
+      <!-- CITY INSTITUTION SELECT END -->
+      <!-- RANKING TABLE -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="ranktable-container">
+            <div class="ranktable-button text-right">
+              <button class="btn btn-default" type="submit">Add Row</button>
             </div>
-            <div class="form-group">
-              <label>Sport Name*</label>
-              <ui-select ng-model="sport.sportslist" title="Select Sport" required>
-                <ui-select-match placeholder="Select Sport">{{$select.selected.name}}</ui-select-match>
-                <ui-select-choices repeat="sport in sportsList | filter: $select.search">
-                  <span ng-bind-html="sport.name | highlight: $select.search"></span>
-                </ui-select-choices>
-              </ui-select>
-            </div>
-            <div class="form-group">
-              <label>Gender*</label>
-              <select class="form-control" ng-model="sport.gender" required>
-                        <option value="">Select Gender</option>
-                        <option value="Boys">Boy</option>
-                        <option value="Girls">Girl</option>
-                     </select>
-            </div>
-            <div class="form-group">
-              <label>Min Players </label>
-              <input type="text" placeholder="Min Players" class="form-control" only-digits ng-model="sport.minPlayers" maxlength="4">
-            </div>
-            <div class="form-group">
-              <label>Max Players </label>
-              <input type="text" placeholder="Max Players" class="form-control" only-digits ng-model="sport.maxPlayers" maxlength="4">
-            </div>
-            <div class="form-group">
-              <label>Draw Format*</label>
-              <select class="form-control" ng-model="sport.drawFormat" required>
-                        <option value="">Select Draw Format</option>
-                        <option value="Knockout">Knockout</option>
-                        <option value="League">League</option>
-                        <option value="League cum Knockout">League cum Knockout</option>
-                        <option value="Heats">Heats</option>
-                        <option value="Qualifying Round">Qualifying Round</option>
-                        <option value="Qualifying Knockout">Qualifying Knockout</option>
-                        <option value="Swiss League">Swiss League</option>
-                        <!-- <option value="Round Robin-Knockout">Round Robin-Knockout</option> -->
-                     </select>
+            <div class="ranktable-holder table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                  <th>Rank</th>
+                  <th>School Name</th>
+                  <th>Gold Points</th>
+                  <th>Silver Points</th>
+                  <th>Bronze Points</th>
+                  <th>Total Points</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="form-group">
+                        <input type="number" placeholder="Rank" class="form-control" only-digits ng-model="sport.minPlayers">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-group">
+                        <input type="text" placeholder="Scool Name" class="form-control" ng-model="sport.minPlayers">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-group">
+                        <input type="number" placeholder="Gold Points" class="form-control" only-digits ng-model="sport.minPlayers">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-group">
+                        <input type="number" placeholder="Silver Points" class="form-control" only-digits ng-model="sport.minPlayers">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-group">
+                        <input type="number" placeholder="Bronze Points" class="form-control" only-digits ng-model="sport.minPlayers">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-group">
+                        <input type="number" placeholder="Total Points" class="form-control" only-digits ng-model="sport.minPlayers">
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="text-center mt20">
-              <button class="btn btn-default" type="submit">Save</button>
-              <button class="btn btn-default" ui-sref="sport">Cancel</button>
-            </div>
+      </div>
+      <!-- RANKING TABLE END -->
+      <!-- SAVE/CANCEL BUTTONS  -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="text-center mt20">
+            <button class="btn btn-default" type="submit">Save</button>
+            <button class="btn btn-default" ui-sref="sport">Cancel</button>
           </div>
         </div>
-      </form>
+      </div>
+      <!-- SAVE/CANCEL BUTTONS END  -->
+    </form>
     </div>
   </div>
 </div>
-<!-- <div class="widget">
-   <div class="form-elements-sec">
-      <div class="row">
-         <div class="col-md-6">
-            <div class="form-group">
-               <label for="disabledSelect">Status</label>
-               <select class="form-control">
-                  <option value="select"></option>
-                  <option value="select">Active</option>
-                  <option value="select">Inactive</option>
-               </select>
-            </div>
-            <div class="checkbox">
-               <label>
-                  <input type="checkbox"> Is a Billable Branch
-               </label>
-            </div>
-            <div class="form-group">
-               <label for="disabledSelect">Series Format</label>
-               <select class="form-control">
-                  <option value="select">Select Series Format</option>
-                  <option value="select">1</option>
-                  <option value="select">2</option>
-               </select>
-            </div>
-         </div>
-         <div class="col-md-6">
-            <label for="disabledSelect">TAT</label>
-            <div class="checkbox">
-               <label>
-                  <input type="checkbox"> STAT
-               </label>
-            </div>
-            <div class="checkbox">
-               <label>
-                  <input type="checkbox"> ITAT
-               </label>
-               <div class="checkbox">
-                  <label>
-                     <input type="checkbox"> FSR
-                  </label>
-               </div>
-               <div class="checkbox">
-                  <label>
-                     <input type="checkbox"> R2NR
-                  </label>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-</div> -->
