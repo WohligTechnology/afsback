@@ -410,6 +410,21 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             templateUrl: "views/template.html",
             controller: 'createRankingTableCtrl'
         })
+        .state('createspecialevent', {
+            url: "/createspecialevent",
+            templateUrl: "views/template.html",
+            controller: 'createSpecialEventCtrl'
+        })
+        .state('createalbum', {
+            url: "/createalbum",
+            templateUrl: "views/template.html",
+            controller: 'createAlbumCtrl'
+        })
+        .state('createvideo', {
+            url: "/createvideo",
+            templateUrl: "views/template.html",
+            controller: 'createVideoCtrl'
+        })
 
         ;
     $urlRouterProvider.otherwise("/dashboard");

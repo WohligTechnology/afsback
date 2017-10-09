@@ -6493,7 +6493,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }
 
         } else {
-            //edit 
+            //edit
             $scope.pageName = "Edit";
             if ($stateParams.id) {
                 $scope.constraints = {};
@@ -6535,4 +6535,36 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 
 
+    })
+    .controller('createSpecialEventCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("createspecialevent");
+        $scope.menutitle = NavigationService.makeactive("Special Event");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.template.type = 1;
+
+        $scope.cityList = ['mumbai', 'hyderabad', 'ahmedabad'];
+    })
+
+    .controller('createAlbumCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("createalbum");
+        $scope.menutitle = NavigationService.makeactive("Create Album");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.template.type = 1;
+
+        $scope.cityList = ['mumbai', 'hyderabad', 'ahmedabad'];
+    })
+
+    .controller('createVideoCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("createvideo");
+        $scope.menutitle = NavigationService.makeactive("Create Video");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.template.type = 1;
+
+        $scope.cityList = ['mumbai', 'hyderabad', 'ahmedabad'];
     });

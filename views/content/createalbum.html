@@ -1,0 +1,57 @@
+<div class="heading-sec">
+  <div class="row">
+    <div class="col-md-4 column">
+      <div class="heading-profile">
+        <h2>{{pageName}}</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Top Bar Chart -->
+<div class="panel-content">
+  <div class="widget">
+    <div class="form-elements-sec">
+      <form>
+        <!-- CITY INSTITUTION SELECT -->
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>City Name*</label>
+              <ui-select ng-model="formData.city" title="Select Sport" required>
+                <ui-select-match placeholder="Select city">{{$select.selected | firstcapitalize}}</ui-select-match>
+                <ui-select-choices repeat="city in cityList  | filter: $select.search track by $index">
+                  <span ng-bind-html="city | highlight: $select.search"></span>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+          </div>
+        </div>
+        <!-- CITY INSTITUTION SELECT END -->
+        <!-- RANKING TABLE -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+                <label>Album Name</label>
+                <input type="text" placeholder="Album Name" class="form-control" ng-model="formData.albumname">
+            </div>
+            <div class="form-group">
+              <label>Select Images</label>
+              <upload-image ng-model="formData.images" multiple></upload-image>
+            </div>
+          </div>
+        </div>
+        <!-- RANKING TABLE END -->
+        <!-- SAVE/CANCEL BUTTONS  -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="text-center mt20">
+              <button class="btn btn-default" type="button" ng-click="saveData(formData);">Save</button>
+              <button class="btn btn-default" ui-sref="rankingTabledashboard">Cancel</button>
+            </div>
+          </div>
+        </div>
+        <!-- SAVE/CANCEL BUTTONS END  -->
+      </form>
+    </div>
+  </div>
+</div>
