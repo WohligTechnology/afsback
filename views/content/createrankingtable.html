@@ -11,103 +11,106 @@
 <div class="panel-content">
   <div class="widget">
     <div class="form-elements-sec">
-    <form >
-      <!-- CITY INSTITUTION SELECT -->
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>City Name*</label>
-            <ui-select ng-model="sport.sportslist" title="Select Sport" required>
-              <ui-select-match placeholder="Select Sport">{{$select.selected.name}}</ui-select-match>
-              <ui-select-choices repeat="sport in sportsList | filter: $select.search">
-                <span ng-bind-html="sport.name | highlight: $select.search"></span>
-              </ui-select-choices>
-            </ui-select>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>Institution Type</label>
-            <ui-select ng-model="sport.sportslist" title="Select Sport" required>
-              <ui-select-match placeholder="Select Sport">{{$select.selected.name}}</ui-select-match>
-              <ui-select-choices repeat="sport in sportsList | filter: $select.search">
-                <span ng-bind-html="sport.name | highlight: $select.search"></span>
-              </ui-select-choices>
-            </ui-select>
-          </div>
-        </div>
-      </div>
-      <!-- CITY INSTITUTION SELECT END -->
-      <!-- RANKING TABLE -->
-      <div class="row">
-        <div class="col-md-12">
-          <div class="ranktable-container">
-            <div class="ranktable-button text-right">
-              <button class="btn btn-default" type="submit">Add Row</button>
+      <form>
+        <!-- CITY INSTITUTION SELECT -->
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>City Name*</label>
+              <ui-select ng-model="formData.city" title="Select Sport" required>
+                <ui-select-match placeholder="Select city">{{$select.selected | firstcapitalize}}</ui-select-match>
+                <ui-select-choices repeat="city in cityList  | filter: $select.search track by $index">
+                  <span ng-bind-html="city | highlight: $select.search"></span>
+                </ui-select-choices>
+              </ui-select>
             </div>
-            <div class="ranktable-holder table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                  <th>Rank</th>
-                  <th>School Name</th>
-                  <th>Gold Points</th>
-                  <th>Silver Points</th>
-                  <th>Bronze Points</th>
-                  <th>Total Points</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <div class="form-group">
-                        <input type="number" placeholder="Rank" class="form-control" only-digits ng-model="sport.minPlayers">
-                      </div>
-                    </td>
-                    <td>
-                      <div class="form-group">
-                        <input type="text" placeholder="Scool Name" class="form-control" ng-model="sport.minPlayers">
-                      </div>
-                    </td>
-                    <td>
-                      <div class="form-group">
-                        <input type="number" placeholder="Gold Points" class="form-control" only-digits ng-model="sport.minPlayers">
-                      </div>
-                    </td>
-                    <td>
-                      <div class="form-group">
-                        <input type="number" placeholder="Silver Points" class="form-control" only-digits ng-model="sport.minPlayers">
-                      </div>
-                    </td>
-                    <td>
-                      <div class="form-group">
-                        <input type="number" placeholder="Bronze Points" class="form-control" only-digits ng-model="sport.minPlayers">
-                      </div>
-                    </td>
-                    <td>
-                      <div class="form-group">
-                        <input type="number" placeholder="Total Points" class="form-control" only-digits ng-model="sport.minPlayers">
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Institution Type</label>
+              <ui-select ng-model="formData.institutionType" title="Select Sport" required>
+                <ui-select-match placeholder="Select Institution Type">{{$select.selected | firstcapitalize}}</ui-select-match>
+                <ui-select-choices repeat="data in institutionType | filter: $select.search">
+                  <span ng-bind-html="data | highlight: $select.search"></span>
+                </ui-select-choices>
+              </ui-select>
             </div>
           </div>
         </div>
-      </div>
-      <!-- RANKING TABLE END -->
-      <!-- SAVE/CANCEL BUTTONS  -->
-      <div class="row">
-        <div class="col-md-12">
-          <div class="text-center mt20">
-            <button class="btn btn-default" type="submit">Save</button>
-            <button class="btn btn-default" ui-sref="sport">Cancel</button>
+        <!-- CITY INSTITUTION SELECT END -->
+        <!-- RANKING TABLE -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="ranktable-container">
+              <div class="ranktable-button text-right" ng-click="addRow(formData);">
+                <button class="btn btn-default" type="submit">Add Row</button>
+              </div>
+              <div class="ranktable-holder table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Rank</th>
+                      <th>School /College Name</th>
+                      <th>Gold Points</th>
+                      <th>Silver Points</th>
+                      <th>Bronze Points</th>
+                      <th>Total Points</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="content in formData.rankingTable">
+                      <td>
+                        <div class="form-group">
+                          <input type="number" placeholder="Rank" class="form-control" ng-model="content.rank">
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group">
+                          <input type="text" placeholder="School or College" class="form-control" ng-model="content.schoolName">
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group">
+                          <input type="number" placeholder="Gold Points" class="form-control" ng-model="content.goldPoints">
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group">
+                          <input type="number" placeholder="Silver Points" class="form-control" ng-model="content.silverPoints">
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group">
+                          <input type="number" placeholder="Bronze Points" class="form-control" ng-model="content.bronzePoints">
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group">
+                          <input type="number" placeholder="Total Points" class="form-control" ng-model="content.totalPoints">
+                        </div>
+                      </td>
+                      <td ng-click="deleteRow(formData,$index);">
+                        <button class="btn btn-default" type="submit">Delete</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- SAVE/CANCEL BUTTONS END  -->
-    </form>
+        <!-- RANKING TABLE END -->
+        <!-- SAVE/CANCEL BUTTONS  -->
+        <div class="row" ng-if="formData.rankingTable.length>0">
+          <div class="col-md-12">
+            <div class="text-center mt20">
+              <button class="btn btn-default" type="button" ng-click="saveData(formData);">Save</button>
+              <button class="btn btn-default" ui-sref="rankingTabledashboard">Cancel</button>
+            </div>
+          </div>
+        </div>
+        <!-- SAVE/CANCEL BUTTONS END  -->
+      </form>
     </div>
   </div>
 </div>

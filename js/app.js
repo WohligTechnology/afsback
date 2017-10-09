@@ -406,7 +406,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'rankingTableDashboardCtrl'
         })
         .state('createrankingtable', {
-            url: "/createrankingtable",
+            url: "/rankingtable/:type/:id",
             templateUrl: "views/template.html",
             controller: 'createRankingTableCtrl'
         })

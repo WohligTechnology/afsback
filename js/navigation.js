@@ -1149,6 +1149,33 @@ var navigationservice = angular.module('navigationservice', [])
                     data: data
                 }).success(callback);
             },
+            saveRankingTable: function (formData, callback) {
+                $http({
+                    url: adminURL + 'LiveUpdate/saveData',
+                    method: 'POST',
+                    data: formData
+                }).success(callback);
+            },
+            deleteRankingTable: function (formData, callback) {
+                $http({
+                    url: adminURL + 'LiveUpdate/deleteData',
+                    method: 'POST',
+                    data: formData
+                }).success(callback);
+            },
+            getOneRankingTable: function (id, callback) {
+                $http({
+                    url: adminURL + 'LiveUpdate/getOne',
+                    method: 'POST',
+                    data: id
+                }).success(callback);
+            },
+            getAllRankingTables: function (callback) {
+                $http({
+                    url: adminURL + 'LiveUpdate/getAllRankingTables',
+                    method: 'POST',
+                }).success(callback);
+            },
             makeactive: function (menuname) {
                 for (var i = 0; i < navigation.length; i++) {
                     if (navigation[i].name == menuname) {

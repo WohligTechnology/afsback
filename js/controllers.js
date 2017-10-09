@@ -6375,220 +6375,164 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 
     })
-    .controller('rankingTableDashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $uibModal) {
+    .controller('rankingTableDashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $rootScope, toastr, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("rankingtable-dashboard");
         $scope.menutitle = NavigationService.makeactive("Ranking Table");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.getSportList = function () {
-            NavigationService.getSportByDrawFormat({
-                drawFormat: "League cum Knockout"
-            }, function (response) {
+        $scope.value = '';
+        $scope.getAllRankingTable = function () {
+            NavigationService.getAllRankingTables(function (response) {
                 if (response.value) {
-                    $scope.sports = response.data;
-                    $scope.sports = _.chain(response.data)
-                        .groupBy("sporttype")
-                        .toPairs()
-                        .map(function (currentItem) {
-                            return _.zipObject(["sporttype", "name"], currentItem);
-                        })
-                        .value();
+                    if (response.data.length > 0) {
+                        $scope.rankingtableData = response.data;
+                        console.log("response", response);
+                    } else {
+                        $scope.value = null;
+                    }
+
                 }
             });
         };
-        $scope.getSportList();
+        $scope.getAllRankingTable();
+
+        $scope.deleteFunc = function (data) {
+            console.log(data);
+            $rootScope.deleteId = data;
+            $scope.modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'views/content/delete.html',
+                backdrop: 'static',
+                keyboard: false,
+                size: 'sm',
+                scope: $scope
+
+            });
+        };
+
+        $scope.noDelete = function () {
+            $scope.modalInstance.close();
+        }
+        $scope.confDelete = function (data) {
+            console.log(data);
+            $scope.constraints = {};
+            $scope.constraints._id = $rootScope.deleteId;
+            console.log($scope.constraints)
+            NavigationService.deleteRankingTable($scope.constraints, function (data) {
+                console.log("data.value", data);
+                if (data.value) {
+                    toastr.success('Successfully Deleted', 'Rules Message');
+                    $scope.modalInstance.close();
+                    $scope.getAllRankingTable();
+                } else {
+                    toastr.error('Something went wrong while Deleting', 'Rules Message');
+                }
+            });
+        }
     })
-    .controller('createRankingTableCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, $uibModal) {
+    .controller('createRankingTableCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("createrankingtable");
         $scope.menutitle = NavigationService.makeactive("Ranking Table");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.template.type = 1;
-        $scope.pageName = "Create School";
-        $scope.sportsListArr = [];
-        $scope.school = {};
-        var schoolSports = [];
-        $scope.checked = {};
-        $scope.allYears = NavigationService.getAllYears();
-        $scope.deleteId = 0;
-        $scope.school.year = [];
-        $scope.status = [{
-            id: "",
-            name: "Is Verified?"
-        }, {
-            id: "true",
-            name: "Yes"
-        }, {
-            id: "false",
-            name: "No"
-        }];
-        $scope.add = function (crdv) {
-            if (!crdv.contingentLeader) {
-                crdv.contingentLeader = [{
-                    "year": "",
-                    "student": ""
-                }];
+
+        $scope.cityList = ['mumbai', 'hyderabad', 'ahmedabad'];
+        $scope.institutionType = ['school', 'college'];
+        $scope.formData = {};
+        $scope.formData.rankingTable = [];
+
+        $scope.addRow = function (formData) {
+            if (!formData) {
+                $scope.formData.rankingTable.push(
+                    {
+                        "rank": '',
+                        "schoolName": '',
+                        "goldPoints": '',
+                        "silverPoints": '',
+                        "bronzePoints": '',
+                        "totalPoints": ''
+                    },
+                )
             } else {
-                crdv.contingentLeader.push({
-                    "year": "",
-                    "student": ""
-                });
-            }
-        };
-        $scope.addYear = function () {
-            $scope.school.year = [];
-            _.each($scope.checked, function (key, property) {
-                if (key) {
-                    $scope.school.year.push(property);
-                }
-            });
-            console.log($scope.school.year);
-        };
-        $scope.addDept = function (crdv) {
-            if (!crdv.department) {
-                crdv.department = [{
-                    "year": "",
-                    "name": "",
-                    "designation": "",
-                    "contact": "",
-                    "email": ""
-                }];
-            } else {
-                crdv.department.push({
-                    "year": "",
-                    "name": "",
-                    "designation": "",
-                    "contact": "",
-                    "email": ""
-                });
-            }
-        };
-        $scope.confDelete = function () {
-            if ($scope.deleteId === 1) {
-                $scope.school.department.splice($.jStorage.get("deleteDept"), 1);
-            } else {
-                $scope.school.contingentLeader.splice($.jStorage.get("deleteLeader"), 1);
-            }
-        };
-        $scope.deleteFunc = function (id, value) {
-            if (value === 1) {
-                $scope.deleteId = 1;
-                $.jStorage.set("deleteDept", id);
-            } else {
-                $scope.deleteId = 2;
-                $.jStorage.set("deleteLeader", id);
-            }
-            $uibModal.open({
-                animation: true,
-                templateUrl: "views/content/delete.html",
-                scope: $scope
-            });
-        };
-
-        NavigationService.getAllSportListSchool(function (data) {
-            console.log(data);
-            $scope.sportsListArr = data;
-        });
-
-        NavigationService.getLastId(function (data) {
-            if (data.value !== false) {
-                $scope.school.sfaid = data.data;
-            }
-        });
-        NavigationService.getStudentList(function (data) {
-            if (data.value !== false) {
-                $scope.students = data.data;
-            }
-        });
-        $scope.showError = false;
-        $scope.errorContact = false;
-        $scope.errorEmail = false;
-        $scope.errorSportContact = false;
-        $scope.saveSchool = function () {
-            var schoolSports = [];
-            _.each($scope.sportsListArr, function (years) {
-                _.each(years, function (category) {
-                    schoolSports.push(_.filter(category, "checked"));
-                });
-            });
-            $scope.school.sports = schoolSports = _.flattenDeep(schoolSports);
-
-            function checkContact() {
-                $scope.school.contact = $scope.school.contact.toString();
-                var split = $scope.school.contact.split(",");
-                for (var i = 0; i < split.length; i++) {
-                    if (split[i].length != 10) {
-                        $scope.errorContact = true;
-                        break;
-                    } else {
-                        $scope.errorContact = false;
-                    }
-                }
+                formData.rankingTable.push(
+                    {
+                        "rank": '',
+                        "schoolName": '',
+                        "goldPoints": '',
+                        "silverPoints": '',
+                        "bronzePoints": '',
+                        "totalPoints": ''
+                    },
+                )
             }
 
-            function checkEmail() {
-                var splitEmail = $scope.school.email.split(",");
-                for (var i = 0; i < splitEmail.length; i++) {
-                    var x = splitEmail[i];
-                    var atpos = x.indexOf("@");
-                    var dotpos = x.lastIndexOf(".");
-                    if (atpos <= 1 || dotpos <= atpos + 2 || dotpos + 2 >= x.length) {
-                        $scope.errorEmail = true;
-                        break;
-                    } else {
-                        $scope.errorEmail = false;
-                    }
-                }
-            }
 
-            function checkSportContact() {
-                for (var i = 0; i < $scope.school.department.length; i++) {
-                    $scope.school.department[i].contact = $scope.school.department[i].contact.toString();
-                    if ($scope.school.department[i].contact) {
-                        if ($scope.school.department[i].contact.length != 10) {
-                            $scope.errorSportContact = true;
-                            break;
-                        } else {
-                            $scope.errorSportContact = false;
+        }
+        $scope.addRow();
+
+        if (!$stateParams.id) {
+            //Create
+            $scope.pageName = "Create";
+            $scope.saveData = function (formData) {
+                console.log('formData', formData);
+                if (formData && formData.city && formData.institutionType) {
+                    NavigationService.saveRankingTable(formData, function (response) {
+                        console.log("response", response);
+                        if (response.value) {
+                            toastr.success("Saved successfully", 'Success Message');
+                            $state.go('rankingTabledashboard');
                         }
+                    })
+                } else {
+                    toastr.error('Please fill all fields', 'Error Message');
+                }
+
+            }
+
+        } else {
+            //edit 
+            $scope.pageName = "Edit";
+            if ($stateParams.id) {
+                $scope.constraints = {};
+
+                $scope.constraints._id = $stateParams.id;
+                NavigationService.getOneRankingTable($scope.constraints, function (response) {
+                    console.log(response, "response");
+                    if (response.value) {
+                        $scope.formData = response.data;
                     }
+                })
+
+                $scope.saveData = function (formData) {
+                    console.log('formData', formData);
+                    formData._id = $stateParams.id;
+                    if (formData && formData.city && formData.institutionType) {
+                        NavigationService.saveRankingTable(formData, function (response) {
+                            console.log("response", response);
+                            if (response.value) {
+
+                                toastr.success("Saved successfully", 'Success Message');
+                                $state.go('rankingTabledashboard');
+                            }
+                        })
+
+                    } else {
+                        toastr.error('Please fill all fields', 'Error Message');
+                    }
+
                 }
             }
 
-            function callSave() {
-                NavigationService.saveSchool($scope.school, function (data) {
-                    if (data.value !== false) {
-                        $scope.showError = false;
-                        $state.go('school');
-                    }
-                });
-            }
+        }
 
-            if ($scope.school.email) {
-                checkEmail();
-            } else {
-                $scope.errorEmail = false;
-            }
-            if ($scope.school.department && $scope.school.department.length > 0) {
-                checkSportContact();
-            } else {
-                $scope.errorSportContact = false;
-            }
-            if ($scope.school.contact) {
-                checkContact();
-            } else {
-                $scope.errorContact = false;
-            }
-            if ($scope.errorContact === false && $scope.errorEmail === false && $scope.errorSportContact === false) {
-                console.log($scope.school);
-                callSave();
-            } else {
-                $scope.showError = true;
-                $timeout(function () {
-                    $scope.showError = false;
-                }, 3000);
-            }
-        };
+        $scope.deleteRow = function (formData, index) {
+            formData.rankingTable.splice(index, 1);
+        }
+
+
+
+
     });
