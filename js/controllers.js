@@ -6419,16 +6419,17 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.constraints = {};
             $scope.constraints._id = $rootScope.deleteId;
             console.log($scope.constraints)
-            NavigationService.deleteRankingTable($scope.constraints, function (data) {
-                console.log("data.value", data);
-                if (data.value) {
-                    toastr.success('Successfully Deleted', 'Rules Message');
-                    $scope.modalInstance.close();
-                    $scope.getAllRankingTable();
-                } else {
-                    toastr.error('Something went wrong while Deleting', 'Rules Message');
-                }
-            });
+            $scope.url = 'LiveUpdate/deleteData',
+                NavigationService.deleteRecord($scope.constraints, $scope.url, function (data) {
+                    console.log("data.value", data);
+                    if (data.value) {
+                        toastr.success('Successfully Deleted', 'Rules Message');
+                        $scope.modalInstance.close();
+                        $scope.getAllRankingTable();
+                    } else {
+                        toastr.error('Something went wrong while Deleting', 'Rules Message');
+                    }
+                });
         }
     })
     .controller('createRankingTableCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
@@ -6438,12 +6439,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.template.type = 1;
-
         $scope.cityList = ['mumbai', 'hyderabad', 'ahmedabad'];
         $scope.institutionType = ['school', 'college'];
         $scope.formData = {};
         $scope.formData.rankingTable = [];
-
         $scope.addRow = function (formData) {
             if (!formData) {
                 $scope.formData.rankingTable.push(
@@ -6499,7 +6498,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $scope.constraints = {};
 
                 $scope.constraints._id = $stateParams.id;
-                NavigationService.getOneRankingTable($scope.constraints, function (response) {
+                $scope.url = 'LiveUpdate/getOne';
+                NavigationService.getOneRecord($scope.constraints, $scope.url, function (response) {
                     console.log(response, "response");
                     if (response.value) {
                         $scope.formData = response.data;
@@ -6543,8 +6543,59 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.template.type = 1;
-
         $scope.cityList = ['mumbai', 'hyderabad', 'ahmedabad'];
+        $scope.formData = {};
+        if (!$stateParams.id) {
+            //Create
+            $scope.saveData = function (formData) {
+                $scope.url = 'SpecialEvents/saveData',
+                    NavigationService.saveLiveData(formData, $scope.url, function (response) {
+                        console.log("response", response);
+                        if (response.value) {
+                            toastr.success("Saved successfully", 'Success Message');
+                            $state.go('specialEventsdashboard');
+                        }
+                    })
+            }
+
+
+        } else {
+            //edit
+            $scope.pageName = "Edit";
+            if ($stateParams.id) {
+                $scope.constraints = {};
+
+                $scope.constraints._id = $stateParams.id;
+                $scope.url = 'SpecialEvents/getOne';
+                NavigationService.getOneRecord($scope.constraints, $scope.url, function (response) {
+                    console.log(response, "response");
+                    if (response.value) {
+                        $scope.formData = response.data;
+                        $scope.formData.eventDate = new Date(response.data.eventDate);
+                    }
+                })
+
+                $scope.saveData = function (formData) {
+                    console.log('formData', formData);
+                    $scope.url = 'SpecialEvents/saveData',
+                        formData._id = $stateParams.id;
+                    if (formData) {
+                        NavigationService.saveLiveData(formData, $scope.url, function (response) {
+                            console.log("response", response);
+                            if (response.value) {
+
+                                toastr.success("Saved successfully", 'Success Message');
+                                $state.go('specialEventsdashboard');
+                            }
+                        })
+
+                    } else {
+                        toastr.error('Please fill all fields', 'Error Message');
+                    }
+
+                }
+            }
+        }
     })
 
     .controller('createAlbumCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
@@ -6554,10 +6605,123 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.template.type = 1;
+        $scope.formData = {};
+
 
         $scope.cityList = ['mumbai', 'hyderabad', 'ahmedabad'];
-    })
+        if (!$stateParams.id) {
+            //Create
+            $scope.saveData = function (formData) {
+                $scope.url = 'LiveAlbum/saveData'
+                NavigationService.saveLiveData(formData, $scope.url, function (response) {
+                    console.log("response", response);
+                    if (response.value) {
+                        toastr.success("Saved successfully", 'Success Message');
+                        $state.go('liveAlbumdashboard');
+                    }
+                })
+            }
+        } else {
+            //edit
+            $scope.pageName = "Edit";
+            if ($stateParams.id) {
+                $scope.constraints = {};
 
+                $scope.constraints._id = $stateParams.id;
+                $scope.url = 'LiveAlbum/getOne';
+                NavigationService.getOneRecord($scope.constraints, $scope.url, function (response) {
+                    console.log(response, "response");
+                    if (response.value) {
+                        $scope.formData = response.data;
+                    }
+                })
+
+                $scope.saveData = function (formData) {
+                    $scope.url = 'LiveAlbum/saveData';
+                    console.log('formData', formData);
+                    formData._id = $stateParams.id;
+                    if (formData) {
+                        NavigationService.saveLiveData(formData, $scope.url, function (response) {
+                            console.log("response", response);
+                            if (response.value) {
+
+                                toastr.success("Saved successfully", 'Success Message');
+                                $state.go('liveAlbumdashboard');
+                            }
+                        })
+
+                    } else {
+                        toastr.error('Please fill all fields', 'Error Message');
+                    }
+
+                }
+            }
+        }
+
+    })
+    .controller('createPhotosCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("createphotos");
+        $scope.menutitle = NavigationService.makeactive("Create Photos");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.template.type = 1;
+        $scope.formData = {};
+
+
+        $scope.cityList = ['mumbai', 'hyderabad', 'ahmedabad'];
+        if (!$stateParams.id) {
+            //Create
+            $scope.saveData = function (formData) {
+                $scope.url = 'LivePhotos/saveData',
+                    NavigationService.saveLiveData(formData, $scope.url, function (response) {
+                        console.log("response", response);
+                        if (response.value) {
+                            toastr.success("Saved successfully", 'Success Message');
+                            $state.go('livePhotosdashboard');
+                        }
+                    })
+            }
+
+
+        } else {
+            //edit
+            $scope.pageName = "Edit";
+            if ($stateParams.id) {
+                $scope.constraints = {};
+
+                $scope.constraints._id = $stateParams.id;
+                $scope.url = 'LivePhotos/getOne';
+                NavigationService.getOneRecord($scope.constraints, $scope.url, function (response) {
+                    console.log(response, "response");
+                    if (response.value) {
+                        $scope.formData = response.data;
+                    }
+                })
+
+                $scope.saveData = function (formData) {
+                    console.log('formData', formData);
+                    $scope.url = 'LivePhotos/saveData',
+                        formData._id = $stateParams.id;
+                    if (formData) {
+                        NavigationService.saveLiveData(formData, $scope.url, function (response) {
+                            console.log("response", response);
+                            if (response.value) {
+
+                                toastr.success("Saved successfully", 'Success Message');
+                                $state.go('livePhotosdashboard');
+                            }
+                        })
+
+                    } else {
+                        toastr.error('Please fill all fields', 'Error Message');
+                    }
+
+                }
+            }
+        }
+
+    })
     .controller('createVideoCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("createvideo");
@@ -6565,6 +6729,299 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.template.type = 1;
+        $scope.formData = {};
 
         $scope.cityList = ['mumbai', 'hyderabad', 'ahmedabad'];
+        if (!$stateParams.id) {
+            //Create
+            $scope.saveData = function (formData) {
+                $scope.url = 'LiveVideos/saveData',
+                    NavigationService.saveLiveData(formData, $scope.url, function (response) {
+                        console.log("response", response);
+                        if (response.value) {
+                            toastr.success("Saved successfully", 'Success Message');
+                            $state.go('liveVideosdashboard');
+                        }
+                    })
+            }
+
+
+        } else {
+            //edit
+            $scope.pageName = "Edit";
+            if ($stateParams.id) {
+                $scope.constraints = {};
+
+                $scope.constraints._id = $stateParams.id;
+                $scope.url = 'LiveVideos/getOne';
+                NavigationService.getOneRecord($scope.constraints, $scope.url, function (response) {
+                    console.log(response, "response");
+                    if (response.value) {
+                        $scope.formData = response.data;
+                    }
+                })
+
+                $scope.saveData = function (formData) {
+                    console.log('formData', formData);
+                    $scope.url = 'LiveVideos/saveData',
+                        formData._id = $stateParams.id;
+                    if (formData) {
+                        NavigationService.saveLiveData(formData, $scope.url, function (response) {
+                            console.log("response", response);
+                            if (response.value) {
+
+                                toastr.success("Saved successfully", 'Success Message');
+                                $state.go('liveVideosdashboard');
+                            }
+                        })
+
+                    } else {
+                        toastr.error('Please fill all fields', 'Error Message');
+                    }
+
+                }
+            }
+        }
+    })
+
+    .controller('liveAlbumDashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $rootScope, toastr, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("livealbum-dashboard");
+        $scope.menutitle = NavigationService.makeactive("Album Table");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.value = '';
+        $scope.getAllPhotos = function () {
+            $scope.liveAlbum = [];
+            $scope.url = 'LiveAlbum/getAllAlbums',
+                NavigationService.getAllAlbumsOrPhotos($scope.url, function (response) {
+                    console.log(response, "response");
+                    if (response.value) {
+                        if (response.data.length > 0) {
+                            $scope.liveAlbum = response.data;
+
+                        } else {
+                            $scope.value = null;
+                        }
+
+                    }
+                });
+        };
+        $scope.getAllPhotos();
+
+        $scope.deleteFunc = function (data) {
+            console.log(data);
+            $rootScope.deleteId = data;
+            $scope.modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'views/content/delete.html',
+                backdrop: 'static',
+                keyboard: false,
+                size: 'sm',
+                scope: $scope
+
+            });
+        };
+
+        $scope.noDelete = function () {
+            $scope.modalInstance.close();
+        }
+        $scope.confDelete = function (data) {
+            console.log(data);
+            $scope.constraints = {};
+            $scope.url = 'LiveAlbum/deleteData'
+            $scope.constraints._id = $rootScope.deleteId;
+            console.log($scope.constraints)
+            NavigationService.deleteRecord($scope.constraints, $scope.url, function (data) {
+                console.log("data.value", data);
+                if (data.value) {
+                    toastr.success('Successfully Deleted', 'Rules Message');
+                    $scope.modalInstance.close();
+                    $scope.getAllPhotos();
+                } else {
+                    toastr.error('Something went wrong while Deleting', 'Rules Message');
+                }
+            });
+        }
+    })
+    .controller('livePhotosdashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $rootScope, toastr, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("livephotos-dashboard");
+        $scope.menutitle = NavigationService.makeactive("Album Table");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.value = '';
+        $scope.getAllPhotos = function () {
+            $scope.allPhotos = [];
+            $scope.url = 'LivePhotos/getAll',
+                NavigationService.getAllAlbumsOrPhotos($scope.url, function (response) {
+                    console.log(response, "response");
+                    if (response.value) {
+                        if (response.data.length > 0) {
+                            $scope.allPhotos = response.data;
+                            console.log(" $scope.allPhotos", $scope.allPhotos);
+                        } else {
+                            $scope.value = null;
+                        }
+
+                    }
+                });
+        };
+        $scope.getAllPhotos();
+
+        $scope.deleteFunc = function (data) {
+            console.log(data);
+            $rootScope.deleteId = data;
+            $scope.modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'views/content/delete.html',
+                backdrop: 'static',
+                keyboard: false,
+                size: 'sm',
+                scope: $scope
+
+            });
+        };
+
+        $scope.noDelete = function () {
+            $scope.modalInstance.close();
+        }
+        $scope.confDelete = function (data) {
+            console.log(data);
+            $scope.constraints = {};
+            $scope.constraints._id = $rootScope.deleteId;
+            console.log($scope.constraints)
+            $scope.url = 'LivePhotos/deleteData';
+            NavigationService.deleteRecord($scope.constraints, $scope.url, function (data) {
+                console.log("data.value", data);
+                if (data.value) {
+                    toastr.success('Successfully Deleted', 'Rules Message');
+                    $scope.modalInstance.close();
+                    $scope.getAllPhotos();
+                } else {
+                    toastr.error('Something went wrong while Deleting', 'Rules Message');
+                }
+            });
+        }
+    })
+    .controller('liveVideosdashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $rootScope, toastr, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("livevideos-dashboard");
+        $scope.menutitle = NavigationService.makeactive("Videos Table");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.value = '';
+        $scope.formData = {};
+        $scope.getAllVideos = function () {
+            $scope.allVideos = [];
+            $scope.url = 'LiveVideos/getAll',
+                NavigationService.getAllAlbumsOrPhotos($scope.url, function (response) {
+                    console.log(response, "response");
+                    if (response.value) {
+                        if (response.data.length > 0) {
+                            $scope.allVideos = response.data;
+                            console.log(" $scope.allPhotos", $scope.allVideos);
+                        } else {
+                            $scope.value = null;
+                        }
+
+                    }
+                });
+        };
+        $scope.getAllVideos();
+
+        $scope.deleteFunc = function (data) {
+            console.log(data);
+            $rootScope.deleteId = data;
+            $scope.modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'views/content/delete.html',
+                backdrop: 'static',
+                keyboard: false,
+                size: 'sm',
+                scope: $scope
+
+            });
+        };
+
+        $scope.noDelete = function () {
+            $scope.modalInstance.close();
+        }
+        $scope.confDelete = function (data) {
+            console.log(data);
+            $scope.constraints = {};
+            $scope.constraints._id = $rootScope.deleteId;
+            console.log($scope.constraints)
+            $scope.url = 'LiveVideos/deleteData';
+            NavigationService.deleteRecord($scope.constraints, $scope.url, function (data) {
+                console.log("data.value", data);
+                if (data.value) {
+                    $scope.getAllVideos();
+                    toastr.success('Successfully Deleted', 'Rules Message');
+                    $scope.modalInstance.close();
+
+                } else {
+                    toastr.error('Something went wrong while Deleting', 'Rules Message');
+                }
+            });
+        }
+    })
+    .controller('specialEventsdashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $rootScope, toastr, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("specialevents-dashboard");
+        $scope.menutitle = NavigationService.makeactive("Special Events Table");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.value = '';
+        $scope.getAllSpecialEvents = function () {
+            $scope.url = 'SpecialEvents/getAllSpecialEvents',
+                NavigationService.getAllAlbumsOrPhotos($scope.url, function (response) {
+                    console.log(response, "response");
+                    if (response.value) {
+                        if (response.data.length > 0) {
+                            $scope.allEvents = response.data;
+                            console.log(" $scope.allEvents", $scope.allEvents);
+                        } else {
+                            $scope.value = null;
+                        }
+
+                    }
+                });
+        };
+        $scope.getAllSpecialEvents();
+
+        $scope.deleteFunc = function (data) {
+            console.log(data);
+            $rootScope.deleteId = data;
+            $scope.modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'views/content/delete.html',
+                backdrop: 'static',
+                keyboard: false,
+                size: 'sm',
+                scope: $scope
+
+            });
+        };
+
+        $scope.noDelete = function () {
+            $scope.modalInstance.close();
+        }
+        $scope.confDelete = function (data) {
+            console.log(data);
+            $scope.constraints = {};
+            $scope.constraints._id = $rootScope.deleteId;
+            console.log($scope.constraints)
+            $scope.url = 'SpecialEvents/deleteData';
+            NavigationService.deleteRecord($scope.constraints, $scope.url, function (data) {
+                console.log("data.value", data);
+                if (data.value) {
+                    toastr.success('Successfully Deleted', 'Rules Message');
+                    $scope.modalInstance.close();
+                    $scope.getAllSpecialEvents();
+                } else {
+                    toastr.error('Something went wrong while Deleting', 'Rules Message');
+                }
+            });
+        }
     });

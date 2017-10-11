@@ -161,7 +161,35 @@ var navigationservice = angular.module('navigationservice', [])
             anchor: "rankingTabledashboard",
             icon: "users",
             subnav: []
-        }
+        },
+        {
+            name: "Album",
+            classis: "active",
+            anchor: "liveAlbumdashboard",
+            icon: "users",
+            subnav: []
+        },
+        {
+            name: "Photos",
+            classis: "active",
+            anchor: "livePhotosdashboard",
+            icon: "users",
+            subnav: []
+        },
+        {
+            name: "Videos",
+            classis: "active",
+            anchor: "liveVideosdashboard",
+            icon: "users",
+            subnav: []
+        },
+        {
+            name: "Special Events",
+            classis: "active",
+            anchor: "specialEventsdashboard",
+            icon: "users",
+            subnav: []
+        },
         ];
 
         var currentYears = ["2015", "2016"];
@@ -1156,16 +1184,23 @@ var navigationservice = angular.module('navigationservice', [])
                     data: formData
                 }).success(callback);
             },
-            deleteRankingTable: function (formData, callback) {
+            saveLiveData: function (formData, url, callback) {
                 $http({
-                    url: adminURL + 'LiveUpdate/deleteData',
+                    url: adminURL + url,
                     method: 'POST',
                     data: formData
                 }).success(callback);
             },
-            getOneRankingTable: function (id, callback) {
+            deleteRecord: function (formData, url, callback) {
                 $http({
-                    url: adminURL + 'LiveUpdate/getOne',
+                    url: adminURL + url,
+                    method: 'POST',
+                    data: formData
+                }).success(callback);
+            },
+            getOneRecord: function (id, url, callback) {
+                $http({
+                    url: adminURL + url,
                     method: 'POST',
                     data: id
                 }).success(callback);
@@ -1173,6 +1208,12 @@ var navigationservice = angular.module('navigationservice', [])
             getAllRankingTables: function (callback) {
                 $http({
                     url: adminURL + 'LiveUpdate/getAllRankingTables',
+                    method: 'POST',
+                }).success(callback);
+            },
+            getAllAlbumsOrPhotos: function (url, callback) {
+                $http({
+                    url: adminURL + url,
                     method: 'POST',
                 }).success(callback);
             },

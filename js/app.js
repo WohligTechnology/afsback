@@ -411,21 +411,45 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'createRankingTableCtrl'
         })
         .state('createspecialevent', {
-            url: "/createspecialevent",
+            url: "/createspecialevent/:id",
             templateUrl: "views/template.html",
             controller: 'createSpecialEventCtrl'
         })
         .state('createalbum', {
-            url: "/createalbum",
+            url: "/createalbum/:id",
             templateUrl: "views/template.html",
             controller: 'createAlbumCtrl'
         })
+        .state('createphotos', {
+            url: "/createphotos/:id",
+            templateUrl: "views/template.html",
+            controller: 'createPhotosCtrl'
+        })
         .state('createvideo', {
-            url: "/createvideo",
+            url: "/createvideo/:id",
             templateUrl: "views/template.html",
             controller: 'createVideoCtrl'
         })
-
+        .state('liveAlbumdashboard', {
+            url: "/liveAlbumdashboard",
+            templateUrl: "views/template.html",
+            controller: 'liveAlbumDashboardCtrl'
+        })
+        .state('livePhotosdashboard', {
+            url: "/livePhotosdashboard",
+            templateUrl: "views/template.html",
+            controller: 'livePhotosdashboardCtrl'
+        })
+        .state('liveVideosdashboard', {
+            url: "/videosdashboard",
+            templateUrl: "views/template.html",
+            controller: 'liveVideosdashboardCtrl'
+        })
+        .state('specialEventsdashboard', {
+            url: "/specialEvents",
+            templateUrl: "views/template.html",
+            controller: 'specialEventsdashboardCtrl'
+        })
         ;
     $urlRouterProvider.otherwise("/dashboard");
     $locationProvider.html5Mode(isproduction);

@@ -1,0 +1,69 @@
+<div class="heading-sec">
+  <div class="row">
+    <div class="col-md-4 column">
+      <div class="heading-profile">
+        <h2>Ranking Tables</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Top Bar Chart -->
+<div class="panel-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="widget">
+        <div class="table-area">
+          <div class="widget-title">
+            <div class="pull-right">
+              <a class="btn btn-primary" ui-sref="createvideo"><i class="fa fa-plus"></i>&nbsp;Add New</a>
+            </div>
+            <h3>List of Ranking Tables</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>City</th>
+                  <th>Thumbnail</th>
+                  <th class="text-center">Operations</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-if="rankingtableData.length <= 0 && value ==''" class="loadingTable">
+                  <td>Loading...</td>
+                </tr>
+
+                <tr ng-if="value === null" class="loadingTable">
+                  <td>No Data Available</td>
+                </tr>
+                <tr ng-repeat="content in allVideos track by $index" ng-if="allVideos.length>0">
+                  <!-- <td>{{$index+1}}</td> -->
+                  <!-- <td>{{($index + 1)+((formData.pagenumber-1)*maxRow)}}</td> -->
+                  <td>{{($index + 1)}}</td>
+                  <td>{{content.city |firstcapitalize}}</td>
+                  <td>{{content.thumbnail}}</td>
+                  <td class="text-center">
+                    <a ui-sref="createvideo({id:content._id})" class="btn btn-primary">
+                                              <i class="fa fa-pencil-square-o"></i>
+                                          </a>
+                    <a ng-click="deleteFunc(content._id)" class="btn btn-primary">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                  </td>
+                  <!-- <td class="text-center">
+                    <a ng-click="deleteFunc(rule._id)" class="btn btn-primary">
+                                              <i class="fa fa-trash"></i>
+                                          </a>
+                  </td> -->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <ul ng-if="totalItems" ng-change="viewTable();" uib-pagination total-items="totalItems" items-per-page="maxRow" ng-model="formData.pagenumber"
+            max-size="template.pageMax" class="pagination-sm" boundary-links="true " force-ellipses="true "></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

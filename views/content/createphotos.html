@@ -30,21 +30,13 @@
         <!-- RANKING TABLE -->
         <div class="row">
           <div class="col-md-12">
+            <!-- <div class="form-group">
+              <label>Album Name</label>
+              <input type="text" placeholder="Album Name" class="form-control" ng-model="formData.albumName">
+            </div> -->
             <div class="form-group">
-              <label>Event Date</label>
-              <input type="date" placeholder="Date" class="form-control" ng-model="formData.eventDate">
-            </div>
-            <div class="form-group">
-              <label>Event Day</label>
-              <input type="text" placeholder="Day" class="form-control" ng-model="formData.eventDay">
-            </div>
-            <div class="form-group">
-              <label>Title</label>
-              <input type="text" placeholder="Event Title" class="form-control" ng-model="formData.title">
-            </div>
-            <div class="form-group tinymce">
-              <label>Event Details</label>
-              <text-angular ng-model="formData.eventDetails"></text-angular>
+              <label>Select Images</label>
+              <upload-image ng-model="formData.albumImages" multiple></upload-image>
             </div>
           </div>
         </div>
@@ -54,7 +46,7 @@
           <div class="col-md-12">
             <div class="text-center mt20">
               <button class="btn btn-default" type="button" ng-click="saveData(formData);">Save</button>
-              <button class="btn btn-default" ui-sref="specialEventsdashboard">Cancel</button>
+              <button class="btn btn-default" ui-sref="livePhotosdashboard">Cancel</button>
             </div>
           </div>
         </div>
