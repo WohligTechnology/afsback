@@ -6606,6 +6606,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.navigation = NavigationService.getnav();
         $scope.template.type = 1;
         $scope.formData = {};
+        $scope.formData.albumImages=[];
 
 
         $scope.cityList = ['mumbai', 'hyderabad', 'ahmedabad'];

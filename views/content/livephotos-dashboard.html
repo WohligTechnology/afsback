@@ -42,7 +42,9 @@
                   <!-- <td>{{($index + 1)+((formData.pagenumber-1)*maxRow)}}</td> -->
                   <td>{{($index + 1)}}</td>
                   <td>{{content.city |firstcapitalize}}</td>
-                  <td>{{content.image}}</td>
+                  <td>
+                    <img style="width:150px;" ng-src="{{content.image | uploadpath}}" alt="">
+                  </td>
                   <td class="text-center">
                     <a ui-sref="createphotos({
                                           
