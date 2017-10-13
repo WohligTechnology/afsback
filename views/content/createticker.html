@@ -1,0 +1,74 @@
+<div class="heading-sec">
+  <div class="row">
+    <div class="col-md-4 column">
+      <div class="heading-profile">
+        <h2>{{pageName}}</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Top Bar Chart -->
+<div class="panel-content">
+  <div class="widget">
+    <div class="form-elements-sec">
+      <form>
+        <!-- CITY INSTITUTION SELECT -->
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>City Name*</label>
+              <ui-select ng-model="formData.city" title="Select Sport" required>
+                <ui-select-match placeholder="Select city">{{$select.selected | firstcapitalize}}</ui-select-match>
+                <ui-select-choices repeat="city in cityList  | filter: $select.search track by $index">
+                  <span ng-bind-html="city | highlight: $select.search"></span>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+          </div>
+        </div>
+        <!-- CITY INSTITUTION SELECT END -->
+        <div class="swiperGallery-button text-right" ng-click="addRow(formData);">
+          <button class="btn btn-default" type="submit">Add Row</button>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Ticker Content</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="data in formData track by $index">
+              <td>
+                <div class="form-group">
+                  {{$index}}
+                </div>
+              </td>
+              <td>
+                <div class="form-group">
+                  <input type="text" placeholder="Video Link" class="form-control" ng-model="content.vlink">
+                </div>
+              </td>
+
+              <td ng-click="deleteRow(formData,$index);">
+                <button class="btn btn-default" type="submit">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- SAVE/CANCEL BUTTONS  -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="text-center mt20">
+              <button class="btn btn-default" type="button" ng-click="saveData(formData);">Save</button>
+              <button class="btn btn-default" ui-sref="liveAlbumdashboard">Cancel</button>
+            </div>
+          </div>
+        </div>
+        <!-- SAVE/CANCEL BUTTONS END  -->
+      </form>
+    </div>
+  </div>
+</div>

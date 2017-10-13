@@ -43,6 +43,11 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             templateUrl: "views/template.html",
             controller: 'createSchoolCtrl'
         })
+        .state('createticker', {
+            url: "/createticker",
+            templateUrl: "views/template.html",
+            controller: 'createTickerCtrl'
+        })
         .state('createbanner', {
             url: "/createbanner",
             templateUrl: "views/template.html",
