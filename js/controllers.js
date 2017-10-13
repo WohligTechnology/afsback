@@ -6385,7 +6385,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.getAllRankingTable = function () {
             NavigationService.getAllRankingTables(function (response) {
                 if (response.value) {
-                    if (response.data.length > 0) {
+                    if (response.data) {
                         $scope.rankingtableData = response.data;
                         console.log("response", response);
                     } else {
@@ -6794,12 +6794,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.navigation = NavigationService.getnav();
         $scope.value = '';
         $scope.getAllPhotos = function () {
-            $scope.liveAlbum = [];
             $scope.url = 'LiveAlbum/getAllAlbums',
                 NavigationService.getAllAlbumsOrPhotos($scope.url, function (response) {
                     console.log(response, "response");
                     if (response.value) {
-                        if (response.data.length > 0) {
+                        if (response.data) {
                             $scope.liveAlbum = response.data;
 
                         } else {
@@ -6849,17 +6848,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     .controller('livePhotosdashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $rootScope, toastr, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("livephotos-dashboard");
-        $scope.menutitle = NavigationService.makeactive("Album Table");
+        $scope.menutitle = NavigationService.makeactive("Photos Table");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.value = '';
         $scope.getAllPhotos = function () {
-            $scope.allPhotos = [];
             $scope.url = 'LivePhotos/getAll',
                 NavigationService.getAllAlbumsOrPhotos($scope.url, function (response) {
                     console.log(response, "response");
                     if (response.value) {
-                        if (response.data.length > 0) {
+                        if (response.data) {
                             $scope.allPhotos = response.data;
                             console.log(" $scope.allPhotos", $scope.allPhotos);
                         } else {
@@ -6915,12 +6913,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.value = '';
         $scope.formData = {};
         $scope.getAllVideos = function () {
-            $scope.allVideos = [];
             $scope.url = 'LiveVideos/getAll',
                 NavigationService.getAllAlbumsOrPhotos($scope.url, function (response) {
                     console.log(response, "response");
                     if (response.value) {
-                        if (response.data.length > 0) {
+                        if (response.data) {
                             $scope.allVideos = response.data;
                             console.log(" $scope.allPhotos", $scope.allVideos);
                         } else {
