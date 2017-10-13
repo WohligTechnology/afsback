@@ -6606,7 +6606,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.navigation = NavigationService.getnav();
         $scope.template.type = 1;
         $scope.formData = {};
-        $scope.formData.albumImages=[];
+        $scope.formData.albumImages = [];
 
 
         $scope.cityList = ['mumbai', 'hyderabad', 'ahmedabad'];
@@ -6733,6 +6733,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.formData = {};
 
         $scope.cityList = ['mumbai', 'hyderabad', 'ahmedabad'];
+        $scope.videoSource = ['vimeo', 'youtube'];
         if (!$stateParams.id) {
             //Create
             $scope.saveData = function (formData) {
@@ -6975,6 +6976,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.navigation = NavigationService.getnav();
         $scope.value = '';
         $scope.getAllSpecialEvents = function () {
+            $scope.allEvents = [];
             $scope.url = 'SpecialEvents/getAllSpecialEvents',
                 NavigationService.getAllAlbumsOrPhotos($scope.url, function (response) {
                     console.log(response, "response");

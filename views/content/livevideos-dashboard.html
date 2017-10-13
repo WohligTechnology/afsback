@@ -25,7 +25,9 @@
                 <tr>
                   <th>#</th>
                   <th>City</th>
+                  <th>Video Type</th>
                   <th>Thumbnail</th>
+
                   <th class="text-center">Operations</th>
                 </tr>
               </thead>
@@ -42,7 +44,14 @@
                   <!-- <td>{{($index + 1)+((formData.pagenumber-1)*maxRow)}}</td> -->
                   <td>{{($index + 1)}}</td>
                   <td>{{content.city |firstcapitalize}}</td>
-                  <td>{{content.thumbnail}}</td>
+
+                  <td>
+                    {{content.videoSrc |firstcapitalize}}
+                  </td>
+                  <td>
+                    <img style="width:150px;" ng-src="{{content.thumbnail | uploadpath}}" alt="">
+                  </td>
+
                   <td class="text-center">
                     <a ui-sref="createvideo({id:content._id})" class="btn btn-primary">
                                               <i class="fa fa-pencil-square-o"></i>

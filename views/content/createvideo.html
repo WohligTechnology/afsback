@@ -32,15 +32,20 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Video Link</label>
-              <input type="text" placeholder="Link" class="form-control" ng-model="formData.videoLink">
+              <input type="text" placeholder="Link" class="form-control" ng-model="formData.videoLink ">
             </div>
             <div class="form-group">
               <label>Video Source</label>
-              <input type="text" placeholder="Source" class="form-control" ng-model="formData.videoSrc">
+              <ui-select ng-model="formData.videoSrc" title="Select Sport" required>
+                <ui-select-match placeholder="Select Video Source">{{$select.selected | firstcapitalize}}</ui-select-match>
+                <ui-select-choices repeat="source in videoSource  | filter: $select.search track by $index">
+                  <span ng-bind-html="source | highlight: $select.search"></span>
+                </ui-select-choices>
+              </ui-select>
             </div>
             <div class="form-group">
               <label>Video Thumbnail</label>
-              <upload-image ng-model="formData.thumbnail"></upload-image>
+              <upload-images ng-model="formData.thumbnail"></upload-images>
             </div>
           </div>
         </div>
