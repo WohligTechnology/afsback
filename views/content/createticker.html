@@ -11,7 +11,7 @@
 <div class="panel-content">
   <div class="widget">
     <div class="form-elements-sec">
-      <form>
+      <form name="tickerForm">
         <!-- CITY INSTITUTION SELECT -->
         <div class="row">
           <div class="col-md-4">
@@ -39,15 +39,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="data in formData track by $index">
+            <tr ng-repeat="data in formData.tickerDetails track by $index">
               <td>
                 <div class="form-group">
-                  {{$index}}
+                  {{$index+1}}
                 </div>
               </td>
               <td>
                 <div class="form-group">
-                  <input type="text" placeholder="Video Link" class="form-control" ng-model="content.vlink">
+                  <input type="text" placeholder="Enter ticker content" class="form-control" ng-model="data.tickerContent" required>
                 </div>
               </td>
 
@@ -59,11 +59,11 @@
         </table>
 
         <!-- SAVE/CANCEL BUTTONS  -->
-        <div class="row">
+        <div class="row" ng-if="formData.tickerDetails.length>0">
           <div class="col-md-12">
             <div class="text-center mt20">
-              <button class="btn btn-default" type="button" ng-click="saveData(formData);">Save</button>
-              <button class="btn btn-default" ui-sref="liveAlbumdashboard">Cancel</button>
+              <button class="btn btn-default" type="button" ng-click="saveData(formData);" ng-disabled="tickerForm.$invalid">Save</button>
+              <button class="btn btn-default" ui-sref="ticker">Cancel</button>
             </div>
           </div>
         </div>

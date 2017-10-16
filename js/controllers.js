@@ -6923,7 +6923,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.navigation = NavigationService.getnav();
         $scope.template.type = 1;
         $scope.formData = {};
-        $scope.formData.albumImages = [];
+        $scope.formData.tickerDetails = [];
         // $scope.formData.
 
 
@@ -6931,12 +6931,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         if (!$stateParams.id) {
             //Create
             $scope.saveData = function (formData) {
-                $scope.url = 'LiveAlbum/saveData'
+                console.log('formData', formData);
+                $scope.url = 'Ticker/saveData'
                 NavigationService.saveLiveData(formData, $scope.url, function (response) {
                     console.log("response", response);
                     if (response.value) {
                         toastr.success("Saved successfully", 'Success Message');
-                        $state.go('liveAlbumdashboard');
+                        $state.go('ticker');
                     }
                 })
             }
@@ -6945,18 +6946,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.pageName = "Edit";
             if ($stateParams.id) {
                 $scope.constraints = {};
-
                 $scope.constraints._id = $stateParams.id;
-                $scope.url = 'LiveAlbum/getOne';
+                $scope.url = 'Ticker/getOne';
                 NavigationService.getOneRecord($scope.constraints, $scope.url, function (response) {
                     console.log(response, "response");
                     if (response.value) {
                         $scope.formData = response.data;
                     }
                 })
-
                 $scope.saveData = function (formData) {
-                    $scope.url = 'LiveAlbum/saveData';
+                    $scope.url = 'Ticker/saveData';
                     console.log('formData', formData);
                     formData._id = $stateParams.id;
                     if (formData) {
@@ -6965,7 +6964,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                             if (response.value) {
 
                                 toastr.success("Saved successfully", 'Success Message');
-                                $state.go('liveAlbumdashboard');
+                                $state.go('ticker');
                             }
                         })
 
@@ -6974,6 +6973,30 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     }
 
                 }
+            }
+        }
+
+        $scope.addRow = function (formData) {
+            if (formData) {
+                formData.tickerDetails.push(
+                    {
+                        'tickerContent': ''
+                    }
+                )
+            } else {
+                $scope.formData.tickerDetails = [
+                    {
+                        'tickerContent': ''
+                    }
+                ]
+
+
+            }
+        }
+        $scope.addRow();
+        $scope.deleteRow = function (formData, index) {
+            if (formData) {
+                formData.tickerDetails.splice(index, 1);
             }
         }
 
@@ -7153,6 +7176,65 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     toastr.success('Successfully Deleted', 'Rules Message');
                     $scope.modalInstance.close();
                     $scope.getAllPhotos();
+                } else {
+                    toastr.error('Something went wrong while Deleting', 'Rules Message');
+                }
+            });
+        }
+    })
+    .controller('tickerdashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $rootScope, toastr, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("ticker-dashboard");
+        $scope.menutitle = NavigationService.makeactive("Ticker Table");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.value = '';
+        $scope.getAllTicker = function () {
+            $scope.url = 'Ticker/getAll',
+                NavigationService.getAllAlbumsOrPhotos($scope.url, function (response) {
+                    console.log(response, "response");
+                    if (response.value) {
+                        if (response.data) {
+                            $scope.alltickers = response.data;
+                            console.log(" $scope.alltickers", $scope.alltickers);
+                        } else {
+                            $scope.value = null;
+                        }
+
+                    }
+                });
+        };
+        $scope.getAllTicker();
+
+        $scope.deleteFunc = function (data) {
+            console.log(data);
+            $rootScope.deleteId = data;
+            $scope.modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'views/content/delete.html',
+                backdrop: 'static',
+                keyboard: false,
+                size: 'sm',
+                scope: $scope
+
+            });
+        };
+
+        $scope.noDelete = function () {
+            $scope.modalInstance.close();
+        }
+        $scope.confDelete = function (data) {
+            console.log(data);
+            $scope.constraints = {};
+            $scope.constraints._id = $rootScope.deleteId;
+            console.log($scope.constraints)
+            $scope.url = 'Ticker/deleteData';
+            NavigationService.deleteRecord($scope.constraints, $scope.url, function (data) {
+                console.log("data.value", data);
+                if (data.value) {
+                    toastr.success('Successfully Deleted', 'Rules Message');
+                    $scope.modalInstance.close();
+                    $scope.getAllTicker();
                 } else {
                     toastr.error('Something went wrong while Deleting', 'Rules Message');
                 }

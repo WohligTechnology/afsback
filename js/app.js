@@ -44,7 +44,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             controller: 'createSchoolCtrl'
         })
         .state('createticker', {
-            url: "/createticker",
+            url: "/createticker/:id",
             templateUrl: "views/template.html",
             controller: 'createTickerCtrl'
         })
@@ -434,6 +434,11 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             url: "/createvideo/:id",
             templateUrl: "views/template.html",
             controller: 'createVideoCtrl'
+        })
+        .state('ticker', {
+            url: "/ticker",
+            templateUrl: "views/template.html",
+            controller: 'tickerdashboardCtrl'
         })
         .state('liveAlbumdashboard', {
             url: "/liveAlbumdashboard",
