@@ -2,7 +2,7 @@
 // var adminURL = "http://sfa3.wohlig.co.in/api/";
 var adminURL = "http://sfa3.sfanow.in/api/";
 // var adminURL = "http://192.168.2.51:1337/api/";
-var adminURL = "http://localhost:1337/api/";
+// var adminURL = "http://localhost:1337/api/";
 var uploadurl = adminURL + "upload/";
 var openTab = "http://wohlig.co.in/sfanodeback/#/showstudent";
 // var openTab = "http://localhost:808/#/showstudent"
@@ -190,6 +190,14 @@ var navigationservice = angular.module('navigationservice', [])
             icon: "users",
             subnav: []
         },
+        {
+            name: "Ticker",
+            classis: "active",
+            anchor: "ticker",
+            icon: "users",
+            subnav: []
+        },
+
         ];
 
         var currentYears = ["2015", "2016"];
