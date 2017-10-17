@@ -7310,12 +7310,12 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.navigation = NavigationService.getnav();
         $scope.value = '';
         $scope.getAllSpecialEvents = function () {
-            $scope.allEvents = [];
+           
             $scope.url = 'SpecialEvents/getAllSpecialEvents',
                 NavigationService.getAllAlbumsOrPhotos($scope.url, function (response) {
                     console.log(response, "response");
                     if (response.value) {
-                        if (response.data.length > 0) {
+                        if (response.data) {
                             $scope.allEvents = response.data;
                             console.log(" $scope.allEvents", $scope.allEvents);
                         } else {
