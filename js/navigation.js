@@ -197,7 +197,6 @@ var navigationservice = angular.module('navigationservice', [])
             icon: "users",
             subnav: []
         },
-
         ];
 
         var currentYears = ["2015", "2016"];
