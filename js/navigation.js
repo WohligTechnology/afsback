@@ -16,49 +16,63 @@ var navigationservice = angular.module('navigationservice', [])
             anchor: "dashboard",
             icon: "dashboard",
             subnav: []
-        }, {
-            name: "Home Banner",
+        },
+        {
+            name: "Live Updates",
             classis: "active",
-            anchor: "banner",
-            icon: "banner",
-            subnav: []
-        }, {
-            name: "Schools",
-            classis: "active",
-            anchor: "school",
-            icon: "building",
-            subnav: []
-        }, {
-            name: "Students",
-            classis: "active",
-            anchor: "student",
+            anchor: "",
             icon: "users",
-            subnav: []
-        }, {
-            name: "Teams",
-            classis: "active",
-            anchor: "team",
-            icon: "users",
-            subnav: []
-        }, {
-            name: "Medals",
-            classis: "active",
-            anchor: "medaldashboard",
-            icon: "users",
-            subnav: []
-        }, {
-            name: "Sports List",
-            classis: "active",
-            anchor: "sportlist",
-            icon: "users",
-            subnav: []
-        }, {
-            name: "Sports",
-            classis: "active",
-            anchor: "sport",
-            icon: "users",
-            subnav: []
-        }, {
+            subnav: [
+                {
+                    name: "Home Banner",
+                    classis: "active",
+                    anchor: "/#/banner",
+                    icon: "banner",
+                    subnav: []
+                },
+                {
+                    name: "Ranking Table",
+                    classis: "",
+                    anchor: "/#/rankingtabledashboard",
+                    icon: "users",
+                    subnav: []
+                }, {
+                    name: "Album",
+                    classis: "active",
+                    anchor: "/#/liveAlbumdashboard",
+                    icon: "users",
+                    subnav: []
+                },
+                {
+                    name: "Photos",
+                    classis: "active",
+                    anchor: "/#/livePhotosdashboard",
+                    icon: "users",
+                    subnav: []
+                },
+                {
+                    name: "Videos",
+                    classis: "active",
+                    anchor: "/#/liveVideosdashboard",
+                    icon: "users",
+                    subnav: []
+                },
+                {
+                    name: "Special Events",
+                    classis: "active",
+                    anchor: "/#/specialEvents",
+                    icon: "users",
+                    subnav: []
+                },
+                {
+                    name: "Ticker",
+                    classis: "active",
+                    anchor: "/#/ticker",
+                    icon: "users",
+                    subnav: []
+                }]
+        },
+        {
             name: "City Rule",
             classis: "active",
             anchor: "",
@@ -94,6 +108,43 @@ var navigationservice = angular.module('navigationservice', [])
                 anchor: "#/cityrule/ahmedabad/college",
                 icon: ""
             }]
+        },
+        {
+            name: "Schools",
+            classis: "active",
+            anchor: "school",
+            icon: "building",
+            subnav: []
+        }, {
+            name: "Students",
+            classis: "active",
+            anchor: "student",
+            icon: "users",
+            subnav: []
+        }, {
+            name: "Teams",
+            classis: "active",
+            anchor: "team",
+            icon: "users",
+            subnav: []
+        }, {
+            name: "Medals",
+            classis: "active",
+            anchor: "medaldashboard",
+            icon: "users",
+            subnav: []
+        }, {
+            name: "Sports List",
+            classis: "active",
+            anchor: "sportlist",
+            icon: "users",
+            subnav: []
+        }, {
+            name: "Sports",
+            classis: "active",
+            anchor: "sport",
+            icon: "users",
+            subnav: []
         }, {
             name: "Media",
             classis: "active",
@@ -154,50 +205,7 @@ var navigationservice = angular.module('navigationservice', [])
             anchor: "qualifyingknockoutdashboard",
             icon: "users",
             subnav: []
-        },
-        {
-            name: "Ranking Table",
-            classis: "active",
-            anchor: "rankingTabledashboard",
-            icon: "users",
-            subnav: []
-        },
-        {
-            name: "Album",
-            classis: "active",
-            anchor: "liveAlbumdashboard",
-            icon: "users",
-            subnav: []
-        },
-        {
-            name: "Photos",
-            classis: "active",
-            anchor: "livePhotosdashboard",
-            icon: "users",
-            subnav: []
-        },
-        {
-            name: "Videos",
-            classis: "active",
-            anchor: "liveVideosdashboard",
-            icon: "users",
-            subnav: []
-        },
-        {
-            name: "Special Events",
-            classis: "active",
-            anchor: "specialEventsdashboard",
-            icon: "users",
-            subnav: []
-        },
-        {
-            name: "Ticker",
-            classis: "active",
-            anchor: "ticker",
-            icon: "users",
-            subnav: []
-        },
-        ];
+        }];
 
         var currentYears = ["2015", "2016"];
 
