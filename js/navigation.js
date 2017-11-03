@@ -1,6 +1,6 @@
-// var adminURL = "https://api.sfanow.in/api/";
+var adminURL = "https://api.sfanow.in/api/";
 // var adminURL = "http://sfa3.wohlig.co.in/api/";
-var adminURL = "http://sfa3.sfanow.in/api/";
+// var adminURL = "http://sfa3.sfanow.in/api/";
 // var adminURL = "http://192.168.2.51:1337/api/";
 // var adminURL = "http://localhost:1337/api/";
 var uploadurl = adminURL + "upload/";
@@ -11,201 +11,202 @@ var navigationservice = angular.module('navigationservice', [])
 
     .factory('NavigationService', function ($http) {
         var navigation = [{
-            name: "Dashboard",
-            classis: "active",
-            anchor: "dashboard",
-            icon: "dashboard",
-            subnav: []
-        },
-        {
-            name: "Live Updates",
-            classis: "active",
-            anchor: "",
-            icon: "users",
-            subnav: [
-                {
-                    name: "Home Banner",
-                    classis: "active",
-                    anchor: "/#/banner",
-                    icon: "banner",
-                    subnav: []
-                },
-                {
-                    name: "Ranking Table",
+                name: "Dashboard",
+                classis: "active",
+                anchor: "dashboard",
+                icon: "dashboard",
+                subnav: []
+            },
+            {
+                name: "Live Updates",
+                classis: "active",
+                anchor: "",
+                icon: "users",
+                subnav: [{
+                        name: "Home Banner",
+                        classis: "active",
+                        anchor: "/#/banner",
+                        icon: "banner",
+                        subnav: []
+                    },
+                    {
+                        name: "Ranking Table",
+                        classis: "",
+                        anchor: "/#/rankingtabledashboard",
+                        icon: "users",
+                        subnav: []
+                    }, {
+                        name: "Album",
+                        classis: "active",
+                        anchor: "/#/liveAlbumdashboard",
+                        icon: "users",
+                        subnav: []
+                    },
+                    {
+                        name: "Photos",
+                        classis: "active",
+                        anchor: "/#/livePhotosdashboard",
+                        icon: "users",
+                        subnav: []
+                    },
+                    {
+                        name: "Videos",
+                        classis: "active",
+                        anchor: "/#/liveVideosdashboard",
+                        icon: "users",
+                        subnav: []
+                    },
+                    {
+                        name: "Special Events",
+                        classis: "active",
+                        anchor: "/#/specialEvents",
+                        icon: "users",
+                        subnav: []
+                    },
+                    {
+                        name: "Ticker",
+                        classis: "active",
+                        anchor: "/#/ticker",
+                        icon: "users",
+                        subnav: []
+                    }
+                ]
+            },
+            {
+                name: "City Rule",
+                classis: "active",
+                anchor: "",
+                icon: "users",
+                subnav: [{
+                    name: "Mumbai School",
                     classis: "",
-                    anchor: "/#/rankingtabledashboard",
-                    icon: "users",
-                    subnav: []
+                    anchor: "#/cityrule/mumbai/school",
+                    icon: ""
                 }, {
-                    name: "Album",
-                    classis: "active",
-                    anchor: "/#/liveAlbumdashboard",
-                    icon: "users",
-                    subnav: []
-                },
-                {
-                    name: "Photos",
-                    classis: "active",
-                    anchor: "/#/livePhotosdashboard",
-                    icon: "users",
-                    subnav: []
-                },
-                {
-                    name: "Videos",
-                    classis: "active",
-                    anchor: "/#/liveVideosdashboard",
-                    icon: "users",
-                    subnav: []
-                },
-                {
-                    name: "Special Events",
-                    classis: "active",
-                    anchor: "/#/specialEvents",
-                    icon: "users",
-                    subnav: []
-                },
-                {
-                    name: "Ticker",
-                    classis: "active",
-                    anchor: "/#/ticker",
-                    icon: "users",
-                    subnav: []
+                    name: "Mumbai College",
+                    classis: "",
+                    anchor: "#/cityrule/mumbai/college",
+                    icon: ""
+                }, {
+                    name: "Hyderabad School",
+                    classis: "",
+                    anchor: "#/cityrule/hyderabad/school",
+                    icon: ""
+                }, {
+                    name: "Hyderabad College",
+                    classis: "",
+                    anchor: "#/cityrule/hyderabad/college",
+                    icon: ""
+                }, {
+                    name: "Ahmedabad School",
+                    classis: "",
+                    anchor: "#/cityrule/ahmedabad/school",
+                    icon: ""
+                }, {
+                    name: "Ahmedabad College",
+                    classis: "",
+                    anchor: "#/cityrule/ahmedabad/college",
+                    icon: ""
                 }]
-        },
-        {
-            name: "City Rule",
-            classis: "active",
-            anchor: "",
-            icon: "users",
-            subnav: [{
-                name: "Mumbai School",
-                classis: "",
-                anchor: "#/cityrule/mumbai/school",
-                icon: ""
+            },
+            {
+                name: "Schools",
+                classis: "active",
+                anchor: "school",
+                icon: "building",
+                subnav: []
             }, {
-                name: "Mumbai College",
-                classis: "",
-                anchor: "#/cityrule/mumbai/college",
-                icon: ""
+                name: "Students",
+                classis: "active",
+                anchor: "student",
+                icon: "users",
+                subnav: []
             }, {
-                name: "Hyderabad School",
-                classis: "",
-                anchor: "#/cityrule/hyderabad/school",
-                icon: ""
+                name: "Teams",
+                classis: "active",
+                anchor: "team",
+                icon: "users",
+                subnav: []
             }, {
-                name: "Hyderabad College",
-                classis: "",
-                anchor: "#/cityrule/hyderabad/college",
-                icon: ""
+                name: "Medals",
+                classis: "active",
+                anchor: "medaldashboard",
+                icon: "users",
+                subnav: []
             }, {
-                name: "Ahmedabad School",
-                classis: "",
-                anchor: "#/cityrule/ahmedabad/school",
-                icon: ""
+                name: "Sports List",
+                classis: "active",
+                anchor: "sportlist",
+                icon: "users",
+                subnav: []
             }, {
-                name: "Ahmedabad College",
-                classis: "",
-                anchor: "#/cityrule/ahmedabad/college",
-                icon: ""
-            }]
-        },
-        {
-            name: "Schools",
-            classis: "active",
-            anchor: "school",
-            icon: "building",
-            subnav: []
-        }, {
-            name: "Students",
-            classis: "active",
-            anchor: "student",
-            icon: "users",
-            subnav: []
-        }, {
-            name: "Teams",
-            classis: "active",
-            anchor: "team",
-            icon: "users",
-            subnav: []
-        }, {
-            name: "Medals",
-            classis: "active",
-            anchor: "medaldashboard",
-            icon: "users",
-            subnav: []
-        }, {
-            name: "Sports List",
-            classis: "active",
-            anchor: "sportlist",
-            icon: "users",
-            subnav: []
-        }, {
-            name: "Sports",
-            classis: "active",
-            anchor: "sport",
-            icon: "users",
-            subnav: []
-        }, {
-            name: "Media",
-            classis: "active",
-            anchor: "media",
-            icon: "users",
-            subnav: []
-        }, {
-            name: "Age Groups",
-            classis: "active",
-            anchor: "agegroup",
-            icon: "users",
-            subnav: []
-        }, {
-            name: "Sport Rule",
-            classis: "active",
-            anchor: "sportrule",
-            icon: "users",
-            subnav: []
-        }, {
-            name: "Knockout",
-            classis: "active",
-            anchor: "knockoutdashboard",
-            icon: "users",
-            subnav: []
-        }, {
-            name: "Heats",
-            classis: "active",
-            anchor: "heatdashboard",
-            icon: "users",
-            subnav: []
-        }, {
-            name: "Leagues",
-            classis: "active",
-            anchor: "leaguedashboard",
-            icon: "users",
-            subnav: []
-        }, {
-            name: "Swiss League",
-            classis: "active",
-            anchor: "swissdashboard",
-            icon: "users",
-            subnav: []
-        }, {
-            name: "League Knockout",
-            classis: "active",
-            anchor: "leagueknockoutdashboard",
-            icon: "users",
-            subnav: []
-        }, {
-            name: "Qualifying Round",
-            classis: "active",
-            anchor: "qualifyingrounddashboard",
-            icon: "users",
-            subnav: []
-        }, {
-            name: "Qualifying Knockout",
-            classis: "active",
-            anchor: "qualifyingknockoutdashboard",
-            icon: "users",
-            subnav: []
-        }];
+                name: "Sports",
+                classis: "active",
+                anchor: "sport",
+                icon: "users",
+                subnav: []
+            }, {
+                name: "Media",
+                classis: "active",
+                anchor: "media",
+                icon: "users",
+                subnav: []
+            }, {
+                name: "Age Groups",
+                classis: "active",
+                anchor: "agegroup",
+                icon: "users",
+                subnav: []
+            }, {
+                name: "Sport Rule",
+                classis: "active",
+                anchor: "sportrule",
+                icon: "users",
+                subnav: []
+            }, {
+                name: "Knockout",
+                classis: "active",
+                anchor: "knockoutdashboard",
+                icon: "users",
+                subnav: []
+            }, {
+                name: "Heats",
+                classis: "active",
+                anchor: "heatdashboard",
+                icon: "users",
+                subnav: []
+            }, {
+                name: "Leagues",
+                classis: "active",
+                anchor: "leaguedashboard",
+                icon: "users",
+                subnav: []
+            }, {
+                name: "Swiss League",
+                classis: "active",
+                anchor: "swissdashboard",
+                icon: "users",
+                subnav: []
+            }, {
+                name: "League Knockout",
+                classis: "active",
+                anchor: "leagueknockoutdashboard",
+                icon: "users",
+                subnav: []
+            }, {
+                name: "Qualifying Round",
+                classis: "active",
+                anchor: "qualifyingrounddashboard",
+                icon: "users",
+                subnav: []
+            }, {
+                name: "Qualifying Knockout",
+                classis: "active",
+                anchor: "qualifyingknockoutdashboard",
+                icon: "users",
+                subnav: []
+            }
+        ];
 
         var currentYears = ["2015", "2016"];
 
