@@ -6567,63 +6567,63 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 
     })
-    // .controller('rankingTableDashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $rootScope, toastr, $uibModal) {
-    //     //Used to name the .html file
-    //     $scope.template = TemplateService.changecontent("rankingtable-dashboard");
-    //     $scope.menutitle = NavigationService.makeactive("Ranking Table");
-    //     TemplateService.title = $scope.menutitle;
-    //     $scope.navigation = NavigationService.getnav();
-    //     $scope.value = '';
-    //     $scope.getAllRankingTable = function () {
-    //         NavigationService.getAllRankingTables(function (response) {
-    //             if (response.value) {
-    //                 if (response.data) {
-    //                     $scope.rankingtableData = response.data;
-    //                     console.log("response", response);
-    //                 } else {
-    //                     $scope.value = null;
-    //                 }
+    .controller('rankingTableDashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $rootScope, toastr, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("rankingtable-dashboard");
+        $scope.menutitle = NavigationService.makeactive("Ranking Table");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.value = '';
+        $scope.getAllRankingTable = function () {
+            NavigationService.getAllRankingTables(function (response) {
+                if (response.value) {
+                    if (response.data) {
+                        $scope.rankingtableData = response.data;
+                        console.log("response", response);
+                    } else {
+                        $scope.value = null;
+                    }
 
-    //             }
-    //         });
-    //     };
-    //     $scope.getAllRankingTable();
+                }
+            });
+        };
+        $scope.getAllRankingTable();
 
-    //     $scope.deleteFunc = function (data) {
-    //         console.log(data);
-    //         $rootScope.deleteId = data;
-    //         $scope.modalInstance = $uibModal.open({
-    //             animation: $scope.animationsEnabled,
-    //             templateUrl: 'views/content/delete.html',
-    //             backdrop: 'static',
-    //             keyboard: false,
-    //             size: 'sm',
-    //             scope: $scope
+        $scope.deleteFunc = function (data) {
+            console.log(data);
+            $rootScope.deleteId = data;
+            $scope.modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'views/content/delete.html',
+                backdrop: 'static',
+                keyboard: false,
+                size: 'sm',
+                scope: $scope
 
-    //         });
-    //     };
+            });
+        };
 
-    //     $scope.noDelete = function () {
-    //         $scope.modalInstance.close();
-    //     }
-    //     $scope.confDelete = function (data) {
-    //         console.log(data);
-    //         $scope.constraints = {};
-    //         $scope.constraints._id = $rootScope.deleteId;
-    //         console.log($scope.constraints)
-    //         $scope.url = 'LiveUpdate/deleteData',
-    //             NavigationService.deleteRecord($scope.constraints, $scope.url, function (data) {
-    //                 console.log("data.value", data);
-    //                 if (data.value) {
-    //                     toastr.success('Successfully Deleted', 'Rules Message');
-    //                     $scope.modalInstance.close();
-    //                     $scope.getAllRankingTable();
-    //                 } else {
-    //                     toastr.error('Something went wrong while Deleting', 'Rules Message');
-    //                 }
-    //             });
-    //     }
-    // })
+        $scope.noDelete = function () {
+            $scope.modalInstance.close();
+        }
+        $scope.confDelete = function (data) {
+            console.log(data);
+            $scope.constraints = {};
+            $scope.constraints._id = $rootScope.deleteId;
+            console.log($scope.constraints)
+            $scope.url = 'LiveUpdate/deleteData',
+                NavigationService.deleteRecord($scope.constraints, $scope.url, function (data) {
+                    console.log("data.value", data);
+                    if (data.value) {
+                        toastr.success('Successfully Deleted', 'Rules Message');
+                        $scope.modalInstance.close();
+                        $scope.getAllRankingTable();
+                    } else {
+                        toastr.error('Something went wrong while Deleting', 'Rules Message');
+                    }
+                });
+        }
+    })
     // .controller('createRankingTableCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
     //     //Used to name the .html file
     //     $scope.template = TemplateService.changecontent("createrankingtable");
