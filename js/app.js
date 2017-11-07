@@ -459,8 +459,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
             url: "/specialEvents",
             templateUrl: "views/template.html",
             controller: 'specialEventsdashboardCtrl'
-        })
-        ;
+        });
     $urlRouterProvider.otherwise("/dashboard");
     $locationProvider.html5Mode(isproduction);
 });
@@ -515,14 +514,14 @@ firstapp.filter('letterLimit', function () {
         }
     };
 });
-firstapp.filter('firstcapitalize', function () {
-    return function (input, all) {
-        var reg = (all) ? /([^\W_]+[^\s-]*) */g : /([^\W_]+[^\s-]*)/;
-        return (!!input) ? input.replace(reg, function (txt) {
-            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-        }) : '';
-    };
-});
+// firstapp.filter('firstcapitalize', function () {
+//     return function (input, all) {
+//         var reg = (all) ? /([^\W_]+[^\s-]*) */g : /([^\W_]+[^\s-]*)/;
+//         return (!!input) ? input.replace(reg, function (txt) {
+//             return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+//         }) : '';
+//     };
+// });
 firstapp.directive('fancyboxBox', function ($document) {
     return {
         restrict: 'EA',
@@ -735,7 +734,7 @@ firstapp.directive('uploadImages', function ($http, $filter, $timeout) {
         },
         link: function ($scope, element, attrs) {
             console.log($scope.model, attrs);
-            $scope.showImage = function () { };
+            $scope.showImage = function () {};
             $scope.check = true;
             if (!$scope.type) {
                 $scope.type = "image";
