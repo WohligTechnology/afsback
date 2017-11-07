@@ -6624,110 +6624,106 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 });
         }
     })
-    // .controller('createRankingTableCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
-    //     //Used to name the .html file
-    //     $scope.template = TemplateService.changecontent("createrankingtable");
-    //     $scope.menutitle = NavigationService.makeactive("Ranking Table");
-    //     TemplateService.title = $scope.menutitle;
-    //     $scope.navigation = NavigationService.getnav();
-    //     $scope.template.type = 1;
-    //     $scope.cityList = ['mumbai', 'hyderabad', 'ahmedabad'];
-    //     $scope.institutionType = ['school', 'college'];
-    //     $scope.formData = {};
-    //     $scope.formData.rankingTable = [];
-    //     $scope.addRow = function (formData) {
-    //         if (!formData) {
-    //             $scope.formData.rankingTable.push(
-    //                 {
-    //                     "rank": '',
-    //                     "schoolName": '',
-    //                     "goldPoints": '',
-    //                     "silverPoints": '',
-    //                     "bronzePoints": '',
-    //                     "totalPoints": ''
-    //                 },
-    //             )
-    //         } else {
-    //             formData.rankingTable.push(
-    //                 {
-    //                     "rank": '',
-    //                     "schoolName": '',
-    //                     "goldPoints": '',
-    //                     "silverPoints": '',
-    //                     "bronzePoints": '',
-    //                     "totalPoints": ''
-    //                 },
-    //             )
-    //         }
+    .controller('createRankingTableCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("createrankingtable");
+        $scope.menutitle = NavigationService.makeactive("Ranking Table");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.template.type = 1;
+        $scope.cityList = ['mumbai', 'hyderabad', 'ahmedabad'];
+        $scope.institutionType = ['school', 'college'];
+        $scope.formData = {};
+        $scope.formData.rankingTable = [];
+        $scope.addRow = function (formData) {
+            if (!formData) {
+                $scope.formData.rankingTable.push({
+                    "rank": '',
+                    "schoolName": '',
+                    "goldPoints": '',
+                    "silverPoints": '',
+                    "bronzePoints": '',
+                    "totalPoints": ''
+                }, )
+            } else {
+                formData.rankingTable.push({
+                    "rank": '',
+                    "schoolName": '',
+                    "goldPoints": '',
+                    "silverPoints": '',
+                    "bronzePoints": '',
+                    "totalPoints": ''
+                }, )
+            }
 
 
-    //     }
-    //     $scope.addRow();
+        }
+        $scope.addRow();
 
-    //     if (!$stateParams.id) {
-    //         //Create
-    //         $scope.pageName = "Create";
-    //         $scope.saveData = function (formData) {
-    //             console.log('formData', formData);
-    //             if (formData && formData.city && formData.institutionType) {
-    //                 NavigationService.saveRankingTable(formData, function (response) {
-    //                     console.log("response", response);
-    //                     if (response.value) {
-    //                         toastr.success("Saved successfully", 'Success Message');
-    //                         $state.go('rankingTabledashboard');
-    //                     }
-    //                 })
-    //             } else {
-    //                 toastr.error('Please fill all fields', 'Error Message');
-    //             }
+        if (!$stateParams.id) {
+            //Create
+            $scope.pageName = "Create";
+            $scope.saveData = function (formData) {
+                console.log('formData', formData);
+                if (formData && formData.city && formData.institutionType) {
+                    NavigationService.saveRankingTable(formData, function (response) {
+                        console.log("response", response);
+                        if (response.value) {
+                            toastr.success("Saved successfully", 'Success Message');
+                            $state.go('rankingTabledashboard');
+                        }
+                    })
+                } else {
+                    toastr.error('Please fill all fields', 'Error Message');
+                }
 
-    //         }
+            }
 
-    //     } else {
-    //         //edit
-    //         $scope.pageName = "Edit";
-    //         if ($stateParams.id) {
-    //             $scope.constraints = {};
+        } else {
+            //edit
+            $scope.pageName = "Edit";
+            if ($stateParams.id) {
+                $scope.constraints = {};
 
-    //             $scope.constraints._id = $stateParams.id;
-    //             $scope.url = 'LiveUpdate/getOne';
-    //             NavigationService.getOneRecord($scope.constraints, $scope.url, function (response) {
-    //                 console.log(response, "response");
-    //                 if (response.value) {
-    //                     $scope.formData = response.data;
-    //                 }
-    //             })
+                $scope.constraints._id = $stateParams.id;
+                $scope.url = 'LiveUpdate/getOne';
+                NavigationService.getOneRecord($scope.constraints, $scope.url, function (response) {
+                    console.log(response, "response");
+                    if (response.value) {
+                        $scope.formData = response.data;
+                    }
+                })
 
-    //             $scope.saveData = function (formData) {
-    //                 console.log('formData', formData);
-    //                 formData._id = $stateParams.id;
-    //                 if (formData && formData.city && formData.institutionType) {
-    //                     NavigationService.saveRankingTable(formData, function (response) {
-    //                         console.log("response", response);
-    //                         if (response.value) {
+                $scope.saveData = function (formData) {
+                    console.log('formData', formData);
+                    formData._id = $stateParams.id;
+                    if (formData && formData.city && formData.institutionType) {
+                        NavigationService.saveRankingTable(formData, function (response) {
+                            console.log("response", response);
+                            if (response.value) {
 
-    //                             toastr.success("Saved successfully", 'Success Message');
-    //                             $state.go('rankingTabledashboard');
-    //                         }
-    //                     })
+                                toastr.success("Saved successfully", 'Success Message');
+                                $state.go('rankingTabledashboard');
+                            }
+                        })
 
-    //                 } else {
-    //                     toastr.error('Please fill all fields', 'Error Message');
-    //                 }
+                    } else {
+                        toastr.error('Please fill all fields', 'Error Message');
+                    }
 
-    //             }
-    //         }
+                }
+            }
 
-    //     }
+        }
 
-    //     $scope.deleteRow = function (formData, index) {
-    //         formData.rankingTable.splice(index, 1);
-    //     }
+        $scope.deleteRow = function (formData, index) {
+            formData.rankingTable.splice(index, 1);
+        }
 
 
 
 
-    // })
+    })
     .controller('createSpecialEventCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("createspecialevent");
