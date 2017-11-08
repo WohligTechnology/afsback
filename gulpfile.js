@@ -1,17 +1,17 @@
 var jsArray = [
-    './bower_components/jquery/dist/jquery.js',
-    './bower_components/angular/angular.js',
+    './bower_components/angular/angular.min.js',
+    './bower_components/jquery/dist/jquery.min.js',
     './bower_components/flexslider/jquery.flexslider-min.js',
     './bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js',
     './bower_components/fancyBox/source/jquery.fancybox.js',
     './bower_components/peity/jquery.peity.min.js',
     './bower_components/jquery-slimscroll/jquery.slimscroll.min.js',
-    './bower_components/angular-animate/angular-animate.js',
+    './bower_components/angular-animate/angular-animate.min.js',
     './bower_components/angular-flexslider/angular-flexslider.js',
     './bower_components/angular-sanitize/angular-sanitize.min.js',
     './bower_components/ui-router/release/angular-ui-router.min.js',
     './bower_components/angular-bootstrap/ui-bootstrap.min.js',
-    './bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+    './bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
     './bower_components/angular-translate/angular-translate.js',
     './bower_components/lodash/lodash.js',
     './bower_components/angularjs-imageupload-directive/public/javascripts/imageupload.js',
@@ -206,13 +206,13 @@ gulp.task('inlinesource', function () {
 
 
 gulp.task('uglify:js', function () {
-    // var uglify = require('gulp-uglify');
-    // var stripDebug = require('gulp-strip-debug');
+    var uglify = require('gulp-uglify');
+    var stripDebug = require('gulp-strip-debug');
     return gulp.src('./w/w.js')
         // .pipe(stripDebug())
-        // .pipe(uglify({
-        //     mangle: false
-        // }))
+        .pipe(uglify({
+            mangle: false
+        }))
         .pipe(gulp.dest('./w'));
 });
 
