@@ -7,10 +7,10 @@
         @import "../bower_components/angular-ui-select/dist/select.css";
         @import "../bower_components/angular-toastr/dist/angular-toastr";
         @import "../bower_components/textAngular/dist/textAngular";
+        @import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
         @import "template/icons";
         @import "template/main";
         @import "template/responsive"; //@import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css";
-        @import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
         body {}
 
         img.loading {
