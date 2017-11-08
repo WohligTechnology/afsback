@@ -1,4 +1,4 @@
-angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', 'ngAnimate', 'ngSanitize', 'angular-flexslider', 'ui.select', 'imageupload', 'ui.tinymce', 'toastr', 'textAngular'])
+angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', 'angular-flexslider', 'ui.select', 'imageupload', 'ui.tinymce', 'toastr', 'textAngular'])
 
     .controller('headerctrl', function ($scope, TemplateService, $state) {
         $scope.template = TemplateService;

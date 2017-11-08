@@ -1,6 +1,8 @@
 // JavaScript Document
 var firstapp = angular.module('firstapp', [
     'ui.router',
+    'ngAnimate',
+    'ngSanitize',
     'phonecatControllers',
     'templateservicemod',
     'navigationservice',
