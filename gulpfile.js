@@ -24,7 +24,7 @@ var jsArray = [
     './bower_components/angular-toastr/dist/angular-toastr.js',
     './bower_components/angular-toastr/dist/angular-toastr.tpls.js',
     './bower_components/textAngular/dist/textAngular-rangy.min.js',
-    './bower_components/textAngular/dist/textAngular-sanitize.min.js',
+    // './bower_components/textAngular/dist/textAngular-sanitize.min.js',
     './bower_components/textAngular/dist/textAngular.min.js',
     './js/app.js',
     './js/language.js',
