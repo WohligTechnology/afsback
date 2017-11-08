@@ -8,7 +8,7 @@ var jsArray = [
     './bower_components/angular/angular.min.js',
     './bower_components/angular-animate/angular-animate.js',
     './bower_components/angular-flexslider/angular-flexslider.js',
-    './bower_components/angular-sanitize/angular-sanitize.min.js',
+    './bower_components/angular-sanitize/angular-sanitize.js',
     './bower_components/ui-router/release/angular-ui-router.min.js',
     './bower_components/angular-bootstrap/ui-bootstrap.min.js',
     './bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
