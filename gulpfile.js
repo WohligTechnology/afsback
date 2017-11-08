@@ -210,9 +210,9 @@ gulp.task('uglify:js', function () {
     var stripDebug = require('gulp-strip-debug');
     return gulp.src('./w/w.js')
         // .pipe(stripDebug())
-        // .pipe(uglify({
-        //     mangle: false
-        // }))
+        .pipe(uglify({
+            mangle: false
+        }))
         .pipe(gulp.dest('./w'));
 });
 
@@ -309,11 +309,11 @@ gulp.task('watch:all', function () {
     connect.server({
         root: './',
         livereload: true,
-        port: 8080
+        port: 8081
     });
     gulp.src(__filename)
         .pipe(open({
-            uri: 'http://localhost:8080'
+            uri: 'http://localhost:8081'
         }));
     gulp.watch(['./**/*.html', './sass/*.scss', './js/*.js'], ['sass:development', 'connect:html', 'connect:js']);
 });
