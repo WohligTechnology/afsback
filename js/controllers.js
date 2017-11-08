@@ -6644,7 +6644,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     "silverPoints": '',
                     "bronzePoints": '',
                     "totalPoints": ''
-                }, )
+                });
             } else {
                 formData.rankingTable.push({
                     "rank": '',
@@ -6653,7 +6653,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     "silverPoints": '',
                     "bronzePoints": '',
                     "totalPoints": ''
-                }, )
+                });
             }
 
 
@@ -6719,10 +6719,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.deleteRow = function (formData, index) {
             formData.rankingTable.splice(index, 1);
         }
-
-
-
-
     })
     .controller('createSpecialEventCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $stateParams, $uibModal) {
         //Used to name the .html file
