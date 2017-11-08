@@ -6,7 +6,7 @@ var jsArray = [
     './bower_components/peity/jquery.peity.min.js',
     './bower_components/jquery-slimscroll/jquery.slimscroll.min.js',
     './bower_components/angular/angular.min.js',
-    './bower_components/angular-animate/angular-animate.min.js',
+    './bower_components/angular-animate/angular-animate.js',
     './bower_components/angular-flexslider/angular-flexslider.js',
     './bower_components/angular-sanitize/angular-sanitize.min.js',
     './bower_components/ui-router/release/angular-ui-router.min.js',
