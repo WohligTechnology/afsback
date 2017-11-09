@@ -516,14 +516,14 @@ firstapp.filter('letterLimit', function () {
         }
     };
 });
-// firstapp.filter('firstcapitalize', function () {
-//     return function (input, all) {
-//         var reg = (all) ? /([^\W_]+[^\s-]*) */g : /([^\W_]+[^\s-]*)/;
-//         return (!!input) ? input.replace(reg, function (txt) {
-//             return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-//         }) : '';
-//     };
-// });
+firstapp.filter('firstcapitalize', function () {
+    return function (input, all) {
+        var reg = (all) ? /([^\W_]+[^\s-]*) */g : /([^\W_]+[^\s-]*)/;
+        return (!!input) ? input.replace(reg, function (txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        }) : '';
+    };
+});
 firstapp.directive('fancyboxBox', function ($document) {
     return {
         restrict: 'EA',
