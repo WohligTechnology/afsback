@@ -52,7 +52,7 @@ var navigationservice = angular.module('navigationservice', [])
                     {
                         name: "Videos",
                         classis: "active",
-                        anchor: "/#/liveVideosdashboard",
+                        anchor: "/#/videosdashboard",
                         icon: "users",
                         subnav: []
                     },
