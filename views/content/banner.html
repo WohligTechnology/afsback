@@ -38,9 +38,13 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Order</th>
+                                    <th>City</th>
                                     <th>Banner Image</th>
-                                    <th>Banner Name</th>
+                                    <!-- <th>Banner Name</th> -->
                                     <th>Banner Link</th>
+                                    <th>Mobile Banner</th>
+                                    <th>Mobile Banner Link</th>
                                     <th class="text-center" colspan="2">Operations</th>
                                 </tr>
                             </thead>
@@ -61,10 +65,15 @@
                                 <tr ng-repeat="banner in banners" ng-if="banners.length>0 && contentLoaded">
                                     <td>{{$index+1}}</td>
                                     <td>{{banner.order}}</td>
+                                    <td>{{banner.city}}</td>
                                     <td>
                                         <img style="width:150px;" ng-src="{{banner.image | uploadpath}}" alt="">
                                     </td>
                                     <td>{{banner.link}}</td>
+                                    <td ng-if="banner.mobileImg">
+                                        <img style="width:150px;" ng-src="{{banner.mobileImg | uploadpath}}" alt="">
+                                    </td>
+                                    <td>{{banner.mobileImgLink}}</td>
                                     <td class="text-center">
                                         <a ui-sref="editbanner({id:banner._id})" class="btn btn-primary">
                                             <i class="fa fa-pencil-square-o"></i>
