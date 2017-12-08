@@ -30,6 +30,7 @@
                         <div class="pull-right">
                             <a class="btn btn-info" target="_blank" href="{{adminURL}}studentsport/excelDownloadStudent"><i class="fa fa-download"></i>&nbsp; Student 2016 Excel</a>
                             <a class="btn btn-info" href="{{adminURL}}studentsport/excelDownloadAllStudent"><i class="fa fa-download"></i>&nbsp; All Student Excel</a>
+                            <span class="btn btn-primary" ng-click="genrateExcel()"><i class="fa fa-plus"></i>&nbsp;EXPORT</span>
                             <a class="btn btn-primary" ui-sref="createstudent"><i class="fa fa-plus"></i>&nbsp;Add New</a>
                         </div>
                         <h3>List of Students</h3>
@@ -85,7 +86,8 @@
                         </table>
                     </div>
                     <div class="">
-                        <uib-pagination ng-show="students.data.length > 0" ng-change="reload();" total-items="students.total" ng-model="pagination.pagenumber" items-per-page="20"></uib-pagination>
+                        <uib-pagination ng-show="students.data.length > 0" ng-change="reload();" total-items="students.total" ng-model="pagination.pagenumber"
+                            items-per-page="20"></uib-pagination>
                     </div>
                 </div>
             </div>

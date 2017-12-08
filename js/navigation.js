@@ -11,201 +11,201 @@ var navigationservice = angular.module('navigationservice', [])
 
     .factory('NavigationService', function ($http) {
         var navigation = [{
-                name: "Dashboard",
+            name: "Dashboard",
+            classis: "active",
+            anchor: "dashboard",
+            icon: "dashboard",
+            subnav: []
+        },
+        {
+            name: "Live Updates",
+            classis: "active",
+            anchor: "",
+            icon: "users",
+            subnav: [{
+                name: "Home Banner",
                 classis: "active",
-                anchor: "dashboard",
-                icon: "dashboard",
+                anchor: "/#/banner",
+                icon: "banner",
                 subnav: []
             },
             {
-                name: "Live Updates",
-                classis: "active",
-                anchor: "",
+                name: "Ranking Table",
+                classis: "",
+                anchor: "/#/rankingtabledashboard",
                 icon: "users",
-                subnav: [{
-                        name: "Home Banner",
-                        classis: "active",
-                        anchor: "/#/banner",
-                        icon: "banner",
-                        subnav: []
-                    },
-                    {
-                        name: "Ranking Table",
-                        classis: "",
-                        anchor: "/#/rankingtabledashboard",
-                        icon: "users",
-                        subnav: []
-                    }, {
-                        name: "Album",
-                        classis: "active",
-                        anchor: "/#/liveAlbumdashboard",
-                        icon: "users",
-                        subnav: []
-                    },
-                    {
-                        name: "Photos",
-                        classis: "active",
-                        anchor: "/#/livePhotosdashboard",
-                        icon: "users",
-                        subnav: []
-                    },
-                    {
-                        name: "Videos",
-                        classis: "active",
-                        anchor: "/#/videosdashboard",
-                        icon: "users",
-                        subnav: []
-                    },
-                    {
-                        name: "Special Events",
-                        classis: "active",
-                        anchor: "/#/specialEvents",
-                        icon: "users",
-                        subnav: []
-                    },
-                    {
-                        name: "Ticker",
-                        classis: "active",
-                        anchor: "/#/ticker",
-                        icon: "users",
-                        subnav: []
-                    }
-                ]
+                subnav: []
+            }, {
+                name: "Album",
+                classis: "active",
+                anchor: "/#/liveAlbumdashboard",
+                icon: "users",
+                subnav: []
             },
             {
-                name: "City Rule",
+                name: "Photos",
                 classis: "active",
-                anchor: "",
+                anchor: "/#/livePhotosdashboard",
                 icon: "users",
-                subnav: [{
-                    name: "Mumbai School",
-                    classis: "",
-                    anchor: "#/cityrule/mumbai/school",
-                    icon: ""
-                }, {
-                    name: "Mumbai College",
-                    classis: "",
-                    anchor: "#/cityrule/mumbai/college",
-                    icon: ""
-                }, {
-                    name: "Hyderabad School",
-                    classis: "",
-                    anchor: "#/cityrule/hyderabad/school",
-                    icon: ""
-                }, {
-                    name: "Hyderabad College",
-                    classis: "",
-                    anchor: "#/cityrule/hyderabad/college",
-                    icon: ""
-                }, {
-                    name: "Ahmedabad School",
-                    classis: "",
-                    anchor: "#/cityrule/ahmedabad/school",
-                    icon: ""
-                }, {
-                    name: "Ahmedabad College",
-                    classis: "",
-                    anchor: "#/cityrule/ahmedabad/college",
-                    icon: ""
-                }]
+                subnav: []
             },
             {
-                name: "Schools",
+                name: "Videos",
                 classis: "active",
-                anchor: "school",
-                icon: "building",
-                subnav: []
-            }, {
-                name: "Students",
-                classis: "active",
-                anchor: "student",
+                anchor: "/#/videosdashboard",
                 icon: "users",
                 subnav: []
-            }, {
-                name: "Teams",
+            },
+            {
+                name: "Special Events",
                 classis: "active",
-                anchor: "team",
+                anchor: "/#/specialEvents",
                 icon: "users",
                 subnav: []
-            }, {
-                name: "Medals",
+            },
+            {
+                name: "Ticker",
                 classis: "active",
-                anchor: "medaldashboard",
-                icon: "users",
-                subnav: []
-            }, {
-                name: "Sports List",
-                classis: "active",
-                anchor: "sportlist",
-                icon: "users",
-                subnav: []
-            }, {
-                name: "Sports",
-                classis: "active",
-                anchor: "sport",
-                icon: "users",
-                subnav: []
-            }, {
-                name: "Media",
-                classis: "active",
-                anchor: "media",
-                icon: "users",
-                subnav: []
-            }, {
-                name: "Age Groups",
-                classis: "active",
-                anchor: "agegroup",
-                icon: "users",
-                subnav: []
-            }, {
-                name: "Sport Rule",
-                classis: "active",
-                anchor: "sportrule",
-                icon: "users",
-                subnav: []
-            }, {
-                name: "Knockout",
-                classis: "active",
-                anchor: "knockoutdashboard",
-                icon: "users",
-                subnav: []
-            }, {
-                name: "Heats",
-                classis: "active",
-                anchor: "heatdashboard",
-                icon: "users",
-                subnav: []
-            }, {
-                name: "Leagues",
-                classis: "active",
-                anchor: "leaguedashboard",
-                icon: "users",
-                subnav: []
-            }, {
-                name: "Swiss League",
-                classis: "active",
-                anchor: "swissdashboard",
-                icon: "users",
-                subnav: []
-            }, {
-                name: "League Knockout",
-                classis: "active",
-                anchor: "leagueknockoutdashboard",
-                icon: "users",
-                subnav: []
-            }, {
-                name: "Qualifying Round",
-                classis: "active",
-                anchor: "qualifyingrounddashboard",
-                icon: "users",
-                subnav: []
-            }, {
-                name: "Qualifying Knockout",
-                classis: "active",
-                anchor: "qualifyingknockoutdashboard",
+                anchor: "/#/ticker",
                 icon: "users",
                 subnav: []
             }
+            ]
+        },
+        {
+            name: "City Rule",
+            classis: "active",
+            anchor: "",
+            icon: "users",
+            subnav: [{
+                name: "Mumbai School",
+                classis: "",
+                anchor: "#/cityrule/mumbai/school",
+                icon: ""
+            }, {
+                name: "Mumbai College",
+                classis: "",
+                anchor: "#/cityrule/mumbai/college",
+                icon: ""
+            }, {
+                name: "Hyderabad School",
+                classis: "",
+                anchor: "#/cityrule/hyderabad/school",
+                icon: ""
+            }, {
+                name: "Hyderabad College",
+                classis: "",
+                anchor: "#/cityrule/hyderabad/college",
+                icon: ""
+            }, {
+                name: "Ahmedabad School",
+                classis: "",
+                anchor: "#/cityrule/ahmedabad/school",
+                icon: ""
+            }, {
+                name: "Ahmedabad College",
+                classis: "",
+                anchor: "#/cityrule/ahmedabad/college",
+                icon: ""
+            }]
+        },
+        {
+            name: "Schools",
+            classis: "active",
+            anchor: "school",
+            icon: "building",
+            subnav: []
+        }, {
+            name: "Students",
+            classis: "active",
+            anchor: "student",
+            icon: "users",
+            subnav: []
+        }, {
+            name: "Teams",
+            classis: "active",
+            anchor: "team",
+            icon: "users",
+            subnav: []
+        }, {
+            name: "Medals",
+            classis: "active",
+            anchor: "medaldashboard",
+            icon: "users",
+            subnav: []
+        }, {
+            name: "Sports List",
+            classis: "active",
+            anchor: "sportlist",
+            icon: "users",
+            subnav: []
+        }, {
+            name: "Sports",
+            classis: "active",
+            anchor: "sport",
+            icon: "users",
+            subnav: []
+        }, {
+            name: "Media",
+            classis: "active",
+            anchor: "media",
+            icon: "users",
+            subnav: []
+        }, {
+            name: "Age Groups",
+            classis: "active",
+            anchor: "agegroup",
+            icon: "users",
+            subnav: []
+        }, {
+            name: "Sport Rule",
+            classis: "active",
+            anchor: "sportrule",
+            icon: "users",
+            subnav: []
+        }, {
+            name: "Knockout",
+            classis: "active",
+            anchor: "knockoutdashboard",
+            icon: "users",
+            subnav: []
+        }, {
+            name: "Heats",
+            classis: "active",
+            anchor: "heatdashboard",
+            icon: "users",
+            subnav: []
+        }, {
+            name: "Leagues",
+            classis: "active",
+            anchor: "leaguedashboard",
+            icon: "users",
+            subnav: []
+        }, {
+            name: "Swiss League",
+            classis: "active",
+            anchor: "swissdashboard",
+            icon: "users",
+            subnav: []
+        }, {
+            name: "League Knockout",
+            classis: "active",
+            anchor: "leagueknockoutdashboard",
+            icon: "users",
+            subnav: []
+        }, {
+            name: "Qualifying Round",
+            classis: "active",
+            anchor: "qualifyingrounddashboard",
+            icon: "users",
+            subnav: []
+        }, {
+            name: "Qualifying Knockout",
+            classis: "active",
+            anchor: "qualifyingknockoutdashboard",
+            icon: "users",
+            subnav: []
+        }
         ];
 
         var currentYears = ["2015", "2016"];
@@ -1233,6 +1233,14 @@ var navigationservice = angular.module('navigationservice', [])
                     method: 'POST',
                 }).success(callback);
             },
+            // NEW GENRATE EXCEL
+            generateSportVideoExcel: function (callback) {
+                $http({
+                    url: adminURL + url,
+                    method: 'POST',
+                }).success(callback);
+            },
+
             makeactive: function (menuname) {
                 for (var i = 0; i < navigation.length; i++) {
                     if (navigation[i].name == menuname) {

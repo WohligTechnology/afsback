@@ -1412,6 +1412,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 scope: $scope
             });
         };
+        $scope.genrateExcel = function () {
+            NavigationService.generateSportVideoExcel(function (data) {
+                if (data) {
+
+                }
+            })
+        }
     })
     .controller('teamCtrl', function ($scope, TemplateService, NavigationService, $timeout, $uibModal) {
         //Used to name the .html file
