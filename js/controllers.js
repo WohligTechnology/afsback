@@ -136,6 +136,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         };
     })
+
     .controller('bannerCtrl', function ($scope, TemplateService, NavigationService, $timeout, $uibModal) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("banner");
@@ -184,6 +185,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         };
     })
+
     .controller('heatAddRoundCtrl', function ($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams, $state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("heat-add-round");
@@ -255,6 +257,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
         $scope.getHeats();
     })
+
     .controller('leagueknockoutAddRoundCtrl', function ($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams, $state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("leagueknockout-add-round");
@@ -325,6 +328,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
         $scope.getLeagueKnockout();
     })
+
     .controller('swissAddRoundCtrl', function ($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams, $state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("swiss-add-round");
@@ -395,6 +399,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
         $scope.getSwissLeague();
     })
+
     .controller('qualifyingroundAddRoundCtrl', function ($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams, $state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("qualifyinground-add-round");
@@ -465,6 +470,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
         $scope.getQualifyingRound();
     })
+
     .controller('qualifyingknockoutAddRoundCtrl', function ($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams, $state) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("qualifyingknockout-add-knockout");
@@ -1412,13 +1418,20 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 scope: $scope
             });
         };
+        var id = {"school":"57ac443c8ac8bd0c117db2e1"};
         $scope.genrateExcel = function () {
-            NavigationService.generateSportVideoExcel(function (data) {
-                if (data) {
+            var param = {};
+            param.file = "Video";
+            var url= 'student/getDrawFormats';
+            NavigationService.generateSportVideoExcelWithoutData(url, param, function (data) {
+            });
+            // NavigationService.generateSportVideoExcel(id,function (data) {
+            //     // if (data) {
 
-                }
-            })
-        }
+            //     // }
+            //     // window.location.href = adminURL + url;
+            // });
+        };
     })
     .controller('teamCtrl', function ($scope, TemplateService, NavigationService, $timeout, $uibModal) {
         //Used to name the .html file

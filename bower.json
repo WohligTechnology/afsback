@@ -39,7 +39,8 @@
     "angular-ui-tinymce": "~0.0.12",
     "tinymce": "tinymce-dist#^4.6.4",
     "angular-toastr": "^2.1.1",
-    "textAngular": "^1.5.16"
+    "textAngular": "^1.5.16",
+    "moment": "^2.19.4"
   },
   "devDependencies": {
     "angular-translate": "^2.11.0"

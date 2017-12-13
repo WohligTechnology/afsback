@@ -21,6 +21,7 @@ var jsArray = [
     "./tinymce/tinymce.js",
     "./bower_components/angular-ui-tinymce/src/tinymce.js",
     './bower_components/jStorage/jstorage.min.js',
+    './bower_components/moment/min/moment.min.js',
     "./bower_components/angular-toastr/dist/angular-toastr.js",
     "./bower_components/angular-toastr/dist/angular-toastr.tpls.js",
     "./bower_components/textAngular/dist/textAngular-rangy.min.js",

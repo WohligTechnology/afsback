@@ -1234,11 +1234,55 @@ var navigationservice = angular.module('navigationservice', [])
                 }).success(callback);
             },
             // NEW GENRATE EXCEL
-            generateSportVideoExcel: function (callback) {
-                $http({
-                    url: adminURL + url,
-                    method: 'POST',
-                }).success(callback);
+            // generateSportVideoExcel: function (id, url, callback) {
+            //     $http({
+            //         url: adminURL + 'student/getDrawFormats',
+            //         method: 'POST',
+            //         data: id
+            //     }).success(callback);
+            // },
+
+            generateSportVideoExcelWithData: function (data, callback) {
+                console.log('from Controller', data);
+                $http.post(adminURL + 'student/getDrawFormats', data, {
+                    responseType: 'arraybuffer'
+                }).then(function (response) {
+                    var header = response.headers('Content-Disposition')
+                    var fileName = "Video" + "-" + moment().format("MMM-DD-YYYY-hh-mm-ss-a") + ".xlsx";
+                    console.log(fileName);
+    
+                    var blob = new Blob([response.data], {
+                        type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation;charset=UTF-8'
+                    });
+                    var objectUrl = (window.URL || window.webkitURL).createObjectURL(blob);
+                    var link = angular.element('<a/>');
+                    link.attr({
+                        href: objectUrl,
+                        download: fileName
+                    })[0].click();
+                    callback(null, fileName);
+                });
+            },
+    
+            generateSportVideoExcelWithoutData: function (url, data, callback) {
+                $http.post(adminURL + url, data, {
+                    responseType: 'arraybuffer'
+                }).then(function (response) {
+                    var header = response.headers('Content-Disposition')
+                    var fileName = data.file + "-" + moment().format("MMM-DD-YYYY-hh-mm-ss-a") + ".xlsx";
+                    console.log(fileName);
+    
+                    var blob = new Blob([response.data], {
+                        type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation;charset=UTF-8'
+                    });
+                    var objectUrl = (window.URL || window.webkitURL).createObjectURL(blob);
+                    var link = angular.element('<a/>');
+                    link.attr({
+                        href: objectUrl,
+                        download: fileName
+                    })[0].click();
+                    callback(null, fileName);
+                })
             },
 
             makeactive: function (menuname) {
